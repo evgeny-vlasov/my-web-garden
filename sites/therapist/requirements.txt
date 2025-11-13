@@ -1,0 +1,29 @@
+# Flask and core dependencies
+Flask==3.0.0
+python-dotenv==1.0.0
+
+# Database
+psycopg2-binary==2.9.9
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.5
+
+# Authentication and security
+Flask-Login==0.6.3
+Flask-Bcrypt==1.0.1
+Flask-WTF==1.2.1
+WTForms==3.1.1
+
+# Email
+Flask-Mail==0.9.1
+
+# Image processing
+Pillow==10.1.0
+
+# Admin interface (prepared for Sprint 2)
+Flask-Admin==1.6.1
+
+# Rate limiting
+Flask-Limiter==3.5.0
+
+# WSGI server
+gunicorn==21.2.0

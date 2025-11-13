@@ -1,0 +1,163 @@
+{% extends "../../shared/templates/base.html" %}
+
+{% block title %}About - {{ config.SITE_NAME }}{% endblock %}
+
+{% block meta_description %}Learn about our professional psychotherapy practice in Toronto. Licensed therapist with expertise in anxiety, depression, and life transitions.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 mb-3">About</h1>
+                <p class="lead">Professional, compassionate psychotherapy in Toronto</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Professional Bio Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 mb-4 mb-lg-0 text-center">
+                <div class="professional-photo bg-light rounded shadow-sm p-4">
+                    <!-- Placeholder for professional photo -->
+                    <div class="ratio ratio-1x1 mb-3 bg-secondary rounded" style="max-width: 300px; margin: 0 auto;">
+                        <div class="d-flex align-items-center justify-content-center text-white">
+                            <i class="bi bi-person-circle" style="font-size: 8rem;"></i>
+                        </div>
+                    </div>
+                    <p class="text-muted small">Professional photo coming soon</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <h2 class="mb-4">Welcome</h2>
+                <p class="lead">I'm dedicated to providing a safe, supportive environment where you can explore your thoughts and feelings, develop coping strategies, and work toward positive change.</p>
+
+                <p>With years of experience in psychotherapy, I understand that seeking help is a courageous step. My approach is collaborative and client-centered, focusing on your unique needs, strengths, and goals. Together, we'll work to understand the challenges you're facing and develop practical strategies for healing and growth.</p>
+
+                <p>I believe in the power of the therapeutic relationship to facilitate change. My practice is grounded in respect, empathy, and genuine care for each person I work with. Whether you're dealing with anxiety, depression, life transitions, or simply seeking personal growth, I'm here to support you on your journey.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Education & Credentials Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Education & Credentials</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-mortarboard text-primary me-2"></i>Education</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><strong>Master's Degree in Counselling Psychology</strong><br>
+                            <span class="text-muted">University details to be added</span></li>
+                            <li class="mb-2"><strong>Bachelor's Degree in Psychology</strong><br>
+                            <span class="text-muted">University details to be added</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-award text-primary me-2"></i>Professional Credentials</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">Registered Psychotherapist (RP) - <em>Details to be added</em></li>
+                            <li class="mb-2">Member of Professional Association - <em>Details to be added</em></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-journal-check text-primary me-2"></i>Specialized Training</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">Cognitive Behavioral Therapy (CBT)</li>
+                            <li class="mb-2">Mindfulness-Based Approaches</li>
+                            <li class="mb-2">Trauma-Informed Care</li>
+                            <li class="mb-2">Additional specialized training details to be added</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Therapeutic Approach Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2 class="text-center mb-5">Therapeutic Approach</h2>
+
+                <div class="mb-5">
+                    <h4 class="mb-3">Client-Centered & Collaborative</h4>
+                    <p>I believe that you are the expert on your own life. My role is to provide a supportive, non-judgmental space where you can explore your experiences and discover your own path forward. Therapy is a collaborative process, and I'll work alongside you to identify your goals and develop strategies that work for you.</p>
+                </div>
+
+                <div class="mb-5">
+                    <h4 class="mb-3">Evidence-Based Methods</h4>
+                    <p>My practice integrates various evidence-based therapeutic approaches, tailored to meet your individual needs:</p>
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <h5><i class="bi bi-lightbulb text-warning me-2"></i>Cognitive Behavioral Therapy (CBT)</h5>
+                                <p class="mb-0 small">Helping you identify and change unhelpful thought patterns and behaviors.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <h5><i class="bi bi-heart-pulse text-danger me-2"></i>Mindfulness-Based Approaches</h5>
+                                <p class="mb-0 small">Developing present-moment awareness and acceptance to reduce stress and increase well-being.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <h5><i class="bi bi-person-check text-success me-2"></i>Person-Centered Therapy</h5>
+                                <p class="mb-0 small">Providing empathy, acceptance, and genuineness to facilitate your personal growth.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded">
+                                <h5><i class="bi bi-shield-check text-info me-2"></i>Trauma-Informed Care</h5>
+                                <p class="mb-0 small">Creating a safe therapeutic environment that recognizes the impact of trauma.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h4 class="mb-3">Areas of Specialization</h4>
+                    <p>I have particular experience working with:</p>
+                    <ul>
+                        <li><strong>Anxiety & Stress:</strong> Generalized anxiety, panic attacks, social anxiety, and stress management</li>
+                        <li><strong>Depression & Mood Concerns:</strong> Low mood, lack of motivation, and emotional difficulties</li>
+                        <li><strong>Life Transitions:</strong> Career changes, relationship changes, loss and grief, major life events</li>
+                        <li><strong>Relationship Issues:</strong> Communication, conflict resolution, boundary setting</li>
+                        <li><strong>Work-Life Balance:</strong> Burnout, professional stress, work-related challenges</li>
+                        <li><strong>Personal Growth:</strong> Self-esteem, identity exploration, goal setting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">Ready to Start Your Journey?</h2>
+                <p class="lead mb-4">Let's work together to help you achieve your goals and improve your well-being.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

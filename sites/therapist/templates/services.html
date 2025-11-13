@@ -1,0 +1,287 @@
+{% extends "../../shared/templates/base.html" %}
+
+{% block title %}Services - {{ config.SITE_NAME }}{% endblock %}
+
+{% block meta_description %}Professional psychotherapy services including individual therapy, anxiety treatment, stress management, and support for life transitions. Toronto-based practice.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 mb-3">Services</h1>
+                <p class="lead">Professional psychotherapy services tailored to your needs</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Overview -->
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">Comprehensive Therapeutic Support</h2>
+                <p class="lead text-muted">Every individual's journey is unique. I offer personalized therapy services to help you navigate life's challenges and achieve your goals.</p>
+            </div>
+        </div>
+
+        <!-- Individual Therapy -->
+        <div class="row mb-5 align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="service-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 4rem; height: 4rem;">
+                    <i class="bi bi-person-heart fs-2"></i>
+                </div>
+                <h3 class="mb-3">Individual Therapy</h3>
+                <p>One-on-one therapy sessions provide a safe, confidential space to explore your thoughts, feelings, and experiences. Whether you're dealing with specific challenges or seeking general personal growth, individual therapy offers personalized support tailored to your unique needs.</p>
+                <p><strong>What to expect:</strong></p>
+                <ul>
+                    <li>Confidential, judgment-free environment</li>
+                    <li>Collaborative goal-setting</li>
+                    <li>Evidence-based therapeutic techniques</li>
+                    <li>Practical coping strategies</li>
+                    <li>Support and guidance throughout your journey</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-3">Session Information</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-clock text-primary me-2"></i><strong>Duration:</strong> 50-minute sessions</li>
+                            <li class="mb-2"><i class="bi bi-calendar-week text-primary me-2"></i><strong>Frequency:</strong> Weekly or bi-weekly (as appropriate)</li>
+                            <li class="mb-2"><i class="bi bi-currency-dollar text-primary me-2"></i><strong>Rate:</strong> Contact for current rates</li>
+                            <li class="mb-2"><i class="bi bi-credit-card text-primary me-2"></i><strong>Insurance:</strong> Direct billing available for many providers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Areas of Focus -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Areas of Focus</h2>
+
+        <div class="row g-4">
+            <!-- Anxiety & Stress -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="service-icon-small bg-warning text-white rounded me-3 d-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem; flex-shrink: 0;">
+                                <i class="bi bi-exclamation-triangle fs-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-2">Anxiety & Stress Management</h4>
+                            </div>
+                        </div>
+                        <p class="card-text">Support for generalized anxiety, panic attacks, social anxiety, and chronic stress. Learn effective coping strategies to manage worry and reduce anxiety's impact on your life.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Depression -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="service-icon-small bg-info text-white rounded me-3 d-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem; flex-shrink: 0;">
+                                <i class="bi bi-cloud-rain fs-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-2">Depression & Mood Support</h4>
+                            </div>
+                        </div>
+                        <p class="card-text">Help with low mood, lack of motivation, and emotional difficulties. Work through depression with compassionate support and evidence-based therapeutic approaches.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Life Transitions -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="service-icon-small bg-success text-white rounded me-3 d-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem; flex-shrink: 0;">
+                                <i class="bi bi-arrow-right-circle fs-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-2">Life Transitions</h4>
+                            </div>
+                        </div>
+                        <p class="card-text">Navigate major life changes including career shifts, relationship changes, relocation, loss and grief, or other significant life events with guided support.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Relationship Issues -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="service-icon-small bg-danger text-white rounded me-3 d-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem; flex-shrink: 0;">
+                                <i class="bi bi-people fs-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-2">Relationship Issues</h4>
+                            </div>
+                        </div>
+                        <p class="card-text">Work on communication skills, conflict resolution, boundary setting, and understanding relationship patterns to build healthier connections with others.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work-Life Balance -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="service-icon-small bg-primary text-white rounded me-3 d-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem; flex-shrink: 0;">
+                                <i class="bi bi-briefcase fs-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-2">Work-Life Balance</h4>
+                            </div>
+                        </div>
+                        <p class="card-text">Address burnout, professional stress, and work-related challenges. Develop strategies to achieve better balance and improve overall well-being.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Growth -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="service-icon-small bg-secondary text-white rounded me-3 d-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem; flex-shrink: 0;">
+                                <i class="bi bi-arrow-up-circle fs-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="card-title mb-2">Personal Growth</h4>
+                            </div>
+                        </div>
+                        <p class="card-text">Explore self-esteem, identity, life purpose, and goal setting. Therapy for those seeking greater self-awareness and personal development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Professional Consultation -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h3 class="mb-4">Professional Consultation Services</h3>
+                <p>In addition to individual therapy, I offer professional consultation services for:</p>
+                <ul>
+                    <li>Other mental health professionals seeking case consultation</li>
+                    <li>Organizations looking for mental health training or workshops</li>
+                    <li>Educational institutions requiring psychological consultation</li>
+                </ul>
+                <p>Contact me to discuss your specific consultation needs.</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-primary">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-primary mb-3">Getting Started</h5>
+                        <ol>
+                            <li class="mb-2"><strong>Initial Contact:</strong> Reach out via phone or email to schedule a consultation</li>
+                            <li class="mb-2"><strong>Free Consultation:</strong> Brief phone consultation to discuss your needs and answer questions</li>
+                            <li class="mb-2"><strong>First Session:</strong> We'll explore your goals and develop a treatment plan together</li>
+                            <li class="mb-2"><strong>Ongoing Support:</strong> Regular sessions as we work toward your therapeutic goals</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                How long does therapy take?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                The duration of therapy varies depending on individual needs and goals. Some people find short-term therapy (8-12 sessions) helpful, while others benefit from longer-term support. We'll regularly review your progress and adjust as needed.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Is therapy confidential?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, therapy is confidential. Information shared in sessions is protected by professional ethics and privacy laws, with rare exceptions (such as risk of harm to self or others, or court orders).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Do you accept insurance?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                I offer direct billing for many insurance providers. Please contact your insurance company to verify your mental health coverage, and reach out to confirm if I can bill your specific plan directly.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                What if I need to cancel an appointment?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Please provide 24 hours notice for cancellations. Late cancellations or no-shows may be charged the full session fee as the time was reserved for you.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">Ready to Take the Next Step?</h2>
+                <p class="lead mb-4">Contact us to schedule your initial consultation.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg px-4">Contact Us</a>
+                    <a href="tel:{{ config.OFFICE_PHONE }}" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-telephone me-2"></i>Call Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

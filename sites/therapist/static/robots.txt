@@ -1,0 +1,11 @@
+# robots.txt for WebGarden Therapist Site
+
+User-agent: *
+Allow: /
+
+# Sitemap (add when available)
+# Sitemap: https://therapist.example.com/sitemap.xml
+
+# Disallow admin areas (Sprint 2)
+# Disallow: /admin/
+# Disallow: /login

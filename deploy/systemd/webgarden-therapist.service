@@ -1,0 +1,54 @@
+[Unit]
+Description=WebGarden Therapist Site (Gunicorn)
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=notify
+User=webgarden
+Group=webgarden
+WorkingDirectory=/var/www/webgarden/sites/therapist
+Environment="PATH=/var/www/webgarden/sites/therapist/venv/bin"
+EnvironmentFile=/etc/webgarden/therapist.env
+
+# Gunicorn configuration
+ExecStart=/var/www/webgarden/sites/therapist/venv/bin/gunicorn \
+    --bind 127.0.0.1:8001 \
+    --workers 4 \
+    --worker-class sync \
+    --worker-tmp-dir /dev/shm \
+    --timeout 60 \
+    --graceful-timeout 30 \
+    --keep-alive 5 \
+    --max-requests 1000 \
+    --max-requests-jitter 100 \
+    --access-logfile /var/log/webgarden/therapist-access.log \
+    --error-logfile /var/log/webgarden/therapist-error.log \
+    --log-level info \
+    --pid /var/run/webgarden/therapist.pid \
+    app:app
+
+# Restart policy
+Restart=always
+RestartSec=10
+StartLimitInterval=200
+StartLimitBurst=5
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/webgarden/uploads/therapist /var/log/webgarden /var/run/webgarden
+
+# Resource limits
+LimitNOFILE=4096
+LimitNPROC=512
+
+# Process management
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
