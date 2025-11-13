@@ -1,0 +1,222 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-0">
+                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+            </h1>
+            <p class="text-muted">Welcome back, {{ current_user.username }}!</p>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-muted mb-1 small">Total Posts</p>
+                            <h3 class="mb-0">{{ stats.total_posts }}</h3>
+                        </div>
+                        <div class="text-primary">
+                            <i class="bi bi-file-text" style="font-size: 2.5rem;"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <a href="{{ url_for('admin_posts_list') }}" class="btn btn-sm btn-outline-primary">
+                            View All <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-muted mb-1 small">Total Contacts</p>
+                            <h3 class="mb-0">{{ stats.total_contacts }}</h3>
+                        </div>
+                        <div class="text-info">
+                            <i class="bi bi-envelope" style="font-size: 2.5rem;"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <a href="{{ url_for('admin_contacts_list') }}" class="btn btn-sm btn-outline-info">
+                            View All <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm {% if stats.unread_contacts > 0 %}border-danger{% endif %}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-muted mb-1 small">Unread Contacts</p>
+                            <h3 class="mb-0 {% if stats.unread_contacts > 0 %}text-danger{% endif %}">
+                                {{ stats.unread_contacts }}
+                            </h3>
+                        </div>
+                        <div class="{% if stats.unread_contacts > 0 %}text-danger{% else %}text-success{% endif %}">
+                            <i class="bi bi-envelope-open" style="font-size: 2.5rem;"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        {% if stats.unread_contacts > 0 %}
+                            <a href="{{ url_for('admin_contacts_list', status='new') }}" class="btn btn-sm btn-outline-danger">
+                                View Unread <i class="bi bi-arrow-right"></i>
+                            </a>
+                        {% else %}
+                            <span class="text-success small"><i class="bi bi-check-circle me-1"></i>All caught up!</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="bi bi-lightning-charge me-2"></i>Quick Actions
+                    </h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{{ url_for('admin_post_create') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i>New Blog Post
+                        </a>
+                        <a href="{{ url_for('admin_posts_list') }}" class="btn btn-outline-primary">
+                            <i class="bi bi-file-text me-1"></i>All Posts
+                        </a>
+                        <a href="{{ url_for('admin_contacts_list') }}" class="btn btn-outline-info">
+                            <i class="bi bi-envelope me-1"></i>All Contacts
+                        </a>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary" target="_blank">
+                            <i class="bi bi-box-arrow-up-right me-1"></i>View Site
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Posts and Contacts -->
+    <div class="row g-4">
+        <!-- Recent Posts -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0">
+                        <i class="bi bi-file-text me-2"></i>Recent Blog Posts
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_posts %}
+                        <div class="list-group list-group-flush">
+                            {% for post in recent_posts %}
+                                <div class="list-group-item px-0">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">
+                                                <a href="{{ url_for('admin_post_edit', post_id=post.id) }}" class="text-decoration-none">
+                                                    {{ post.title }}
+                                                </a>
+                                            </h6>
+                                            <p class="mb-1 small text-muted">
+                                                {% if post.published_at %}
+                                                    Published {{ post.published_at.strftime('%b %d, %Y') }}
+                                                {% else %}
+                                                    Draft
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            {% if post.visible %}
+                                                <span class="badge bg-success">Published</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Draft</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-3">
+                            <a href="{{ url_for('admin_posts_list') }}" class="btn btn-sm btn-outline-primary">
+                                View All Posts <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="bi bi-inbox display-1"></i>
+                            <p class="mt-2">No blog posts yet</p>
+                            <a href="{{ url_for('admin_post_create') }}" class="btn btn-primary">
+                                <i class="bi bi-plus-circle me-1"></i>Create First Post
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Contacts -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0">
+                        <i class="bi bi-envelope me-2"></i>Recent Contacts
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_contacts %}
+                        <div class="list-group list-group-flush">
+                            {% for contact in recent_contacts %}
+                                <div class="list-group-item px-0">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">
+                                                {{ contact.name }}
+                                                {% if contact.status == 'new' %}
+                                                    <span class="badge bg-danger ms-1">New</span>
+                                                {% endif %}
+                                            </h6>
+                                            <p class="mb-1 small text-muted">
+                                                {{ contact.email }} • {{ contact.submitted_at.strftime('%b %d, %Y at %I:%M %p') }}
+                                            </p>
+                                            <p class="mb-0 small text-truncate">
+                                                {{ contact.message[:100] }}{% if contact.message|length > 100 %}...{% endif %}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-3">
+                            <a href="{{ url_for('admin_contacts_list') }}" class="btn btn-sm btn-outline-info">
+                                View All Contacts <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="bi bi-inbox display-1"></i>
+                            <p class="mt-2">No contact submissions yet</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

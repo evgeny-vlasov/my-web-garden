@@ -1,0 +1,209 @@
+{% extends "../../shared/templates/base.html" %}
+
+{% block title %}{{ post.title }} - {{ config.SITE_NAME }}{% endblock %}
+
+{% block meta_description %}{{ excerpt }}{% endblock %}
+
+{% block content %}
+<!-- Post Header -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active">{{ post.title }}</li>
+                    </ol>
+                </nav>
+
+                <h1 class="display-5 mb-3">{{ post.title }}</h1>
+
+                <div class="d-flex align-items-center text-muted">
+                    <i class="bi bi-person-circle me-2"></i>
+                    <span class="me-3">{{ post.author.username if post.author else 'Staff' }}</span>
+                    <i class="bi bi-calendar3 me-2"></i>
+                    <span>{{ post.published_at.strftime('%B %d, %Y') if post.published_at else post.updated_at.strftime('%B %d, %Y') }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Post Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <article class="blog-post">
+                    <div class="post-content">
+                        {{ post.content|safe }}
+                    </div>
+                </article>
+
+                <!-- Share Buttons -->
+                <div class="mt-5 pt-4 border-top">
+                    <h5 class="mb-3">Share this post</h5>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-primary" title="Share on Facebook">
+                            <i class="bi bi-facebook"></i> Facebook
+                        </a>
+                        <a href="#" class="btn btn-outline-info" title="Share on Twitter">
+                            <i class="bi bi-twitter"></i> Twitter
+                        </a>
+                        <a href="#" class="btn btn-outline-danger" title="Share on LinkedIn">
+                            <i class="bi bi-linkedin"></i> LinkedIn
+                        </a>
+                        <button class="btn btn-outline-secondary" onclick="copyLink()" title="Copy link">
+                            <i class="bi bi-link-45deg"></i> Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Back to Home -->
+                <div class="mt-5">
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- About Section -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">About Us</h5>
+                        <p class="card-text">Professional psychotherapy services in Toronto. We're here to support you on your journey to wellness.</p>
+                        <a href="{{ url_for('about') }}" class="btn btn-sm btn-primary">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Recent Posts -->
+                {% if recent_posts %}
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="card-title mb-0">Recent Posts</h5>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        {% for recent_post in recent_posts %}
+                            {% if recent_post.id != post.id %}
+                            <a href="{{ url_for('view_post', slug=recent_post.slug) }}" class="list-group-item list-group-item-action">
+                                <h6 class="mb-1">{{ recent_post.title }}</h6>
+                                <small class="text-muted">
+                                    {{ recent_post.published_at.strftime('%B %d, %Y') if recent_post.published_at else recent_post.updated_at.strftime('%B %d, %Y') }}
+                                </small>
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Contact CTA -->
+                <div class="card border-0 shadow-sm mt-4 bg-primary text-white">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Get in Touch</h5>
+                        <p class="card-text">Have questions? We're here to help.</p>
+                        <a href="{{ url_for('contact') }}" class="btn btn-light">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block custom_css %}
+<style>
+.blog-post {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.post-content {
+    max-width: 100%;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.post-content p {
+    margin-bottom: 1.25rem;
+}
+
+.post-content blockquote {
+    border-left: 4px solid #667eea;
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.post-content ul,
+.post-content ol {
+    margin-bottom: 1.25rem;
+    padding-left: 2rem;
+}
+
+.post-content li {
+    margin-bottom: 0.5rem;
+}
+
+.post-content code {
+    background-color: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+}
+
+.post-content pre {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+}
+
+.post-content table {
+    width: 100%;
+    margin-bottom: 1.25rem;
+    border-collapse: collapse;
+}
+
+.post-content table th,
+.post-content table td {
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+}
+
+.post-content table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+</style>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+function copyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied to clipboard!');
+    });
+}
+</script>
+{% endblock %}

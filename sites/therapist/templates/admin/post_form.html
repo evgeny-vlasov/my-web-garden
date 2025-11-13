@@ -1,0 +1,188 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if post %}Edit Post{% else %}New Post{% endif %}{% endblock %}
+
+{% block extra_css %}
+<!-- TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="h3 mb-0">
+                <i class="bi bi-{% if post %}pencil{% else %}plus-circle{% endif %} me-2"></i>
+                {% if post %}Edit Post{% else %}New Post{% endif %}
+            </h1>
+            <p class="text-muted">
+                {% if post %}Update your blog post{% else %}Create a new blog post{% endif %}
+            </p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{{ url_for('admin_posts_list') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Back to Posts
+            </a>
+        </div>
+    </div>
+
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Title -->
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            {{ form.title.label(class="form-label fw-bold") }}
+                            {{ form.title(class="form-control form-control-lg" + (" is-invalid" if form.title.errors else ""), placeholder="Enter post title") }}
+                            {% if form.title.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.title.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Slug -->
+                        <div class="mb-0">
+                            {{ form.slug.label(class="form-label fw-bold") }}
+                            <div class="input-group">
+                                <span class="input-group-text">/post/</span>
+                                {{ form.slug(class="form-control" + (" is-invalid" if form.slug.errors else ""), placeholder="url-friendly-slug") }}
+                            </div>
+                            {% if form.slug.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.slug.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Leave blank to auto-generate from title
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        {{ form.content.label(class="form-label fw-bold") }}
+                        {{ form.content(class="form-control" + (" is-invalid" if form.content.errors else "")) }}
+                        {% if form.content.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.content.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Publish Settings -->
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-header bg-primary text-white">
+                        <h6 class="mb-0">
+                            <i class="bi bi-gear me-1"></i>Publish Settings
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <!-- Status -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Status</label>
+                            <div class="form-check">
+                                {{ form.visible(class="form-check-input") }}
+                                {{ form.visible.label(class="form-check-label") }}
+                            </div>
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Uncheck to save as draft
+                            </div>
+                        </div>
+
+                        <!-- Publish Info -->
+                        {% if post and post.published_at %}
+                            <div class="alert alert-info small mb-0">
+                                <i class="bi bi-calendar-check me-1"></i>
+                                <strong>Published:</strong><br>
+                                {{ post.published_at.strftime('%B %d, %Y at %I:%M %p') }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-1"></i>
+                                {% if post %}Update Post{% else %}Create Post{% endif %}
+                            </button>
+                            {% if post and post.visible %}
+                                <a href="{{ url_for('view_post', slug=post.slug) }}" class="btn btn-outline-secondary" target="_blank">
+                                    <i class="bi bi-eye me-1"></i>View Post
+                                </a>
+                            {% endif %}
+                            <a href="{{ url_for('admin_posts_list') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle me-1"></i>Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post Info -->
+                {% if post %}
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="bi bi-info-circle me-1"></i>Post Information
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="small mb-2">
+                                <strong>Author:</strong><br>
+                                {{ post.author.username if post.author else 'Unknown' }}
+                            </p>
+                            <p class="small mb-2">
+                                <strong>Created:</strong><br>
+                                {{ post.updated_at.strftime('%b %d, %Y') if post.updated_at else 'N/A' }}
+                            </p>
+                            <p class="small mb-0">
+                                <strong>Permalink:</strong><br>
+                                <a href="{{ url_for('view_post', slug=post.slug) }}" target="_blank" class="text-decoration-none small">
+                                    /post/{{ post.slug }}
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/tinymce-init.js') }}"></script>
+<script>
+// Auto-generate slug from title
+document.getElementById('title').addEventListener('blur', function() {
+    const slugField = document.getElementById('slug');
+    if (!slugField.value) {
+        fetch('/admin/generate-slug', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({title: this.value})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.slug) {
+                slugField.value = data.slug;
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

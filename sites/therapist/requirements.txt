@@ -27,3 +27,7 @@ Flask-Limiter==3.5.0
 
 # WSGI server
 gunicorn==21.2.0
+
+# Sprint 2 additions
+bleach==6.1.0
+python-slugify==8.0.1

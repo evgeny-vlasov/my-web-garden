@@ -160,8 +160,7 @@ class BlogPostForm(FlaskForm):
     slug = StringField(
         'URL Slug',
         validators=[
-            DataRequired(message='Slug is required.'),
-            Length(min=5, max=200)
+            Length(max=200)
         ],
         render_kw={
             'class': 'form-control',
