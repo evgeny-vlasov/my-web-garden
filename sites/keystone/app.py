@@ -1,6 +1,6 @@
 """
-Therapist Site Flask Application
-Main application file for the professional psychotherapy website.
+Keystone Hardscapes Flask Application
+Professional hardscaping and landscaping business website.
 """
 
 import os
@@ -27,12 +27,12 @@ from shared.email import send_contact_notification, send_contact_confirmation
 from shared.decorators import login_required as custom_login_required, admin_required, anonymous_required
 from shared.sanitizer import sanitize_html, create_excerpt
 from shared.image_handler import save_image, allowed_file
-from sites.therapist.config import config
-from sites.therapist.cli import register_cli_commands
+from sites.keystone.config import config
+from sites.keystone.cli import register_cli_commands
 
 # Create Flask application
 config_name = os.getenv('FLASK_ENV', 'production')
-app = create_base_app('therapist', config[config_name])
+app = create_base_app('keystone', config[config_name])
 
 # Register CLI commands
 register_cli_commands(app)
@@ -55,6 +55,9 @@ def inject_globals():
         'current_year': datetime.now().year,
         'site_name': app.config['SITE_NAME'],
         'site_tagline': app.config['SITE_TAGLINE'],
+        'owner_name': 'Andrew',
+        'phone': '587-573-6005',
+        'email': 'info@keystonehardscapes.ca',
         'unread_contacts_count': unread_count
     }
 
@@ -86,14 +89,38 @@ def about():
 
 @app.route('/services')
 def services():
-    """Services page route."""
+    """Services overview page."""
     return render_template('services.html')
+
+
+@app.route('/services/hardscape')
+def service_hardscape():
+    """Hardscape and landscaping service page."""
+    return render_template('services/hardscape.html')
+
+
+@app.route('/services/snow-removal')
+def service_snow_removal():
+    """Snow removal service page."""
+    return render_template('services/snow-removal.html')
+
+
+@app.route('/services/concrete-restoration')
+def service_concrete_restoration():
+    """Concrete restoration service page."""
+    return render_template('services/concrete-restoration.html')
+
+
+@app.route('/portfolio')
+def portfolio():
+    """Portfolio/gallery page."""
+    return render_template('portfolio.html')
 
 
 @app.route('/contact', methods=['GET', 'POST'])
 @limiter.limit(app.config.get('CONTACT_FORM_RATE_LIMIT', '5 per hour'))
 def contact():
-    """Contact page with form submission."""
+    """Contact/quote request page with form submission."""
     form = ContactForm()
 
     if form.validate_on_submit():
@@ -118,7 +145,7 @@ def contact():
                 # Log email error but don't fail the submission
                 app.logger.error(f'Failed to send email notification: {str(email_error)}')
 
-            flash('Thank you for your message! We will get back to you soon.', 'success')
+            flash('Thank you for your quote request! We\'ll get back to you within 24 hours.', 'success')
             return redirect(url_for('contact'))
 
         except Exception as e:
@@ -529,7 +556,7 @@ def upload_image():
             db.session.commit()
 
             # Return URL for TinyMCE
-            file_url = url_for('static', filename=f"../uploads/therapist/blog/inline/{result['filename']}")
+            file_url = url_for('static', filename=f"../uploads/keystone/blog/inline/{result['filename']}")
             return jsonify({'location': file_url})
         else:
             return jsonify({'error': 'Failed to save image'}), 500
@@ -539,66 +566,11 @@ def upload_image():
         return jsonify({'error': str(e)}), 500
 
 
-# CLI commands for database management
-@app.cli.command()
-def init_db():
-    """Initialize the database."""
-    db.create_all()
-    print('Database initialized successfully.')
-
-
-@app.cli.command()
-def create_admin():
-    """Create an admin user."""
-    from shared.models import User
-
-    username = input('Enter username: ')
-    email = input('Enter email: ')
-    password = input('Enter password: ')
-
-    # Check if user already exists
-    if User.query.filter_by(username=username).first():
-        print(f'User {username} already exists.')
-        return
-
-    # Create admin user
-    admin = User(
-        username=username,
-        email=email,
-        role='admin'
-    )
-    admin.set_password(password)
-
-    db.session.add(admin)
-    db.session.commit()
-
-    print(f'Admin user {username} created successfully.')
-
-
-@app.cli.command()
-def test_email():
-    """Test email configuration."""
-    from shared.email import send_email
-
-    recipient = input('Enter recipient email: ')
-    result = send_email(
-        subject='Test Email from WebGarden',
-        recipients=[recipient],
-        text_body='This is a test email to verify email configuration.',
-        html_body='<p>This is a test email to verify email configuration.</p>'
-    )
-
-    if result:
-        print('Test email sent successfully!')
-    else:
-        print('Failed to send test email. Check logs for details.')
-
-
 # Development server configuration
 if __name__ == '__main__':
     # Only for development - use Gunicorn for production
     app.run(
         host='0.0.0.0',
-        port=5000,
+        port=8002,
         debug=app.config['DEBUG']
     )

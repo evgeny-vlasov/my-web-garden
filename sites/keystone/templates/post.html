@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - {{ site_name }}{% endblock %}
+
+{% block meta_description %}{{ excerpt }}{% endblock %}
+
+{% block content %}
+<!-- Post Header -->
+<section class="py-5 bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" class="text-white-50">Home</a></li>
+                        <li class="breadcrumb-item text-white" aria-current="page">Blog</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 fw-bold mb-3">{{ post.title }}</h1>
+                <div class="d-flex flex-wrap gap-3 text-white-50">
+                    <span><i class="bi bi-calendar3 me-2"></i>{{ post.published_at.strftime('%B %d, %Y') if post.published_at else post.created_at.strftime('%B %d, %Y') }}</span>
+                    <span><i class="bi bi-person me-2"></i>{{ post.author.username if post.author else 'Admin' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Post Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <article class="post-content">
+                    {{ post.content|safe }}
+                </article>
+
+                <!-- Share Section -->
+                <div class="mt-5 pt-4 border-top">
+                    <h5 class="fw-bold mb-3">Share This Post</h5>
+                    <div class="d-flex gap-2">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}" target="_blank" class="btn btn-outline-primary">
+                            <i class="bi bi-facebook"></i> Facebook
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{ request.url }}&text={{ post.title }}" target="_blank" class="btn btn-outline-info">
+                            <i class="bi bi-twitter"></i> Twitter
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.url }}" target="_blank" class="btn btn-outline-primary">
+                            <i class="bi bi-linkedin"></i> LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- About Section -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3">About Keystone Hardscapes</h5>
+                        <p class="mb-3">Expert hardscaping, landscaping, and concrete restoration services in Calgary. Owner-led quality on every project.</p>
+                        <a href="{{ url_for('about') }}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Recent Posts -->
+                {% if recent_posts %}
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3">Recent Posts</h5>
+                        <ul class="list-unstyled mb-0">
+                            {% for recent_post in recent_posts %}
+                            <li class="mb-3 pb-3 {% if not loop.last %}border-bottom{% endif %}">
+                                <a href="{{ url_for('view_post', slug=recent_post.slug) }}" class="text-decoration-none text-dark">
+                                    <h6 class="fw-bold mb-1">{{ recent_post.title }}</h6>
+                                    <small class="text-muted">{{ recent_post.published_at.strftime('%B %d, %Y') if recent_post.published_at else recent_post.created_at.strftime('%B %d, %Y') }}</small>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- CTA Card -->
+                <div class="card border-0 bg-primary text-white">
+                    <div class="card-body p-4 text-center">
+                        <h5 class="fw-bold mb-3">Need a Quote?</h5>
+                        <p class="mb-3">Get your free, itemized quote for hardscaping, landscaping, or concrete restoration.</p>
+                        <a href="{{ url_for('contact') }}" class="btn btn-light">Request Quote</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related CTA -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h3 class="fw-bold mb-2">Ready to Transform Your Outdoor Space?</h3>
+                <p class="mb-0 fs-5">Get expert craftsmanship backed by a 5-year warranty. Contact us for your free quote.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Get Free Quote</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

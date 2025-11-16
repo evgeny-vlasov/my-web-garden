@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+
+{% block title %}Get A Free Quote - {{ site_name }}{% endblock %}
+
+{% block meta_description %}Request your free quote for hardscaping, landscaping, snow removal, or concrete restoration in Calgary. Transparent pricing, 24-hour response time.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-3 fw-bold mb-3">Get Your Free Quote</h1>
+                <p class="lead">Tell us about your project. We'll respond within 24 hours with an itemized quote.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form & Info -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Form -->
+            <div class="col-lg-7 mb-5 mb-lg-0">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4 p-lg-5">
+                        <h3 class="fw-bold mb-4">Request Your Quote</h3>
+
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
+                        <form method="POST" action="{{ url_for('contact') }}">
+                            {{ form.hidden_tag() }}
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label fw-bold">Your Name *</label>
+                                    {{ form.name(class="form-control form-control-lg", placeholder="John Smith") }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.name.errors %}{{ error }}{% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label fw-bold">Phone Number *</label>
+                                    {{ form.phone(class="form-control form-control-lg", placeholder="403-555-1234") }}
+                                    {% if form.phone.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.phone.errors %}{{ error }}{% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <small class="text-muted">Best number to reach you</small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-bold">Email Address *</label>
+                                {{ form.email(class="form-control form-control-lg", placeholder="your.email@example.com") }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.email.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Service Interested In *</label>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="service-hardscape" name="service" value="hardscape">
+                                            <label class="form-check-label" for="service-hardscape">
+                                                Hardscape & Landscaping
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="service-snow" name="service" value="snow-removal">
+                                            <label class="form-check-label" for="service-snow">
+                                                Snow Removal
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="service-concrete" name="service" value="concrete-restoration">
+                                            <label class="form-check-label" for="service-concrete">
+                                                Concrete Restoration
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="service-other" name="service" value="other">
+                                            <label class="form-check-label" for="service-other">
+                                                Not Sure / Multiple
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="message" class="form-label fw-bold">Tell Us About Your Project *</label>
+                                {{ form.message(class="form-control form-control-lg", rows="6", placeholder="Describe your project: What are you looking to have done? Do you have a timeline in mind? Any specific requirements or questions?") }}
+                                {% if form.message.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.message.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="text-muted">The more details you provide, the more accurate your quote will be.</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="location" class="form-label fw-bold">Project Location</label>
+                                <input type="text" class="form-control form-control-lg" id="location" name="location" placeholder="Calgary, Airdrie, Cochrane, etc.">
+                                <small class="text-muted">City or neighborhood helps us confirm we service your area</small>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Preferred Timeline</label>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="timeline" id="timeline-asap" value="asap">
+                                            <label class="form-check-label" for="timeline-asap">
+                                                ASAP
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="timeline" id="timeline-month" value="1-3-months">
+                                            <label class="form-check-label" for="timeline-month">
+                                                1-3 Months
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="timeline" id="timeline-season" value="this-season">
+                                            <label class="form-check-label" for="timeline-season">
+                                                This Season
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="timeline" id="timeline-planning" value="planning" checked>
+                                            <label class="form-check-label" for="timeline-planning">
+                                                Just Planning
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg py-3">
+                                    <i class="bi bi-send me-2"></i> Submit Quote Request
+                                </button>
+                            </div>
+
+                            <p class="text-muted small mt-3 mb-0">
+                                * Required fields. We typically respond within 24 hours. Your information is kept private and never shared.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info Sidebar -->
+            <div class="col-lg-5">
+                <!-- Contact Details -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">Contact Information</h4>
+
+                        <div class="mb-4">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="bi bi-telephone-fill text-primary fs-4 me-3"></i>
+                                <div>
+                                    <strong class="d-block mb-1">Phone</strong>
+                                    <a href="tel:5875736005" class="fs-5 text-decoration-none">587-573-6005</a>
+                                    <p class="text-muted small mb-0">Call or text for fastest response</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="bi bi-envelope-fill text-primary fs-4 me-3"></i>
+                                <div>
+                                    <strong class="d-block mb-1">Email</strong>
+                                    <a href="mailto:info@keystonehardscapes.ca" class="text-decoration-none">info@keystonehardscapes.ca</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-0">
+                            <div class="d-flex align-items-start">
+                                <i class="bi bi-geo-alt-fill text-primary fs-4 me-3"></i>
+                                <div>
+                                    <strong class="d-block mb-1">Service Area</strong>
+                                    <p class="mb-0">Calgary, Airdrie, Cochrane, Okotoks, Chestermere & surrounding areas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What to Expect -->
+                <div class="card border-0 bg-light mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3">What to Expect</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>24-hour response:</strong> I personally review and respond to all quote requests within one business day
+                            </li>
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>On-site consultation:</strong> For most projects, I'll visit your property to discuss details and provide accurate pricing
+                            </li>
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>Itemized quote:</strong> You'll receive a detailed breakdown of materials, labor, and timeline
+                            </li>
+                            <li class="mb-0">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <strong>No pressure:</strong> Take your time to review and decide. I'm here to answer questions, not pressure you
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Business Hours -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3">Availability</h5>
+                        <p class="mb-2"><i class="bi bi-clock text-primary me-2"></i> <strong>Quote requests:</strong> 24/7 online</p>
+                        <p class="mb-2"><i class="bi bi-clock text-primary me-2"></i> <strong>Phone/text:</strong> 8am-7pm, 7 days</p>
+                        <p class="mb-0 text-muted small">Emergency snow removal available for existing clients</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Why Request a Quote From Keystone?</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Owner Direct</h5>
+                    <p class="mb-0">You'll speak directly with Andrew, not a sales team. The person quoting your project is the same person building it.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Transparent Pricing</h5>
+                    <p class="mb-0">Every quote is itemized and detailed. No hidden fees, no surprises—you'll know exactly what you're paying for.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Honest Advice</h5>
+                    <p class="mb-0">I'll tell you what makes sense for your space and budget—even if it means a smaller project or alternatives you haven't considered.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}Snow Removal Services - {{ site_name }}{% endblock %}
+
+{% block meta_description %}Professional snow removal services in Calgary. Residential and commercial snow clearing throughout winter. Reliable, route-based service.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-dark text-white" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/images/service-snow-hero.jpg') center/cover no-repeat;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-3 fw-bold mb-3">Snow Removal</h1>
+                <p class="lead">Reliable snow clearing for Calgary homes and businesses</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Overview -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="display-5 fw-bold mb-4">Professional Snow Removal</h2>
+                <p class="fs-5 mb-3">Calgary winters demand reliable snow removal. Whether you need your driveway cleared before work or your commercial property accessible for customers, I provide consistent, professional snow clearing throughout the winter season.</p>
+                <p class="fs-5 mb-3">As a route-based service, I clear the same properties after every snowfall. This means you don't need to call each time it snows—you're on the route, and I show up.</p>
+                <p class="fs-5 text-muted mb-0">Professional equipment, consistent service, fair pricing.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="/static/images/snow-removal-action.jpg" alt="Snow removal in action" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Offered -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">What We Offer</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-house"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Residential Snow Removal</h4>
+                        <p class="mb-3">Driveway and walkway clearing for Calgary homeowners. Wake up to a clear driveway without lifting a shovel.</p>
+                        <ul>
+                            <li>Driveway clearing</li>
+                            <li>Front walkway and entry</li>
+                            <li>Clearing around vehicles if parked outside</li>
+                            <li>Snow relocated to designated areas on your property</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Commercial Snow Removal</h4>
+                        <p class="mb-3">Parking lots, access lanes, and entryways for Calgary businesses. Keep your property accessible for customers and employees.</p>
+                        <ul>
+                            <li>Parking lot clearing</li>
+                            <li>Access lanes and loading areas</li>
+                            <li>Sidewalks and building entrances</li>
+                            <li>De-icing and slip prevention</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">How Route-Based Service Works</h2>
+            <p class="lead">Simple, predictable snow removal all winter long</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">1. You're On the Route</h4>
+                        <p class="mb-0">Sign up for the season, and you're added to my route. No need to call every time it snows—you're covered automatically.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-snow"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">2. Snow Trigger</h4>
+                        <p class="mb-0">After snowfalls meeting the agreed trigger (typically 3-5cm), I run the route and clear all properties. Early morning service for driveways.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-clipboard-check"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">3. Cleared & Ready</h4>
+                        <p class="mb-0">You wake up (or arrive at work) to a cleared, accessible property. Simple billing, no surprises, consistent service.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Options -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold mb-3">Service Options</h2>
+                </div>
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-3"><i class="bi bi-calculator text-primary me-2"></i> Per-Service Pricing</h4>
+                        <p class="fs-5 mb-2">Pay for each time I clear your property. Best for lighter snowfall years or smaller properties.</p>
+                        <p class="text-muted mb-0">Pricing based on property size and access.</p>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-3"><i class="bi bi-calendar-range text-primary me-2"></i> Seasonal Contract</h4>
+                        <p class="fs-5 mb-2">Fixed monthly fee for the entire winter season (November-March). Unlimited clearing—no matter how much it snows.</p>
+                        <p class="text-muted mb-0">Best for budget certainty and heavy snowfall years.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <p class="fs-5 mb-0">Request a quote to discuss which option works best for your property and budget.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Equipment & Approach -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="/static/images/snow-equipment.jpg" alt="Professional snow removal equipment" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">Professional Equipment</h2>
+                <p class="fs-5 mb-3">Reliable snow removal requires the right tools. I use professional-grade equipment to clear properties quickly and thoroughly:</p>
+                <ul class="fs-5">
+                    <li class="mb-2">Truck-mounted snow plows for driveways and parking lots</li>
+                    <li class="mb-2">Snow blowers for walkways and tight spaces</li>
+                    <li class="mb-2">De-icing materials for slip prevention</li>
+                    <li class="mb-2">Well-maintained equipment for reliable service</li>
+                </ul>
+                <p class="fs-5 text-muted mb-0">Equipment is serviced throughout the season to ensure reliability when you need it most.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h2 class="display-5 fw-bold mb-3">Get Added to the Route</h2>
+                <p class="fs-5 mb-0">Limited spots available for the upcoming winter season. Request your quote early to secure your spot on the route.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg px-5 py-3">Request Availability</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Our Services - {{ site_name }}{% endblock %}
+
+{% block meta_description %}Professional hardscaping, snow removal, and concrete restoration services in Calgary. Expert craftsmanship with 5-year warranty on all hardscape work.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section position-relative text-white" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/images/services-hero.jpg') center/cover no-repeat; min-height: 400px;">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center" style="min-height: 400px;">
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-4">Our Services</h1>
+                <p class="lead fs-4 mb-0">Expert solutions for your outdoor spaces, year-round. From stunning hardscapes to reliable snow removal and concrete restoration.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">What We Do</h2>
+            <p class="lead text-muted">Professional craftsmanship built for Calgary's demanding climate</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Hardscaping Service -->
+            <div class="col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="/static/images/service-hardscape.jpg" alt="Hardscaping and Landscaping Services" class="card-img-top" style="height: 300px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h4 fw-bold mb-3">Landscaping & Hardscape</h3>
+                        <p class="card-text mb-4">Transform your outdoor space with professional hardscaping. We specialize in patios, retaining walls, walkways, and outdoor living areas designed to withstand Alberta's freeze-thaw cycles. Every project includes proper drainage and foundation work to ensure lasting quality.</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Patios & Outdoor Living Spaces</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Retaining Walls</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Walkways & Pathways</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Landscape Design</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>5-Year Warranty</li>
+                        </ul>
+                        <a href="{{ url_for('service_hardscape') }}" class="btn btn-primary mt-auto">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Snow Removal Service -->
+            <div class="col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="/static/images/service-snow.jpg" alt="Snow Removal Services" class="card-img-top" style="height: 300px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h4 fw-bold mb-3">Snow Removal</h3>
+                        <p class="card-text mb-4">Reliable snow removal services for residential and commercial properties throughout Calgary's winter season. We respond quickly to snowfall events to keep your property safe and accessible. Available for seasonal contracts and on-demand service.</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Residential Driveways</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Commercial Properties</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Seasonal Contracts</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>On-Demand Service</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Salt & Ice Management</li>
+                        </ul>
+                        <a href="{{ url_for('service_snow_removal') }}" class="btn btn-primary mt-auto">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concrete Restoration Service -->
+            <div class="col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="/static/images/service-concrete.jpg" alt="Concrete Restoration Services" class="card-img-top" style="height: 300px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h4 fw-bold mb-3">Concrete Restoration</h3>
+                        <p class="card-text mb-4">Restore aging or damaged concrete surfaces with professional epoxy overlays and repair work. Our restoration services extend the life of your concrete at a fraction of the cost of replacement. Perfect for driveways, garage floors, and patios showing wear.</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Epoxy Overlays</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Crack Repair</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Surface Leveling</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Garage Floors</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Driveway Restoration</li>
+                        </ul>
+                        <a href="{{ url_for('service_concrete_restoration') }}" class="btn btn-primary mt-auto">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Why Choose Keystone?</h2>
+            <p class="lead text-muted">Quality craftsmanship you can count on</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">5-Year Warranty</h4>
+                    <p class="mb-0">All hardscape work backed by our comprehensive 5-year warranty. We stand behind our craftsmanship.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Owner-Led Quality</h4>
+                    <p class="mb-0">Andrew personally oversees every project from start to finish. No subcontractors, just consistent quality.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Transparent Quotes</h4>
+                    <p class="mb-0">Detailed, itemized quotes with no hidden fees. You'll know exactly what you're paying for.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h2 class="display-5 fw-bold mb-3">Ready to Get Started?</h2>
+                <p class="fs-5 mb-0">Request your free, itemized quote today. We'll get back to you within 24 hours with honest advice and clear pricing.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg px-5 py-3">Get My Free Quote</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

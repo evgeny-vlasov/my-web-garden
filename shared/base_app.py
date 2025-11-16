@@ -12,6 +12,7 @@ from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from jinja2 import ChoiceLoader, FileSystemLoader
 import os
 
 # Initialize extensions (without app context)
@@ -44,6 +45,17 @@ def create_base_app(site_name, config_object=None):
         template_folder='templates',
         static_folder='static'
     )
+
+    # Configure Jinja2 to search in both site-specific and shared template directories
+    # app.root_path points to the site directory (e.g., /var/www/webgarden/webgarden/sites/therapist)
+    site_templates = os.path.join(app.root_path, 'templates')
+    # Go up two levels to get to webgarden root, then into shared/templates
+    shared_templates = os.path.join(os.path.dirname(os.path.dirname(app.root_path)), 'shared', 'templates')
+
+    app.jinja_loader = ChoiceLoader([
+        FileSystemLoader(site_templates),
+        FileSystemLoader(shared_templates)
+    ])
 
     # Load configuration
     if config_object:

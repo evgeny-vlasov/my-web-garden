@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_name }} - {{ site_tagline }}{% endblock %}
+
+{% block meta_description %}Professional hardscaping and landscaping services in Calgary. Expert craftsmanship, 5-year warranty, transparent quotes. Patios, retaining walls, snow removal, and concrete restoration.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section position-relative text-white" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/hero.jpg') center/cover no-repeat; min-height: 600px;">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center" style="min-height: 600px;">
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-4">{{ site_tagline }}</h1>
+                <p class="lead fs-4 mb-4">Professional hardscaping and landscaping services built for Calgary's climate. Owner-led quality on every project.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg px-5 py-3">Get My Free Quote</a>
+                    <a href="{{ url_for('portfolio') }}" class="btn btn-outline-light btn-lg px-5 py-3">View Our Work</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Owner Introduction -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <img src="/static/images/andrew-portrait.jpg" alt="Andrew - Owner and Lead Craftsman" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-4">Built by a Craftsman, Not a Sales Team</h2>
+                <p class="fs-5 mb-3">My name is Andrew. As owner and lead craftsman at Keystone Hardscapes, I personally oversee every project from consultation to completion.</p>
+                <p class="fs-5 mb-3">I don't hand off your project to subcontractors. I'm on-site, ensuring the quality and attention to detail that makes outdoor spaces last for decades in Alberta's demanding climate.</p>
+                <p class="fs-5 text-muted mb-0">When you work with Keystone, you work directly with me.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Features -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3 class="h4 fw-bold mb-3">5-Year Warranty</h3>
+                        <p class="mb-0">All hardscape work backed by our comprehensive 5-year warranty. Quality you can count on.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <h3 class="h4 fw-bold mb-3">Transparent Quotes</h3>
+                        <p class="mb-0">Itemized, detailed quotes with no hidden fees. You'll know exactly what you're paying for.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+                        <h3 class="h4 fw-bold mb-3">Owner-Led Quality</h3>
+                        <p class="mb-0">Andrew personally oversees every project. No subcontractors, no handoffs, just consistent craftsmanship.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Grid -->
+<section class="py-5 bg-dark text-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4 fw-bold mb-3">Our Services</h2>
+            <p class="lead">Expert solutions for your outdoor spaces, year-round</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card bg-transparent border-0 text-white h-100">
+                    <div class="position-relative overflow-hidden rounded" style="height: 300px;">
+                        <img src="/static/images/service-hardscape.jpg" alt="Hardscaping Services" class="w-100 h-100 object-fit-cover">
+                        <div class="position-absolute bottom-0 start-0 end-0 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                            <h3 class="h4 fw-bold mb-2">Landscaping & Hardscape</h3>
+                            <p class="mb-3">Patios, retaining walls, and outdoor living spaces built for Alberta's climate.</p>
+                            <a href="{{ url_for('service_hardscape') }}" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-transparent border-0 text-white h-100">
+                    <div class="position-relative overflow-hidden rounded" style="height: 300px;">
+                        <img src="/static/images/service-snow.jpg" alt="Snow Removal Services" class="w-100 h-100 object-fit-cover">
+                        <div class="position-absolute bottom-0 start-0 end-0 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                            <h3 class="h4 fw-bold mb-2">Snow Removal</h3>
+                            <p class="mb-3">Reliable residential and commercial snow removal throughout the winter season.</p>
+                            <a href="{{ url_for('service_snow_removal') }}" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-transparent border-0 text-white h-100">
+                    <div class="position-relative overflow-hidden rounded" style="height: 300px;">
+                        <img src="/static/images/service-concrete.jpg" alt="Concrete Restoration" class="w-100 h-100 object-fit-cover">
+                        <div class="position-absolute bottom-0 start-0 end-0 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                            <h3 class="h4 fw-bold mb-2">Concrete Restoration</h3>
+                            <p class="mb-3">Epoxy overlays and repair work. Restore, don't replace.</p>
+                            <a href="{{ url_for('service_concrete_restoration') }}" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Preview -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4 fw-bold mb-3">Recent Projects</h2>
+            <p class="lead">See our craftsmanship in action</p>
+        </div>
+        <div class="row g-4 mb-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="/static/images/project-1.jpg" alt="Project 1" class="card-img-top" style="height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Backyard Patio</h5>
+                        <p class="card-text text-muted mb-0">Calgary, AB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="/static/images/project-2.jpg" alt="Project 2" class="card-img-top" style="height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Retaining Wall</h5>
+                        <p class="card-text text-muted mb-0">Airdrie, AB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="/static/images/project-3.jpg" alt="Project 3" class="card-img-top" style="height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Outdoor Living Space</h5>
+                        <p class="card-text text-muted mb-0">Cochrane, AB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="/static/images/project-4.jpg" alt="Project 4" class="card-img-top" style="height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Driveway Restoration</h5>
+                        <p class="card-text text-muted mb-0">Okotoks, AB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="{{ url_for('portfolio') }}" class="btn btn-primary btn-lg">View Full Portfolio</a>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4 fw-bold mb-3">How We Work</h2>
+            <p class="lead">A straightforward process from start to finish</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <span class="display-6 fw-bold">1</span>
+                    </div>
+                    <h4 class="fw-bold mb-3">Consultation</h4>
+                    <p>We meet on-site to discuss your vision, assess the space, and answer your questions.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <span class="display-6 fw-bold">2</span>
+                    </div>
+                    <h4 class="fw-bold mb-3">Design & Quote</h4>
+                    <p>You receive a detailed, itemized quote with no hidden fees. Clear pricing, clear expectations.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <span class="display-6 fw-bold">3</span>
+                    </div>
+                    <h4 class="fw-bold mb-3">Build</h4>
+                    <p>Andrew and his team bring your project to life with expert craftsmanship and attention to detail.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <span class="display-6 fw-bold">4</span>
+                    </div>
+                    <h4 class="fw-bold mb-3">Handover</h4>
+                    <p>Final walkthrough, care instructions, and your 5-year warranty documentation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Area -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="display-5 fw-bold mb-4">Serving the Greater Calgary Area</h2>
+                <p class="fs-5 mb-4">We provide professional hardscaping, landscaping, snow removal, and concrete restoration services throughout:</p>
+                <ul class="list-unstyled fs-5">
+                    <li class="mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i> Calgary</li>
+                    <li class="mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i> Airdrie</li>
+                    <li class="mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i> Cochrane</li>
+                    <li class="mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i> Okotoks</li>
+                    <li class="mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i> Chestermere</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <img src="/static/images/service-area-map.jpg" alt="Service Area Map" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h2 class="display-5 fw-bold mb-3">Ready to Transform Your Outdoor Space?</h2>
+                <p class="fs-5 mb-0">Get your free, itemized quote within 24 hours. No pressure, just honest advice.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg px-5 py-3">Get My Free Quote</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section (if posts exist) -->
+{% if recent_posts %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Latest From Our Blog</h2>
+            <p class="lead">Tips, project updates, and industry insights</p>
+        </div>
+        <div class="row g-4">
+            {% for post in recent_posts %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <p class="text-muted small mb-2">{{ post.published_at.strftime('%B %d, %Y') }}</p>
+                        <h5 class="card-title fw-bold mb-3">
+                            <a href="{{ url_for('view_post', slug=post.slug) }}" class="text-decoration-none text-dark">{{ post.title }}</a>
+                        </h5>
+                        <p class="card-text">{{ post.excerpt }}</p>
+                        <a href="{{ url_for('view_post', slug=post.slug) }}" class="btn btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
