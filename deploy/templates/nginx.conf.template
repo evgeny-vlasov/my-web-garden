@@ -1,0 +1,46 @@
+# Nginx configuration for {{SITE_NAME}}
+# Domain: {{DOMAIN}}
+# Port: {{PORT}}
+
+server {
+    listen 80;
+    server_name {{DOMAIN}};
+
+    # Redirect HTTP to HTTPS (will be configured after SSL cert is obtained)
+    # Certbot will modify this block
+
+    location / {
+        proxy_pass http://127.0.0.1:{{PORT}};
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Timeouts
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    # Static files
+    location /static {
+        alias /var/www/webgarden/webgarden/sites/{{SITE_ID}}/static;
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # Uploaded files
+    location /uploads {
+        alias /var/www/webgarden/uploads/{{SITE_ID}};
+        expires 7d;
+        add_header Cache-Control "public";
+    }
+
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    # File size limit (for uploads)
+    client_max_body_size 10M;
+}
