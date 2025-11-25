@@ -12,6 +12,23 @@ WebGarden is a production-ready Flask-based web hosting platform designed to eff
 - **Automated Setup**: Complete deployment automation
 - **Scalable Design**: Ready for additional sites
 
+## 📚 Documentation
+
+**Core Documentation:**
+- **[Architecture Guide](ARCHITECTURE.md)** - System architecture, design patterns, and technical decisions
+- **[Claude README](claude-readme.md)** - Quick reference for AI assistants (Claude Sonnet)
+- **[Changelog](CHANGELOG.md)** - Version history and release notes
+
+**Module Documentation:**
+- **[Shared Modules](shared/README.md)** - Comprehensive guide to shared components (base_app, models, forms, email, etc.)
+- **[Therapist Site](sites/therapist/README.md)** - Therapist site routes, templates, and features
+- **[Keystone Site](sites/keystone/README.md)** - Keystone hardscapes site documentation
+
+**Deployment Documentation:**
+- **[Deployment Guide](deploy/README.md)** - Production deployment procedures
+- **[Quick Start](deploy/QUICKSTART.md)** - Fast deployment guide
+- **[Site Creation](deploy/SITE_CREATION_PROMPT.md)** - How to add new sites
+
 ## 📋 Sprint 1 Status
 
 ✅ **Completed:**
