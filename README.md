@@ -7,14 +7,16 @@ WebGarden is a production-ready Flask-based web hosting platform designed to eff
 - **Multi-Site Architecture**: Single codebase supporting multiple independent sites
 - **Production-Ready**: Nginx + Gunicorn + systemd deployment
 - **Security First**: HTTPS, CSRF protection, rate limiting, secure sessions
-- **Modern Stack**: Flask 3.0, PostgreSQL, Bootstrap 5
-- **Easy Management**: Control scripts for service management
-- **Automated Setup**: Complete deployment automation
-- **Scalable Design**: Ready for additional sites
+- **Modern Stack**: Flask 3.0, PostgreSQL, Bootstrap 5, TinyMCE
+- **Complete CMS**: Blog system, admin panel, user authentication
+- **Automated Deployment**: Deploy new sites in 15 minutes with automation scripts
+- **AI-Assisted Development**: Claude Code integration for rapid site creation
+- **Easy Management**: systemd service management
+- **Scalable Design**: Proven architecture across multiple production sites
 
-## 📋 Sprint 1 Status
+## 📋 Project Status
 
-✅ **Completed:**
+✅ **Sprint 1 - Foundation (Complete)**
 - Therapist psychotherapy website (MVP)
 - Shared module library
 - Database schema and migrations
@@ -22,17 +24,29 @@ WebGarden is a production-ready Flask-based web hosting platform designed to eff
 - Control and setup scripts
 - Complete documentation
 
-🚧 **Coming in Sprint 2:**
-- Blog functionality
-- Admin panel with Flask-Admin
-- User authentication system
-- Image upload management
+✅ **Sprint 2 - Blog & Admin (Complete)**
+- Blog functionality with rich text editor (TinyMCE)
+- Full admin panel for content management
+- User authentication system with Flask-Login
+- Image upload management and optimization
+- Contact submission management
+- HTML sanitization and security features
 
-🔮 **Future Sprints:**
-- Cal.com booking integration (Sprint 3)
-- Bot widget integration (Sprint 3)
-- Handyman business site
-- Computer lab site
+✅ **Sprint 3 - Deployment Automation (Complete)**
+- Automated site deployment script (new_site.sh)
+- Site creation prompt template for Claude Code
+- Complete deployment documentation
+- Second production site (Keystone Hardscapes)
+- Infrastructure templates for rapid site creation
+
+🚀 **Active Sites:**
+- **psyling** (Therapist/Psychotherapy) - Port 8001
+- **keystone** (Hardscapes/Landscaping) - Port 8002
+
+🔮 **Future Development:**
+- Cal.com booking integration
+- Bot widget integration
+- Additional business sites as needed
 
 ## 🏗️ Project Structure
 
@@ -45,35 +59,59 @@ webgarden/
 │   ├── forms.py                # WTForms definitions
 │   ├── email.py                # Email utilities (Mailgun)
 │   ├── image_handler.py        # Image upload/resize
+│   ├── auth.py                 # Authentication helpers
+│   ├── decorators.py           # Custom route decorators
+│   ├── sanitizer.py            # HTML sanitization
 │   └── templates/              # Shared base templates
 │       ├── base.html
 │       └── errors/
 ├── sites/                      # Individual site applications
-│   └── therapist/
+│   ├── therapist/              # Psychotherapy site (psyling)
+│   │   ├── app.py              # Main application
+│   │   ├── config.py           # Site configuration
+│   │   ├── cli.py              # CLI commands
+│   │   ├── templates/          # Site-specific templates
+│   │   │   ├── index.html
+│   │   │   ├── about.html
+│   │   │   ├── services.html
+│   │   │   ├── contact.html
+│   │   │   ├── post.html
+│   │   │   └── admin/          # Admin panel templates
+│   │   ├── static/             # Static assets
+│   │   │   ├── css/
+│   │   │   ├── js/
+│   │   │   └── images/
+│   │   ├── migrations/         # Database migrations
+│   │   └── venv/               # Python virtual environment
+│   └── keystone/               # Hardscapes site
 │       ├── app.py              # Main application
 │       ├── config.py           # Site configuration
-│       ├── requirements.txt    # Site dependencies
-│       ├── templates/          # Site-specific templates
-│       │   ├── index.html
-│       │   ├── about.html
-│       │   ├── services.html
-│       │   └── contact.html
+│       ├── cli.py              # CLI commands
+│       ├── templates/          # Templates
 │       ├── static/             # Static assets
-│       │   ├── css/
-│       │   ├── js/
-│       │   └── images/
-│       └── migrations/         # Database migrations
-├── deploy/                     # Deployment configurations
-│   ├── nginx/
-│   │   └── therapist.conf
-│   ├── systemd/
-│   │   └── webgarden-therapist.service
+│       ├── migrations/         # Database migrations
+│       └── venv/               # Python virtual environment
+├── deploy/                     # Deployment system
+│   ├── new_site.sh            # Complete site deployment automation
+│   ├── setup_site.sh          # Legacy setup script
 │   ├── webgarden-ctl.sh       # Service control script
-│   └── setup_site.sh          # Automated setup script
+│   ├── SITE_CREATION_PROMPT.md # Claude Code prompt template
+│   ├── QUICKSTART.md          # Quick deployment guide
+│   ├── README.md              # Comprehensive deployment docs
+│   ├── templates/             # Config templates
+│   │   ├── site.env.template
+│   │   ├── nginx.conf.template
+│   │   └── systemd.service.template
+│   ├── nginx/                 # Nginx configs
+│   └── systemd/               # Systemd service files
 ├── uploads/                    # File uploads (per site)
+│   ├── therapist/
+│   └── keystone/
 ├── backups/                    # Backup storage
 ├── .env.example               # Environment template
 ├── requirements.txt           # Global dependencies
+├── CHANGELOG.md               # Version history
+├── SPRINT_2_COMPLETE.md       # Sprint 2 documentation
 └── README.md                  # This file
 ```
 
@@ -88,87 +126,84 @@ webgarden/
 - Certbot (for SSL)
 - Root/sudo access
 
-### Installation
+### Deploying a New Site (15 Minutes)
 
-1. **Clone the repository:**
+WebGarden now includes complete deployment automation. Deploy a new site in just 2 steps:
+
+**Step 1: Deploy Infrastructure (5 minutes)**
 ```bash
-cd /var/www
-git clone <repository-url> webgarden
-cd webgarden
+cd /var/www/webgarden/webgarden/deploy
+sudo ./new_site.sh mysite mysite.example.com 8003 "SecurePass123!" "My Site Name"
 ```
 
-2. **Run the automated setup:**
+This automatically:
+- Creates PostgreSQL database and user
+- Sets up Python virtual environment
+- Configures Nginx reverse proxy
+- Creates systemd service
+- Installs all dependencies
+- Initializes database migrations
+- Prompts for admin user creation
+- Optionally sets up SSL certificate
+
+**Step 2: Build Site with Claude Code (10 minutes)**
 ```bash
-sudo ./deploy/setup_site.sh therapist therapist.example.com
+# 1. Open the prompt template
+cat deploy/SITE_CREATION_PROMPT.md
+
+# 2. Fill in [BRACKETED] sections with your business info
+
+# 3. Copy and paste the filled prompt into Claude Code
+
+# 4. Wait for Claude to build your complete site
+
+# 5. Restart the service
+sudo systemctl restart mysite.service
+
+# 6. Visit your site!
 ```
 
-This will:
-- Create system user and directories
-- Set up PostgreSQL database
-- Create Python virtual environment
-- Install dependencies
-- Initialize database
-- Configure nginx and systemd
-- Obtain SSL certificate
-- Start the service
+**Quick Reference:**
+- Next available port: 8003 (8001 and 8002 are in use)
+- Full documentation: `deploy/README.md`
+- Quick guide: `deploy/QUICKSTART.md`
 
-3. **Configure environment variables:**
-```bash
-sudo nano /etc/webgarden/therapist.env
-```
+### Manual Installation (Legacy)
 
-Update:
-- Mail server credentials (Mailgun)
-- Office contact information
-- Any other site-specific settings
-
-4. **Create admin user:**
-```bash
-cd /var/www/webgarden/sites/therapist
-sudo -u webgarden venv/bin/flask create-admin
-```
-
-5. **Restart service:**
-```bash
-sudo systemctl restart webgarden-therapist
-```
-
-6. **Visit your site:**
-```
-https://therapist.example.com
-```
+For manual setup or understanding the internals, see the [Manual Setup Guide](#development) below.
 
 ## 🎮 Service Management
 
-### Using Control Script (Recommended)
+### Using systemctl
 
 ```bash
+# Replace {sitename} with: therapist, keystone, or your site name
+
 # Start service
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh start therapist
+sudo systemctl start {sitename}.service
 
 # Stop service
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh stop therapist
+sudo systemctl stop {sitename}.service
 
 # Restart service
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh restart therapist
+sudo systemctl restart {sitename}.service
 
 # Check status
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh status therapist
+sudo systemctl status {sitename}.service
 
 # View logs
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh logs therapist
+sudo journalctl -u {sitename}.service -f
 
-# Follow logs in real-time
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh logs therapist -f
+# Examples:
+sudo systemctl restart therapist.service
+sudo systemctl status keystone.service
 ```
 
-### Using systemctl Directly
+### Legacy Control Script
 
 ```bash
-sudo systemctl start webgarden-therapist
-sudo systemctl stop webgarden-therapist
-sudo systemctl restart webgarden-therapist
-sudo systemctl status webgarden-therapist
+# For sites deployed with old setup_site.sh
+sudo /var/www/webgarden/deploy/webgarden-ctl.sh restart therapist
 ```
 
 ## 📝 Configuration
@@ -177,64 +212,82 @@ sudo systemctl status webgarden-therapist
 
 Configuration is managed through environment files located in `/etc/webgarden/`.
 
-**Example: `/etc/webgarden/therapist.env`**
+**Example: `/etc/webgarden/{sitename}.env`**
 
 ```bash
 # Flask
-SECRET_KEY=<generated-secret-key>
+SECRET_KEY=<auto-generated-secret-key>
 FLASK_ENV=production
 
 # Database
-DATABASE_URL=postgresql://user:password@localhost/therapist_db
+DATABASE_URL=postgresql://{sitename}_user:password@localhost/{sitename}_db
 
 # Mail (Mailgun)
 MAIL_SERVER=smtp.mailgun.org
 MAIL_PORT=587
-MAIL_USERNAME=postmaster@therapist.example.com
+MAIL_USERNAME=postmaster@yourdomain.com
 MAIL_PASSWORD=<your-mailgun-api-key>
-MAIL_DEFAULT_SENDER=info@therapist.example.com
-ADMIN_EMAIL=admin@therapist.example.com
+MAIL_DEFAULT_SENDER=info@yourdomain.com
+ADMIN_EMAIL=admin@yourdomain.com
 
 # Site
-SITE_NAME=Professional Psychotherapy
-SITE_DOMAIN=therapist.example.com
-UPLOAD_FOLDER=/var/www/webgarden/uploads/therapist
+SITE_NAME=Your Site Name
+SITE_DOMAIN=yourdomain.com
+UPLOAD_FOLDER=/var/www/webgarden/uploads/{sitename}
 MAX_UPLOAD_SIZE=5242880
 
-# Office Info
-OFFICE_PHONE=(416) 555-0100
-OFFICE_EMAIL=info@therapist.example.com
+# Office/Business Info
+OFFICE_PHONE=(123) 456-7890
+OFFICE_EMAIL=info@yourdomain.com
 ```
+
+**Active sites:**
+- `/etc/webgarden/therapist.env` - Psychotherapy site
+- `/etc/webgarden/keystone.env` - Hardscapes site
 
 ### Database Configuration
 
-Each site has its own PostgreSQL database:
+Each site has its own isolated PostgreSQL database:
 
 ```bash
-# Access database
-sudo -u postgres psql therapist_db
+# Access database (replace {sitename} with therapist, keystone, etc.)
+sudo -u postgres psql {sitename}_db
 
 # Backup database
-sudo -u postgres pg_dump therapist_db > /var/www/webgarden/backups/databases/therapist_$(date +%Y%m%d).sql
+sudo -u postgres pg_dump {sitename}_db > /var/www/webgarden/backups/databases/{sitename}_$(date +%Y%m%d).sql
 
 # Restore database
-sudo -u postgres psql therapist_db < backup_file.sql
+sudo -u postgres psql {sitename}_db < backup_file.sql
+
+# List all WebGarden databases
+sudo -u postgres psql -l | grep "_db"
 ```
+
+**Active databases:**
+- `therapist_db` - Psychotherapy site
+- `keystone_db` - Hardscapes site
 
 ### Nginx Configuration
 
 Nginx configuration files are located in `/etc/nginx/sites-available/`.
 
 ```bash
-# Edit nginx config
-sudo nano /etc/nginx/sites-available/therapist
+# Edit nginx config (replace {sitename})
+sudo nano /etc/nginx/sites-available/{sitename}
 
 # Test nginx config
 sudo nginx -t
 
 # Reload nginx
 sudo systemctl reload nginx
+
+# List all WebGarden site configs
+ls -l /etc/nginx/sites-available/ | grep -E '(therapist|keystone)'
 ```
+
+**Active configs:**
+- `/etc/nginx/sites-available/therapist` - Port 8001
+- `/etc/nginx/sites-available/keystone` - Port 8002
 
 ## 🔧 Development
 
@@ -341,30 +394,44 @@ tail -f /var/log/nginx/therapist-error.log
 
 ## 🆕 Adding a New Site
 
-To add a new site (e.g., handyman business):
+WebGarden includes complete deployment automation. Deploy a new site in 15 minutes:
 
-1. **Copy site template:**
+### Automated Deployment (Recommended)
+
+**Step 1: Run the deployment script**
 ```bash
-cp -r sites/therapist sites/handyman
+cd /var/www/webgarden/webgarden/deploy
+sudo ./new_site.sh dentist dentist.example.com 8003 "SecurePass2024!" "Smile Dental"
 ```
 
-2. **Update configuration:**
+This creates all infrastructure: database, virtual environment, Nginx config, systemd service, and more.
+
+**Step 2: Use the site creation prompt with Claude Code**
 ```bash
-cd sites/handyman
-# Update config.py, app.py, templates, etc.
+# 1. Copy the prompt template
+cat deploy/SITE_CREATION_PROMPT.md
+
+# 2. Fill in [BRACKETED] sections with business details
+
+# 3. Paste into Claude Code to build the complete site
 ```
 
-3. **Copy deployment configs:**
+**Step 3: Restart and test**
 ```bash
-cp deploy/nginx/therapist.conf deploy/nginx/handyman.conf
-cp deploy/systemd/webgarden-therapist.service deploy/systemd/webgarden-handyman.service
-# Update references to 'therapist' -> 'handyman'
+sudo systemctl restart dentist.service
+# Visit: https://dentist.example.com
 ```
 
-4. **Run setup script:**
-```bash
-sudo ./deploy/setup_site.sh handyman handyman.example.com
-```
+**Port Reference:**
+- 8001: therapist (psyling)
+- 8002: keystone (hardscapes)
+- 8003+: Available for new sites
+
+**Full documentation:** See `deploy/README.md` for comprehensive deployment guide.
+
+### Manual Deployment (Legacy)
+
+For manual setup, copy an existing site directory and update configurations manually. See existing sites in `sites/` for reference patterns.
 
 ## 📊 Monitoring
 
@@ -459,20 +526,32 @@ sudo chmod 644 /etc/webgarden/therapist.env
 ### Flask CLI
 
 ```bash
-cd /var/www/webgarden/sites/therapist
+# Navigate to your site directory
+cd /var/www/webgarden/webgarden/sites/{sitename}
 source venv/bin/activate
 
 # Create admin user
 flask create-admin
 
-# Initialize database
-flask init-db
+# Reset password
+flask reset-password
 
-# Test email configuration
-flask test-email
+# List users
+flask list-users
+
+# Create test blog post
+flask create-test-post
+
+# Database migrations
+flask db migrate -m "Description"
+flask db upgrade
 
 # Run Flask shell
 flask shell
+
+# Examples:
+cd /var/www/webgarden/webgarden/sites/therapist && source venv/bin/activate && flask create-admin
+cd /var/www/webgarden/webgarden/sites/keystone && source venv/bin/activate && flask list-users
 ```
 
 ### Database
@@ -511,25 +590,38 @@ For issues or questions:
 
 ## 🗺️ Roadmap
 
-### Sprint 2
-- [ ] Blog functionality with rich text editor
-- [ ] Admin panel with Flask-Admin
-- [ ] User authentication and roles
-- [ ] Image upload management
+### ✅ Sprint 1 - Foundation (Complete)
+- [x] Therapist psychotherapy website MVP
+- [x] Shared module library
+- [x] Database schema and migrations
+- [x] Production deployment configurations
+- [x] Control and setup scripts
 
-### Sprint 3
+### ✅ Sprint 2 - Blog & Admin (Complete)
+- [x] Blog functionality with rich text editor (TinyMCE)
+- [x] Admin panel for content management
+- [x] User authentication and roles
+- [x] Image upload management
+- [x] Contact submission management
+- [x] HTML sanitization and security
+
+### ✅ Sprint 3 - Deployment Automation (Complete)
+- [x] Automated site deployment script
+- [x] Site creation prompt template
+- [x] Infrastructure templates
+- [x] Second production site (Keystone)
+- [x] Comprehensive deployment documentation
+
+### 🔮 Future Development
 - [ ] Cal.com booking integration
-- [ ] Bot widget integration
+- [ ] Bot/chat widget integration
 - [ ] Email templates and scheduling
-
-### Sprint 4
-- [ ] Handyman business site
-- [ ] Computer lab site
-- [ ] Advanced analytics
+- [ ] Advanced analytics dashboard
 - [ ] Multi-language support
+- [ ] Additional business sites as needed
 
 ---
 
 **Built with ❤️ for small businesses**
 
-Last Updated: 2025-11-12
+Last Updated: 2025-11-29
