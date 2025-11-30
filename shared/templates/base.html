@@ -133,5 +133,8 @@
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block custom_js %}{% endblock %}
+
+    {# Bot Widget - site-specific configuration #}
+    {% block bot_widget %}{% endblock %}
 </body>
 </html>
