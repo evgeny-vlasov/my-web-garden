@@ -1,4 +1,4 @@
-"""
+"""csrf
 Therapist Site Flask Application
 Main application file for the professional psychotherapy website.
 """
@@ -11,6 +11,8 @@ from slugify import slugify
 
 # Add parent directories to Python path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+
+from shared.base_app import csrf
 
 from flask import render_template, request, flash, redirect, url_for, jsonify, abort
 from flask_login import login_user, logout_user, current_user, login_required
@@ -592,6 +594,45 @@ def test_email():
         print('Test email sent successfully!')
     else:
         print('Failed to send test email. Check logs for details.')
+
+
+# ============================================================================
+# BOT API PROXY
+# ============================================================================
+
+@app.route('/api/chat', methods=['POST'])
+@csrf.exempt
+def bot_chat_proxy():
+    """Proxy requests to the local bot API."""
+    import requests
+
+    try:
+        # Get the request data from the browser
+        data = request.get_json()
+
+        # Forward to local bot API
+        bot_response = requests.post(
+            'http://localhost:5002/api/chat',
+            json=data,
+            headers={'Content-Type': 'application/json'},
+            timeout=30
+        )
+
+        # Return the bot's response to the browser
+        return jsonify(bot_response.json()), bot_response.status_code
+
+    except requests.exceptions.RequestException as e:
+        # Handle connection errors to bot API
+        return jsonify({
+            'error': 'Bot service temporarily unavailable',
+            'details': str(e)
+        }), 503
+    except Exception as e:
+        # Handle other errors
+        return jsonify({
+            'error': 'Internal server error',
+            'details': str(e)
+        }), 500
 
 
 # Development server configuration
