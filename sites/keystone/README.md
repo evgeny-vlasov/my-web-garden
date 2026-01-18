@@ -187,6 +187,44 @@ flask demote-user
 flask create-test-post
 ```
 
+## AI Chatbot Widget (Sprint 4)
+
+### Overview
+The site features an AI-powered chatbot assistant called "Keystone Assistant" that helps visitors with questions about hardscaping services, pricing, service areas, and project planning.
+
+### Features
+- **Interactive Chat Interface**: Bubble widget in bottom-right corner
+- **Persistent Sessions**: Conversations persist across page navigation
+- **Mobile-Responsive**: Optimized for all device sizes
+- **Typing Indicators**: Shows when bot is thinking
+- **Smart Routing**: Messages proxied through Flask to bot API service
+
+### Technical Details
+- **Widget**: `/static/js/bot-widget.js` - Self-contained JavaScript
+- **Template**: `/templates/bot_widget.html` - Configuration
+- **API Endpoint**: `POST /api/chat` - Proxy to localhost:5002
+- **Session Storage**: localStorage (client-side only)
+
+### Configuration
+```html
+data-bot-id="keystone-landscaping"
+data-bot-name="Keystone Assistant"
+data-position="bottom-right"
+data-primary-color="#10b981"
+```
+
+### Pages with Chatbot
+- Home page (index.html)
+- About page
+- Services pages
+- Portfolio page
+- Contact page
+- Blog post pages
+
+### Requirements
+- Bot API service must be running on localhost:5002
+- Python requests library installed
+
 ## Design Notes
 
 - **Color Palette:** Earth tones (greens, browns, grays)
@@ -219,3 +257,8 @@ For production deployment:
 ## Support
 
 For issues or questions, contact the webmaster or refer to the main WebGarden documentation.
+
+---
+
+**Last Updated:** 2026-01-18
+**Current Version:** 4.0 (Sprint 4 - AI Chatbot Integration)

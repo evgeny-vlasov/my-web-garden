@@ -498,6 +498,43 @@ base.html (shared)
   - Service icons
   - Stock photos
 
+## AI Chatbot Widget (Sprint 4)
+
+### Overview
+The site features an AI-powered chatbot assistant called "Psyling Assistant" that helps visitors with questions about therapy services, scheduling, and general mental health information.
+
+### Features
+- **Interactive Chat Interface**: Bubble widget in bottom-right corner
+- **Persistent Sessions**: Conversations persist across page navigation
+- **Mobile-Responsive**: Optimized for all device sizes
+- **Typing Indicators**: Shows when bot is thinking
+- **Smart Routing**: Messages proxied through Flask to bot API service
+
+### Technical Details
+- **Widget**: `/static/js/bot-widget.js` - Self-contained JavaScript
+- **Template**: `/templates/bot_widget.html` - Configuration
+- **API Endpoint**: `POST /api/chat` - Proxy to localhost:5002
+- **Session Storage**: localStorage (client-side only)
+
+### Configuration
+```html
+data-bot-id="therapist"
+data-bot-name="Psyling Assistant"
+data-position="bottom-right"
+data-primary-color="#7c3aed"
+```
+
+### Pages with Chatbot
+- Home page (index.html)
+- About page (about.html)
+- Services page (services.html)
+- Contact page (contact.html)
+- Blog post pages (post.html)
+
+### Requirements
+- Bot API service must be running on localhost:5002
+- Python requests library installed
+
 ## Admin Panel Features
 
 ### Dashboard
@@ -814,4 +851,5 @@ flask run --debug
 
 ---
 
-**Last Updated:** 2025-11-25
+**Last Updated:** 2026-01-18
+**Current Version:** 4.0 (Sprint 4 - AI Chatbot Integration)

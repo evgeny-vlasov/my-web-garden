@@ -48,35 +48,67 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configured secure session cookies
 - Added security headers (HSTS, X-Frame-Options, etc.)
 
-## [Unreleased] - Sprint 2
+## [2.0.0] - 2025-11-25
 
-### Planned
-- [ ] Blog functionality with rich text editor (TinyMCE)
-- [ ] Admin panel with Flask-Admin
-- [ ] User authentication and login system
-- [ ] Image upload management
-- [ ] Blog post creation and editing
-- [ ] User role management (admin, editor)
+### Added - Sprint 2 Complete
+- ✅ Blog functionality with rich text editor (TinyMCE)
+- ✅ Full admin panel for content management
+- ✅ User authentication and login system with Flask-Login
+- ✅ Image upload management and optimization
+- ✅ Blog post creation and editing
+- ✅ Contact submission management
+- ✅ HTML sanitization and security features
+- ✅ User role management (admin, editor)
+- ✅ CLI commands for user management
 
-## [Future] - Sprint 3
+## [3.0.0] - 2025-11-29
+
+### Added - Sprint 3 Complete
+- ✅ Automated site deployment script (new_site.sh)
+- ✅ Site creation prompt template for Claude Code
+- ✅ Complete deployment documentation
+- ✅ Second production site (Keystone Hardscapes)
+- ✅ Infrastructure templates for rapid site creation
+- ✅ Nginx configuration templates
+- ✅ Systemd service templates
+
+## [4.0.0] - 2026-01-18
+
+### Added - Sprint 4 Complete
+- ✅ Self-contained JavaScript chat widget (bot-widget.js)
+- ✅ Flask API proxy endpoint at /api/chat
+- ✅ Session management with localStorage
+- ✅ Mobile-responsive chat interface
+- ✅ Typing indicators and auto-scroll
+- ✅ Accessibility features (ARIA labels, keyboard navigation)
+- ✅ Configurable bot names and themes per site
+- ✅ Graceful error handling for offline scenarios
+- ✅ Bot widget deployed on psyling site (Psyling Assistant)
+- ✅ Bot widget deployed on keystone site (Keystone Assistant)
+- ✅ API proxy integration with external bot service
+
+### Technical Details
+- Widget is fully self-contained with inline styles
+- No external dependencies required
+- Uses fetch API for communication
+- Supports custom theming via data attributes
+- Session persistence across page reloads
+- Timeout handling for slow API responses
+
+## [Future] - Sprint 5
 
 ### Planned
 - [ ] Cal.com booking integration
-- [ ] Bot widget integration
 - [ ] Advanced email templates
-- [ ] Appointment scheduling
-
-## [Future] - Sprint 4
-
-### Planned
-- [ ] Handyman business site
-- [ ] Computer lab site
-- [ ] Multi-user support
-- [ ] Advanced analytics
+- [ ] Analytics dashboard
+- [ ] Additional business sites as needed
 
 ---
 
 ## Version History
 
+- **4.0.0** (2026-01-18): Sprint 4 Complete - AI Chatbot Integration
+- **3.0.0** (2025-11-29): Sprint 3 Complete - Deployment Automation
+- **2.0.0** (2025-11-25): Sprint 2 Complete - Blog & Admin Panel
 - **1.0.0** (2025-11-12): Sprint 1 Complete - Therapist site MVP
 - **0.1.0** (2025-11-12): Initial project setup

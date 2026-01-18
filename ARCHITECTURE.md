@@ -44,7 +44,11 @@ WebGarden is a multi-site Flask hosting platform designed to efficiently host mu
 │ - Shared Models │  │ - Shared Models │  │ - Shared Models │
 │ - Shared Forms  │  │ - Shared Forms  │  │ - Shared Forms  │
 │ - Shared Utils  │  │ - Shared Utils  │  │ - Shared Utils  │
+│ - Bot Proxy     │  │ - Bot Proxy     │  │ - Bot Proxy     │
 └─────────┬───────┘  └─────────┬───────┘  └─────────┬───────┘
+          │                    │                    │
+          ├─────► Bot Widget (Client-side JS)      │
+          │        Connects to /api/chat            │
           │                    │                    │
           └────────────────────┴────────────────────┘
                             │
@@ -60,6 +64,12 @@ WebGarden is a multi-site Flask hosting platform designed to efficiently host mu
                   │ │ keystone_db   │ │
                   │ └───────────────┘ │
                   └───────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                   Bot API Service (Port 5002)                │
+│                   (External My Bot Army Service)             │
+│  ◄────────── Flask /api/chat proxy requests                 │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## Application Architecture
@@ -644,18 +654,175 @@ def admin_panel():
 {% endblock %}
 ```
 
+## AI Chatbot Architecture (Sprint 4)
+
+### Overview
+
+The chatbot system consists of three main components:
+1. **Client-side Widget**: Self-contained JavaScript chat interface
+2. **Flask Proxy**: API endpoint that forwards requests to bot service
+3. **Bot API Service**: External service that processes messages and generates responses
+
+### Component Details
+
+#### Client-Side Widget (bot-widget.js)
+
+**Features:**
+- Fully self-contained (no external dependencies)
+- Inline CSS for styling
+- Mobile-responsive design
+- Session management via localStorage
+- Typing indicators
+- Auto-scroll to latest messages
+- Accessibility features (ARIA labels, keyboard navigation)
+- Configurable themes and positioning
+
+**Key Functions:**
+```javascript
+// Session management
+getSessionId() - Generates/retrieves UUID-based session ID
+
+// Message handling
+addMessage(text, isUser) - Adds message to chat
+sendMessage(message, sessionId) - Sends to API via fetch
+
+// UI control
+showTyping(show) - Shows/hides typing indicator
+createWidgetHTML() - Generates widget DOM structure
+```
+
+**Configuration:**
+```html
+<script src="bot-widget.js"
+    data-bot-id="therapist"
+    data-bot-name="Psyling Assistant"
+    data-position="bottom-right"
+    data-primary-color="#7c3aed">
+</script>
+```
+
+#### Flask API Proxy
+
+**Route:** `POST /api/chat`
+
+**Purpose:** Provides CORS-friendly proxy between client and bot service
+
+**Implementation:**
+```python
+@app.route('/api/chat', methods=['POST'])
+@csrf.exempt
+def bot_chat_proxy():
+    data = request.get_json()
+    bot_response = requests.post(
+        'http://localhost:5002/api/chat',
+        json=data,
+        timeout=30
+    )
+    return jsonify(bot_response.json())
+```
+
+**Error Handling:**
+- Connection timeout (30s)
+- Service unavailable (503)
+- Generic error handling (500)
+
+#### Bot API Service
+
+**Location:** External service on localhost:5002
+
+**API Contract:**
+```json
+Request:
+{
+  "message": "User's message text",
+  "session_id": "uuid-v4-session-id",
+  "bot_id": "therapist"
+}
+
+Response:
+{
+  "status": "success",
+  "response": "Bot's reply text"
+}
+```
+
+### Data Flow
+
+```
+1. User types message in widget
+   │
+2. Widget sends POST to /api/chat
+   │  (includes: message, session_id, bot_id)
+   │
+3. Flask proxy forwards to localhost:5002
+   │  (timeout: 30 seconds)
+   │
+4. Bot service processes message
+   │  - Retrieves conversation context
+   │  - Generates AI response
+   │  - Returns response
+   │
+5. Flask proxy returns to client
+   │
+6. Widget displays bot response
+   └─ Shows typing indicator during processing
+```
+
+### Security Considerations
+
+**CSRF Exemption:**
+- `/api/chat` is CSRF-exempt (required for AJAX)
+- Validates requests via origin checking
+- No sensitive operations performed
+
+**Rate Limiting:**
+- Standard application rate limits apply (100 req/min)
+- Bot service may have its own limits
+
+**Data Privacy:**
+- Sessions stored client-side only (localStorage)
+- No message persistence in Flask application
+- Messages sent to bot service (check bot privacy policy)
+
+### Deployment Notes
+
+**Requirements:**
+1. bot-widget.js must be accessible at /static/js/
+2. Bot API service must be running on localhost:5002
+3. Flask app must have requests library installed
+
+**Adding to New Sites:**
+1. Copy bot-widget.js to site's static/js/
+2. Create bot_widget.html template with configuration
+3. Include template in pages: `{% include 'bot_widget.html' %}`
+4. Add `/api/chat` proxy route to app.py
+5. Configure bot-id and bot-name for the site
+
+### Monitoring
+
+**Metrics to Track:**
+- Widget load success rate
+- API response times
+- Error rates (connection failures)
+- Session duration
+- Messages per session
+
+**Log Sources:**
+- Browser console (widget errors)
+- Flask application logs (proxy errors)
+- Bot service logs (processing errors)
+
 ## Future Enhancements
 
-### Short-term (Sprint 3-4)
+### Short-term (Sprint 5)
 - [ ] Automated testing suite (pytest)
 - [ ] CI/CD pipeline
 - [ ] Redis caching layer
 - [ ] Enhanced admin dashboard
 - [ ] Blog categories and tags
 
-### Medium-term (Sprints 5-8)
+### Medium-term (Sprints 6-8)
 - [ ] Calendar integration (Cal.com)
-- [ ] Chat widget integration
 - [ ] Advanced analytics
 - [ ] API endpoints (REST)
 - [ ] Multi-language support
@@ -680,5 +847,5 @@ The monorepo approach with shared modules allows for rapid development of new si
 
 ---
 
-**Last Updated:** 2025-11-25
-**Version:** 2.0 (Post-Sprint 2)
+**Last Updated:** 2026-01-18
+**Version:** 4.0 (Post-Sprint 4 - AI Chatbot Integration)

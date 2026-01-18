@@ -9,7 +9,8 @@
 **Language:** Python 3.10+
 **Framework:** Flask 3.0
 **Database:** PostgreSQL
-**Current Sites:** 2 (therapist, keystone)
+**Current Sites:** 2 (psyling/therapist, keystone)
+**Latest Sprint:** Sprint 4 - AI Chatbot Integration (Complete)
 
 ## Architecture Overview
 
@@ -23,8 +24,8 @@ Shared modules (shared/):
      (app factory, models, forms, email, security)
 
 Individual sites (sites/):
-  ├─ therapist/     (Professional psychotherapy website)
-  └─ keystone/      (Hardscaping business website)
+  ├─ therapist/ (psyling)  (Professional psychotherapy website)
+  └─ keystone/             (Hardscaping business website)
 
 Deployment (deploy/):
   └─ Scripts for production deployment
@@ -150,6 +151,124 @@ user.set_password('password')
 db.session.add(user)
 db.session.commit()
 ```
+
+## AI Chatbot Integration (Sprint 4)
+
+### Overview
+
+Both sites now include an AI chatbot widget that provides interactive assistance to visitors. The widget is a self-contained JavaScript component that communicates with a local bot API service.
+
+### Architecture
+
+```
+Browser (Chat Widget)
+  ↓ AJAX POST /api/chat
+Flask Application (sites/{sitename}/app.py)
+  ↓ Proxy to localhost:5002
+Local Bot API Service (My Bot Army)
+  ↓ Returns response
+Flask Application
+  ↓ Returns to browser
+Chat Widget displays response
+```
+
+### Implementation Files
+
+**Client-Side Widget:**
+- `sites/{sitename}/static/js/bot-widget.js` - Self-contained chat widget
+- `sites/{sitename}/templates/bot_widget.html` - Widget initialization template
+
+**Server-Side Proxy:**
+- `/api/chat` route in `sites/{sitename}/app.py` - Proxies requests to localhost:5002
+
+### Widget Configuration
+
+Each site configures the widget with specific parameters:
+
+```html
+<script
+    src="{{ url_for('static', filename='js/bot-widget.js') }}"
+    data-bot-id="therapist"
+    data-bot-name="Psyling Assistant"
+    data-api-url=""
+    data-position="bottom-right"
+    data-primary-color="#7c3aed">
+</script>
+```
+
+**Configuration Options:**
+- `data-bot-id`: Bot identifier (e.g., "therapist", "keystone-landscaping")
+- `data-bot-name`: Display name shown in widget header
+- `data-api-url`: API endpoint (empty = same origin)
+- `data-position`: Widget position (bottom-right, bottom-left)
+- `data-primary-color`: Theme color for widget
+
+### Widget Features
+
+1. **Session Management**: Uses localStorage to maintain conversation sessions
+2. **Responsive Design**: Mobile-optimized with breakpoints
+3. **Error Handling**: Graceful degradation when API is unavailable
+4. **Typing Indicators**: Shows when bot is "thinking"
+5. **Auto-scroll**: Messages auto-scroll to latest
+6. **Accessibility**: ARIA labels and keyboard navigation
+
+### API Proxy Implementation
+
+The Flask application includes a CSRF-exempt proxy endpoint:
+
+```python
+@app.route('/api/chat', methods=['POST'])
+@csrf.exempt
+def bot_chat_proxy():
+    """Proxy requests to the local bot API."""
+    data = request.get_json()
+    bot_response = requests.post(
+        'http://localhost:5002/api/chat',
+        json=data,
+        headers={'Content-Type': 'application/json'},
+        timeout=30
+    )
+    return jsonify(bot_response.json()), bot_response.status_code
+```
+
+### Adding Bot Widget to New Pages
+
+To add the chatbot to a template:
+
+```html
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Your page content -->
+{% endblock %}
+
+<!-- Include bot widget at end of page -->
+{% include 'bot_widget.html' %}
+```
+
+### Bot Service Requirements
+
+The chatbot requires a separate bot API service running on `localhost:5002` that implements:
+- POST `/api/chat` endpoint
+- Accepts JSON: `{message: string, session_id: string, bot_id: string}`
+- Returns JSON: `{status: "success", response: string}`
+
+### Troubleshooting
+
+**Widget not loading:**
+- Check bot-widget.js is accessible
+- Check browser console for errors
+- Verify script tag has required data-bot-id attribute
+
+**API connection errors:**
+- Verify bot API service is running on localhost:5002
+- Check Flask proxy route is working
+- Check firewall/network settings
+
+**Widget appears but no responses:**
+- Check bot API service logs
+- Verify session_id is being generated
+- Check network tab for API request/response
 
 ## Common Development Tasks
 
@@ -611,7 +730,8 @@ Follow conventional commits:
 
 ---
 
-**Last Updated:** 2025-11-25
+**Last Updated:** 2026-01-18
 **Maintained For:** Claude Sonnet 4.5 and other AI assistants
+**Current Sprint:** Sprint 4 Complete - AI Chatbot Integration
 
 This documentation is designed to provide AI assistants with a comprehensive understanding of the WebGarden project for efficient code generation, debugging, and maintenance assistance.

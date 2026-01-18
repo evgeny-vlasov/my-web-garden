@@ -39,13 +39,21 @@ WebGarden is a production-ready Flask-based web hosting platform designed to eff
 - Second production site (Keystone Hardscapes)
 - Infrastructure templates for rapid site creation
 
+✅ **Sprint 4 - AI Chatbot Integration (Complete)**
+- Self-contained JavaScript chat widget (bot-widget.js)
+- Flask API proxy for bot communication
+- Session management with localStorage
+- Mobile-responsive design with accessibility features
+- Deployed on both psyling and keystone sites
+- Configurable bot names and themes per site
+- Graceful error handling and offline support
+
 🚀 **Active Sites:**
-- **psyling** (Therapist/Psychotherapy) - Port 8001
-- **keystone** (Hardscapes/Landscaping) - Port 8002
+- **psyling** (Therapist/Psychotherapy) - Port 8001 - With "Psyling Assistant" chatbot
+- **keystone** (Hardscapes/Landscaping) - Port 8002 - With "Keystone Assistant" chatbot
 
 🔮 **Future Development:**
 - Cal.com booking integration
-- Bot widget integration
 - Additional business sites as needed
 
 ## 🏗️ Project Structure
@@ -612,9 +620,17 @@ For issues or questions:
 - [x] Second production site (Keystone)
 - [x] Comprehensive deployment documentation
 
+### ✅ Sprint 4 - AI Chatbot Integration (Complete)
+- [x] Self-contained JavaScript chat widget
+- [x] Flask API proxy endpoint
+- [x] Session management system
+- [x] Mobile-responsive design
+- [x] Bot integration on psyling site
+- [x] Bot integration on keystone site
+- [x] Configurable themes and bot names
+
 ### 🔮 Future Development
 - [ ] Cal.com booking integration
-- [ ] Bot/chat widget integration
 - [ ] Email templates and scheduling
 - [ ] Advanced analytics dashboard
 - [ ] Multi-language support
@@ -624,4 +640,5 @@ For issues or questions:
 
 **Built with ❤️ for small businesses**
 
-Last Updated: 2025-11-29
+Last Updated: 2026-01-18
+Current Sprint: Sprint 4 Complete (AI Chatbot Integration)
