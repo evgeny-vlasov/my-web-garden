@@ -54,9 +54,9 @@ class Config:
     SITE_NAME = os.getenv('SITE_NAME', 'Professional Psychotherapy')
     SITE_DOMAIN = os.getenv('SITE_DOMAIN', 'localhost')
     SITE_TAGLINE = 'Professional Psychotherapy Services in Toronto'
-    OFFICE_LOCATION = 'Toronto, Ontario'
-    OFFICE_PHONE = os.getenv('OFFICE_PHONE', '(416) 555-0100')
-    OFFICE_EMAIL = os.getenv('OFFICE_EMAIL', 'info@example.com')
+    OFFICE_LOCATION = 'East York M4C, Toronto, Ontario, Canada'
+    OFFICE_PHONE = os.getenv('OFFICE_PHONE', '(647) 360-8980')
+    OFFICE_EMAIL = os.getenv('OFFICE_EMAIL', 'psyling@gmail.com')
 
     # Rate limiting
     RATELIMIT_ENABLED = True

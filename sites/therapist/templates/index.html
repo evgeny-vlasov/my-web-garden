@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ config.SITE_NAME }} - {{ config.SITE_TAGLINE }}{% endblock %}
+{% block title %}Professional Psychotherapy Services in Toronto | Valery Belyanin, RP{% endblock %}
 
 {% block meta_description %}Professional psychotherapy services in Toronto. A safe, confidential space for personal growth and healing. Evidence-based approaches for anxiety, stress, and life transitions.{% endblock %}
 
@@ -10,10 +10,10 @@
     <div class="container py-5">
         <div class="row align-items-center">
             <div class="col-lg-8 mx-auto text-center">
-                <h1 class="display-4 fw-bold mb-4">Professional Psychotherapy Services in Toronto</h1>
-                <p class="lead mb-4">Welcome to a safe, confidential space for personal growth and healing</p>
+                <h1 class="display-4 fw-bold mb-4">Professional Psychotherapy Services Online</h1>
+                <p class="lead mb-4">Welcome to a safe, confidential space for healing and personal growth</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <a href="#book-appointment" class="btn btn-light btn-lg px-4 gap-3">Book an Appointment</a>
+                    <a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank" class="btn btn-light btn-lg px-4 gap-3">Book an Appointment</a>
                     <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg px-4">Get in Touch</a>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                             <i class="bi bi-calendar-check fs-2"></i>
                         </div>
                         <h4 class="card-title">Flexible Scheduling</h4>
-                        <p class="card-text text-muted">Convenient appointment times including evenings and weekends to accommodate your busy schedule.</p>
+                        <p class="card-text text-muted">Convenient appointment times to accommodate your busy schedule.<br><a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank" class="text-decoration-none">Schedule an appointment</a></p>
                     </div>
                 </div>
             </div>
@@ -77,20 +77,18 @@
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <h2 class="mb-4">A Safe Space for Healing and Growth</h2>
-                <p class="lead">Every individual's journey is unique. I provide a warm, confidential environment where you can explore your thoughts and feelings without judgment.</p>
-                <p>Whether you're dealing with anxiety, life transitions, relationship challenges, or simply seeking personal growth, therapy can help you develop the tools and insights you need to thrive.</p>
+                <p class="lead">Every individual's journey is unique. I provide a thoughtful, confidential environment where you can explore your thoughts and feelings without judgment.</p>
+                <p>Whether you are facing anxiety, life changes, relationship problems, or just want to grow as a person, psychotherapy and coaching can help you gain understanding and learn tools to move forward in your life.</p>
                 <a href="{{ url_for('about') }}" class="btn btn-primary">Learn More About My Approach</a>
             </div>
             <div class="col-lg-6">
                 <div class="p-5 bg-white rounded shadow-sm">
-                    <h4 class="mb-3">Areas of Focus</h4>
+                    <h4 class="mb-3">Session Information</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Anxiety & Stress Management</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Depression & Mood Disorders</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Life Transitions & Change</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Relationship Issues</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Work-Life Balance</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Personal Growth & Self-Discovery</li>
+                        <li class="mb-2"><i class="bi bi-clock text-primary me-2"></i><strong>Duration:</strong> 50-minute sessions</li>
+                        <li class="mb-2"><i class="bi bi-calendar-week text-primary me-2"></i><strong>Frequency:</strong> Weekly or bi-weekly (as appropriate)</li>
+                        <li class="mb-2"><i class="bi bi-currency-dollar text-primary me-2"></i><strong>Rate:</strong> Contact for current rates and discounts <a href="/fees" class="text-decoration-none">(Fees page)</a></li>
+                        <li class="mb-2"><i class="bi bi-credit-card text-primary me-2"></i><strong>Insurance:</strong> Direct billing available for many providers</li>
                     </ul>
                 </div>
             </div>
@@ -136,23 +134,47 @@
 </section>
 {% endif %}
 
-<!-- Booking Section -->
-<section class="py-5" id="book-appointment">
+<!-- Comprehensive Support Section -->
+<section class="py-5" id="comprehensive-support">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="mb-4">Ready to Begin Your Journey?</h2>
-                <p class="lead mb-4">Taking the first step toward therapy is an act of courage. I'm here to support you.</p>
-                <div class="alert alert-info" role="alert">
-                    <i class="bi bi-info-circle me-2"></i>
-                    <strong>Booking System Integration Coming Soon</strong><br>
-                    For now, please use the contact form below or call us directly to schedule your appointment.
-                </div>
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg px-4">Contact Us</a>
-                    <a href="tel:{{ config.OFFICE_PHONE }}" class="btn btn-outline-primary btn-lg px-4">
-                        <i class="bi bi-telephone me-2"></i>{{ config.OFFICE_PHONE }}
-                    </a>
+            <div class="col-lg-10 mx-auto">
+                <h2 class="mb-4 text-center">Comprehensive Therapeutic Support</h2>
+                <p class="lead text-center mb-5">Every individual's journey is unique. I offer personalized therapy services to help you navigate life's challenges and achieve your goals.</p>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <h3 class="h5 mb-3">Individual Therapy</h3>
+                        <p>One-on-one therapy sessions provide a safe, confidential space to explore your thoughts, feelings, and experiences. Whether you're dealing with specific challenges or seeking general personal growth, individual therapy offers personalized support tailored to your unique needs.</p>
+
+                        <p><strong>What to expect:</strong></p>
+                        <ul>
+                            <li>Confidential, judgment-free environment</li>
+                            <li>Collaborative goal-setting</li>
+                            <li>Evidence-based therapeutic techniques</li>
+                            <li>Practical coping strategies</li>
+                            <li>Support and guidance throughout your journey</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <h4 class="card-title mb-3">Ready to Begin?</h4>
+                                <p>Taking the first step toward therapy is an act of courage. I'm here to support you.</p>
+                                <div class="d-grid gap-2">
+                                    <a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-calendar-check me-2"></i>Schedule Appointment
+                                    </a>
+                                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">
+                                        <i class="bi bi-envelope me-2"></i>Contact Me
+                                    </a>
+                                    <a href="tel:{{ config.OFFICE_PHONE }}" class="btn btn-outline-primary btn-lg">
+                                        <i class="bi bi-telephone me-2"></i>{{ config.OFFICE_PHONE }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

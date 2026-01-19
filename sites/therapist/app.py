@@ -92,6 +92,12 @@ def services():
     return render_template('services.html')
 
 
+@app.route('/faq')
+def faq():
+    """FAQ page route."""
+    return render_template('faq.html')
+
+
 @app.route('/contact', methods=['GET', 'POST'])
 @limiter.limit(app.config.get('CONTACT_FORM_RATE_LIMIT', '5 per hour'))
 def contact():

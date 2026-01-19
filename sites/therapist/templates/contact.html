@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Contact - {{ config.SITE_NAME }}{% endblock %}
+{% block title %}Contact Valery Belyanin - Toronto Psychotherapist{% endblock %}
 
-{% block meta_description %}Contact our professional psychotherapy practice in Toronto. Send us a message or call to schedule your appointment.{% endblock %}
+{% block meta_description %}Contact Valery Belyanin, Registered Psychotherapist in Toronto. Send a message or call (647) 360-8980 to schedule your appointment. Online and in-person sessions available.{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -10,8 +10,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h1 class="display-4 mb-3">Contact Us</h1>
-                <p class="lead">Get in touch to schedule an appointment or ask a question</p>
+                <h1 class="display-4 mb-3">Contact</h1>
+                <p class="lead">Get In Touch</p>
             </div>
         </div>
     </div>
@@ -23,8 +23,8 @@
         <div class="row">
             <!-- Contact Form -->
             <div class="col-lg-7 mb-5 mb-lg-0">
-                <h2 class="mb-4">Send Us a Message</h2>
-                <p class="text-muted mb-4">Fill out the form below and we'll get back to you as soon as possible. All inquiries are confidential.</p>
+                <h2 class="mb-4">Send me a Message</h2>
+                <p class="text-muted mb-4">Fill out the form below and I will get back to you as soon as possible. All inquiries are confidential.</p>
 
                 <form method="POST" action="{{ url_for('contact') }}" novalidate>
                     {{ form.hidden_tag() }}
@@ -81,7 +81,7 @@
                     <div class="mb-3">
                         <div class="form-text">
                             <i class="bi bi-shield-lock me-1"></i>
-                            Your information is confidential and will only be used to respond to your inquiry.
+                            Your information is confidential and will only be used to respond to your request.
                         </div>
                     </div>
 
@@ -102,7 +102,8 @@
                                 <i class="bi bi-telephone text-primary me-2"></i>Phone
                             </h5>
                             <p class="ms-4 mb-0">
-                                <a href="tel:{{ config.OFFICE_PHONE }}" class="text-decoration-none">{{ config.OFFICE_PHONE }}</a>
+                                <a href="tel:{{ config.OFFICE_PHONE }}" class="text-decoration-none">{{ config.OFFICE_PHONE }}</a><br>
+                                <span class="text-muted small">No SMS, calls only</span>
                             </p>
                         </div>
 
@@ -120,7 +121,7 @@
                                 <i class="bi bi-geo-alt text-primary me-2"></i>Location
                             </h5>
                             <p class="ms-4 mb-0">{{ config.OFFICE_LOCATION }}</p>
-                            <p class="ms-4 mb-0 text-muted small">Detailed address provided upon booking</p>
+                            <p class="ms-4 mb-0 text-muted small">Online since 2020. However, if you want to come in person you will be provided the address.</p>
                         </div>
 
                         <div class="mb-0">
@@ -128,11 +129,9 @@
                                 <i class="bi bi-clock text-primary me-2"></i>Office Hours
                             </h5>
                             <p class="ms-4 mb-2">
-                                <strong>Monday - Friday:</strong> 9:00 AM - 8:00 PM<br>
-                                <strong>Saturday:</strong> 10:00 AM - 4:00 PM<br>
-                                <strong>Sunday:</strong> By appointment
+                                <strong>Wednesday - Friday:</strong> 9:00 AM - 6:00 PM by appointments (<a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank">see schedule</a>)<br>
+                                <strong>Saturday-Sunday-Holidays:</strong> Days off
                             </p>
-                            <p class="ms-4 mb-0 text-muted small">Evening and weekend appointments available</p>
                         </div>
                     </div>
                 </div>
@@ -143,10 +142,10 @@
                             <i class="bi bi-info-circle text-info me-2"></i>What to Expect
                         </h5>
                         <ul class="small mb-0">
-                            <li class="mb-2">We typically respond within 24 hours on business days</li>
-                            <li class="mb-2">Initial consultations are often available within the same week</li>
-                            <li class="mb-2">Your inquiry is completely confidential</li>
-                            <li class="mb-2">No obligation - we're here to answer your questions</li>
+                            <li class="mb-2">I typically respond within 48 hours on business days</li>
+                            <li class="mb-2">Initial free consultations are usually not offered, but can be arranged on your request</li>
+                            <li class="mb-2">Your inquiry and all the session communication is completely confidential</li>
+                            <li class="mb-2">You may postpone the psychotherapy or come as often as you want</li>
                         </ul>
                     </div>
                 </div>
@@ -167,9 +166,8 @@
                         <p class="mb-2">If you are experiencing a mental health emergency or crisis, please contact:</p>
                         <ul class="mb-0">
                             <li><strong>Emergency Services:</strong> Call 911</li>
-                            <li><strong>Crisis Helpline:</strong> 1-833-456-4566 (24/7)</li>
-                            <li><strong>Kids Help Phone:</strong> 1-800-668-6868 (for youth)</li>
-                            <li><strong>Talk Suicide Canada:</strong> 1-833-456-4566</li>
+                            <li><strong>Toronto Distress Centres:</strong> 416 408-4357 or 408-HELP</li>
+                            <li><strong>Suicide Crisis Helpline:</strong> 9-8-8 toll-free, anytime</li>
                         </ul>
                     </div>
                 </div>
@@ -189,9 +187,9 @@
                         <div class="card h-100 border-0 shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <i class="bi bi-question-circle text-primary me-2"></i>Is therapy right for me?
+                                    <i class="bi bi-question-circle text-primary me-2"></i>Is psychotherapy right for me?
                                 </h5>
-                                <p class="card-text">Therapy can benefit anyone seeking support, personal growth, or help with specific challenges. A brief consultation can help determine if we're a good fit.</p>
+                                <p class="card-text">Therapy can benefit anyone seeking support, personal growth, or help with specific challenges. You will find it out as soon as you start the psychotherapy.</p>
                             </div>
                         </div>
                     </div>
@@ -200,9 +198,9 @@
                         <div class="card h-100 border-0 shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <i class="bi bi-currency-dollar text-primary me-2"></i>What about fees and insurance?
+                                    <i class="bi bi-currency-dollar text-primary me-2"></i>What are your fees?
                                 </h5>
-                                <p class="card-text">Session rates and insurance information will be discussed during your initial consultation. Many insurance plans cover psychotherapy services.</p>
+                                <p class="card-text">I have a sliding scale. For details go to <a href="/fees">Fees Page</a>. You can pay via Interac and you will get a Receipt.</p>
                             </div>
                         </div>
                     </div>
@@ -213,7 +211,7 @@
                                 <h5 class="card-title">
                                     <i class="bi bi-calendar-check text-primary me-2"></i>How do I schedule an appointment?
                                 </h5>
-                                <p class="card-text">Contact us via phone, email, or the form above. We'll schedule a brief consultation to discuss your needs and find a convenient appointment time.</p>
+                                <p class="card-text">Contact me via phone, email, or the form above. Or better go to <a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank">schedule an appointment</a>.</p>
                             </div>
                         </div>
                     </div>
