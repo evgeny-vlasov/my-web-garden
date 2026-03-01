@@ -27,7 +27,7 @@ load_dotenv()
 # Import shared modules
 from shared.base_app import create_base_app, db, limiter, login_manager, mail
 from shared.models import ContactSubmission, User, BlogPost, UploadedFile
-from shared.forms import ContactForm, LoginForm, BlogPostForm
+from shared.forms import ContactForm, LoginForm, BlogPostForm, BookingRequestForm
 from shared.email import send_contact_notification, send_contact_confirmation
 from shared.decorators import login_required as custom_login_required, admin_required, anonymous_required
 from shared.sanitizer import sanitize_html, create_excerpt
@@ -181,7 +181,7 @@ def fees():
 @app.route('/schedule', methods=['GET'])
 def schedule():
     """Display schedule page with calendar and booking form."""
-    form = ContactForm()
+    form = BookingRequestForm()
     today = datetime.now().strftime('%Y-%m-%d')
     return render_template('schedule.html', form=form, today=today)
 
@@ -190,7 +190,7 @@ def schedule():
 @limiter.limit(app.config.get('CONTACT_FORM_RATE_LIMIT', '5 per hour'))
 def schedule_request():
     """Handle booking request submission."""
-    form = ContactForm()
+    form = BookingRequestForm()
 
     if form.validate_on_submit():
         try:
@@ -198,17 +198,12 @@ def schedule_request():
             name = form.name.data
             email = form.email.data
             phone = form.phone.data or ''
-            preferred_date = request.form.get('preferred_date', '')
-            preferred_time = request.form.get('preferred_time', '')
-            alternative_date = request.form.get('alternative_date', '')
-            alternative_time = request.form.get('alternative_time', '')
-            reason = request.form.get('reason', '')
-            notes = request.form.get('notes', '')
-
-            # Validate required booking fields
-            if not preferred_date or not preferred_time:
-                flash('Please select both a preferred date and time.', 'danger')
-                return redirect(url_for('schedule'))
+            preferred_date = form.preferred_date.data.strftime('%Y-%m-%d') if form.preferred_date.data else ''
+            preferred_time = form.preferred_time.data or ''
+            alternative_date = form.alternative_date.data.strftime('%Y-%m-%d') if form.alternative_date.data else ''
+            alternative_time = form.alternative_time.data or ''
+            reason = form.reason.data or ''
+            notes = form.notes.data or ''
 
             # Send booking request email to admin
             try:

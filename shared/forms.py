@@ -5,7 +5,8 @@ Common WTForms used across WebGarden sites.
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SelectField
-from wtforms.validators import DataRequired, Email, Length, ValidationError, EqualTo
+from wtforms.fields import DateField
+from wtforms.validators import DataRequired, Email, Length, ValidationError, EqualTo, Optional
 from shared.models import User
 
 
@@ -51,6 +52,112 @@ class ContactForm(FlaskForm):
             'placeholder': 'How can we help you?',
             'class': 'form-control',
             'rows': 5
+        }
+    )
+
+
+class BookingRequestForm(FlaskForm):
+    """
+    Booking request form for appointment scheduling.
+    Used on schedule page for manual booking requests.
+    """
+    name = StringField(
+        'Name',
+        validators=[
+            DataRequired(message='Please enter your name.'),
+            Length(min=2, max=100, message='Name must be between 2 and 100 characters.')
+        ],
+        render_kw={'placeholder': 'Your Name', 'class': 'form-control'}
+    )
+
+    email = StringField(
+        'Email',
+        validators=[
+            DataRequired(message='Please enter your email address.'),
+            Email(message='Please enter a valid email address.'),
+            Length(max=120)
+        ],
+        render_kw={'placeholder': 'your.email@example.com', 'class': 'form-control'}
+    )
+
+    phone = StringField(
+        'Phone',
+        validators=[
+            Optional(),
+            Length(max=20, message='Phone number too long.')
+        ],
+        render_kw={'placeholder': '(647) 360-8980', 'class': 'form-control'}
+    )
+
+    preferred_date = DateField(
+        'Preferred Date',
+        validators=[DataRequired(message='Please select a preferred date.')],
+        render_kw={'class': 'form-control'}
+    )
+
+    preferred_time = SelectField(
+        'Preferred Time',
+        choices=[
+            ('', 'Select a time...'),
+            ('09:00', '9:00 AM'),
+            ('10:00', '10:00 AM'),
+            ('11:00', '11:00 AM'),
+            ('13:00', '1:00 PM'),
+            ('14:00', '2:00 PM'),
+            ('15:00', '3:00 PM'),
+            ('16:00', '4:00 PM'),
+            ('17:00', '5:00 PM')
+        ],
+        validators=[DataRequired(message='Please select a preferred time.')],
+        render_kw={'class': 'form-control'}
+    )
+
+    alternative_date = DateField(
+        'Alternative Date',
+        validators=[Optional()],
+        render_kw={'class': 'form-control'}
+    )
+
+    alternative_time = SelectField(
+        'Alternative Time',
+        choices=[
+            ('', 'Select a time...'),
+            ('09:00', '9:00 AM'),
+            ('10:00', '10:00 AM'),
+            ('11:00', '11:00 AM'),
+            ('13:00', '1:00 PM'),
+            ('14:00', '2:00 PM'),
+            ('15:00', '3:00 PM'),
+            ('16:00', '4:00 PM'),
+            ('17:00', '5:00 PM')
+        ],
+        validators=[Optional()],
+        render_kw={'class': 'form-control'}
+    )
+
+    reason = TextAreaField(
+        'Reason for Appointment',
+        validators=[
+            Optional(),
+            Length(max=1000, message='Reason must be less than 1000 characters.')
+        ],
+        render_kw={
+            'placeholder': 'Brief description of what you\'d like to discuss (optional)',
+            'class': 'form-control',
+            'rows': 3
+        }
+    )
+
+    notes = TextAreaField(
+        'Additional Notes',
+        validators=[
+            Optional(),
+            Length(max=1000, message='Notes must be less than 1000 characters.')
+        ],
+        render_kw={
+            'placeholder': 'Any other information I should know (optional)',
+            'class': 'form-control',
+            'rows': 2
         }
     )
 

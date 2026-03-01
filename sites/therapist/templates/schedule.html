@@ -59,77 +59,54 @@
                 {{ form.hidden_tag() }}
 
                 <div class="mb-3">
-                    {{ form.name.label(class="form-label") }}
-                    {{ form.name(class="form-control", required=True, placeholder=("Ваше Имя" if current_lang == 'ru' else "Your Name")) }}
+                    <label for="name" class="form-label">{% if current_lang == 'ru' %}Имя *{% else %}Name *{% endif %}</label>
+                    {{ form.name(class="form-control", placeholder=("Ваше Имя" if current_lang == 'ru' else "Your Name")) }}
                 </div>
 
                 <div class="mb-3">
-                    {{ form.email.label(class="form-label") }}
-                    {{ form.email(class="form-control", required=True, placeholder=("ваш.email@example.com" if current_lang == 'ru' else "your.email@example.com")) }}
+                    <label for="email" class="form-label">Email *</label>
+                    {{ form.email(class="form-control", placeholder=("ваш.email@example.com" if current_lang == 'ru' else "your.email@example.com")) }}
                 </div>
 
                 <div class="mb-3">
-                    {{ form.phone.label(class="form-label") }}
-                    {{ form.phone(class="form-control", placeholder=("(647) 360-8980" if current_lang == 'ru' else "(647) 360-8980")) }}
+                    <label for="phone" class="form-label">{% if current_lang == 'ru' %}Телефон{% else %}Phone{% endif %}</label>
+                    {{ form.phone(class="form-control", placeholder="(647) 360-8980") }}
                     <small class="form-text text-muted">{% if current_lang == 'ru' %}Необязательно - я могу позвонить для подтверждения{% else %}Optional - I may call to confirm{% endif %}</small>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="preferred_date" class="form-label">{% if current_lang == 'ru' %}Желаемая Дата *{% else %}Preferred Date *{% endif %}</label>
-                        <input type="date" class="form-control" id="preferred_date" name="preferred_date"
-                               min="{{ today }}" required>
+                        {{ form.preferred_date(class="form-control", min=today) }}
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="preferred_time" class="form-label">{% if current_lang == 'ru' %}Желаемое Время *{% else %}Preferred Time *{% endif %}</label>
-                        <select class="form-control" id="preferred_time" name="preferred_time" required>
-                            <option value="">{% if current_lang == 'ru' %}Выберите время...{% else %}Select a time...{% endif %}</option>
-                            <option value="09:00">9:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="13:00">1:00 PM</option>
-                            <option value="14:00">2:00 PM</option>
-                            <option value="15:00">3:00 PM</option>
-                            <option value="16:00">4:00 PM</option>
-                            <option value="17:00">5:00 PM</option>
-                        </select>
+                        {{ form.preferred_time(class="form-control") }}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="alternative_date" class="form-label">{% if current_lang == 'ru' %}Альтернативная Дата{% else %}Alternative Date{% endif %}</label>
-                        <input type="date" class="form-control" id="alternative_date" name="alternative_date" min="{{ today }}">
+                        {{ form.alternative_date(class="form-control", min=today) }}
                         <small class="form-text text-muted">{% if current_lang == 'ru' %}Если желаемое время недоступно{% else %}If preferred time not available{% endif %}</small>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="alternative_time" class="form-label">{% if current_lang == 'ru' %}Альтернативное Время{% else %}Alternative Time{% endif %}</label>
-                        <select class="form-control" id="alternative_time" name="alternative_time">
-                            <option value="">{% if current_lang == 'ru' %}Выберите время...{% else %}Select a time...{% endif %}</option>
-                            <option value="09:00">9:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="13:00">1:00 PM</option>
-                            <option value="14:00">2:00 PM</option>
-                            <option value="15:00">3:00 PM</option>
-                            <option value="16:00">4:00 PM</option>
-                            <option value="17:00">5:00 PM</option>
-                        </select>
+                        {{ form.alternative_time(class="form-control") }}
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="reason" class="form-label">{% if current_lang == 'ru' %}Причина Встречи{% else %}Reason for Appointment{% endif %}</label>
-                    <textarea class="form-control" id="reason" name="reason" rows="3"
-                              placeholder="{% if current_lang == 'ru' %}Краткое описание того, что вы хотели бы обсудить (необязательно){% else %}Brief description of what you'd like to discuss (optional){% endif %}"></textarea>
+                    {{ form.reason(class="form-control", rows="3", placeholder=("Краткое описание того, что вы хотели бы обсудить (необязательно)" if current_lang == 'ru' else "Brief description of what you'd like to discuss (optional)")) }}
                 </div>
 
                 <div class="mb-3">
                     <label for="notes" class="form-label">{% if current_lang == 'ru' %}Дополнительные Заметки{% else %}Additional Notes{% endif %}</label>
-                    <textarea class="form-control" id="notes" name="notes" rows="2"
-                              placeholder="{% if current_lang == 'ru' %}Любая другая информация, которую мне следует знать (необязательно){% else %}Any other information I should know (optional){% endif %}"></textarea>
+                    {{ form.notes(class="form-control", rows="2", placeholder=("Любая другая информация, которую мне следует знать (необязательно)" if current_lang == 'ru' else "Any other information I should know (optional)")) }}
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-lg">
