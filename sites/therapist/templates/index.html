@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Professional Psychotherapy Services in Toronto | Valery Belyanin, RP{% endblock %}
+{% block title %}{% if current_lang == 'ru' %}Профессиональные Психотерапевтические Услуги в Торонто | Валерий Белянин, RP{% else %}Professional Psychotherapy Services in Toronto | Valery Belyanin, RP{% endif %}{% endblock %}
 
-{% block meta_description %}Professional psychotherapy services in Toronto. A safe, confidential space for personal growth and healing. Evidence-based approaches for anxiety, stress, and life transitions.{% endblock %}
+{% block meta_description %}{% if current_lang == 'ru' %}Профессиональные психотерапевтические услуги в Торонто. Безопасное, конфиденциальное пространство для личностного роста и исцеления. Научно обоснованные подходы для работы с тревогой, стрессом и жизненными переходами.{% else %}Professional psychotherapy services in Toronto. A safe, confidential space for personal growth and healing. Evidence-based approaches for anxiety, stress, and life transitions.{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -10,12 +10,21 @@
     <div class="container py-5">
         <div class="row align-items-center">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h1 class="display-4 fw-bold mb-4">Профессиональные Психотерапевтические Услуги Онлайн</h1>
+                <p class="lead mb-4">Добро пожаловать в безопасное, конфиденциальное пространство для исцеления и личностного роста</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="/schedule" target="_blank" class="btn btn-light btn-lg px-4 gap-3">Записаться на Прием</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg px-4">Связаться</a>
+                </div>
+                {% else %}
                 <h1 class="display-4 fw-bold mb-4">Professional Psychotherapy Services Online</h1>
                 <p class="lead mb-4">Welcome to a safe, confidential space for healing and personal growth</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank" class="btn btn-light btn-lg px-4 gap-3">Book an Appointment</a>
+                    <a href="/schedule" target="_blank" class="btn btn-light btn-lg px-4 gap-3">Book an Appointment</a>
                     <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg px-4">Get in Touch</a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -26,8 +35,13 @@
     <div class="container">
         <div class="row text-center mb-5">
             <div class="col-lg-8 mx-auto">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-3">Сострадательная, Профессиональная Помощь</h2>
+                <p class="lead text-muted">Поддержка в преодолении жизненных трудностей с помощью научно обоснованных терапевтических подходов</p>
+                {% else %}
                 <h2 class="mb-3">Compassionate, Professional Care</h2>
                 <p class="lead text-muted">Supporting you through life's challenges with evidence-based therapeutic approaches</p>
+                {% endif %}
             </div>
         </div>
 
@@ -38,8 +52,13 @@
                         <div class="feature-icon bg-primary bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 4rem; height: 4rem;">
                             <i class="bi bi-person-heart fs-2"></i>
                         </div>
+                        {% if current_lang == 'ru' %}
+                        <h4 class="card-title">Индивидуальная Терапия</h4>
+                        <p class="card-text text-muted">Индивидуальные сессии, адаптированные к вашим уникальным потребностям и целям в поддерживающей, свободной от осуждения обстановке.</p>
+                        {% else %}
                         <h4 class="card-title">Individual Therapy</h4>
                         <p class="card-text text-muted">One-on-one sessions tailored to your unique needs and goals in a supportive, non-judgmental environment.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -50,8 +69,13 @@
                         <div class="feature-icon bg-success bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 4rem; height: 4rem;">
                             <i class="bi bi-clipboard-check fs-2"></i>
                         </div>
+                        {% if current_lang == 'ru' %}
+                        <h4 class="card-title">Научно Обоснованные Подходы</h4>
+                        <p class="card-text text-muted">Использование проверенных терапевтических методов, включая КПТ, осознанность и клиент-центрированные подходы.</p>
+                        {% else %}
                         <h4 class="card-title">Evidence-Based Approaches</h4>
                         <p class="card-text text-muted">Utilizing proven therapeutic methods including CBT, mindfulness, and person-centered approaches.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -62,8 +86,13 @@
                         <div class="feature-icon bg-info bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 4rem; height: 4rem;">
                             <i class="bi bi-calendar-check fs-2"></i>
                         </div>
+                        {% if current_lang == 'ru' %}
+                        <h4 class="card-title">Гибкое Расписание</h4>
+                        <p class="card-text text-muted">Удобное время приема для вашего напряженного графика.<br><a href="{{ url_for('schedule') }}" class="text-decoration-none">Записаться на прием</a></p>
+                        {% else %}
                         <h4 class="card-title">Flexible Scheduling</h4>
-                        <p class="card-text text-muted">Convenient appointment times to accommodate your busy schedule.<br><a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank" class="text-decoration-none">Schedule an appointment</a></p>
+                        <p class="card-text text-muted">Convenient appointment times to accommodate your busy schedule.<br><a href="{{ url_for('schedule') }}" class="text-decoration-none">Schedule an appointment</a></p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -76,20 +105,37 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-4">Безопасное Пространство для Исцеления и Роста</h2>
+                <p class="lead">Путь каждого человека уникален. Я предоставляю вдумчивую, конфиденциальную среду, где вы можете исследовать свои мысли и чувства без осуждения.</p>
+                <p>Независимо от того, сталкиваетесь ли вы с тревогой, жизненными изменениями, проблемами в отношениях или просто хотите расти как личность, психотерапия и коучинг могут помочь вам обрести понимание и научиться инструментам для движения вперед в вашей жизни.</p>
+                <a href="{{ url_for('about') }}" class="btn btn-primary">Узнать Больше о Моем Подходе</a>
+                {% else %}
                 <h2 class="mb-4">A Safe Space for Healing and Growth</h2>
                 <p class="lead">Every individual's journey is unique. I provide a thoughtful, confidential environment where you can explore your thoughts and feelings without judgment.</p>
                 <p>Whether you are facing anxiety, life changes, relationship problems, or just want to grow as a person, psychotherapy and coaching can help you gain understanding and learn tools to move forward in your life.</p>
                 <a href="{{ url_for('about') }}" class="btn btn-primary">Learn More About My Approach</a>
+                {% endif %}
             </div>
             <div class="col-lg-6">
                 <div class="p-5 bg-white rounded shadow-sm">
+                    {% if current_lang == 'ru' %}
+                    <h4 class="mb-3">Информация о Сессии</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-clock text-primary me-2"></i><strong>Продолжительность:</strong> 52-минутные сессии</li>
+                        <li class="mb-2"><i class="bi bi-calendar-week text-primary me-2"></i><strong>Частота:</strong> Еженедельно или раз в две недели (по мере необходимости)</li>
+                        <li class="mb-2"><i class="bi bi-currency-dollar text-primary me-2"></i><strong>Стоимость:</strong> Свяжитесь для текущих тарифов и скидок <a href="{{ url_for('fees') }}" class="text-decoration-none">(Страница цен)</a></li>
+                        <li class="mb-2"><i class="bi bi-credit-card text-primary me-2"></i><strong>Страхование:</strong> Пожалуйста, обратитесь к вашему плану расширенного медицинского страхования</li>
+                    </ul>
+                    {% else %}
                     <h4 class="mb-3">Session Information</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="bi bi-clock text-primary me-2"></i><strong>Duration:</strong> 50-minute sessions</li>
+                        <li class="mb-2"><i class="bi bi-clock text-primary me-2"></i><strong>Duration:</strong> 52-minute sessions</li>
                         <li class="mb-2"><i class="bi bi-calendar-week text-primary me-2"></i><strong>Frequency:</strong> Weekly or bi-weekly (as appropriate)</li>
-                        <li class="mb-2"><i class="bi bi-currency-dollar text-primary me-2"></i><strong>Rate:</strong> Contact for current rates and discounts <a href="/fees" class="text-decoration-none">(Fees page)</a></li>
-                        <li class="mb-2"><i class="bi bi-credit-card text-primary me-2"></i><strong>Insurance:</strong> Direct billing available for many providers</li>
+                        <li class="mb-2"><i class="bi bi-currency-dollar text-primary me-2"></i><strong>Rate:</strong> Contact for current rates and discounts <a href="{{ url_for('fees') }}" class="text-decoration-none">(Fees page)</a></li>
+                        <li class="mb-2"><i class="bi bi-credit-card text-primary me-2"></i><strong>Insurance:</strong> Please refer to you extended health benefits plan</li>
                     </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -102,8 +148,13 @@
     <div class="container">
         <div class="row mb-4">
             <div class="col-12 text-center">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-3">Последние Обновления</h2>
+                <p class="lead text-muted">Идеи и информация из моей практики</p>
+                {% else %}
                 <h2 class="mb-3">Latest Updates</h2>
                 <p class="lead text-muted">Insights and information from our practice</p>
+                {% endif %}
             </div>
         </div>
 
@@ -123,7 +174,7 @@
                             </p>
                             <p class="card-text">{{ post.excerpt }}...</p>
                             <a href="{{ url_for('view_post', slug=post.slug) }}" class="btn btn-sm btn-outline-primary">
-                                Read More <i class="bi bi-arrow-right"></i>
+                                {% if current_lang == 'ru' %}Читать Далее{% else %}Read More{% endif %} <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
                     </div>
@@ -139,6 +190,25 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-4 text-center">Всесторонняя Терапевтическая Поддержка</h2>
+                <p class="lead text-center mb-5">Путь каждого человека уникален. Я предлагаю персонализированные терапевтические услуги, чтобы помочь вам преодолеть жизненные трудности и достичь ваших целей.</p>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <h3 class="h5 mb-3">Индивидуальная Терапия</h3>
+                        <p>Индивидуальные терапевтические сессии предоставляют безопасное, конфиденциальное пространство для исследования ваших мыслей, чувств и переживаний. Независимо от того, сталкиваетесь ли вы с конкретными трудностями или ищете общий личностный рост, индивидуальная терапия предлагает персонализированную поддержку, адаптированную к вашим уникальным потребностям.</p>
+
+                        <p><strong>Что ожидать:</strong></p>
+                        <ul>
+                            <li>Конфиденциальная среда без осуждения</li>
+                            <li>Совместная постановка целей</li>
+                            <li>Научно обоснованные терапевтические техники</li>
+                            <li>Практические стратегии преодоления</li>
+                            <li>Поддержка и руководство на протяжении всего вашего пути</li>
+                        </ul>
+                    </div>
+                {% else %}
                 <h2 class="mb-4 text-center">Comprehensive Therapeutic Support</h2>
                 <p class="lead text-center mb-5">Every individual's journey is unique. I offer personalized therapy services to help you navigate life's challenges and achieve your goals.</p>
 
@@ -156,13 +226,29 @@
                             <li>Support and guidance throughout your journey</li>
                         </ul>
                     </div>
+                {% endif %}
                     <div class="col-md-6 mb-4">
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body">
+                                {% if current_lang == 'ru' %}
+                                <h4 class="card-title mb-3">Готовы Начать?</h4>
+                                <p>Сделать первый шаг к терапии - это акт мужества. Я здесь, чтобы поддержать вас.</p>
+                                <div class="d-grid gap-2">
+                                    <a href="{{ url_for('schedule') }}" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-calendar-check me-2"></i>Записаться на Прием
+                                    </a>
+                                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">
+                                        <i class="bi bi-envelope me-2"></i>Связаться со Мной
+                                    </a>
+                                    <a href="tel:{{ config.OFFICE_PHONE }}" class="btn btn-outline-primary btn-lg">
+                                        <i class="bi bi-telephone me-2"></i>{{ config.OFFICE_PHONE }}
+                                    </a>
+                                </div>
+                                {% else %}
                                 <h4 class="card-title mb-3">Ready to Begin?</h4>
                                 <p>Taking the first step toward therapy is an act of courage. I'm here to support you.</p>
                                 <div class="d-grid gap-2">
-                                    <a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank" class="btn btn-primary btn-lg">
+                                    <a href="{{ url_for('schedule') }}" class="btn btn-primary btn-lg">
                                         <i class="bi bi-calendar-check me-2"></i>Schedule Appointment
                                     </a>
                                     <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">
@@ -172,6 +258,7 @@
                                         <i class="bi bi-telephone me-2"></i>{{ config.OFFICE_PHONE }}
                                     </a>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -187,17 +274,29 @@
         <div class="row text-center g-4">
             <div class="col-md-4">
                 <i class="bi bi-geo-alt fs-1 text-primary mb-3"></i>
+                {% if current_lang == 'ru' %}
+                <h5>Местоположение</h5>
+                {% else %}
                 <h5>Location</h5>
+                {% endif %}
                 <p class="text-muted">{{ config.OFFICE_LOCATION }}</p>
             </div>
             <div class="col-md-4">
                 <i class="bi bi-telephone fs-1 text-primary mb-3"></i>
+                {% if current_lang == 'ru' %}
+                <h5>Телефон</h5>
+                {% else %}
                 <h5>Phone</h5>
+                {% endif %}
                 <p class="text-muted"><a href="tel:{{ config.OFFICE_PHONE }}" class="text-decoration-none">{{ config.OFFICE_PHONE }}</a></p>
             </div>
             <div class="col-md-4">
                 <i class="bi bi-envelope fs-1 text-primary mb-3"></i>
+                {% if current_lang == 'ru' %}
+                <h5>Эл. Почта</h5>
+                {% else %}
                 <h5>Email</h5>
+                {% endif %}
                 <p class="text-muted"><a href="mailto:{{ config.OFFICE_EMAIL }}" class="text-decoration-none">{{ config.OFFICE_EMAIL }}</a></p>
             </div>
         </div>
@@ -209,4 +308,4 @@
 {% include 'bot_widget.html' %}
 {% endblock %}
 
-{% block footer_tagline %}Professional psychotherapy services in Toronto{% endblock %}
+{% block footer_tagline %}{% if current_lang == 'ru' %}Профессиональные психотерапевтические услуги в Торонто{% else %}Professional psychotherapy services in Toronto{% endif %}{% endblock %}

@@ -6,15 +6,17 @@ Main application file for the professional psychotherapy website.
 import os
 import sys
 from datetime import datetime
+from pathlib import Path
 from werkzeug.utils import secure_filename
 from slugify import slugify
+import markdown
 
 # Add parent directories to Python path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from shared.base_app import csrf
 
-from flask import render_template, request, flash, redirect, url_for, jsonify, abort
+from flask import render_template, request, flash, redirect, url_for, jsonify, abort, session
 from flask_login import login_user, logout_user, current_user, login_required
 from dotenv import load_dotenv
 
@@ -32,12 +34,31 @@ from shared.image_handler import save_image, allowed_file
 from sites.therapist.config import config
 from sites.therapist.cli import register_cli_commands
 
+# Additional imports for page editing
+from flask_wtf import FlaskForm
+from wtforms import TextAreaField
+from wtforms.validators import DataRequired
+
 # Create Flask application
 config_name = os.getenv('FLASK_ENV', 'production')
 app = create_base_app('therapist', config[config_name])
 
 # Register CLI commands
 register_cli_commands(app)
+
+
+# ============================================================================
+# FORMS
+# ============================================================================
+
+class PageEditForm(FlaskForm):
+    """Form for editing markdown pages"""
+    content = TextAreaField('Content', validators=[DataRequired()])
+
+
+# ============================================================================
+# FLASK-LOGIN SETUP
+# ============================================================================
 
 # User loader for Flask-Login
 @login_manager.user_loader
@@ -53,12 +74,30 @@ def inject_globals():
     if current_user.is_authenticated:
         unread_count = ContactSubmission.query.filter_by(status='new').count()
 
+    # Get current language from session, default to English
+    current_lang = session.get('lang', 'en')
+
     return {
         'current_year': datetime.now().year,
         'site_name': app.config['SITE_NAME'],
         'site_tagline': app.config['SITE_TAGLINE'],
-        'unread_contacts_count': unread_count
+        'unread_contacts_count': unread_count,
+        'current_lang': current_lang
     }
+
+
+# ============================================================================
+# LANGUAGE SWITCHING
+# ============================================================================
+
+@app.route('/set-language/<lang>')
+def set_language(lang):
+    """Set the user's preferred language"""
+    if lang in ['en', 'ru']:
+        session['lang'] = lang
+        session.permanent = True  # Make session persistent
+    # Redirect back to the referring page or home
+    return redirect(request.referrer or url_for('index'))
 
 
 # ============================================================================
@@ -67,17 +106,8 @@ def inject_globals():
 
 @app.route('/')
 def index():
-    """Home page route with recent blog posts."""
-    # Get 3 most recent published blog posts
-    recent_posts = BlogPost.query.filter_by(visible=True).filter(
-        BlogPost.published_at.isnot(None)
-    ).order_by(BlogPost.published_at.desc()).limit(3).all()
-
-    # Add excerpts to posts
-    for post in recent_posts:
-        post.excerpt = create_excerpt(post.content, 150)
-
-    return render_template('index.html', recent_posts=recent_posts)
+    """Redirect homepage to schedule page."""
+    return redirect(url_for('schedule'), code=302)
 
 
 @app.route('/about')
@@ -96,6 +126,61 @@ def services():
 def faq():
     """FAQ page route."""
     return render_template('faq.html')
+
+
+# ============================================================================
+# MARKDOWN PAGE ROUTES
+# ============================================================================
+
+def render_markdown_page(filename):
+    """Render a markdown file as HTML page"""
+    content_dir = Path(app.root_path) / 'content'
+
+    # Check for language-specific version
+    current_lang = session.get('lang', 'en')
+    if current_lang == 'ru':
+        # Try Russian version first
+        base_name = filename.replace('.md', '')
+        ru_filename = f"{base_name}_ru.md"
+        ru_file_path = content_dir / ru_filename
+
+        if ru_file_path.exists():
+            file_path = ru_file_path
+        else:
+            file_path = content_dir / filename
+    else:
+        file_path = content_dir / filename
+
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            md_content = f.read()
+
+        # Convert markdown to HTML
+        html_content = markdown.markdown(
+            md_content,
+            extensions=['extra', 'nl2br', 'sane_lists']
+        )
+
+        return render_template('markdown_page.html',
+                             content=html_content,
+                             title=filename.replace('.md', '').title())
+    except FileNotFoundError:
+        abort(404)
+    except Exception as e:
+        app.logger.error(f"Error rendering {filename}: {str(e)}")
+        abort(500)
+
+
+@app.route('/fees')
+def fees():
+    """Display fees page from markdown"""
+    return render_markdown_page('fees.md')
+
+
+@app.route('/schedule')
+def schedule():
+    """Display schedule page from markdown"""
+    return render_markdown_page('schedule.md')
 
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -245,7 +330,7 @@ def admin_posts_list():
         query = query.filter_by(visible=False)
 
     # Paginate results
-    posts = query.order_by(BlogPost.updated_at.desc()).paginate(
+    pagination = query.order_by(BlogPost.updated_at.desc()).paginate(
         page=page,
         per_page=20,
         error_out=False
@@ -260,7 +345,8 @@ def admin_posts_list():
 
     return render_template(
         'admin/posts_list.html',
-        posts=posts,
+        posts=pagination,
+        pagination=pagination,
         counts=counts,
         status_filter=status_filter,
         endpoint='admin_posts_list',
@@ -484,6 +570,74 @@ def admin_contact_update_notes(contact_id):
         db.session.rollback()
         app.logger.error(f'Error updating contact notes: {str(e)}')
         return jsonify({'success': False, 'error': str(e)}), 500
+
+
+# ============================================================================
+# ADMIN PAGE EDITOR ROUTES
+# ============================================================================
+
+@app.route('/admin/pages')
+@custom_login_required
+def admin_edit_pages():
+    """Admin page editor"""
+    content_dir = Path(app.root_path) / 'content'
+
+    # Read current content
+    fees_content = ''
+    schedule_content = ''
+
+    try:
+        with open(content_dir / 'fees.md', 'r', encoding='utf-8') as f:
+            fees_content = f.read()
+    except FileNotFoundError:
+        pass
+
+    try:
+        with open(content_dir / 'schedule.md', 'r', encoding='utf-8') as f:
+            schedule_content = f.read()
+    except FileNotFoundError:
+        pass
+
+    # Create forms with current content
+    fees_form = PageEditForm()
+    fees_form.content.data = fees_content
+
+    schedule_form = PageEditForm()
+    schedule_form.content.data = schedule_content
+
+    return render_template('admin/edit_pages.html',
+                         fees_form=fees_form,
+                         schedule_form=schedule_form)
+
+
+@app.route('/admin/pages/<page>', methods=['POST'])
+@custom_login_required
+def admin_edit_page(page):
+    """Save edited page content"""
+    if page not in ['fees', 'schedule']:
+        abort(404)
+
+    form = PageEditForm()
+
+    if form.validate_on_submit():
+        content_dir = Path(app.root_path) / 'content'
+        content_dir.mkdir(exist_ok=True)
+
+        file_path = content_dir / f'{page}.md'
+
+        try:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(form.content.data)
+
+            flash(f'{page.title()} page updated successfully!', 'success')
+            app.logger.info(f"Page {page}.md updated by {current_user.username}")
+        except Exception as e:
+            flash(f'Error saving page: {str(e)}', 'danger')
+            app.logger.error(f"Error saving {page}.md: {str(e)}")
+    else:
+        flash('Invalid form submission', 'danger')
+
+    return redirect(url_for('admin_edit_pages'))
 
 
 # ============================================================================

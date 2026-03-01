@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Contact Valery Belyanin - Toronto Psychotherapist{% endblock %}
+{% block title %}{% if current_lang == 'ru' %}Связаться с Валерием Беляниным - Психотерапевт в Торонто{% else %}Contact Valery Belyanin - Toronto Psychotherapist{% endif %}{% endblock %}
 
-{% block meta_description %}Contact Valery Belyanin, Registered Psychotherapist in Toronto. Send a message or call (647) 360-8980 to schedule your appointment. Online and in-person sessions available.{% endblock %}
+{% block meta_description %}{% if current_lang == 'ru' %}Свяжитесь с Валерием Беляниным, зарегистрированным психотерапевтом в Торонто. Отправьте сообщение или позвоните (647) 360-8980, чтобы записаться на прием. Доступны онлайн и очные сессии.{% else %}Contact Valery Belyanin, Registered Psychotherapist in Toronto. Send a message or call (647) 360-8980 to schedule your appointment. Online and in-person sessions available.{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -10,8 +10,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h1 class="display-4 mb-3">Контакты</h1>
+                <p class="lead">Свяжитесь со Мной</p>
+                {% else %}
                 <h1 class="display-4 mb-3">Contact</h1>
                 <p class="lead">Get In Touch</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -23,8 +28,13 @@
         <div class="row">
             <!-- Contact Form -->
             <div class="col-lg-7 mb-5 mb-lg-0">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-4">Отправить Мне Сообщение</h2>
+                <p class="text-muted mb-4">Заполните форму ниже, и я свяжусь с вами как можно скорее. Все запросы конфиденциальны.</p>
+                {% else %}
                 <h2 class="mb-4">Send me a Message</h2>
                 <p class="text-muted mb-4">Fill out the form below and I will get back to you as soon as possible. All inquiries are confidential.</p>
+                {% endif %}
 
                 <form method="POST" action="{{ url_for('contact') }}" novalidate>
                     {{ form.hidden_tag() }}
@@ -63,7 +73,7 @@
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        <div class="form-text">Optional - we'll only use this if you prefer phone contact</div>
+                        <div class="form-text">{% if current_lang == 'ru' %}Необязательно - мы будем использовать это только если вы предпочитаете связь по телефону{% else %}Optional - we'll only use this if you prefer phone contact{% endif %}</div>
                     </div>
 
                     <div class="mb-3">
@@ -81,12 +91,16 @@
                     <div class="mb-3">
                         <div class="form-text">
                             <i class="bi bi-shield-lock me-1"></i>
+                            {% if current_lang == 'ru' %}
+                            Ваша информация конфиденциальна и будет использоваться только для ответа на ваш запрос.
+                            {% else %}
                             Your information is confidential and will only be used to respond to your request.
+                            {% endif %}
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="bi bi-send me-2"></i>Send Message
+                        <i class="bi bi-send me-2"></i>{% if current_lang == 'ru' %}Отправить Сообщение{% else %}Send Message{% endif %}
                     </button>
                 </form>
             </div>
@@ -95,6 +109,46 @@
             <div class="col-lg-5">
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body p-4">
+                        {% if current_lang == 'ru' %}
+                        <h3 class="card-title mb-4">Свяжитесь со Мной</h3>
+
+                        <div class="mb-4">
+                            <h5 class="mb-2">
+                                <i class="bi bi-telephone text-primary me-2"></i>Телефон
+                            </h5>
+                            <p class="ms-4 mb-0">
+                                <a href="tel:{{ config.OFFICE_PHONE }}" class="text-decoration-none">{{ config.OFFICE_PHONE }}</a><br>
+                                <span class="text-muted small">Без SMS, только звонки</span>
+                            </p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="mb-2">
+                                <i class="bi bi-envelope text-primary me-2"></i>Эл. Почта
+                            </h5>
+                            <p class="ms-4 mb-0">
+                                <a href="mailto:{{ config.OFFICE_EMAIL }}" class="text-decoration-none">{{ config.OFFICE_EMAIL }}</a>
+                            </p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="mb-2">
+                                <i class="bi bi-geo-alt text-primary me-2"></i>Местоположение
+                            </h5>
+                            <p class="ms-4 mb-0">{{ config.OFFICE_LOCATION }}</p>
+                            <p class="ms-4 mb-0 text-muted small">Онлайн с 2020 года. Однако, если вы хотите прийти лично, вам будет предоставлен адрес.</p>
+                        </div>
+
+                        <div class="mb-0">
+                            <h5 class="mb-2">
+                                <i class="bi bi-clock text-primary me-2"></i>Часы Работы
+                            </h5>
+                            <p class="ms-4 mb-2">
+                                <strong>Среда - Пятница:</strong> 9:00 - 18:00 по записи (<a href="/schedule" target="_blank">см. расписание</a>)<br>
+                                <strong>Суббота-Воскресенье-Праздники:</strong> Выходные дни
+                            </p>
+                        </div>
+                        {% else %}
                         <h3 class="card-title mb-4">Get in Touch</h3>
 
                         <div class="mb-4">
@@ -129,15 +183,27 @@
                                 <i class="bi bi-clock text-primary me-2"></i>Office Hours
                             </h5>
                             <p class="ms-4 mb-2">
-                                <strong>Wednesday - Friday:</strong> 9:00 AM - 6:00 PM by appointments (<a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank">see schedule</a>)<br>
+                                <strong>Wednesday - Friday:</strong> 9:00 AM - 6:00 PM by appointments (<a href="/schedule" target="_blank">see schedule</a>)<br>
                                 <strong>Saturday-Sunday-Holidays:</strong> Days off
                             </p>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
 
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4 bg-light">
+                        {% if current_lang == 'ru' %}
+                        <h5 class="card-title mb-3">
+                            <i class="bi bi-info-circle text-info me-2"></i>Чего Ожидать
+                        </h5>
+                        <ul class="small mb-0">
+                            <li class="mb-2">Обычно я отвечаю в течение 48 часов в рабочие дни</li>
+                            <li class="mb-2">Первичные бесплатные консультации обычно не предлагаются, но могут быть организованы по вашему запросу</li>
+                            <li class="mb-2">Ваш запрос и вся коммуникация сессии полностью конфиденциальны</li>
+                            <li class="mb-2">Вы можете отложить психотерапию или приходить так часто, как хотите</li>
+                        </ul>
+                        {% else %}
                         <h5 class="card-title mb-3">
                             <i class="bi bi-info-circle text-info me-2"></i>What to Expect
                         </h5>
@@ -147,6 +213,7 @@
                             <li class="mb-2">Your inquiry and all the session communication is completely confidential</li>
                             <li class="mb-2">You may postpone the psychotherapy or come as often as you want</li>
                         </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -162,6 +229,15 @@
                 <div class="d-flex align-items-start">
                     <i class="bi bi-exclamation-triangle-fill text-danger fs-3 me-3 flex-shrink-0"></i>
                     <div>
+                        {% if current_lang == 'ru' %}
+                        <h5 class="text-danger mb-2">Кризисная Поддержка</h5>
+                        <p class="mb-2">Если вы переживаете чрезвычайную ситуацию или кризис психического здоровья, пожалуйста, свяжитесь:</p>
+                        <ul class="mb-0">
+                            <li><strong>Экстренные Службы:</strong> Звоните 911</li>
+                            <li><strong>Центры Помощи в Торонто:</strong> 416 408-4357 или 408-HELP</li>
+                            <li><strong>Линия Помощи при Суициде:</strong> 9-8-8 бесплатно, в любое время</li>
+                        </ul>
+                        {% else %}
                         <h5 class="text-danger mb-2">Crisis Support</h5>
                         <p class="mb-2">If you are experiencing a mental health emergency or crisis, please contact:</p>
                         <ul class="mb-0">
@@ -169,6 +245,7 @@
                             <li><strong>Toronto Distress Centres:</strong> 416 408-4357 or 408-HELP</li>
                             <li><strong>Suicide Crisis Helpline:</strong> 9-8-8 toll-free, anytime</li>
                         </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -181,6 +258,54 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto">
+                {% if current_lang == 'ru' %}
+                <h3 class="mb-4 text-center">Часто Задаваемые Вопросы</h3>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-question-circle text-primary me-2"></i>Подходит ли мне психотерапия?
+                                </h5>
+                                <p class="card-text">Терапия может принести пользу любому, кто ищет поддержку, личностный рост или помощь с конкретными проблемами. Вы узнаете это, как только начнете психотерапию.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-currency-dollar text-primary me-2"></i>Какова стоимость?
+                                </h5>
+                                <p class="card-text">У меня скользящая шкала. Для деталей перейдите на <a href="{{ url_for('fees') }}">Страницу Цен</a>. Вы можете платить через Interac и получите квитанцию.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-calendar-check text-primary me-2"></i>Как записаться на прием?
+                                </h5>
+                                <p class="card-text">Свяжитесь со мной по телефону, электронной почте или через форму выше. Или лучше перейдите на <a href="/schedule" target="_blank">запись на прием</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-shield-check text-primary me-2"></i>Конфиденциальна ли моя информация?
+                                </h5>
+                                <p class="card-text">Да, вся коммуникация и терапевтические сессии конфиденциальны и защищены профессиональной этикой и законами о конфиденциальности.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
                 <h3 class="mb-4 text-center">Frequently Asked Questions</h3>
                 <div class="row g-4">
                     <div class="col-md-6">
@@ -200,7 +325,7 @@
                                 <h5 class="card-title">
                                     <i class="bi bi-currency-dollar text-primary me-2"></i>What are your fees?
                                 </h5>
-                                <p class="card-text">I have a sliding scale. For details go to <a href="/fees">Fees Page</a>. You can pay via Interac and you will get a Receipt.</p>
+                                <p class="card-text">I have a sliding scale. For details go to <a href="{{ url_for('fees') }}">Fees Page</a>. You can pay via Interac and you will get a Receipt.</p>
                             </div>
                         </div>
                     </div>
@@ -211,7 +336,7 @@
                                 <h5 class="card-title">
                                     <i class="bi bi-calendar-check text-primary me-2"></i>How do I schedule an appointment?
                                 </h5>
-                                <p class="card-text">Contact me via phone, email, or the form above. Or better go to <a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank">schedule an appointment</a>.</p>
+                                <p class="card-text">Contact me via phone, email, or the form above. Or better go to <a href="/schedule" target="_blank">schedule an appointment</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -227,6 +352,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
