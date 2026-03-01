@@ -63,6 +63,7 @@ class ContactSubmission(db.Model):
     submitted_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False, index=True)
     status = db.Column(db.String(20), default='new')  # new, read, responded
     notes = db.Column(db.Text)
+    is_spam = db.Column(db.Boolean, default=False, index=True)
 
     def mark_as_read(self):
         """Mark submission as read."""
@@ -73,6 +74,16 @@ class ContactSubmission(db.Model):
     def mark_as_responded(self):
         """Mark submission as responded."""
         self.status = 'responded'
+        db.session.commit()
+
+    def mark_as_spam(self):
+        """Mark submission as spam."""
+        self.is_spam = True
+        db.session.commit()
+
+    def mark_as_not_spam(self):
+        """Mark submission as not spam."""
+        self.is_spam = False
         db.session.commit()
 
     def __repr__(self):

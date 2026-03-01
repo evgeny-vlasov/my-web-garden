@@ -13,33 +13,55 @@
         </div>
     </div>
 
-    <!-- Filter Tabs -->
+    <!-- Spam/Inbox Filter -->
+    <div class="card border-0 shadow-sm mb-3">
+        <div class="card-body">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link {% if not show_spam %}active{% endif %}" href="{{ url_for('admin_contacts_list', show='inbox') }}">
+                        <i class="bi bi-inbox me-1"></i>Inbox
+                        <span class="badge bg-primary ms-1">{{ counts.inbox }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if show_spam %}active{% endif %}" href="{{ url_for('admin_contacts_list', show='spam') }}">
+                        <i class="bi bi-trash me-1"></i>Spam
+                        <span class="badge bg-secondary ms-1">{{ counts.spam }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Status Filter Tabs (only show for inbox) -->
+    {% if not show_spam %}
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link {% if not status_filter %}active{% endif %}" href="{{ url_for('admin_contacts_list') }}">
-                        All <span class="badge bg-secondary ms-1">{{ counts.all }}</span>
+                    <a class="nav-link {% if not status_filter %}active{% endif %}" href="{{ url_for('admin_contacts_list', show='inbox') }}">
+                        All <span class="badge bg-secondary ms-1">{{ counts.inbox }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if status_filter == 'new' %}active{% endif %}" href="{{ url_for('admin_contacts_list', status='new') }}">
+                    <a class="nav-link {% if status_filter == 'new' %}active{% endif %}" href="{{ url_for('admin_contacts_list', show='inbox', status='new') }}">
                         New <span class="badge bg-danger ms-1">{{ counts.new }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if status_filter == 'read' %}active{% endif %}" href="{{ url_for('admin_contacts_list', status='read') }}">
+                    <a class="nav-link {% if status_filter == 'read' %}active{% endif %}" href="{{ url_for('admin_contacts_list', show='inbox', status='read') }}">
                         Read <span class="badge bg-info ms-1">{{ counts.read }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if status_filter == 'responded' %}active{% endif %}" href="{{ url_for('admin_contacts_list', status='responded') }}">
+                    <a class="nav-link {% if status_filter == 'responded' %}active{% endif %}" href="{{ url_for('admin_contacts_list', show='inbox', status='responded') }}">
                         Responded <span class="badge bg-success ms-1">{{ counts.responded }}</span>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
+    {% endif %}
 
     <!-- Contacts List -->
     {% if contacts.items %}
@@ -97,9 +119,31 @@
                                     {% endif %}
                                 </td>
                                 <td class="text-end">
-                                    <button type="button" class="btn btn-sm btn-primary" onclick="viewContact({{ contact.id }})">
-                                        <i class="bi bi-eye"></i> View
-                                    </button>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-primary" onclick="viewContact({{ contact.id }})">
+                                            <i class="bi bi-eye"></i> View
+                                        </button>
+
+                                        <!-- Toggle Spam Button -->
+                                        <form method="POST" action="{{ url_for('admin_contact_toggle_spam', contact_id=contact.id) }}" style="display: inline;">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn {% if contact.is_spam %}btn-success{% else %}btn-warning{% endif %}" title="{% if contact.is_spam %}Mark as Not Spam{% else %}Mark as Spam{% endif %}">
+                                                {% if contact.is_spam %}
+                                                    <i class="bi bi-check-circle"></i> Not Spam
+                                                {% else %}
+                                                    <i class="bi bi-exclamation-triangle"></i> Spam
+                                                {% endif %}
+                                            </button>
+                                        </form>
+
+                                        <!-- Delete Button -->
+                                        <form method="POST" action="{{ url_for('admin_contact_delete', contact_id=contact.id) }}" style="display: inline;" onsubmit="return confirm('Delete this message permanently? This cannot be undone.');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-danger" title="Delete permanently">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         {% endfor %}

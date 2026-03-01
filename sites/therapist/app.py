@@ -480,8 +480,17 @@ def admin_contacts_list():
     """List all contact submissions with filtering."""
     page = request.args.get('page', 1, type=int)
     status_filter = request.args.get('status', None)
+    spam_filter = request.args.get('show', 'inbox')  # inbox or spam
 
     query = ContactSubmission.query
+
+    # Apply spam filter first
+    if spam_filter == 'spam':
+        query = query.filter_by(is_spam=True)
+        show_spam = True
+    else:
+        query = query.filter_by(is_spam=False)
+        show_spam = False
 
     # Apply status filter
     if status_filter:
@@ -497,9 +506,11 @@ def admin_contacts_list():
     # Get counts for filter tabs
     counts = {
         'all': ContactSubmission.query.count(),
-        'new': ContactSubmission.query.filter_by(status='new').count(),
-        'read': ContactSubmission.query.filter_by(status='read').count(),
-        'responded': ContactSubmission.query.filter_by(status='responded').count()
+        'inbox': ContactSubmission.query.filter_by(is_spam=False).count(),
+        'spam': ContactSubmission.query.filter_by(is_spam=True).count(),
+        'new': ContactSubmission.query.filter_by(status='new', is_spam=False).count(),
+        'read': ContactSubmission.query.filter_by(status='read', is_spam=False).count(),
+        'responded': ContactSubmission.query.filter_by(status='responded', is_spam=False).count()
     }
 
     return render_template(
@@ -507,6 +518,8 @@ def admin_contacts_list():
         contacts=contacts,
         counts=counts,
         status_filter=status_filter,
+        spam_filter=spam_filter,
+        show_spam=show_spam,
         endpoint='admin_contacts_list',
         kwargs={}
     )
@@ -570,6 +583,51 @@ def admin_contact_update_notes(contact_id):
         db.session.rollback()
         app.logger.error(f'Error updating contact notes: {str(e)}')
         return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/admin/contacts/<int:contact_id>/toggle-spam', methods=['POST'])
+@custom_login_required
+def admin_contact_toggle_spam(contact_id):
+    """Toggle spam status of contact submission."""
+    contact = ContactSubmission.query.get_or_404(contact_id)
+
+    try:
+        # Toggle spam flag
+        contact.is_spam = not contact.is_spam
+        db.session.commit()
+
+        action = 'marked as spam' if contact.is_spam else 'marked as not spam'
+        app.logger.info(f'Contact {contact_id} {action} by {current_user.username}')
+
+        flash(f'Message {action}', 'success')
+        return redirect(url_for('admin_contacts_list'))
+    except Exception as e:
+        db.session.rollback()
+        app.logger.error(f'Error toggling spam status: {str(e)}')
+        flash('Error updating spam status', 'error')
+        return redirect(url_for('admin_contacts_list'))
+
+
+@app.route('/admin/contacts/<int:contact_id>/delete', methods=['POST'])
+@custom_login_required
+def admin_contact_delete(contact_id):
+    """Delete contact submission permanently."""
+    contact = ContactSubmission.query.get_or_404(contact_id)
+
+    try:
+        # Log before deleting
+        app.logger.info(f'Contact {contact_id} deleted by {current_user.username}: {contact.name} ({contact.email})')
+
+        db.session.delete(contact)
+        db.session.commit()
+
+        flash('Message deleted permanently', 'success')
+        return redirect(url_for('admin_contacts_list'))
+    except Exception as e:
+        db.session.rollback()
+        app.logger.error(f'Error deleting contact: {str(e)}')
+        flash('Error deleting message', 'error')
+        return redirect(url_for('admin_contacts_list'))
 
 
 # ============================================================================
