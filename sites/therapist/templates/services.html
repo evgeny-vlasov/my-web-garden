@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Psychotherapy Services - Anxiety, Depression, Relationships | Toronto{% endblock %}
+{% block title %}{% if current_lang == 'ru' %}Психотерапевтические Услуги - Тревога, Депрессия, Отношения | Торонто{% else %}Psychotherapy Services - Anxiety, Depression, Relationships | Toronto{% endif %}{% endblock %}
 
-{% block meta_description %}Professional psychotherapy services including individual therapy, anxiety treatment, depression support, relationship counseling, and stress management. Toronto-based practice.{% endblock %}
+{% block meta_description %}{% if current_lang == 'ru' %}Профессиональные психотерапевтические услуги, включая индивидуальную терапию, лечение тревоги, поддержку при депрессии, консультирование по отношениям и управление стрессом. Практика в Торонто.{% else %}Professional psychotherapy services including individual therapy, anxiety treatment, depression support, relationship counseling, and stress management. Toronto-based practice.{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -10,8 +10,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h1 class="display-4 mb-3">Услуги</h1>
+                <p class="lead">Профессиональные психотерапевтические услуги, адаптированные к вашим потребностям</p>
+                {% else %}
                 <h1 class="display-4 mb-3">Services</h1>
                 <p class="lead">Professional psychotherapy services tailored to your needs</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -22,8 +27,13 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-4">Всесторонняя Терапевтическая Поддержка</h2>
+                <p class="lead text-muted">Путь каждого человека уникален. Я предлагаю персонализированные терапевтические услуги, чтобы помочь вам преодолеть жизненные трудности и достичь ваших целей.</p>
+                {% else %}
                 <h2 class="mb-4">Comprehensive Therapeutic Support</h2>
                 <p class="lead text-muted">Every individual's journey is unique. I offer personalized therapy services to help you navigate life's challenges and achieve your goals.</p>
+                {% endif %}
             </div>
         </div>
 
@@ -33,6 +43,18 @@
                 <div class="service-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 4rem; height: 4rem;">
                     <i class="bi bi-person-heart fs-2"></i>
                 </div>
+                {% if current_lang == 'ru' %}
+                <h3 class="mb-3">Индивидуальная Терапия</h3>
+                <p>Индивидуальные терапевтические сессии предоставляют безопасное, конфиденциальное пространство для исследования ваших мыслей, чувств и переживаний. Независимо от того, сталкиваетесь ли вы с конкретными трудностями или ищете общий личностный рост, индивидуальная терапия предлагает персонализированную поддержку, адаптированную к вашим уникальным потребностям.</p>
+                <p><strong>Что ожидать:</strong></p>
+                <ul>
+                    <li>Конфиденциальная среда без осуждения</li>
+                    <li>Совместная постановка целей</li>
+                    <li>Научно обоснованные терапевтические техники</li>
+                    <li>Практические стратегии преодоления</li>
+                    <li>Поддержка и руководство на протяжении всего вашего пути</li>
+                </ul>
+                {% else %}
                 <h3 class="mb-3">Individual Therapy</h3>
                 <p>One-on-one therapy sessions provide a safe, confidential space to explore your thoughts, feelings, and experiences. Whether you're dealing with specific challenges or seeking general personal growth, individual therapy offers personalized support tailored to your unique needs.</p>
                 <p><strong>What to expect:</strong></p>
@@ -43,16 +65,17 @@
                     <li>Practical coping strategies</li>
                     <li>Support and guidance throughout your journey</li>
                 </ul>
+                {% endif %}
             </div>
             <div class="col-lg-6">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4">
                         <h5 class="card-title mb-3">Session Information</h5>
                         <ul class="list-unstyled">
-                            <li class="mb-2"><i class="bi bi-clock text-primary me-2"></i><strong>Duration:</strong> 50-minute sessions</li>
+                            <li class="mb-2"><i class="bi bi-clock text-primary me-2"></i><strong>Duration:</strong> 52-minute sessions</li>
                             <li class="mb-2"><i class="bi bi-calendar-week text-primary me-2"></i><strong>Frequency:</strong> Weekly or bi-weekly (as appropriate)</li>
-                            <li class="mb-2"><i class="bi bi-currency-dollar text-primary me-2"></i><strong>Rate:</strong> Contact for current rates</li>
-                            <li class="mb-2"><i class="bi bi-credit-card text-primary me-2"></i><strong>Insurance:</strong> Direct billing available for many providers</li>
+                            <li class="mb-2"><i class="bi bi-currency-dollar text-primary me-2"></i><strong>Rate:</strong> Contact for current rates and discounts <a href="{{ url_for('fees') }}" class="text-decoration-none">(Fees page)</a></li>
+                            <li class="mb-2"><i class="bi bi-credit-card text-primary me-2"></i><strong>Insurance:</strong> Please refer to you extended health benefits plan</li>
                         </ul>
                     </div>
                 </div>
@@ -64,7 +87,11 @@
 <!-- Areas of Focus -->
 <section class="py-5 bg-light">
     <div class="container">
+        {% if current_lang == 'ru' %}
+        <h2 class="text-center mb-5">Области Специализации</h2>
+        {% else %}
         <h2 class="text-center mb-5">Areas of Focus</h2>
+        {% endif %}
 
         <div class="row g-4">
             <!-- Anxiety & Stress -->
@@ -76,10 +103,18 @@
                                 <i class="bi bi-exclamation-triangle fs-5"></i>
                             </div>
                             <div>
+                                {% if current_lang == 'ru' %}
+                                <h4 class="card-title mb-2">Управление Тревогой и Стрессом</h4>
+                                {% else %}
                                 <h4 class="card-title mb-2">Anxiety & Stress Management</h4>
+                                {% endif %}
                             </div>
                         </div>
+                        {% if current_lang == 'ru' %}
+                        <p class="card-text">Поддержка при генерализованной тревоге, панических атаках, социальной тревоге и хроническом стрессе. Изучите эффективные стратегии преодоления, чтобы управлять беспокойством и уменьшить влияние тревоги на вашу жизнь.</p>
+                        {% else %}
                         <p class="card-text">Support for generalized anxiety, panic attacks, social anxiety, and chronic stress. Learn effective coping strategies to manage worry and reduce anxiety's impact on your life.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -93,27 +128,43 @@
                                 <i class="bi bi-cloud-rain fs-5"></i>
                             </div>
                             <div>
+                                {% if current_lang == 'ru' %}
+                                <h4 class="card-title mb-2">Поддержка при Депрессии и Настроении</h4>
+                                {% else %}
                                 <h4 class="card-title mb-2">Depression & Mood Support</h4>
+                                {% endif %}
                             </div>
                         </div>
+                        {% if current_lang == 'ru' %}
+                        <p class="card-text">Помощь с подавленным настроением, отсутствием мотивации и эмоциональными трудностями. Работайте над депрессией с сострадательной поддержкой и научно обоснованными терапевтическими подходами.</p>
+                        {% else %}
                         <p class="card-text">Help with low mood, lack of motivation, and emotional difficulties. Work through depression with compassionate support and evidence-based therapeutic approaches.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
 
-            <!-- Life Transitions -->
+            <!-- Issues with the Law -->
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-start mb-3">
-                            <div class="service-icon-small bg-success text-white rounded me-3 d-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem; flex-shrink: 0;">
-                                <i class="bi bi-arrow-right-circle fs-5"></i>
+                            <div class="service-icon-small bg-warning text-white rounded me-3 d-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem; flex-shrink: 0;">
+                                <i class="bi bi-shield-exclamation fs-5"></i>
                             </div>
                             <div>
-                                <h4 class="card-title mb-2">Life Transitions</h4>
+                                {% if current_lang == 'ru' %}
+                                <h4 class="card-title mb-2">Проблемы с законом</h4>
+                                {% else %}
+                                <h4 class="card-title mb-2">Issues with the Law</h4>
+                                {% endif %}
                             </div>
                         </div>
-                        <p class="card-text">Navigate major life changes including job conflicts, career shifts, relationship changes, relocation, migration, or other significant life events with guided support.</p>
+                        {% if current_lang == 'ru' %}
+                        <p class="card-text">Если у вас есть проблемы с законом (домашнее насилие, вождение в нетрезвом виде, кража на сумму менее $5000, эксгибиционизм, сексуальное насилие и т.д.), я могу помочь. После определенного количества сеансов я могу написать отчет, который поможет вам в суде.</p>
+                        {% else %}
+                        <p class="card-text">If you have issues with the law (domestic violence, drinking and driving, theft under $5000, exhibitionism, sexual assault, etc.) I can help. After a certain amount of sessions I may write a Report that will help you in court.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -127,11 +178,20 @@
                                 <i class="bi bi-people fs-5"></i>
                             </div>
                             <div>
+                                {% if current_lang == 'ru' %}
+                                <h4 class="card-title mb-2">Проблемы в Отношениях</h4>
+                                {% else %}
                                 <h4 class="card-title mb-2">Relationship Issues</h4>
+                                {% endif %}
                             </div>
                         </div>
+                        {% if current_lang == 'ru' %}
+                        <p class="card-text">Работайте над навыками коммуникации, разрешением конфликтов, установлением границ и пониманием паттернов отношений, чтобы строить более здоровые связи с другими.</p>
+                        <p class="card-text small text-muted"><em>Если вы приходите как пара, будьте готовы к сложному и открытому разговору с вашим партнером, который я помогу провести.</em></p>
+                        {% else %}
                         <p class="card-text">Work on communication skills, conflict resolution, boundary setting, and understanding relationship patterns to build healthier connections with others.</p>
                         <p class="card-text small text-muted"><em>If you come as a couple be prepared to have a difficult and open conversation with your partner that I will help to facilitate.</em></p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -145,10 +205,18 @@
                                 <i class="bi bi-briefcase fs-5"></i>
                             </div>
                             <div>
+                                {% if current_lang == 'ru' %}
+                                <h4 class="card-title mb-2">Баланс Работы и Жизни</h4>
+                                {% else %}
                                 <h4 class="card-title mb-2">Work-Life Balance</h4>
+                                {% endif %}
                             </div>
                         </div>
+                        {% if current_lang == 'ru' %}
+                        <p class="card-text">Работайте с выгоранием, профессиональным стрессом и связанными с работой проблемами. Разрабатывайте стратегии для достижения лучшего баланса и улучшения общего благополучия.</p>
+                        {% else %}
                         <p class="card-text">Address burnout, professional stress, and work-related challenges. Develop strategies to achieve better balance and improve overall well-being.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -162,10 +230,18 @@
                                 <i class="bi bi-arrow-up-circle fs-5"></i>
                             </div>
                             <div>
+                                {% if current_lang == 'ru' %}
+                                <h4 class="card-title mb-2">Личностный Рост</h4>
+                                {% else %}
                                 <h4 class="card-title mb-2">Personal Growth</h4>
+                                {% endif %}
                             </div>
                         </div>
+                        {% if current_lang == 'ru' %}
+                        <p class="card-text">Исследуйте самооценку, идентичность, жизненную цель и постановку целей. Терапия для тех, кто ищет большего самосознания и личностного развития.</p>
+                        {% else %}
                         <p class="card-text">Explore self-esteem, identity, life purpose, and goal setting. Therapy for those seeking greater self-awareness and personal development.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -178,6 +254,17 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
+                {% if current_lang == 'ru' %}
+                <h3 class="mb-4">Другие Профессиональные Консультационные Услуги</h3>
+                <p>В дополнение к индивидуальной психотерапии, я предлагаю профессиональные услуги:</p>
+                <ul>
+                    <li>Для клиентов, у которых есть проблемы с законом, такие как домашнее насилие, вождение в нетрезвом виде, вуайеризм, кража на сумму до $5,000 и многие другие. После согласованного количества сессий я пишу отчеты для юридических представителей клиента или прокуратуры. Пожалуйста, свяжитесь для деталей.</li>
+                    <li>Профилирование = реконструкция личностных черт автора текста.</li>
+                    <li>Супервизия психотерапевтов</li>
+                    <li>Лекции для психотерапевтов</li>
+                </ul>
+                <p>Свяжитесь со мной, чтобы обсудить ваши конкретные консультационные потребности.</p>
+                {% else %}
                 <h3 class="mb-4">Other Professional Consultation Services</h3>
                 <p>In addition to individual psychotherapy, I offer professional services:</p>
                 <ul>
@@ -187,10 +274,20 @@
                     <li>Lectures for psychotherapists</li>
                 </ul>
                 <p>Contact me to discuss your specific consultation needs.</p>
+                {% endif %}
             </div>
             <div class="col-lg-6">
                 <div class="card border-primary">
                     <div class="card-body p-4">
+                        {% if current_lang == 'ru' %}
+                        <h5 class="card-title text-primary mb-3">Начало Работы</h5>
+                        <ol>
+                            <li class="mb-2"><strong>Первый Контакт:</strong> Свяжитесь по телефону или электронной почте, чтобы запланировать консультацию</li>
+                            <li class="mb-2"><strong>Первичная Консультация:</strong> Обычно не предлагается бесплатно, но может быть организована по вашему запросу</li>
+                            <li class="mb-2"><strong>Первая Сессия:</strong> Мы исследуем ваши цели и вместе разработаем план лечения</li>
+                            <li class="mb-2"><strong>Текущая Поддержка:</strong> Вы можете отложить психотерапию или приходить так часто, как хотите</li>
+                        </ol>
+                        {% else %}
                         <h5 class="card-title text-primary mb-3">Getting Started</h5>
                         <ol>
                             <li class="mb-2"><strong>Initial Contact:</strong> Reach out via phone or email to schedule a consultation</li>
@@ -198,6 +295,7 @@
                             <li class="mb-2"><strong>First Session:</strong> We'll explore your goals and develop a treatment plan together</li>
                             <li class="mb-2"><strong>Ongoing Support:</strong> You may postpone the psychotherapy or come as often as you want</li>
                         </ol>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -208,19 +306,27 @@
 <!-- FAQ Section -->
 <section class="py-5 bg-light">
     <div class="container">
+        {% if current_lang == 'ru' %}
+        <h2 class="text-center mb-5">Часто Задаваемые Вопросы</h2>
+        {% else %}
         <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+        {% endif %}
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="accordion" id="faqAccordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                How long does therapy take?
+                                {% if current_lang == 'ru' %}Сколько времени занимает терапия?{% else %}How long does therapy take?{% endif %}
                             </button>
                         </h2>
                         <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Продолжительность терапии варьируется в зависимости от индивидуальных потребностей и целей. Некоторым людям полезна краткосрочная терапия (8-12 сессий), в то время как другие получают пользу от долгосрочной поддержки. Решать будете вы.
+                                {% else %}
                                 The duration of therapy varies depending on individual needs and goals. Some people find short-term therapy (8-12 sessions) helpful, while others benefit from longer-term support. It will be up for you to decide.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -228,12 +334,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                Is therapy confidential?
+                                {% if current_lang == 'ru' %}Конфиденциальна ли терапия?{% else %}Is therapy confidential?{% endif %}
                             </button>
                         </h2>
                         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Мне просто нужна некоторая информация о вас (имя, дата рождения, адрес - для выставления счетов). Вся коммуникация и терапевтические сессии конфиденциальны и защищены профессиональной этикой и законами о конфиденциальности. Применяются некоторые ограничения (такие как риск причинения вреда себе или другим, или судебные постановления).
+                                {% else %}
                                 I just need some information about you (name, date of birth, address - for billing purposes). All communications and therapy sessions are confidential and protected by professional ethics and privacy laws. Some restrictions apply (such as risk of harm to self or others, or court orders).
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -241,12 +351,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                Do you accept insurance?
+                                {% if current_lang == 'ru' %}Вы принимаете страхование?{% else %}Do you accept insurance?{% endif %}
                             </button>
                         </h2>
                         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Многие страховые планы в Онтарио и других провинциях Канады покрывают психотерапевтические услуги. Для деталей, пожалуйста, обратитесь к вашему страховому плану. Квитанция будет выдана вам после получения платежа. Квитанцию можно подать на возмещение.
+                                {% else %}
                                 Many insurance plans in Ontario and other provinces of Canada cover psychotherapy services. For details please refer to your insurance plan. A receipt will be issued to you after the payment is received. The receipt can be submitted for reimbursement.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -254,12 +368,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                                What if I need to cancel an appointment?
+                                {% if current_lang == 'ru' %}Что если мне нужно отменить прием?{% else %}What if I need to cancel an appointment?{% endif %}
                             </button>
                         </h2>
                         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Пожалуйста, уведомите за 24 часа об отмене. Поздние отмены или неявки могут быть оплачены частично или полностью, так как время было зарезервировано специально для вас.
+                                {% else %}
                                 Please provide 24 hours notice for cancellations. Late cancellations or no-shows may be charged a portion or the full fee as the time was reserved especially for you.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -274,6 +392,16 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-4">Готовы Сделать Следующий Шаг?</h2>
+                <p class="lead mb-4">Свяжитесь, чтобы запланировать вашу первичную консультацию.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg px-4">Связаться</a>
+                    <a href="tel:{{ config.OFFICE_PHONE }}" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-telephone me-2"></i>Позвонить Сейчас
+                    </a>
+                </div>
+                {% else %}
                 <h2 class="mb-4">Ready to Take the Next Step?</h2>
                 <p class="lead mb-4">Contact us to schedule your initial consultation.</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
@@ -282,6 +410,7 @@
                         <i class="bi bi-telephone me-2"></i>Call Now
                     </a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
