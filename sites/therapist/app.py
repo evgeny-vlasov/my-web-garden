@@ -18,13 +18,14 @@ from shared.base_app import csrf
 
 from flask import render_template, request, flash, redirect, url_for, jsonify, abort, session
 from flask_login import login_user, logout_user, current_user, login_required
+from flask_mail import Message
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
 # Import shared modules
-from shared.base_app import create_base_app, db, limiter, login_manager
+from shared.base_app import create_base_app, db, limiter, login_manager, mail
 from shared.models import ContactSubmission, User, BlogPost, UploadedFile
 from shared.forms import ContactForm, LoginForm, BlogPostForm
 from shared.email import send_contact_notification, send_contact_confirmation
@@ -177,10 +178,163 @@ def fees():
     return render_markdown_page('fees.md')
 
 
-@app.route('/schedule')
+@app.route('/schedule', methods=['GET'])
 def schedule():
-    """Display schedule page from markdown"""
-    return render_markdown_page('schedule.md')
+    """Display schedule page with calendar and booking form."""
+    form = ContactForm()
+    today = datetime.now().strftime('%Y-%m-%d')
+    return render_template('schedule.html', form=form, today=today)
+
+
+@app.route('/schedule/request', methods=['POST'])
+@limiter.limit(app.config.get('CONTACT_FORM_RATE_LIMIT', '5 per hour'))
+def schedule_request():
+    """Handle booking request submission."""
+    form = ContactForm()
+
+    if form.validate_on_submit():
+        try:
+            # Get form data
+            name = form.name.data
+            email = form.email.data
+            phone = form.phone.data or ''
+            preferred_date = request.form.get('preferred_date', '')
+            preferred_time = request.form.get('preferred_time', '')
+            alternative_date = request.form.get('alternative_date', '')
+            alternative_time = request.form.get('alternative_time', '')
+            reason = request.form.get('reason', '')
+            notes = request.form.get('notes', '')
+
+            # Validate required booking fields
+            if not preferred_date or not preferred_time:
+                flash('Please select both a preferred date and time.', 'danger')
+                return redirect(url_for('schedule'))
+
+            # Send booking request email to admin
+            try:
+                subject = f'New Booking Request from {name}'
+                admin_email = app.config.get('ADMIN_EMAIL', app.config['MAIL_DEFAULT_SENDER'])
+
+                text_body = f"""
+New appointment booking request from {app.config.get('SITE_DOMAIN', 'psyling.com')}:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLIENT INFORMATION:
+Name:     {name}
+Email:    {email}
+Phone:    {phone or 'Not provided'}
+
+REQUESTED APPOINTMENT:
+Preferred Date:  {preferred_date}
+Preferred Time:  {preferred_time}
+
+Alternative Date:  {alternative_date or 'Not specified'}
+Alternative Time:  {alternative_time or 'Not specified'}
+
+REASON FOR APPOINTMENT:
+{reason or 'Not specified'}
+
+ADDITIONAL NOTES:
+{notes or 'None'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NEXT STEPS:
+• Click "Reply" to contact the client directly
+• Or call: {phone or 'No phone provided'}
+• Client will receive your response at: {email}
+
+View all booking requests: https://{app.config.get('SITE_DOMAIN', 'psyling.com')}/admin/contacts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{app.config['SITE_NAME']} - Booking Request Automated Notification
+                """
+
+                html_body = f"""
+<html>
+<head>
+    <style>
+        body {{ font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; }}
+        .container {{ max-width: 600px; margin: 20px auto; background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }}
+        h1 {{ color: #667eea; margin-bottom: 20px; font-size: 24px; }}
+        .info-section {{ background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 15px 0; }}
+        .label {{ font-weight: bold; color: #495057; display: inline-block; width: 150px; }}
+        .value {{ color: #212529; }}
+        .message-box {{ background-color: #e9ecef; padding: 15px; border-radius: 5px; margin: 15px 0; white-space: pre-wrap; }}
+        .footer {{ margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6; font-size: 12px; color: #6c757d; }}
+        .button {{ display: inline-block; padding: 12px 24px; background-color: #667eea; color: white; text-decoration: none; border-radius: 5px; margin: 10px 0; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 New Booking Request</h1>
+
+        <div class="info-section">
+            <h3 style="margin-top: 0; color: #495057;">Client Information</h3>
+            <div><span class="label">Name:</span> <span class="value">{name}</span></div>
+            <div><span class="label">Email:</span> <span class="value"><a href="mailto:{email}">{email}</a></span></div>
+            <div><span class="label">Phone:</span> <span class="value">{phone or 'Not provided'}</span></div>
+        </div>
+
+        <div class="info-section">
+            <h3 style="margin-top: 0; color: #495057;">Requested Appointment</h3>
+            <div><span class="label">Preferred Date:</span> <span class="value"><strong>{preferred_date}</strong></span></div>
+            <div><span class="label">Preferred Time:</span> <span class="value"><strong>{preferred_time}</strong></span></div>
+            <hr style="margin: 10px 0; border: none; border-top: 1px solid #dee2e6;">
+            <div><span class="label">Alternative Date:</span> <span class="value">{alternative_date or 'Not specified'}</span></div>
+            <div><span class="label">Alternative Time:</span> <span class="value">{alternative_time or 'Not specified'}</span></div>
+        </div>
+
+        {f'<div class="info-section"><h3 style="margin-top: 0; color: #495057;">Reason for Appointment</h3><div class="message-box">{reason}</div></div>' if reason else ''}
+
+        {f'<div class="info-section"><h3 style="margin-top: 0; color: #495057;">Additional Notes</h3><div class="message-box">{notes}</div></div>' if notes else ''}
+
+        <div style="margin-top: 20px; padding: 15px; background-color: #d4edda; border-radius: 5px; border-left: 4px solid #28a745;">
+            <strong style="color: #155724;">Next Steps:</strong><br>
+            • Click "Reply" in your email to respond directly to the client<br>
+            • Or call: {phone or 'No phone provided'}<br>
+            • <a href="https://{app.config.get('SITE_DOMAIN', 'psyling.com')}/admin/contacts">View all booking requests in admin panel</a>
+        </div>
+
+        <div class="footer">
+            <p>{app.config['SITE_NAME']} - Booking Request Automated Notification</p>
+            <p>This email was sent from {app.config.get('SITE_DOMAIN', 'psyling.com')}</p>
+        </div>
+    </div>
+</body>
+</html>
+                """
+
+                # Send email with Reply-To header
+                msg = Message(
+                    subject=subject,
+                    recipients=[admin_email],
+                    sender=app.config['MAIL_DEFAULT_SENDER'],
+                    reply_to=email
+                )
+                msg.body = text_body
+                msg.html = html_body
+
+                mail.send(msg)
+                app.logger.info(f'Booking request email sent for {name} - {email}')
+
+                flash('Your booking request has been submitted! I will confirm your appointment via email within 24 hours.', 'success')
+                return redirect(url_for('schedule'))
+
+            except Exception as email_error:
+                app.logger.error(f'Failed to send booking request email: {str(email_error)}')
+                flash('Your request was received, but there was an issue sending the notification. I will still review your request.', 'warning')
+                return redirect(url_for('schedule'))
+
+        except Exception as e:
+            app.logger.error(f'Error processing booking request: {str(e)}')
+            flash('An error occurred. Please try again or contact me directly.', 'danger')
+            return redirect(url_for('schedule'))
+
+    # Form validation failed
+    flash('Please fill in all required fields correctly.', 'danger')
+    return redirect(url_for('schedule'))
 
 
 @app.route('/contact', methods=['GET', 'POST'])

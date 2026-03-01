@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}{% if current_lang == 'ru' %}Запись на Прием{% else %}Schedule Appointment{% endif %} - {{ config.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">{% if current_lang == 'ru' %}Запись на Прием{% else %}Book Your Appointment{% endif %}</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <h2>{% if current_lang == 'ru' %}Просмотр Доступности{% else %}View My Availability{% endif %}</h2>
+            <p class="lead">
+                {% if current_lang == 'ru' %}
+                Посмотрите мою доступность в реальном времени на календаре ниже. Выберите удобное время, затем отправьте запрос на бронирование.
+                {% else %}
+                See my real-time availability below. Choose a time that works for you, then submit a booking request.
+                {% endif %}
+            </p>
+
+            <!-- Calendar Embed -->
+            <div class="calendar-container text-center my-4">
+                <iframe src="https://calendar.google.com/calendar/embed?src=votkdh1ubssi2e1tmb0vn98jf4%40group.calendar.google.com&ctz=America%2FEdmonton"
+                        style="border: 0; width: 100%; max-width: 900px; height: 600px;"
+                        frameborder="0"
+                        scrolling="no">
+                </iframe>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>{% if current_lang == 'ru' %}📅 Как Происходит Запись:{% else %}📅 How Booking Works:{% endif %}</strong>
+                <ol class="mb-0">
+                    <li>{% if current_lang == 'ru' %}Просмотрите доступные времена на календаре выше{% else %}Review available times on the calendar above{% endif %}</li>
+                    <li>{% if current_lang == 'ru' %}Заполните форму запроса ниже с желаемым временем{% else %}Fill out the booking request form below with your preferred time{% endif %}</li>
+                    <li>{% if current_lang == 'ru' %}Я подтвержу вашу встречу по электронной почте в течение 24 часов{% else %}I'll confirm your appointment via email within 24 hours{% endif %}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2>{% if current_lang == 'ru' %}Запросить Встречу{% else %}Request an Appointment{% endif %}</h2>
+            <p>{% if current_lang == 'ru' %}Пожалуйста, заполните форму с желаемым временем встречи.{% else %}Please fill out the form with your preferred appointment time.{% endif %}</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('schedule_request') }}" class="needs-validation" novalidate>
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    {{ form.name.label(class="form-label") }}
+                    {{ form.name(class="form-control", required=True, placeholder=("Ваше Имя" if current_lang == 'ru' else "Your Name")) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }}
+                    {{ form.email(class="form-control", required=True, placeholder=("ваш.email@example.com" if current_lang == 'ru' else "your.email@example.com")) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.phone.label(class="form-label") }}
+                    {{ form.phone(class="form-control", placeholder=("(647) 360-8980" if current_lang == 'ru' else "(647) 360-8980")) }}
+                    <small class="form-text text-muted">{% if current_lang == 'ru' %}Необязательно - я могу позвонить для подтверждения{% else %}Optional - I may call to confirm{% endif %}</small>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="preferred_date" class="form-label">{% if current_lang == 'ru' %}Желаемая Дата *{% else %}Preferred Date *{% endif %}</label>
+                        <input type="date" class="form-control" id="preferred_date" name="preferred_date"
+                               min="{{ today }}" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="preferred_time" class="form-label">{% if current_lang == 'ru' %}Желаемое Время *{% else %}Preferred Time *{% endif %}</label>
+                        <select class="form-control" id="preferred_time" name="preferred_time" required>
+                            <option value="">{% if current_lang == 'ru' %}Выберите время...{% else %}Select a time...{% endif %}</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="alternative_date" class="form-label">{% if current_lang == 'ru' %}Альтернативная Дата{% else %}Alternative Date{% endif %}</label>
+                        <input type="date" class="form-control" id="alternative_date" name="alternative_date" min="{{ today }}">
+                        <small class="form-text text-muted">{% if current_lang == 'ru' %}Если желаемое время недоступно{% else %}If preferred time not available{% endif %}</small>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="alternative_time" class="form-label">{% if current_lang == 'ru' %}Альтернативное Время{% else %}Alternative Time{% endif %}</label>
+                        <select class="form-control" id="alternative_time" name="alternative_time">
+                            <option value="">{% if current_lang == 'ru' %}Выберите время...{% else %}Select a time...{% endif %}</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="reason" class="form-label">{% if current_lang == 'ru' %}Причина Встречи{% else %}Reason for Appointment{% endif %}</label>
+                    <textarea class="form-control" id="reason" name="reason" rows="3"
+                              placeholder="{% if current_lang == 'ru' %}Краткое описание того, что вы хотели бы обсудить (необязательно){% else %}Brief description of what you'd like to discuss (optional){% endif %}"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="notes" class="form-label">{% if current_lang == 'ru' %}Дополнительные Заметки{% else %}Additional Notes{% endif %}</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="2"
+                              placeholder="{% if current_lang == 'ru' %}Любая другая информация, которую мне следует знать (необязательно){% else %}Any other information I should know (optional){% endif %}"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-calendar-check"></i> {% if current_lang == 'ru' %}Отправить Запрос на Бронирование{% else %}Submit Booking Request{% endif %}
+                </button>
+            </form>
+
+            <hr class="my-4">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>{% if current_lang == 'ru' %}Часы Работы{% else %}Office Hours{% endif %}</h5>
+                    <p>
+                        <strong>{% if current_lang == 'ru' %}Среда - Пятница:{% else %}Wednesday - Friday:{% endif %}</strong> 9:00 AM - 6:00 PM<br>
+                        <strong>{% if current_lang == 'ru' %}Суббота - Воскресенье:{% else %}Saturday - Sunday:{% endif %}</strong> {% if current_lang == 'ru' %}Выходные дни{% else %}Days off{% endif %}<br>
+                        <strong>{% if current_lang == 'ru' %}Праздники:{% else %}Holidays:{% endif %}</strong> {% if current_lang == 'ru' %}Закрыто{% else %}Closed{% endif %}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h5>{% if current_lang == 'ru' %}Контакты{% else %}Contact{% endif %}</h5>
+                    <p>
+                        <strong>{% if current_lang == 'ru' %}Телефон:{% else %}Phone:{% endif %}</strong> <a href="tel:+16473608980">(647) 360-8980</a><br>
+                        <small class="text-muted">{% if current_lang == 'ru' %}Только звонки, без SMS{% else %}No SMS, calls only{% endif %}</small><br>
+                        <strong>Email:</strong> <a href="mailto:psyling@gmail.com">psyling@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="alert alert-warning mt-3">
+                <strong><i class="bi bi-info-circle"></i> {% if current_lang == 'ru' %}Примечание:{% else %}Note:{% endif %}</strong>
+                {% if current_lang == 'ru' %}
+                Все встречи требуют подтверждения. Вы получите письмо с подтверждением в течение 24 часов.
+                {% else %}
+                All appointments are subject to confirmation. You will receive a confirmation email within 24 hours.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
