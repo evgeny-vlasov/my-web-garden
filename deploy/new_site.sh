@@ -350,7 +350,7 @@ config = {
 EOFCONFIG
 
     # Create minimal app.py
-    cat > "$SITES_DIR/$SITE_ID/app.py" <<'EOFAPP'
+    cat > "$SITES_DIR/$SITE_ID/app.py" <<EOFAPP
 """
 Flask Application
 """
@@ -361,6 +361,7 @@ from datetime import datetime
 
 # Add parent directories to Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+sys.path.insert(0, os.path.dirname(__file__))
 
 from flask import render_template
 from dotenv import load_dotenv
@@ -375,7 +376,7 @@ from cli import register_cli_commands
 
 # Create Flask application
 config_name = os.getenv('FLASK_ENV', 'production')
-app = create_base_app('CHANGEME', config[config_name])
+app = create_base_app('$SITE_ID', config[config_name])
 
 # Register CLI commands
 register_cli_commands(app)
@@ -513,6 +514,7 @@ setup_virtualenv() {
         flask-migrate \
         flask-limiter \
         flask-bcrypt \
+        flask-mail \
         gunicorn \
         psycopg2-binary \
         python-dotenv \
@@ -531,7 +533,7 @@ initialize_database() {
 
     # Export environment variables
     export DATABASE_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost/$DB_NAME"
-    export FLASK_APP=app.py
+    export FLASK_APP=app
     export FLASK_ENV=production
 
     # Initialize Flask-Migrate
@@ -559,7 +561,7 @@ create_admin_user() {
         cd "$SITES_DIR/$SITE_ID"
 
         export DATABASE_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost/$DB_NAME"
-        export FLASK_APP=app.py
+        export FLASK_APP=app
         export FLASK_ENV=production
 
         sudo -u "$WEBGARDEN_USER" -E venv/bin/flask create-admin
@@ -672,6 +674,71 @@ print_summary() {
     echo "================================================================================"
 }
 
+force_cleanup() {
+    log_warning "Force cleanup requested - removing all existing artifacts for $SITE_ID..."
+
+    # Stop and disable systemd service if running
+    if systemctl is-active --quiet "$SITE_ID.service" 2>/dev/null; then
+        log_info "Stopping service: $SITE_ID.service"
+        systemctl stop "$SITE_ID.service" 2>/dev/null || true
+    fi
+    if systemctl is-enabled --quiet "$SITE_ID.service" 2>/dev/null; then
+        systemctl disable "$SITE_ID.service" 2>/dev/null || true
+    fi
+
+    # Remove systemd service
+    if [ -f "$SYSTEMD_DIR/$SITE_ID.service" ]; then
+        rm -f "$SYSTEMD_DIR/$SITE_ID.service"
+        systemctl daemon-reload
+        log_info "Removed systemd service: $SYSTEMD_DIR/$SITE_ID.service"
+    fi
+
+    # Remove nginx configs and reload
+    if [ -L "$NGINX_ENABLED/$SITE_ID" ]; then
+        rm -f "$NGINX_ENABLED/$SITE_ID"
+        log_info "Removed Nginx symlink: $NGINX_ENABLED/$SITE_ID"
+    fi
+    if [ -f "$NGINX_AVAILABLE/$SITE_ID" ]; then
+        rm -f "$NGINX_AVAILABLE/$SITE_ID"
+        log_info "Removed Nginx config: $NGINX_AVAILABLE/$SITE_ID"
+    fi
+
+    # Reload nginx if it's running
+    if systemctl is-active --quiet nginx; then
+        nginx -t && systemctl reload nginx || log_warning "Nginx reload failed"
+    fi
+
+    # Remove site directory
+    if [ -d "$SITES_DIR/$SITE_ID" ]; then
+        rm -rf "$SITES_DIR/$SITE_ID"
+        log_info "Removed site directory: $SITES_DIR/$SITE_ID"
+    fi
+
+    # Remove upload directory
+    if [ -d "$UPLOAD_DIR/$SITE_ID" ]; then
+        rm -rf "$UPLOAD_DIR/$SITE_ID"
+        log_info "Removed upload directory: $UPLOAD_DIR/$SITE_ID"
+    fi
+
+    # Remove env file
+    if [ -f "$ENV_DIR/$SITE_ID.env" ]; then
+        rm -f "$ENV_DIR/$SITE_ID.env"
+        log_info "Removed env file: $ENV_DIR/$SITE_ID.env"
+    fi
+
+    # Drop database and user
+    if sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -qw "$DB_NAME"; then
+        log_info "Dropping database: $DB_NAME"
+        sudo -u postgres psql -c "DROP DATABASE IF EXISTS $DB_NAME;" 2>&1 | grep -v "does not exist" || true
+    fi
+    if sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='$DB_USER'" | grep -q 1; then
+        log_info "Dropping database user: $DB_USER"
+        sudo -u postgres psql -c "DROP USER IF EXISTS $DB_USER;" 2>&1 | grep -v "does not exist" || true
+    fi
+
+    log_success "Force cleanup complete - ready for fresh deployment"
+}
+
 cleanup_on_failure() {
     log_error "Deployment failed! Cleaning up partial artifacts..."
 
@@ -734,9 +801,27 @@ main() {
     # Check if running as root
     check_root
 
+    # Parse flags
+    FORCE_CLEANUP=false
+    while [[ "$1" == --* ]]; do
+        case "$1" in
+            --force|--clean)
+                FORCE_CLEANUP=true
+                shift
+                ;;
+            *)
+                log_error "Unknown flag: $1"
+                exit 1
+                ;;
+        esac
+    done
+
     # Parse arguments
     if [ $# -lt 4 ]; then
-        log_error "Usage: $0 <site_id> <domain> <port> <db_password> [site_name]"
+        log_error "Usage: $0 [--force|--clean] <site_id> <domain> <port> <db_password> [site_name]"
+        echo ""
+        echo "Flags:"
+        echo "  --force, --clean  - Remove all existing artifacts before deploying (allows clean re-deployment)"
         echo ""
         echo "Arguments:"
         echo "  site_id      - Short identifier (e.g., 'mysite', used for directories/configs)"
@@ -745,8 +830,9 @@ main() {
         echo "  db_password  - PostgreSQL password for site database"
         echo "  site_name    - Display name (optional, defaults to site_id)"
         echo ""
-        echo "Example:"
+        echo "Examples:"
         echo "  $0 mysite mysite.example.com 8003 'SecurePass123!' 'My Awesome Site'"
+        echo "  $0 --force mysite mysite.example.com 8003 'SecurePass123!' 'My Awesome Site'"
         exit 1
     fi
 
@@ -759,6 +845,12 @@ main() {
     # Derived variables
     DB_NAME="${SITE_ID}_db"
     DB_USER="${SITE_ID}_user"
+
+    # Run force cleanup if requested
+    if [ "$FORCE_CLEANUP" = true ]; then
+        force_cleanup
+        echo ""
+    fi
 
     # Register cleanup handler for failures
     trap cleanup_on_failure ERR
