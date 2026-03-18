@@ -34,11 +34,13 @@ venv.bak/
 instance/
 .webassets-cache
 
-# Environment variables
-.env
-.env.local
-.env.*.local
+# Environment variables - prevent secrets from being committed
 *.env
+*.env.*
+*.env.NEW
+!.env.example
+/etc/webgarden/
+sites/*/psyling.env*
 
 # Database
 *.db
@@ -96,5 +98,3 @@ tmp/
 *.egg-info/
 dist/
 build/
-sites/therapist/psyling.env.NEW
-*.env.NEW
