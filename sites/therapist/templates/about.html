@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}About Valery Belyanin - Registered Psychotherapist in Toronto{% endblock %}
+{% block title %}{% if current_lang == 'ru' %}О Валерии Белянине - Зарегистрированный Психотерапевт в Торонто{% else %}About Valery Belyanin - Registered Psychotherapist in Toronto{% endif %}{% endblock %}
 
-{% block meta_description %}Learn about Valery Belyanin, Registered Psychotherapist with 25 years of experience. Licensed professional with expertise in anxiety, depression, and life transitions in Toronto.{% endblock %}
+{% block meta_description %}{% if current_lang == 'ru' %}Узнайте о Валерии Белянине, зарегистрированном психотерапевте с 25-летним опытом. Лицензированный профессионал с экспертизой в тревоге, депрессии и жизненных переходах в Торонто.{% else %}Learn about Valery Belyanin, Registered Psychotherapist with 25 years of experience. Licensed professional with expertise in anxiety, depression, and life transitions in Toronto.{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -10,8 +10,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h1 class="display-4 mb-3">Обо Мне</h1>
+                <p class="lead">Профессиональная, сострадательная психотерапия в Торонто</p>
+                {% else %}
                 <h1 class="display-4 mb-3">About</h1>
                 <p class="lead">Professional, compassionate psychotherapy in Toronto</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -22,23 +27,26 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4 mb-4 mb-lg-0 text-center">
-                <div class="professional-photo bg-light rounded shadow-sm p-4">
-                    <!-- Placeholder for professional photo -->
-                    <div class="ratio ratio-1x1 mb-3 bg-secondary rounded" style="max-width: 300px; margin: 0 auto;">
-                        <div class="d-flex align-items-center justify-content-center text-white">
-                            <i class="bi bi-person-circle" style="font-size: 8rem;"></i>
-                        </div>
-                    </div>
-                    <p class="text-muted small">Professional photo coming soon</p>
-                </div>
+                <img src="{{ url_for('static', filename='images/valery-profile.jpg') }}"
+                     alt="{% if current_lang == 'ru' %}Др. Валерий Белянин, Зарегистрированный Психотерапевт{% else %}Dr. Valery Belyanin, Registered Psychotherapist{% endif %}"
+                     class="profile-photo img-fluid">
             </div>
             <div class="col-lg-8">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-4">Добро Пожаловать</h2>
+                <p>Я посвящен созданию безопасной, поддерживающей среды, где вы можете исследовать свои мысли и чувства, разрабатывать стратегии преодоления и работать над позитивными изменениями.</p>
+
+                <p>Имея 25-летний опыт в психотерапии, я понимаю, что обращение за помощью - это мужественный шаг. Мой подход является совместным и клиент-центрированным, фокусируясь на ваших уникальных потребностях, сильных сторонах и целях. Вместе мы исследуем проблемы, с которыми вы сталкиваетесь, и я поддержу вас в поиске эффективных решений, создавая практические инструменты и стратегии для исцеления и личностного роста.</p>
+
+                <p>Я надеюсь, что наши терапевтические отношения будут способствовать изменениям. Моя практика основана на уважении, эмпатии и заботе о человеке, с которым я работаю. Независимо от того, сталкиваетесь ли вы с тревогой, депрессией, жизненными переходами или ищете личностный рост, я здесь, чтобы поддержать вас в вашем путешествии.</p>
+                {% else %}
                 <h2 class="mb-4">Welcome</h2>
-                <p class="lead">I'm dedicated to providing a safe, supportive environment where you can explore your thoughts and feelings, develop coping strategies, and work toward positive change.</p>
+                <p>I'm dedicated to providing a safe, supportive environment where you can explore your thoughts and feelings, develop coping strategies, and work toward positive change.</p>
 
                 <p>With 25 years of experience in psychotherapy, I understand that seeking help is a courageous step. My approach is collaborative and client-centered, focusing on your unique needs, strengths, and goals. Together, we will explore the challenges you are experiencing and I will support you in finding effective solutions, while building practical tools and strategies for healing and personal growth.</p>
 
                 <p>I hope that our therapeutic relationship will facilitate change. My practice is grounded in respect, empathy, and care for the person I work with. Whether you're dealing with anxiety, depression, life transitions, or seeking personal growth, I'm here to support you in your journey.</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -47,11 +55,26 @@
 <!-- Education & Credentials Section -->
 <section class="py-5 bg-light">
     <div class="container">
+        {% if current_lang == 'ru' %}
+        <h2 class="text-center mb-5">Образование и Квалификация</h2>
+        {% else %}
         <h2 class="text-center mb-5">Education & Credentials</h2>
+        {% endif %}
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body">
+                        {% if current_lang == 'ru' %}
+                        <h5 class="card-title"><i class="bi bi-mortarboard text-primary me-2"></i>Образование</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">Степень магистра с отличием по лингвистике и литературе, с дипломом переводчика с английского на русский (Университет Дружбы Народов)</li>
+                            <li class="mb-2">Кандидат наук по психолингвистике (Академия Наук)</li>
+                            <li class="mb-2">Доктор наук по теории языка (Московский Государственный Университет)</li>
+                            <li class="mb-2"><strong>Степень магистра по психологии</strong> (Калужский Государственный Университет)</li>
+                            <li class="mb-2"><strong>Кандидат наук по психологии личности</strong> (Южный Федеральный Университет)</li>
+                            <li class="mb-2">Программа переподготовки для психологов и специалистов в области психического здоровья с международным образованием (Mennonite New Life Centre, Торонто, Онтарио, Канада)</li>
+                        </ul>
+                        {% else %}
                         <h5 class="card-title"><i class="bi bi-mortarboard text-primary me-2"></i>Education</h5>
                         <ul class="list-unstyled mb-0">
                             <li class="mb-2">Master's Degree with honors in Linguistics and Literature, with diploma of interpreter from English into Russian (Friendship University)</li>
@@ -59,13 +82,24 @@
                             <li class="mb-2">Doctorate in the Theory of Language (Moscow State University)</li>
                             <li class="mb-2"><strong>Master's Degree in Psychology</strong> (Kaluga State University)</li>
                             <li class="mb-2"><strong>PhD in Psychology of Personality</strong> (Southern Federal University)</li>
-                            <li class="mb-2">Bridge Training Program for Internationally trained Psychologists and Allied Mental Health Professionals (Mennonite New Life Centre)</li>
+                            <li class="mb-2">Bridge Training Program for Internationally trained Psychologists and Allied Mental Health Professionals (Mennonite New Life Centre, Toronto, Ontario, Canada)</li>
                         </ul>
+                        {% endif %}
                     </div>
                 </div>
 
                 <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body">
+                        {% if current_lang == 'ru' %}
+                        <h5 class="card-title"><i class="bi bi-award text-primary me-2"></i>Профессиональная Квалификация</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">Зарегистрированный Психотерапевт (RP) в Колледже зарегистрированных психотерапевтов Онтарио #01594 (<a href="https://my.crpo.ca/Portal/Content/Public-Register/Public-Register-Profile.aspx?ID=575&ck=5171FE22-275F-4DFC-B4CA-6BAE311D38D7" target="_blank" rel="noopener">CRPO</a>)</li>
+                            <li class="mb-2">Сертифицированный специалист по психическому здоровью (Ассоциация специалистов по психическому здоровью Онтарио #2957-0412C, <a href="https://oamhp.ca/therapist-listing/valery-belyanin-887/" target="_blank" rel="noopener">OAMHP</a>)</li>
+                            <li class="mb-2">Psychology Today <a href="https://www.psychologytoday.com/profile/176232" target="_blank" rel="noopener">профиль</a></li>
+                            <li class="mb-2">Девять книг и более 200 статей о языке, культуре, психологии и психотерапии</li>
+                            <li class="mb-2">Работал в различных университетах мира (Афганистан, Куба, Россия, Польша, Тайвань, США)</li>
+                        </ul>
+                        {% else %}
                         <h5 class="card-title"><i class="bi bi-award text-primary me-2"></i>Professional Credentials</h5>
                         <ul class="list-unstyled mb-0">
                             <li class="mb-2">Registered Psychotherapist (RP) with the College of Registered Psychotherapists of Ontario #01594 (<a href="https://my.crpo.ca/Portal/Content/Public-Register/Public-Register-Profile.aspx?ID=575&ck=5171FE22-275F-4DFC-B4CA-6BAE311D38D7" target="_blank" rel="noopener">CRPO</a>)</li>
@@ -74,17 +108,27 @@
                             <li class="mb-2">Nine books and more than 200 articles on language, culture, psychology, and psychotherapy</li>
                             <li class="mb-2">Worked in different Universities of the world (Afghanistan, Cuba, Russia, Poland, Taiwan, USA)</li>
                         </ul>
+                        {% endif %}
                     </div>
                 </div>
 
                 <div class="card border-0 shadow-sm">
                     <div class="card-body">
+                        {% if current_lang == 'ru' %}
+                        <h5 class="card-title"><i class="bi bi-journal-check text-primary me-2"></i>Специализированное Обучение</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">Когнитивно-поведенческая терапия (КПТ)</li>
+                            <li class="mb-2">Подходы, основанные на осознанности</li>
+                            <li class="mb-2">Курсы по психическому здоровью и психотерапевтической практике (~100 часов в год)</li>
+                        </ul>
+                        {% else %}
                         <h5 class="card-title"><i class="bi bi-journal-check text-primary me-2"></i>Specialized Training</h5>
                         <ul class="list-unstyled mb-0">
                             <li class="mb-2">Cognitive Behavioral Therapy (CBT)</li>
                             <li class="mb-2">Mindfulness-Based Approaches</li>
                             <li class="mb-2">Courses on mental health and psychotherapy practice (~100 hours a year)</li>
                         </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -97,6 +141,20 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto">
+                {% if current_lang == 'ru' %}
+                <h2 class="text-center mb-5">Терапевтический Подход</h2>
+
+                <div class="mb-5">
+                    <h4 class="mb-3">Клиент-центрированный и Совместный</h4>
+                    <p>Я верю, что вы являетесь экспертом в своей собственной жизни. Моя роль - предложить поддерживающую среду без осуждения, где вы можете свободно исследовать свой опыт и открыть свой уникальный путь вперед. Психотерапия - это совместное путешествие; вместе мы определим ваши цели и разработаем стратегии, адаптированные к вашим потребностям.</p>
+                </div>
+
+                <div class="mb-5">
+                    <h4 class="mb-3">Научно Обоснованные Методы</h4>
+                    <p>Моя практика интегрирует различные научно обоснованные терапевтические подходы, адаптированные для удовлетворения ваших индивидуальных потребностей:</p>
+                    <p>Моей руководящей парадигмой является когнитивно-поведенческая терапия (КПТ). Этот подход стремится выявить паттерны мышления и поведения, которые поддерживают негативные и вредные жизненные модели. Я также использую различные методы, включая когнитивно-поведенческий коучинг, нейролингвистическое программирование, нарративную терапию, трансакционный анализ, позитивную психотерапию и подходы, основанные на осознанности.</p>
+                </div>
+                {% else %}
                 <h2 class="text-center mb-5">Therapeutic Approach</h2>
 
                 <div class="mb-5">
@@ -109,8 +167,21 @@
                     <p>My practice integrates various evidence-based therapeutic approaches, tailored to meet your individual needs:</p>
                     <p>My guiding paradigm is Cognitive-Behavioral Therapy (CBT). This approach seeks to identify patterns of thinking and behavior that sustain negative and harmful life patterns. I also use a variety of methods, including Cognitive-Behavioral Coaching, Neuro-linguistic Programming, Narrative Therapy, Transactional Analysis, and Positive Psychotherapy and Mindfulness-Based Approaches.</p>
                 </div>
+                {% endif %}
 
                 <div class="mb-5">
+                    {% if current_lang == 'ru' %}
+                    <h4 class="mb-3">Области Специализации</h4>
+                    <p>У меня есть особый опыт работы с:</p>
+                    <ul>
+                        <li><strong>Тревога, Гнев и Стресс:</strong> Генерализованная тревога, панические атаки, социальная тревога, стресс и гнев</li>
+                        <li><strong>Депрессия и Проблемы с Настроением:</strong> Подавленное настроение, отсутствие мотивации и эмоциональные трудности в целом</li>
+                        <li><strong>Проблемы в Отношениях:</strong> Коммуникация, разрешение конфликтов, установление границ</li>
+                        <li><strong>Баланс Работы и Жизни:</strong> Выгорание, профессиональный стресс, связанные с работой проблемы</li>
+                        <li><strong>Личностный Рост:</strong> Самооценка, исследование идентичности, постановка целей, стратегическое мышление</li>
+                        <li>Также я работаю с людьми, у которых есть проблемы с законом (домашнее насилие, вождение в нетрезвом виде, кража на сумму до $5000, вуайеризм, сексуальное домогательство и другие проблемы)</li>
+                    </ul>
+                    {% else %}
                     <h4 class="mb-3">Areas of Specialization</h4>
                     <p>I have particular experience working with:</p>
                     <ul>
@@ -121,6 +192,7 @@
                         <li><strong>Personal Growth:</strong> Self-esteem, identity exploration, goal setting, strategic thinking</li>
                         <li>Also I work with people who have issues with the law (domestic violence, drinking and driving, theft under $5000, voyeurism, sexual harassment, and other problems)</li>
                     </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -132,9 +204,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-4">Готовы Начать Свое Путешествие?</h2>
+                <p class="lead mb-4">Свяжитесь со мной сегодня, чтобы запланировать вашу первую сессию</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg">Связаться</a>
+                {% else %}
                 <h2 class="mb-4">Ready to Start Your Journey?</h2>
                 <p class="lead mb-4">Contact me today to schedule your first session</p>
                 <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg">Get in Touch</a>
+                {% endif %}
             </div>
         </div>
     </div>

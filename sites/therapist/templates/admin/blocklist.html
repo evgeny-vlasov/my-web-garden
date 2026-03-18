@@ -1,0 +1,89 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Spam Blocklist - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h2>Spam Blocklist</h2>
+    <p class="text-muted">Block specific names or emails from submitting the contact form</p>
+
+    <!-- Add Entry Form -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Add to Blocklist</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('admin_blocklist_add') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="form-label">Type</label>
+                        <select name="type" class="form-control" required>
+                            <option value="name">Name</option>
+                            <option value="email">Email</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Value</label>
+                        <input type="text" name="value" class="form-control" placeholder="RobertHap or spam@example.com" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Reason (optional)</label>
+                        <input type="text" name="reason" class="form-control" placeholder="Spam bot">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary w-100">Block</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Blocklist Table -->
+    <div class="card">
+        <div class="card-header">
+            <h5>Blocked Entries ({{ entries|length }})</h5>
+        </div>
+        <div class="card-body">
+            {% if entries %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Value</th>
+                            <th>Reason</th>
+                            <th>Added By</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in entries %}
+                        <tr>
+                            <td><span class="badge bg-{{ 'warning' if entry.type == 'name' else 'info' }}">{{ entry.type }}</span></td>
+                            <td><strong>{{ entry.value }}</strong></td>
+                            <td>{{ entry.reason or '-' }}</td>
+                            <td>{{ entry.created_by }}</td>
+                            <td>{{ entry.created_at.strftime('%b %d, %Y') }}</td>
+                            <td>
+                                <form method="POST" action="{{ url_for('admin_blocklist_delete', id=entry.id) }}" style="display: inline;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Remove this block?')">
+                                        <i class="bi bi-trash"></i> Remove
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-muted">No blocked entries yet. Add names or emails above to block spam.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

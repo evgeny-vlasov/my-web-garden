@@ -10,6 +10,7 @@ from pathlib import Path
 from werkzeug.utils import secure_filename
 from slugify import slugify
 import markdown
+import requests
 
 # Add parent directories to Python path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -26,7 +27,7 @@ load_dotenv()
 
 # Import shared modules
 from shared.base_app import create_base_app, db, limiter, login_manager, mail
-from shared.models import ContactSubmission, User, BlogPost, UploadedFile
+from shared.models import ContactSubmission, User, BlogPost, UploadedFile, SpamBlocklist
 from shared.forms import ContactForm, LoginForm, BlogPostForm, BookingRequestForm
 from shared.email import send_contact_notification, send_contact_confirmation
 from shared.decorators import login_required as custom_login_required, admin_required, anonymous_required
@@ -107,8 +108,13 @@ def set_language(lang):
 
 @app.route('/')
 def index():
-    """Redirect homepage to schedule page."""
-    return redirect(url_for('schedule'), code=302)
+    """Homepage with recent blog posts."""
+    # Get 3 most recent published posts
+    recent_posts = BlogPost.query.filter_by(visible=True).order_by(
+        BlogPost.published_at.desc()
+    ).limit(3).all()
+
+    return render_template('index.html', recent_posts=recent_posts)
 
 
 @app.route('/about')
@@ -178,158 +184,10 @@ def fees():
     return render_markdown_page('fees.md')
 
 
-@app.route('/schedule', methods=['GET'])
+@app.route('/schedule')
 def schedule():
-    """Display schedule page with calendar and booking form."""
-    form = BookingRequestForm()
-    today = datetime.now().strftime('%Y-%m-%d')
-    return render_template('schedule.html', form=form, today=today)
-
-
-@app.route('/schedule/request', methods=['POST'])
-@limiter.limit(app.config.get('CONTACT_FORM_RATE_LIMIT', '5 per hour'))
-def schedule_request():
-    """Handle booking request submission."""
-    form = BookingRequestForm()
-
-    if form.validate_on_submit():
-        try:
-            # Get form data
-            name = form.name.data
-            email = form.email.data
-            phone = form.phone.data or ''
-            preferred_date = form.preferred_date.data.strftime('%Y-%m-%d') if form.preferred_date.data else ''
-            preferred_time = form.preferred_time.data or ''
-            alternative_date = form.alternative_date.data.strftime('%Y-%m-%d') if form.alternative_date.data else ''
-            alternative_time = form.alternative_time.data or ''
-            reason = form.reason.data or ''
-            notes = form.notes.data or ''
-
-            # Send booking request email to admin
-            try:
-                subject = f'New Booking Request from {name}'
-                admin_email = app.config.get('ADMIN_EMAIL', app.config['MAIL_DEFAULT_SENDER'])
-
-                text_body = f"""
-New appointment booking request from {app.config.get('SITE_DOMAIN', 'psyling.com')}:
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-CLIENT INFORMATION:
-Name:     {name}
-Email:    {email}
-Phone:    {phone or 'Not provided'}
-
-REQUESTED APPOINTMENT:
-Preferred Date:  {preferred_date}
-Preferred Time:  {preferred_time}
-
-Alternative Date:  {alternative_date or 'Not specified'}
-Alternative Time:  {alternative_time or 'Not specified'}
-
-REASON FOR APPOINTMENT:
-{reason or 'Not specified'}
-
-ADDITIONAL NOTES:
-{notes or 'None'}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-NEXT STEPS:
-• Click "Reply" to contact the client directly
-• Or call: {phone or 'No phone provided'}
-• Client will receive your response at: {email}
-
-View all booking requests: https://{app.config.get('SITE_DOMAIN', 'psyling.com')}/admin/contacts
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{app.config['SITE_NAME']} - Booking Request Automated Notification
-                """
-
-                html_body = f"""
-<html>
-<head>
-    <style>
-        body {{ font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; }}
-        .container {{ max-width: 600px; margin: 20px auto; background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }}
-        h1 {{ color: #667eea; margin-bottom: 20px; font-size: 24px; }}
-        .info-section {{ background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 15px 0; }}
-        .label {{ font-weight: bold; color: #495057; display: inline-block; width: 150px; }}
-        .value {{ color: #212529; }}
-        .message-box {{ background-color: #e9ecef; padding: 15px; border-radius: 5px; margin: 15px 0; white-space: pre-wrap; }}
-        .footer {{ margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6; font-size: 12px; color: #6c757d; }}
-        .button {{ display: inline-block; padding: 12px 24px; background-color: #667eea; color: white; text-decoration: none; border-radius: 5px; margin: 10px 0; }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>📅 New Booking Request</h1>
-
-        <div class="info-section">
-            <h3 style="margin-top: 0; color: #495057;">Client Information</h3>
-            <div><span class="label">Name:</span> <span class="value">{name}</span></div>
-            <div><span class="label">Email:</span> <span class="value"><a href="mailto:{email}">{email}</a></span></div>
-            <div><span class="label">Phone:</span> <span class="value">{phone or 'Not provided'}</span></div>
-        </div>
-
-        <div class="info-section">
-            <h3 style="margin-top: 0; color: #495057;">Requested Appointment</h3>
-            <div><span class="label">Preferred Date:</span> <span class="value"><strong>{preferred_date}</strong></span></div>
-            <div><span class="label">Preferred Time:</span> <span class="value"><strong>{preferred_time}</strong></span></div>
-            <hr style="margin: 10px 0; border: none; border-top: 1px solid #dee2e6;">
-            <div><span class="label">Alternative Date:</span> <span class="value">{alternative_date or 'Not specified'}</span></div>
-            <div><span class="label">Alternative Time:</span> <span class="value">{alternative_time or 'Not specified'}</span></div>
-        </div>
-
-        {f'<div class="info-section"><h3 style="margin-top: 0; color: #495057;">Reason for Appointment</h3><div class="message-box">{reason}</div></div>' if reason else ''}
-
-        {f'<div class="info-section"><h3 style="margin-top: 0; color: #495057;">Additional Notes</h3><div class="message-box">{notes}</div></div>' if notes else ''}
-
-        <div style="margin-top: 20px; padding: 15px; background-color: #d4edda; border-radius: 5px; border-left: 4px solid #28a745;">
-            <strong style="color: #155724;">Next Steps:</strong><br>
-            • Click "Reply" in your email to respond directly to the client<br>
-            • Or call: {phone or 'No phone provided'}<br>
-            • <a href="https://{app.config.get('SITE_DOMAIN', 'psyling.com')}/admin/contacts">View all booking requests in admin panel</a>
-        </div>
-
-        <div class="footer">
-            <p>{app.config['SITE_NAME']} - Booking Request Automated Notification</p>
-            <p>This email was sent from {app.config.get('SITE_DOMAIN', 'psyling.com')}</p>
-        </div>
-    </div>
-</body>
-</html>
-                """
-
-                # Send email with Reply-To header
-                msg = Message(
-                    subject=subject,
-                    recipients=[admin_email],
-                    sender=app.config['MAIL_DEFAULT_SENDER'],
-                    reply_to=email
-                )
-                msg.body = text_body
-                msg.html = html_body
-
-                mail.send(msg)
-                app.logger.info(f'Booking request email sent for {name} - {email}')
-
-                flash('Your booking request has been submitted! I will confirm your appointment via email within 24 hours.', 'success')
-                return redirect(url_for('schedule'))
-
-            except Exception as email_error:
-                app.logger.error(f'Failed to send booking request email: {str(email_error)}')
-                flash('Your request was received, but there was an issue sending the notification. I will still review your request.', 'warning')
-                return redirect(url_for('schedule'))
-
-        except Exception as e:
-            app.logger.error(f'Error processing booking request: {str(e)}')
-            flash('An error occurred. Please try again or contact me directly.', 'danger')
-            return redirect(url_for('schedule'))
-
-    # Form validation failed
-    flash('Please fill in all required fields correctly.', 'danger')
-    return redirect(url_for('schedule'))
+    """Display schedule page with calendar and booking button."""
+    return render_template('schedule.html')
 
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -337,6 +195,79 @@ View all booking requests: https://{app.config.get('SITE_DOMAIN', 'psyling.com')
 def contact():
     """Contact page with form submission."""
     form = ContactForm()
+
+    if request.method == 'POST':
+        # SPAM PREVENTION: Check honeypot field
+        honeypot = request.form.get('website', '')
+        if honeypot:
+            # Bot detected - honeypot was filled
+            app.logger.warning(f'Honeypot spam detected from IP {request.remote_addr}: website field = "{honeypot}"')
+            # Return fake success to fool the bot
+            flash('Thank you for your message! We will get back to you soon.', 'success')
+            return redirect(url_for('contact'))
+
+        # SPAM PREVENTION: Check blocklist
+        name = request.form.get('name', '').strip()
+        email = request.form.get('email', '').strip().lower()
+
+        # Check if name is blocked
+        name_blocked = SpamBlocklist.query.filter_by(value=name, type='name').first()
+        if name_blocked:
+            app.logger.warning(f'Blocked name submitted: {name} from {request.remote_addr}')
+            flash('Thank you for your message!', 'success')
+            return redirect(url_for('contact'))
+
+        # Check if email is blocked
+        email_blocked = SpamBlocklist.query.filter_by(value=email, type='email').first()
+        if email_blocked:
+            app.logger.warning(f'Blocked email submitted: {email} from {request.remote_addr}')
+            flash('Thank you for your message!', 'success')
+            return redirect(url_for('contact'))
+
+        # SPAM PREVENTION: Verify reCAPTCHA token if configured
+        recaptcha_token = request.form.get('recaptcha_token', '')
+        recaptcha_secret = app.config.get('RECAPTCHA_SECRET_KEY')
+
+        if recaptcha_secret and recaptcha_token:
+            try:
+                # Verify reCAPTCHA with Google
+                recaptcha_response = requests.post(
+                    'https://www.google.com/recaptcha/api/siteverify',
+                    data={
+                        'secret': recaptcha_secret,
+                        'response': recaptcha_token,
+                        'remoteip': request.remote_addr
+                    },
+                    timeout=5
+                )
+                recaptcha_result = recaptcha_response.json()
+
+                # Check if verification was successful
+                if not recaptcha_result.get('success', False):
+                    app.logger.warning(f'reCAPTCHA verification failed from IP {request.remote_addr}: {recaptcha_result}')
+                    flash('reCAPTCHA verification failed. Please try again.', 'error')
+                    return render_template('contact.html', form=form)
+
+                # Check score (v3 returns score from 0.0 to 1.0, where 1.0 is very likely a good interaction)
+                score = recaptcha_result.get('score', 0)
+                if score < 0.5:
+                    app.logger.warning(f'reCAPTCHA low score from IP {request.remote_addr}: score={score}')
+                    flash('Your submission appears suspicious. Please try again later.', 'error')
+                    return render_template('contact.html', form=form)
+
+                app.logger.info(f'reCAPTCHA passed from IP {request.remote_addr}: score={score}')
+
+            except requests.exceptions.RequestException as e:
+                # Network error - log but allow submission (don't block legitimate users)
+                app.logger.error(f'reCAPTCHA verification error: {str(e)}')
+            except Exception as e:
+                # Other error - log but allow submission
+                app.logger.error(f'Unexpected reCAPTCHA error: {str(e)}')
+        elif recaptcha_secret and not recaptcha_token:
+            # reCAPTCHA is configured but no token provided - likely a bot
+            app.logger.warning(f'No reCAPTCHA token provided from IP {request.remote_addr}')
+            flash('Security verification required. Please enable JavaScript and try again.', 'error')
+            return render_template('contact.html', form=form)
 
     if form.validate_on_submit():
         try:
@@ -665,6 +596,7 @@ def admin_contacts_list():
     return render_template(
         'admin/contacts_list.html',
         contacts=contacts,
+        pagination=contacts,
         counts=counts,
         status_filter=status_filter,
         spam_filter=spam_filter,
@@ -777,6 +709,90 @@ def admin_contact_delete(contact_id):
         app.logger.error(f'Error deleting contact: {str(e)}')
         flash('Error deleting message', 'error')
         return redirect(url_for('admin_contacts_list'))
+
+
+@app.route('/admin/contacts/empty-spam', methods=['POST'])
+@custom_login_required
+def admin_empty_spam():
+    """Delete all spam messages"""
+    spam_count = ContactSubmission.query.filter_by(is_spam=True).count()
+
+    if spam_count == 0:
+        flash('Spam folder is already empty', 'info')
+        return redirect(url_for('admin_contacts_list'))
+
+    # Delete all spam
+    ContactSubmission.query.filter_by(is_spam=True).delete()
+    db.session.commit()
+
+    app.logger.info(f'Spam folder emptied by {current_user.username}: {spam_count} messages deleted')
+    flash(f'Deleted {spam_count} spam messages', 'success')
+    return redirect(url_for('admin_contacts_list', show='spam'))
+
+
+# ============================================================================
+# ADMIN BLOCKLIST ROUTES
+# ============================================================================
+
+@app.route('/admin/blocklist')
+@custom_login_required
+def admin_blocklist():
+    """View spam blocklist"""
+    entries = SpamBlocklist.query.order_by(SpamBlocklist.created_at.desc()).all()
+    return render_template('admin/blocklist.html', entries=entries)
+
+
+@app.route('/admin/blocklist/add', methods=['POST'])
+@custom_login_required
+def admin_blocklist_add():
+    """Add entry to blocklist"""
+    value = request.form.get('value', '').strip()
+    entry_type = request.form.get('type', 'name')
+    reason = request.form.get('reason', '').strip()
+
+    if not value:
+        flash('Please enter a name or email to block', 'danger')
+        return redirect(url_for('admin_blocklist'))
+
+    # Normalize email addresses to lowercase
+    if entry_type == 'email':
+        value = value.lower()
+
+    # Check if already exists
+    existing = SpamBlocklist.query.filter_by(value=value, type=entry_type).first()
+    if existing:
+        flash(f'{entry_type.title()} "{value}" is already blocked', 'warning')
+        return redirect(url_for('admin_blocklist'))
+
+    # Add to blocklist
+    entry = SpamBlocklist(
+        value=value,
+        type=entry_type,
+        reason=reason,
+        created_by=current_user.username
+    )
+    db.session.add(entry)
+    db.session.commit()
+
+    app.logger.info(f'Blocklist entry added by {current_user.username}: {entry_type}={value}')
+    flash(f'Blocked {entry_type}: {value}', 'success')
+    return redirect(url_for('admin_blocklist'))
+
+
+@app.route('/admin/blocklist/delete/<int:id>', methods=['POST'])
+@custom_login_required
+def admin_blocklist_delete(id):
+    """Remove entry from blocklist"""
+    entry = SpamBlocklist.query.get_or_404(id)
+    value = entry.value
+    entry_type = entry.type
+
+    db.session.delete(entry)
+    db.session.commit()
+
+    app.logger.info(f'Blocklist entry removed by {current_user.username}: {entry_type}={value}')
+    flash(f'Unblocked {entry_type}: {value}', 'success')
+    return redirect(url_for('admin_blocklist'))
 
 
 # ============================================================================

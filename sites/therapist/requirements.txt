@@ -31,3 +31,7 @@ gunicorn==21.2.0
 # Sprint 2 additions
 bleach==6.1.0
 python-slugify==8.0.1
+
+# Sprint 4 additions
+markdown>=3.4.0
+Flask-Babel==4.0.0

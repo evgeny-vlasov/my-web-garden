@@ -90,6 +90,24 @@ class ContactSubmission(db.Model):
         return f'<ContactSubmission {self.name} - {self.submitted_at}>'
 
 
+class SpamBlocklist(db.Model):
+    """
+    Blocklist for spam names and emails.
+    Prevents specific names or email addresses from submitting contact forms.
+    """
+    __tablename__ = 'spam_blocklist'
+
+    id = db.Column(db.Integer, primary_key=True)
+    value = db.Column(db.String(255), nullable=False, unique=True, index=True)
+    type = db.Column(db.String(20), nullable=False)  # 'name' or 'email'
+    reason = db.Column(db.String(500))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_by = db.Column(db.String(100))
+
+    def __repr__(self):
+        return f'<SpamBlocklist {self.type}:{self.value}>'
+
+
 class BlogPost(db.Model):
     """
     Blog post model.

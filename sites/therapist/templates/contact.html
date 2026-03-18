@@ -36,8 +36,17 @@
                 <p class="text-muted mb-4">Fill out the form below and I will get back to you as soon as possible. All inquiries are confidential.</p>
                 {% endif %}
 
-                <form method="POST" action="{{ url_for('contact') }}" novalidate>
+                <form method="POST" action="{{ url_for('contact') }}" novalidate id="contactForm">
                     {{ form.hidden_tag() }}
+
+                    <!-- Honeypot field - hidden from humans, visible to bots -->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <label for="website">Website (leave blank)</label>
+                        <input type="text" id="website" name="website" value="" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <!-- reCAPTCHA token field -->
+                    <input type="hidden" id="recaptcha_token" name="recaptcha_token" value="">
 
                     <div class="mb-3">
                         {{ form.name.label(class="form-label") }}
@@ -357,6 +366,45 @@
         </div>
     </div>
 </section>
+
+<!-- reCAPTCHA v3 Script -->
+{% if config.RECAPTCHA_SITE_KEY %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ config.RECAPTCHA_SITE_KEY }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            // Check if token already exists (to prevent double submission)
+            const existingToken = document.getElementById('recaptcha_token').value;
+            if (existingToken) {
+                return true; // Already have token, allow submission
+            }
+
+            // Prevent submission until we get reCAPTCHA token
+            e.preventDefault();
+
+            // Execute reCAPTCHA
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ config.RECAPTCHA_SITE_KEY }}', {action: 'contact_form'})
+                    .then(function(token) {
+                        // Set the token in the hidden field
+                        document.getElementById('recaptcha_token').value = token;
+                        // Submit the form
+                        form.submit();
+                    })
+                    .catch(function(error) {
+                        console.error('reCAPTCHA error:', error);
+                        // Allow submission anyway to not block legitimate users
+                        form.submit();
+                    });
+            });
+        });
+    }
+});
+</script>
+{% endif %}
 {% endblock %}
 
 {% block bot_widget %}

@@ -63,6 +63,10 @@ class Config:
     RATELIMIT_STORAGE_URL = 'memory://'
     CONTACT_FORM_RATE_LIMIT = '5 per hour'  # 5 submissions per hour per IP
 
+    # reCAPTCHA v3 (spam prevention)
+    RECAPTCHA_SITE_KEY = os.getenv('RECAPTCHA_SITE_KEY')  # Public key for frontend
+    RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')  # Secret key for backend verification
+
 
 class DevelopmentConfig(Config):
     """Development configuration."""

@@ -96,3 +96,5 @@ tmp/
 *.egg-info/
 dist/
 build/
+sites/therapist/psyling.env.NEW
+*.env.NEW

@@ -2,36 +2,39 @@
 
 ## Online Booking
 
-The easiest way to schedule an appointment is to contact me directly.
+The easiest way to schedule an appointment is to use my calenbdar.
+
+****[Book an Appointment](https://calendar.app.google/kVakTWCcxaM8GfG18)****
 
 ## Office Hours
 
 **Wednesday - Friday:** 9:00 AM - 5:00 PM by appointments
+
 Evening hours are available for mandated clients.
 **Saturday-Sunday-Holidays:** Days off
 
 ## How to Schedule
 
-1. **Email:** Contact me at psyling@gmail.com
-2. **Phone:** Call (647) 360-8980 (no SMS, calls only)
-3. **Online Form:** Use the [contact form](/contact)
+1. Go to page **[Book an Appointment](https://calendar.app.google/kVakTWCcxaM8GfG18)**
+2. **Email:** Contact me at psyling@gmail.com
+3. **Phone:** Call (647) 360-8980 (no SMS, calls only)
 
 ## Session Format
 
-All sessions are currently offered **online** via secure video platform. If you prefer in-person sessions, please contact me to discuss availability and location details.
+All sessions are currently offered **online** via secure Psychology Today video platform. If you prefer in-person sessions, please contact me to discuss availability and location details.
 
 ## First Appointment
 
 Your first session typically involves:
-- Very brief explanation of what brought you to therapy (3 minutes)
+- Very brief explanation of what brought you to therapy (2 minutes)
 - Introduction of the therapist (1 min)
 - Explaining the therapy process (3 min)
 - Obtaining informed consent (1 min)
 - Your story (15 min)
 - Exploring your goals (5 min)
-- Working on your issues (25 min)
-- Summing up (5 min)
-- Feedback and scheduling next session (3 min)
+- Working on your issues (30 min)
+- Summing up (3 min)
+- Feedback and scheduling next session (1 min)
 
 <!-- Professional verification provided by Psychology Today -->
 <a href="https://www.psychologytoday.com/profile/176232" class="sx-verified-seal"></a>
@@ -41,6 +44,6 @@ Your first session typically involves:
 Sessions are 50 minutes long, with 10 minutes for summary and scheduling.
 
 ---
-Last updated: February, 24 2026
+Last updated: March, 4 2026
 ---
 *For urgent matters, please see crisis resources on the [Contact](/contact) page.*

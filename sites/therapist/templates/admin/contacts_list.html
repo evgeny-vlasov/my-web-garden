@@ -63,6 +63,19 @@
     </div>
     {% endif %}
 
+    <!-- Spam Actions Header -->
+    {% if show_spam and counts.spam > 0 %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Spam Messages ({{ counts.spam }})</h5>
+        <form method="POST" action="{{ url_for('admin_empty_spam') }}" style="display: inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Delete ALL {{ counts.spam }} spam messages? This cannot be undone!')">
+                <i class="bi bi-trash"></i> Empty Spam Folder
+            </button>
+        </form>
+    </div>
+    {% endif %}
+
     <!-- Contacts List -->
     {% if contacts.items %}
         <div class="card border-0 shadow-sm">

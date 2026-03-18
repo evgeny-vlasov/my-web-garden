@@ -1,0 +1,124 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Edit Pages{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Edit Pages</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-tabs mb-3" id="pageTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="fees-tab" data-bs-toggle="tab"
+                            data-bs-target="#fees" type="button" role="tab">
+                        Fees Page
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="schedule-tab" data-bs-toggle="tab"
+                            data-bs-target="#schedule" type="button" role="tab">
+                        Schedule Page
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pageTabContent">
+                <!-- Fees Page Editor -->
+                <div class="tab-pane fade show active" id="fees" role="tabpanel">
+                    <form method="POST" action="{{ url_for('admin_edit_page', page='fees') }}">
+                        {{ fees_form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            <label for="fees_content" class="form-label">
+                                <strong>Fees Page Content</strong>
+                                <small class="text-muted">(Markdown format)</small>
+                            </label>
+                            {{ fees_form.content(class="form-control font-monospace",
+                                                 rows=20, id="fees_content") }}
+                            <small class="form-text text-muted">
+                                Use Markdown: # for headers, ** for bold, - for lists, [text](url) for links
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Save Fees Page
+                            </button>
+                            <a href="/fees" target="_blank" class="btn btn-outline-secondary">
+                                <i class="bi bi-eye"></i> Preview Page
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Schedule Page Editor -->
+                <div class="tab-pane fade" id="schedule" role="tabpanel">
+                    <form method="POST" action="{{ url_for('admin_edit_page', page='schedule') }}">
+                        {{ schedule_form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            <label for="schedule_content" class="form-label">
+                                <strong>Schedule Page Content</strong>
+                                <small class="text-muted">(Markdown format)</small>
+                            </label>
+                            {{ schedule_form.content(class="form-control font-monospace",
+                                                     rows=20, id="schedule_content") }}
+                            <small class="form-text text-muted">
+                                Use Markdown: # for headers, ** for bold, - for lists, [text](url) for links
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Save Schedule Page
+                            </button>
+                            <a href="/schedule" target="_blank" class="btn btn-outline-secondary">
+                                <i class="bi bi-eye"></i> Preview Page
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Markdown Quick Reference</div>
+                <div class="card-body">
+                    <pre class="mb-0"><code># Heading 1
+## Heading 2
+### Heading 3
+
+**Bold text**
+*Italic text*
+
+- List item 1
+- List item 2
+
+1. Numbered item
+2. Numbered item
+
+[Link text](https://example.com)
+
+---
+(Horizontal line)</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

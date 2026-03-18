@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Frequently Asked Questions - Psychotherapy in Toronto{% endblock %}
+{% block title %}{% if current_lang == 'ru' %}Часто Задаваемые Вопросы - Психотерапия в Торонто{% else %}Frequently Asked Questions - Psychotherapy in Toronto{% endif %}{% endblock %}
 
-{% block meta_description %}Frequently asked questions about psychotherapy services, fees, insurance, confidentiality, and appointments with Valery Belyanin, Registered Psychotherapist in Toronto.{% endblock %}
+{% block meta_description %}{% if current_lang == 'ru' %}Часто задаваемые вопросы о психотерапевтических услугах, ценах, страховании, конфиденциальности и записи на прием к Валерию Белянину, зарегистрированному психотерапевту в Торонто.{% else %}Frequently asked questions about psychotherapy services, fees, insurance, confidentiality, and appointments with Valery Belyanin, Registered Psychotherapist in Toronto.{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -10,8 +10,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h1 class="display-4 mb-3">Часто Задаваемые Вопросы</h1>
+                <p class="lead">Общие вопросы о психотерапевтических услугах</p>
+                {% else %}
                 <h1 class="display-4 mb-3">Frequently Asked Questions</h1>
                 <p class="lead">Common questions about psychotherapy services</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -28,12 +33,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                Is psychotherapy right for me?
+                                {% if current_lang == 'ru' %}Подходит ли мне психотерапия?{% else %}Is psychotherapy right for me?{% endif %}
                             </button>
                         </h2>
                         <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Терапия может принести пользу любому, кто ищет поддержку, личностный рост или помощь с конкретными проблемами. Вы узнаете это, как только начнете психотерапию.
+                                {% else %}
                                 Therapy can benefit anyone seeking support, personal growth, or help with specific challenges. You will find it out as soon as you start the psychotherapy.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -42,13 +51,18 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                What are your fees?
+                                {% if current_lang == 'ru' %}Какова стоимость?{% else %}What are your fees?{% endif %}
                             </button>
                         </h2>
                         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                I have a sliding scale. For details go to <a href="/fees">Fees Page</a>.<br><br>
+                                {% if current_lang == 'ru' %}
+                                У меня скользящая шкала. Для деталей перейдите на <a href="{{ url_for('fees') }}">Страницу Цен</a>.<br><br>
+                                Вы можете платить через Interac и получите квитанцию.
+                                {% else %}
+                                I have a sliding scale. For details go to <a href="{{ url_for('fees') }}">Fees Page</a>.<br><br>
                                 You can pay via Interac and you will get a Receipt.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -57,12 +71,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                What about insurance?
+                                {% if current_lang == 'ru' %}Как насчет страхования?{% else %}What about insurance?{% endif %}
                             </button>
                         </h2>
                         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Многие страховые планы в Онтарио и других провинциях Канады покрывают психотерапевтические услуги. Для деталей, пожалуйста, обратитесь к вашему страховому плану. Квитанция будет выдана вам после получения платежа. Квитанцию можно подать на возмещение.
+                                {% else %}
                                 Many insurance plans in Ontario and other provinces of Canada cover psychotherapy services. For details please refer to your insurance plan. A receipt will be issued to you after the payment is received. The receipt can be submitted for reimbursement.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -71,12 +89,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                                What if I need to cancel an appointment?
+                                {% if current_lang == 'ru' %}Что если мне нужно отменить прием?{% else %}What if I need to cancel an appointment?{% endif %}
                             </button>
                         </h2>
                         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Пожалуйста, уведомите за 24 часа об отмене. Поздние отмены или неявки могут быть оплачены частично или полностью, так как время было зарезервировано специально для вас.
+                                {% else %}
                                 Please provide 24 hours notice for cancellations. Late cancellations or no-shows may be charged a portion or the full fee as the time was reserved especially for you.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -85,12 +107,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-                                Do I need to sign any documents?
+                                {% if current_lang == 'ru' %}Нужно ли мне подписывать какие-либо документы?{% else %}Do I need to sign any documents?{% endif %}
                             </button>
                         </h2>
                         <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Во время первой сессии я объясню вам суть психотерапии, отвечу на все ваши вопросы, и вас попросят подписать согласие на психотерапию или согласиться устно. Это требование всех регулируемых профессий в Канаде.
+                                {% else %}
                                 During the first session I will explain you the essence of psychotherapy, answer all your questions and you will be asked to sign a Consent for Psychotherapy or agree to it verbally. This is the requirement of all regulated professions in Canada.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -99,12 +125,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
-                                What is the difference between Psychology and Psychotherapy?
+                                {% if current_lang == 'ru' %}В чем разница между психологией и психотерапией?{% else %}What is the difference between Psychology and Psychotherapy?{% endif %}
                             </button>
                         </h2>
                         <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Если вам нужна формальная оценка или формальный диагноз, то психолог может быть полезен. Психотерапия предлагает вам лечение и поддержку без формальной оценки и диагноза.
+                                {% else %}
                                 If you need formal assessment or a formal diagnosis then a psychologist may be helpful. Psychotherapy offers you treatment and support without formal assessment and diagnosis.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -113,12 +143,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
-                                Is my information confidential?
+                                {% if current_lang == 'ru' %}Конфиденциальна ли моя информация?{% else %}Is my information confidential?{% endif %}
                             </button>
                         </h2>
                         <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Мне просто нужна некоторая информация о вас (имя, дата рождения, адрес - для выставления счетов). Вся коммуникация и терапевтические сессии конфиденциальны и защищены профессиональной этикой и законами о конфиденциальности. Применяются некоторые ограничения (такие как риск причинения вреда себе или другим, или судебные постановления).
+                                {% else %}
                                 I just need some information about you (name, date of birth, address - for billing purposes). All communications and therapy sessions are confidential and protected by professional ethics and privacy laws. Some restrictions apply (such as risk of harm to self or others, or court orders).
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -127,12 +161,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
-                                How long does the therapy take?
+                                {% if current_lang == 'ru' %}Сколько времени занимает терапия?{% else %}How long does the therapy take?{% endif %}
                             </button>
                         </h2>
                         <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Продолжительность терапии варьируется в зависимости от индивидуальных потребностей и целей. Некоторым людям полезна краткосрочная терапия (8-12 сессий), в то время как другие получают пользу от долгосрочной поддержки. Решать будете вы.
+                                {% else %}
                                 The duration of therapy varies depending on individual needs and goals. Some people find short-term therapy (8-12 sessions) helpful, while others benefit from longer-term support. It will be up for you to decide.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -141,13 +179,18 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq9">
-                                What methods do you use?
+                                {% if current_lang == 'ru' %}Какие методы вы используете?{% else %}What methods do you use?{% endif %}
                             </button>
                         </h2>
                         <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
+                                {% if current_lang == 'ru' %}
+                                Я использую различные методы, включая нейролингвистическое программирование, когнитивно-поведенческую и когнитивную процессинговую терапию, нарративную терапию, трансакционный анализ, позитивную психотерапию и другие.<br><br>
+                                Мой терпеливый подход способствует самопониманию, пониманию нераспознанных сильных сторон и способствует расширению перспективы и более многомерному мышлению.
+                                {% else %}
                                 I use a variety of methods, including Neuro-linguistic Programming, Cognitive Behavioural and Cognitive Processing Therapy, Narrative Therapy, Transactional Analysis, Positive Psychotherapy, among others.<br><br>
                                 My patient approach fosters self-understanding, insight into unrecognized strengths and contributes to a broadening of perspective and more multidimensional thinking.
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -156,12 +199,16 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq10">
-                                How to schedule an appointment?
+                                {% if current_lang == 'ru' %}Как записаться на прием?{% else %}How to schedule an appointment?{% endif %}
                             </button>
                         </h2>
                         <div id="faq10" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                Contact me via phone, email, or the form on the <a href="{{ url_for('contact') }}">Contact page</a>. Or better go to the page on this website at <a href="https://calendar.app.google/N1tyvksZHpmyP2a16" target="_blank">https://calendar.app.google/N1tyvksZHpmyP2a16</a>
+                                {% if current_lang == 'ru' %}
+                                Свяжитесь со мной по телефону, электронной почте или через форму на <a href="{{ url_for('contact') }}">странице контактов</a>. Или лучше перейдите на страницу этого сайта <a href="{{ url_for('schedule') }}">www.psyling.com/schedule</a>
+                                {% else %}
+                                Contact me via phone, email, or the form on the <a href="{{ url_for('contact') }}">Contact page</a>. Or better go to the page on this website at <a href="{{ url_for('schedule') }}">www.psyling.com/schedule</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -177,6 +224,16 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
+                {% if current_lang == 'ru' %}
+                <h2 class="mb-4">Остались Вопросы?</h2>
+                <p class="lead mb-4">Не стесняйтесь обращаться. Я здесь, чтобы помочь.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg px-4">Связаться со Мной</a>
+                    <a href="tel:{{ config.OFFICE_PHONE }}" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="bi bi-telephone me-2"></i>Позвонить Сейчас
+                    </a>
+                </div>
+                {% else %}
                 <h2 class="mb-4">Still Have Questions?</h2>
                 <p class="lead mb-4">Feel free to reach out. I'm here to help.</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
@@ -185,6 +242,7 @@
                         <i class="bi bi-telephone me-2"></i>Call Now
                     </a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

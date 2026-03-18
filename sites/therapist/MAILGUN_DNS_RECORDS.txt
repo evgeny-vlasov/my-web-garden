@@ -1,0 +1,304 @@
+=============================================================================
+PSYLING.COM - MAILGUN DNS RECORDS FOR CLOUDFLARE
+=============================================================================
+
+Eugene, add these DNS records to Cloudflare for the psyling.com domain.
+
+After adding records:
+1. Wait 10-60 minutes for DNS propagation
+2. Verify in Mailgun dashboard (domain should show "Active")
+3. Run test script: cd /var/www/webgarden/webgarden/sites/therapist && python3 test_email_smtp.py
+
+-----------------------------------------------------------------------------
+
+RECORD 1: SPF (Sender Policy Framework)
+Type:     TXT
+Name:     @ (or psyling.com)
+Value:    v=spf1 include:mailgun.org ~all
+TTL:      Auto (or 3600)
+Proxy:    DNS only (grey cloud ☁️) - DO NOT PROXY
+
+Purpose:  Authorizes Mailgun to send email from psyling.com domain
+
+-----------------------------------------------------------------------------
+
+RECORD 2: DKIM (DomainKeys Identified Mail)
+Type:     TXT
+Name:     smtp._domainkey
+Value:    <GET FROM MAILGUN DASHBOARD - see instructions below>
+TTL:      Auto (or 3600)
+Proxy:    DNS only (grey cloud ☁️) - DO NOT PROXY
+
+Purpose:  Email signature verification (prevents spoofing and improves deliverability)
+
+⚠️  TO GET DKIM VALUE:
+1. Login to Mailgun: https://app.mailgun.com
+2. Go to: Sending → Domains → psyling.com
+3. Click "DNS Records" tab
+4. Find the TXT record for "smtp._domainkey.psyling.com"
+5. Copy the entire value (starts with "k=rsa; p=...")
+6. Paste into Cloudflare DNS
+
+Example DKIM value format:
+k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDd... (very long string)
+
+-----------------------------------------------------------------------------
+
+RECORD 3: Tracking Domain (OPTIONAL - Can Skip)
+Type:     CNAME
+Name:     email
+Value:    mailgun.org
+TTL:      Auto (or 3600)
+Proxy:    DNS only (grey cloud ☁️)
+
+Purpose:  Click and open tracking for email analytics
+Note:     This is OPTIONAL. Skip this record if you want better email privacy.
+          Email will still work without this record.
+
+-----------------------------------------------------------------------------
+
+RECORD 4: MX Record (DO NOT ADD YET)
+Type:     MX
+Name:     @ (or psyling.com)
+Value:    mxa.mailgun.org
+Priority: 10
+TTL:      Auto (or 3600)
+
+Purpose:  Receiving email at @psyling.com addresses
+
+⚠️  DO NOT ADD THIS RECORD unless Valery wants to receive email at @psyling.com
+
+Current setup:
+  - SEND email FROM: noreply@psyling.com
+  - RECEIVE email AT: psyling@gmail.com
+  - No need for MX record at this time
+
+-----------------------------------------------------------------------------
+
+CLOUDFLARE SPECIFIC INSTRUCTIONS
+-----------------------------------------------------------------------------
+
+1. Login to Cloudflare: https://dash.cloudflare.com
+2. Select domain: psyling.com
+3. Go to: DNS → Records
+4. Click "Add record" for each DNS record above
+
+IMPORTANT SETTINGS:
+  ✓ Proxy Status: DNS only (grey cloud ☁️) for ALL email records
+  ✗ DO NOT use Proxied (orange cloud 🟠) for email records
+  ✗ Proxied records will BREAK email authentication
+
+Why DNS only?
+  - Email authentication requires direct DNS access
+  - Cloudflare proxy interferes with SPF/DKIM verification
+  - "DNS only" allows proper email delivery
+
+-----------------------------------------------------------------------------
+
+VERIFICATION STEPS
+-----------------------------------------------------------------------------
+
+After adding DNS records, verify propagation:
+
+Method 1: Command line (if you have dig installed)
+-------------------------------------------------
+# Check SPF record
+dig TXT psyling.com +short | grep spf
+
+Expected output:
+"v=spf1 include:mailgun.org ~all"
+
+
+# Check DKIM record
+dig TXT smtp._domainkey.psyling.com +short
+
+Expected output:
+"k=rsa; p=MIGfMA0GCS..." (long key)
+
+
+# Check CNAME (if you added tracking domain)
+dig CNAME email.psyling.com +short
+
+Expected output:
+mailgun.org
+
+
+Method 2: Online DNS checker
+-----------------------------
+Visit: https://mxtoolbox.com/SuperTool.aspx
+
+1. Enter: psyling.com
+2. Select: TXT Lookup
+3. Should see SPF record
+
+Then:
+1. Enter: smtp._domainkey.psyling.com
+2. Select: TXT Lookup
+3. Should see DKIM record
+
+
+Method 3: Mailgun dashboard (RECOMMENDED)
+------------------------------------------
+1. Login: https://app.mailgun.com
+2. Go to: Sending → Domains → psyling.com
+3. Click "DNS Records" tab
+4. Check verification status for each record
+5. Domain status should show "Active" (green) when all records verified
+
+DNS propagation can take 10-60 minutes, sometimes up to 24 hours.
+
+-----------------------------------------------------------------------------
+
+TROUBLESHOOTING
+-----------------------------------------------------------------------------
+
+Problem: DNS records not showing after 1 hour
+Solution:
+  1. Verify records added correctly in Cloudflare
+  2. Check proxy status is "DNS only" (grey cloud)
+  3. Try clearing DNS cache:
+     - Cloudflare: DNS → Records → Purge Cache
+     - Local: Clear browser DNS cache
+  4. Wait longer (up to 24 hours for full propagation)
+
+
+Problem: Mailgun shows "Unverified" status
+Solution:
+  1. Click "Verify DNS Settings" button in Mailgun dashboard
+  2. Check exact value matches what Mailgun expects
+  3. Ensure no extra spaces or quotes in DNS value
+  4. Wait 10-60 minutes and check again
+
+
+Problem: SPF record conflicts (if you have existing SPF)
+Solution:
+  - You can only have ONE SPF record per domain
+  - If existing SPF exists, modify it to include Mailgun:
+    Before: v=spf1 include:existing.com ~all
+    After:  v=spf1 include:existing.com include:mailgun.org ~all
+  - Do NOT create multiple SPF records
+
+
+Problem: "Too many DNS lookups" error
+Solution:
+  - SPF has a 10 DNS lookup limit
+  - Count includes in your SPF record (including nested lookups)
+  - If over limit, consider using Mailgun's relay-only setup
+  - Or use IP address instead: v=spf1 ip4:192.168.1.1 include:mailgun.org ~all
+
+-----------------------------------------------------------------------------
+
+NEXT STEPS AFTER DNS SETUP
+-----------------------------------------------------------------------------
+
+1. Wait for DNS propagation (10-60 minutes minimum)
+
+2. Verify domain status in Mailgun dashboard shows "Active"
+
+3. Get SMTP password from Mailgun:
+   - Dashboard → Domains → psyling.com → SMTP Credentials
+   - Copy the SMTP password (NOT the API key)
+
+4. Update environment file with SMTP password:
+   sudo nano /etc/webgarden/psyling.env
+   # Change MAIL_PASSWORD from PLACEHOLDER to actual password
+   # Save file (Ctrl+O, Enter, Ctrl+X)
+
+5. Restart psyling service:
+   sudo systemctl restart psyling
+   sudo systemctl status psyling
+
+6. Run SMTP test:
+   cd /var/www/webgarden/webgarden/sites/therapist
+   source venv/bin/activate
+   python3 test_email_smtp.py
+
+7. Check psyling@gmail.com inbox for test email
+
+8. Test contact form:
+   - Open https://psyling.com/contact
+   - Submit test inquiry
+   - Verify email received
+   - Click "Reply" to test reply-to functionality
+
+9. Monitor logs during testing:
+   sudo journalctl -u psyling.service -f
+
+-----------------------------------------------------------------------------
+
+MAILGUN DASHBOARD REFERENCE
+-----------------------------------------------------------------------------
+
+Mailgun Login: https://app.mailgun.com
+
+Important Pages:
+  - Domains: https://app.mailgun.com/app/sending/domains
+  - DNS Records: Domains → psyling.com → DNS Records tab
+  - SMTP Credentials: Domains → psyling.com → SMTP Credentials
+  - Logs: https://app.mailgun.com/logs (view sent emails)
+  - Usage: Dashboard → Usage (monitor email quota)
+
+DNS Records Tab in Mailgun:
+  ✓ Green checkmark = Record verified
+  ⚠️  Yellow warning = Record not found or incorrect
+  ❌ Red X = Record missing
+
+All records must show green checkmarks for domain to be "Active"
+
+-----------------------------------------------------------------------------
+
+HELP AND DOCUMENTATION
+-----------------------------------------------------------------------------
+
+Comprehensive documentation:
+/var/www/webgarden/webgarden/docs/EMAIL_SETUP.md
+
+Test script location:
+/var/www/webgarden/webgarden/sites/therapist/test_email_smtp.py
+
+Mailgun DNS guide:
+https://documentation.mailgun.com/en/latest/quickstart-sending.html#verify-your-domain
+
+Cloudflare DNS guide:
+https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/
+
+-----------------------------------------------------------------------------
+
+SUMMARY CHECKLIST
+-----------------------------------------------------------------------------
+
+DNS Setup:
+[ ] Login to Cloudflare
+[ ] Add SPF TXT record (@ = v=spf1 include:mailgun.org ~all)
+[ ] Add DKIM TXT record (smtp._domainkey = get from Mailgun)
+[ ] Optional: Add tracking CNAME record (email = mailgun.org)
+[ ] Set all records to "DNS only" (grey cloud)
+[ ] Wait 10-60 minutes for propagation
+
+Mailgun Verification:
+[ ] Login to Mailgun dashboard
+[ ] Check domain status (should show "Active")
+[ ] All DNS records show green checkmarks
+[ ] Copy SMTP password from SMTP Credentials
+
+Server Configuration:
+[ ] Update /etc/webgarden/psyling.env with SMTP password
+[ ] Restart psyling service
+[ ] Run test_email_smtp.py script
+[ ] Check test email received at psyling@gmail.com
+
+Production Testing:
+[ ] Submit test contact form
+[ ] Verify admin notification received
+[ ] Verify auto-reply received
+[ ] Test reply-to functionality
+[ ] Monitor logs for errors
+
+=============================================================================
+
+Questions? Check the full documentation at:
+/var/www/webgarden/webgarden/docs/EMAIL_SETUP.md
+
+Good luck!
+
+=============================================================================
