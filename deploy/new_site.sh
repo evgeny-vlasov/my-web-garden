@@ -157,6 +157,11 @@ create_directories() {
     # Create log directory if it doesn't exist
     mkdir -p "$LOG_DIR"
 
+    # Set ownership for directories that will be written to by WEBGARDEN_USER
+    chown -R "$WEBGARDEN_USER:$WEBGARDEN_USER" "$SITES_DIR/$SITE_ID"
+    chown -R "$WEBGARDEN_USER:$WEBGARDEN_USER" "$UPLOAD_DIR/$SITE_ID"
+    chown -R "$WEBGARDEN_USER:$WEBGARDEN_USER" "$LOG_DIR"
+
     log_success "Directory structure created"
 }
 
@@ -507,6 +512,7 @@ setup_virtualenv() {
         flask-wtf \
         flask-migrate \
         flask-limiter \
+        flask-bcrypt \
         gunicorn \
         psycopg2-binary \
         python-dotenv \
@@ -666,6 +672,55 @@ print_summary() {
     echo "================================================================================"
 }
 
+cleanup_on_failure() {
+    log_error "Deployment failed! Cleaning up partial artifacts..."
+
+    # Remove site directory
+    if [ -d "$SITES_DIR/$SITE_ID" ]; then
+        rm -rf "$SITES_DIR/$SITE_ID"
+        log_info "Removed site directory: $SITES_DIR/$SITE_ID"
+    fi
+
+    # Remove upload directory
+    if [ -d "$UPLOAD_DIR/$SITE_ID" ]; then
+        rm -rf "$UPLOAD_DIR/$SITE_ID"
+        log_info "Removed upload directory: $UPLOAD_DIR/$SITE_ID"
+    fi
+
+    # Remove nginx config and symlink
+    if [ -f "$NGINX_AVAILABLE/$SITE_ID" ]; then
+        rm -f "$NGINX_AVAILABLE/$SITE_ID"
+        log_info "Removed Nginx config: $NGINX_AVAILABLE/$SITE_ID"
+    fi
+    if [ -L "$NGINX_ENABLED/$SITE_ID" ]; then
+        rm -f "$NGINX_ENABLED/$SITE_ID"
+        log_info "Removed Nginx symlink: $NGINX_ENABLED/$SITE_ID"
+    fi
+
+    # Remove systemd service
+    if [ -f "$SYSTEMD_DIR/$SITE_ID.service" ]; then
+        systemctl stop "$SITE_ID.service" 2>/dev/null || true
+        systemctl disable "$SITE_ID.service" 2>/dev/null || true
+        rm -f "$SYSTEMD_DIR/$SITE_ID.service"
+        systemctl daemon-reload
+        log_info "Removed systemd service: $SYSTEMD_DIR/$SITE_ID.service"
+    fi
+
+    # Remove env file
+    if [ -f "$ENV_DIR/$SITE_ID.env" ]; then
+        rm -f "$ENV_DIR/$SITE_ID.env"
+        log_info "Removed env file: $ENV_DIR/$SITE_ID.env"
+    fi
+
+    # Note: We don't clean up the database as it might contain data
+    log_warning "Database '$DB_NAME' and user '$DB_USER' were not removed."
+    log_warning "To remove them manually, run:"
+    log_warning "  sudo -u postgres psql -c \"DROP DATABASE IF EXISTS $DB_NAME;\""
+    log_warning "  sudo -u postgres psql -c \"DROP USER IF EXISTS $DB_USER;\""
+
+    log_error "Cleanup complete. You can now retry the deployment."
+}
+
 ################################################################################
 # Main Script
 ################################################################################
@@ -704,6 +759,9 @@ main() {
     # Derived variables
     DB_NAME="${SITE_ID}_db"
     DB_USER="${SITE_ID}_user"
+
+    # Register cleanup handler for failures
+    trap cleanup_on_failure ERR
 
     log_info "Deploying site: $SITE_NAME"
     log_info "Site ID: $SITE_ID"
