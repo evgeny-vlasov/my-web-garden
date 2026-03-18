@@ -49,6 +49,11 @@ def index():
     """Home page."""
     return render_template('index.html')
 
+@app.route('/services')
+def services():
+    """Services page."""
+    return render_template('services.html')
+
 @app.route('/about')
 def about():
     """About page."""
@@ -59,5 +64,11 @@ def contact():
     """Contact page."""
     return render_template('contact.html')
 
+@app.route('/blog')
+def blog():
+    """Blog page."""
+    return render_template('blog.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=app.config['DEBUG'])
+

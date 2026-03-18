@@ -402,6 +402,11 @@ def index():
     """Home page."""
     return render_template('index.html')
 
+@app.route('/services')
+def services():
+    """Services page."""
+    return render_template('services.html')
+
 @app.route('/about')
 def about():
     """About page."""
@@ -411,6 +416,11 @@ def about():
 def contact():
     """Contact page."""
     return render_template('contact.html')
+
+@app.route('/blog')
+def blog():
+    """Blog page."""
+    return render_template('blog.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=app.config['DEBUG'])
@@ -465,6 +475,34 @@ EOFHTML
 <div class="container py-5">
     <h1>Contact Us</h1>
     <p>Add your contact form here.</p>
+</div>
+{% endblock %}
+EOFHTML
+
+    # Create basic services.html
+    cat > "$SITES_DIR/$SITE_ID/templates/services.html" <<'EOFHTML'
+{% extends "base.html" %}
+
+{% block title %}Services - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Our Services</h1>
+    <p>Add your services here.</p>
+</div>
+{% endblock %}
+EOFHTML
+
+    # Create basic blog.html
+    cat > "$SITES_DIR/$SITE_ID/templates/blog.html" <<'EOFHTML'
+{% extends "base.html" %}
+
+{% block title %}Blog - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Blog</h1>
+    <p>Add your blog posts here.</p>
 </div>
 {% endblock %}
 EOFHTML
