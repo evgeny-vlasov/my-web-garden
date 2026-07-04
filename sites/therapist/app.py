@@ -933,34 +933,6 @@ def init_db():
 
 
 @app.cli.command()
-def create_admin():
-    """Create an admin user."""
-    from shared.models import User
-
-    username = input('Enter username: ')
-    email = input('Enter email: ')
-    password = input('Enter password: ')
-
-    # Check if user already exists
-    if User.query.filter_by(username=username).first():
-        print(f'User {username} already exists.')
-        return
-
-    # Create admin user
-    admin = User(
-        username=username,
-        email=email,
-        role='admin'
-    )
-    admin.set_password(password)
-
-    db.session.add(admin)
-    db.session.commit()
-
-    print(f'Admin user {username} created successfully.')
-
-
-@app.cli.command()
 def test_email():
     """Test email configuration."""
     from shared.email import send_email
