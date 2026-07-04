@@ -187,16 +187,15 @@
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div class="flex-grow-1">
                                             <h6 class="mb-1">
-                                                {{ contact.name }}
-                                                {% if contact.status == 'new' %}
-                                                    <span class="badge bg-danger ms-1">New</span>
+                                                <a href="{{ url_for('admin_contact_view', contact_id=contact.id) }}" class="text-decoration-none">
+                                                    {{ contact.name }}
+                                                </a>
+                                                {% if not contact.is_read %}
+                                                    <span class="badge bg-danger ms-1">Unread</span>
                                                 {% endif %}
                                             </h6>
                                             <p class="mb-1 small text-muted">
-                                                {{ contact.email }} • {{ contact.submitted_at.strftime('%b %d, %Y at %I:%M %p') }}
-                                            </p>
-                                            <p class="mb-0 small text-truncate">
-                                                {{ contact.message[:100] }}{% if contact.message|length > 100 %}...{% endif %}
+                                                Inquiry #{{ contact.id }} • {{ contact.submitted_at.strftime('%b %d, %Y at %I:%M %p') }}
                                             </p>
                                         </div>
                                     </div>

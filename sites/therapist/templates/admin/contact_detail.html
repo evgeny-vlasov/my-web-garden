@@ -1,0 +1,113 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Contact #{{ contact.id }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <div>
+            <a href="{{ url_for('admin_contacts_list') }}" class="text-decoration-none small">
+                <i class="bi bi-arrow-left me-1"></i>Back to contacts
+            </a>
+            <h1 class="h3 mt-2 mb-0">Contact #{{ contact.id }}</h1>
+        </div>
+        <div class="d-flex gap-2 align-items-center">
+            {% if not contact.is_read %}<span class="badge bg-danger">Unread</span>{% endif %}
+            {% if contact.archived_at %}<span class="badge bg-secondary">Archived</span>{% endif %}
+            <span class="badge crm-status crm-status-{{ contact.status }}">{{ contact.status|title }}</span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-xl-7">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white"><h2 class="h5 mb-0">Contact details</h2></div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-3">Name</dt><dd class="col-sm-9">{{ contact.name }}</dd>
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9"><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></dd>
+                        <dt class="col-sm-3">Phone</dt>
+                        <dd class="col-sm-9">
+                            {% if contact.phone %}<a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>{% else %}—{% endif %}
+                        </dd>
+                        <dt class="col-sm-3">Submitted</dt>
+                        <dd class="col-sm-9">{{ contact.submitted_at.strftime('%B %d, %Y at %I:%M %p') }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white"><h2 class="h5 mb-0">Original message</h2></div>
+                <div class="card-body">
+                    <div class="crm-message">{{ contact.message }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-5">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white"><h2 class="h5 mb-0">CRM workflow</h2></div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin_contact_update_crm', contact_id=contact.id) }}">
+                        {{ crm_form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ crm_form.status.label(class='form-label') }}
+                            {{ crm_form.status(class='form-select') }}
+                            {% for error in crm_form.status.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ crm_form.follow_up_at.label(class='form-label') }}
+                            {{ crm_form.follow_up_at(class='form-control') }}
+                            <div class="form-text">Clear the field to remove the follow-up.</div>
+                            {% for error in crm_form.follow_up_at.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ crm_form.notes.label(class='form-label') }}
+                            {{ crm_form.notes(class='form-control', rows=7) }}
+                            <div class="form-text">Visible only to administrators.</div>
+                            {% for error in crm_form.notes.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Save CRM changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white"><h2 class="h5 mb-0">Actions</h2></div>
+                <div class="card-body d-grid gap-2">
+                    <form method="POST" action="{{ url_for('admin_contact_mark_contacted', contact_id=contact.id) }}">
+                        {{ action_form.hidden_tag() }}
+                        <button class="btn btn-outline-success w-100" type="submit">Mark contacted now</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('admin_contact_toggle_read', contact_id=contact.id) }}">
+                        {{ action_form.hidden_tag() }}
+                        <button class="btn btn-outline-primary w-100" type="submit">
+                            Mark {% if contact.is_read %}unread{% else %}read{% endif %}
+                        </button>
+                    </form>
+                    <form method="POST" action="{{ url_for('admin_contact_toggle_spam', contact_id=contact.id) }}">
+                        {{ action_form.hidden_tag() }}
+                        <button class="btn btn-outline-warning w-100" type="submit">
+                            Mark {% if contact.is_spam %}not spam{% else %}as spam{% endif %}
+                        </button>
+                    </form>
+                    <form method="POST" action="{{ url_for('admin_contact_toggle_archive', contact_id=contact.id) }}">
+                        {{ action_form.hidden_tag() }}
+                        <button class="btn btn-outline-secondary w-100" type="submit">
+                            {% if contact.archived_at %}Restore from archive{% else %}Archive contact{% endif %}
+                        </button>
+                    </form>
+                    <hr>
+                    <dl class="small mb-0">
+                        <dt>Last contacted</dt>
+                        <dd>{{ contact.last_contacted_at.strftime('%b %d, %Y %I:%M %p') if contact.last_contacted_at else 'Not recorded' }}</dd>
+                        <dt>Last updated</dt>
+                        <dd class="mb-0">{{ contact.updated_at.strftime('%b %d, %Y %I:%M %p') if contact.updated_at else 'Not recorded' }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

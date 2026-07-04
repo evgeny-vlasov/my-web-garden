@@ -226,6 +226,36 @@ body {
     color: var(--admin-success);
 }
 
+/* Contact CRM */
+.crm-status {
+    color: #fff;
+}
+
+.crm-status-new {
+    background-color: var(--admin-danger);
+}
+
+.crm-status-contacted {
+    background-color: var(--admin-info);
+}
+
+.crm-status-booked {
+    background-color: var(--admin-success);
+}
+
+.crm-status-closed {
+    background-color: var(--admin-secondary);
+}
+
+.crm-status-spam {
+    background-color: #343a40;
+}
+
+.crm-message {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
 /* Empty States */
 .empty-state {
     padding: 3rem 1rem;

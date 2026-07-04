@@ -54,6 +54,12 @@ class ContactSubmission(db.Model):
     Stores inquiries from website visitors.
     """
     __tablename__ = 'contact_submissions'
+    __table_args__ = (
+        db.CheckConstraint(
+            "status IN ('new', 'contacted', 'booked', 'closed', 'spam')",
+            name='ck_contact_submissions_status',
+        ),
+    )
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -61,33 +67,46 @@ class ContactSubmission(db.Model):
     phone = db.Column(db.String(20))
     message = db.Column(db.Text, nullable=False)
     submitted_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False, index=True)
-    status = db.Column(db.String(20), default='new')  # new, read, responded
-    notes = db.Column(db.Text)
+    status = db.Column(
+        db.String(20), default='new', server_default='new', nullable=False
+    )
+    notes = db.Column(db.Text)  # Internal admin notes; never shown publicly.
     is_spam = db.Column(db.Boolean, default=False, index=True)
+    is_read = db.Column(
+        db.Boolean, default=False, server_default=db.false(), nullable=False
+    )
+    follow_up_at = db.Column(db.DateTime, index=True)
+    last_contacted_at = db.Column(db.DateTime)
+    archived_at = db.Column(db.DateTime, index=True)
+    updated_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+        server_default=db.func.now(),
+        nullable=False,
+    )
 
     def mark_as_read(self):
         """Mark submission as read."""
-        if self.status == 'new':
-            self.status = 'read'
-            db.session.commit()
+        self.is_read = True
 
-    def mark_as_responded(self):
-        """Mark submission as responded."""
-        self.status = 'responded'
-        db.session.commit()
+    def mark_as_unread(self):
+        """Mark submission as unread without changing its workflow status."""
+        self.is_read = False
 
     def mark_as_spam(self):
         """Mark submission as spam."""
         self.is_spam = True
-        db.session.commit()
+        self.status = 'spam'
 
     def mark_as_not_spam(self):
         """Mark submission as not spam."""
         self.is_spam = False
-        db.session.commit()
+        if self.status == 'spam':
+            self.status = 'new'
 
     def __repr__(self):
-        return f'<ContactSubmission {self.name} - {self.submitted_at}>'
+        return f'<ContactSubmission id={self.id}>'
 
 
 class SpamBlocklist(db.Model):

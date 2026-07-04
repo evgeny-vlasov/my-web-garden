@@ -11,6 +11,7 @@ from werkzeug.utils import secure_filename
 from slugify import slugify
 import markdown
 import requests
+from sqlalchemy import or_
 
 # Add parent directories to Python path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -35,6 +36,11 @@ from shared.sanitizer import sanitize_html, create_excerpt
 from shared.image_handler import save_image, allowed_file
 from sites.therapist.config import config
 from sites.therapist.cli import register_cli_commands
+from sites.therapist.crm_forms import (
+    CONTACT_STATUSES,
+    ContactActionForm,
+    ContactCRMForm,
+)
 
 # Additional imports for page editing
 from flask_wtf import FlaskForm
@@ -74,7 +80,11 @@ def inject_globals():
     """Inject global variables into all templates."""
     unread_count = 0
     if current_user.is_authenticated:
-        unread_count = ContactSubmission.query.filter_by(status='new').count()
+        unread_count = ContactSubmission.query.filter(
+            ContactSubmission.is_read.is_(False),
+            ContactSubmission.is_spam.is_(False),
+            ContactSubmission.archived_at.is_(None),
+        ).count()
 
     # Get current language from session, default to English
     current_lang = session.get('lang', 'en')
@@ -201,7 +211,7 @@ def contact():
         honeypot = request.form.get('website', '')
         if honeypot:
             # Bot detected - honeypot was filled
-            app.logger.warning(f'Honeypot spam detected from IP {request.remote_addr}: website field = "{honeypot}"')
+            app.logger.warning('Honeypot spam submission rejected')
             # Return fake success to fool the bot
             flash('Thank you for your message! We will get back to you soon.', 'success')
             return redirect(url_for('contact'))
@@ -213,14 +223,14 @@ def contact():
         # Check if name is blocked
         name_blocked = SpamBlocklist.query.filter_by(value=name, type='name').first()
         if name_blocked:
-            app.logger.warning(f'Blocked name submitted: {name} from {request.remote_addr}')
+            app.logger.warning('Blocklisted name submission rejected')
             flash('Thank you for your message!', 'success')
             return redirect(url_for('contact'))
 
         # Check if email is blocked
         email_blocked = SpamBlocklist.query.filter_by(value=email, type='email').first()
         if email_blocked:
-            app.logger.warning(f'Blocked email submitted: {email} from {request.remote_addr}')
+            app.logger.warning('Blocklisted email submission rejected')
             flash('Thank you for your message!', 'success')
             return redirect(url_for('contact'))
 
@@ -364,14 +374,18 @@ def admin_logout():
 
 @app.route('/admin')
 @app.route('/admin/dashboard')
-@custom_login_required
+@admin_required
 def admin_dashboard():
     """Admin dashboard."""
     # Get statistics
     stats = {
         'total_posts': BlogPost.query.count(),
         'total_contacts': ContactSubmission.query.count(),
-        'unread_contacts': ContactSubmission.query.filter_by(status='new').count()
+        'unread_contacts': ContactSubmission.query.filter(
+            ContactSubmission.is_read.is_(False),
+            ContactSubmission.is_spam.is_(False),
+            ContactSubmission.archived_at.is_(None),
+        ).count()
     }
 
     # Get recent posts (5 most recent)
@@ -555,179 +569,192 @@ def admin_post_delete(post_id):
 # ============================================================================
 
 @app.route('/admin/contacts')
-@custom_login_required
+@admin_required
 def admin_contacts_list():
-    """List all contact submissions with filtering."""
+    """List contact submissions with privacy-conscious CRM filtering."""
     page = request.args.get('page', 1, type=int)
-    status_filter = request.args.get('status', None)
-    spam_filter = request.args.get('show', 'inbox')  # inbox or spam
+    status_filter = request.args.get('status', '').strip().lower()
+    view_filter = request.args.get('show', 'inbox').strip().lower()
+    search = request.args.get('q', '').strip()[:100]
+
+    if status_filter and status_filter not in CONTACT_STATUSES:
+        abort(400)
+    if view_filter not in {'inbox', 'spam', 'archived'}:
+        abort(400)
 
     query = ContactSubmission.query
 
-    # Apply spam filter first
-    if spam_filter == 'spam':
-        query = query.filter_by(is_spam=True)
-        show_spam = True
+    if view_filter == 'archived':
+        query = query.filter(ContactSubmission.archived_at.isnot(None))
     else:
-        query = query.filter_by(is_spam=False)
-        show_spam = False
+        query = query.filter(ContactSubmission.archived_at.is_(None))
+        query = query.filter(ContactSubmission.is_spam.is_(view_filter == 'spam'))
 
-    # Apply status filter
     if status_filter:
         query = query.filter_by(status=status_filter)
 
-    # Paginate results
+    if search:
+        escaped = search.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_')
+        pattern = f'%{escaped}%'
+        query = query.filter(or_(
+            ContactSubmission.name.ilike(pattern, escape='\\'),
+            ContactSubmission.email.ilike(pattern, escape='\\'),
+            ContactSubmission.phone.ilike(pattern, escape='\\'),
+        ))
+
     contacts = query.order_by(ContactSubmission.submitted_at.desc()).paginate(
         page=page,
         per_page=20,
         error_out=False
     )
 
-    # Get counts for filter tabs
+    active = ContactSubmission.query.filter(ContactSubmission.archived_at.is_(None))
     counts = {
         'all': ContactSubmission.query.count(),
-        'inbox': ContactSubmission.query.filter_by(is_spam=False).count(),
-        'spam': ContactSubmission.query.filter_by(is_spam=True).count(),
-        'new': ContactSubmission.query.filter_by(status='new', is_spam=False).count(),
-        'read': ContactSubmission.query.filter_by(status='read', is_spam=False).count(),
-        'responded': ContactSubmission.query.filter_by(status='responded', is_spam=False).count()
+        'inbox': active.filter(ContactSubmission.is_spam.is_(False)).count(),
+        'spam': active.filter(ContactSubmission.is_spam.is_(True)).count(),
+        'archived': ContactSubmission.query.filter(
+            ContactSubmission.archived_at.isnot(None)
+        ).count(),
     }
+    counts.update({
+        status: active.filter(
+            ContactSubmission.is_spam.is_(False),
+            ContactSubmission.status == status,
+        ).count()
+        for status in CONTACT_STATUSES if status != 'spam'
+    })
 
     return render_template(
         'admin/contacts_list.html',
         contacts=contacts,
         pagination=contacts,
         counts=counts,
+        statuses=CONTACT_STATUSES,
         status_filter=status_filter,
-        spam_filter=spam_filter,
-        show_spam=show_spam,
+        view_filter=view_filter,
+        search=search,
         endpoint='admin_contacts_list',
-        kwargs={}
+        kwargs={'show': view_filter, 'status': status_filter, 'q': search}
     )
 
 
 @app.route('/admin/contacts/<int:contact_id>')
-@custom_login_required
+@admin_required
 def admin_contact_view(contact_id):
-    """Get contact submission details (JSON)."""
+    """Show one contact and its CRM controls."""
     contact = ContactSubmission.query.get_or_404(contact_id)
+    crm_form = ContactCRMForm(obj=contact)
+    action_form = ContactActionForm()
+    return render_template(
+        'admin/contact_detail.html',
+        contact=contact,
+        crm_form=crm_form,
+        action_form=action_form,
+    )
 
-    # Mark as read if it's new
-    if contact.status == 'new':
-        contact.mark_as_read()
-
-    return jsonify({
-        'id': contact.id,
-        'name': contact.name,
-        'email': contact.email,
-        'phone': contact.phone,
-        'message': contact.message,
-        'submitted_at': contact.submitted_at.strftime('%B %d, %Y at %I:%M %p'),
-        'status': contact.status,
-        'notes': contact.notes
-    })
-
-
-@app.route('/admin/contacts/<int:contact_id>/status', methods=['POST'])
-@custom_login_required
-def admin_contact_update_status(contact_id):
-    """Update contact submission status."""
+@app.route('/admin/contacts/<int:contact_id>/crm', methods=['POST'])
+@admin_required
+def admin_contact_update_crm(contact_id):
+    """Update validated CRM status, notes, and follow-up date."""
     contact = ContactSubmission.query.get_or_404(contact_id)
-    data = request.get_json()
+    form = ContactCRMForm()
+    if not form.validate_on_submit():
+        flash('Please correct the CRM form fields.', 'error')
+        return render_template(
+            'admin/contact_detail.html',
+            contact=contact,
+            crm_form=form,
+            action_form=ContactActionForm(),
+        ), 400
 
     try:
-        status = data.get('status')
-        if status in ['new', 'read', 'responded']:
-            contact.status = status
-            db.session.commit()
-            return jsonify({'success': True})
-        else:
-            return jsonify({'success': False, 'error': 'Invalid status'}), 400
-    except Exception as e:
-        db.session.rollback()
-        app.logger.error(f'Error updating contact status: {str(e)}')
-        return jsonify({'success': False, 'error': str(e)}), 500
-
-
-@app.route('/admin/contacts/<int:contact_id>/notes', methods=['POST'])
-@custom_login_required
-def admin_contact_update_notes(contact_id):
-    """Update contact submission notes."""
-    contact = ContactSubmission.query.get_or_404(contact_id)
-    data = request.get_json()
-
-    try:
-        contact.notes = data.get('notes', '')
+        contact.status = form.status.data
+        contact.notes = form.notes.data or None
+        contact.follow_up_at = form.follow_up_at.data
+        if contact.status == 'spam':
+            contact.mark_as_spam()
+        elif contact.is_spam:
+            contact.mark_as_not_spam()
+            contact.status = form.status.data
         db.session.commit()
-        return jsonify({'success': True})
-    except Exception as e:
+        app.logger.info('CRM contact %s updated by admin user %s', contact.id, current_user.id)
+        flash('Contact updated.', 'success')
+    except Exception:
         db.session.rollback()
-        app.logger.error(f'Error updating contact notes: {str(e)}')
-        return jsonify({'success': False, 'error': str(e)}), 500
+        app.logger.exception('CRM contact %s update failed', contact.id)
+        flash('Contact update failed.', 'error')
+    return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+
+@app.route('/admin/contacts/<int:contact_id>/toggle-read', methods=['POST'])
+@admin_required
+def admin_contact_toggle_read(contact_id):
+    """Toggle read state independently of workflow status."""
+    form = ContactActionForm()
+    if not form.validate_on_submit():
+        abort(400)
+    contact = ContactSubmission.query.get_or_404(contact_id)
+    contact.mark_as_unread() if contact.is_read else contact.mark_as_read()
+    db.session.commit()
+    app.logger.info('CRM contact %s read state changed by admin user %s', contact.id, current_user.id)
+    return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+
+@app.route('/admin/contacts/<int:contact_id>/mark-contacted', methods=['POST'])
+@admin_required
+def admin_contact_mark_contacted(contact_id):
+    """Record contact activity without sending an email."""
+    form = ContactActionForm()
+    if not form.validate_on_submit():
+        abort(400)
+    contact = ContactSubmission.query.get_or_404(contact_id)
+    contact.last_contacted_at = datetime.utcnow()
+    contact.is_read = True
+    if contact.status == 'new':
+        contact.status = 'contacted'
+    db.session.commit()
+    app.logger.info('CRM contact %s marked contacted by admin user %s', contact.id, current_user.id)
+    return redirect(url_for('admin_contact_view', contact_id=contact.id))
 
 
 @app.route('/admin/contacts/<int:contact_id>/toggle-spam', methods=['POST'])
-@custom_login_required
+@admin_required
 def admin_contact_toggle_spam(contact_id):
     """Toggle spam status of contact submission."""
+    form = ContactActionForm()
+    if not form.validate_on_submit():
+        abort(400)
     contact = ContactSubmission.query.get_or_404(contact_id)
 
     try:
-        # Toggle spam flag
-        contact.is_spam = not contact.is_spam
+        if contact.is_spam:
+            contact.mark_as_not_spam()
+        else:
+            contact.mark_as_spam()
         db.session.commit()
-
-        action = 'marked as spam' if contact.is_spam else 'marked as not spam'
-        app.logger.info(f'Contact {contact_id} {action} by {current_user.username}')
-
-        flash(f'Message {action}', 'success')
-        return redirect(url_for('admin_contacts_list'))
-    except Exception as e:
+        app.logger.info('CRM contact %s spam state changed by admin user %s', contact.id, current_user.id)
+        flash('Spam state updated.', 'success')
+    except Exception:
         db.session.rollback()
-        app.logger.error(f'Error toggling spam status: {str(e)}')
-        flash('Error updating spam status', 'error')
-        return redirect(url_for('admin_contacts_list'))
+        app.logger.exception('CRM contact %s spam update failed', contact.id)
+        flash('Spam update failed.', 'error')
+    return redirect(url_for('admin_contact_view', contact_id=contact.id))
 
 
-@app.route('/admin/contacts/<int:contact_id>/delete', methods=['POST'])
-@custom_login_required
-def admin_contact_delete(contact_id):
-    """Delete contact submission permanently."""
+@app.route('/admin/contacts/<int:contact_id>/archive', methods=['POST'])
+@admin_required
+def admin_contact_toggle_archive(contact_id):
+    """Archive or restore a contact without deleting private records."""
+    form = ContactActionForm()
+    if not form.validate_on_submit():
+        abort(400)
     contact = ContactSubmission.query.get_or_404(contact_id)
-
-    try:
-        # Log before deleting
-        app.logger.info(f'Contact {contact_id} deleted by {current_user.username}: {contact.name} ({contact.email})')
-
-        db.session.delete(contact)
-        db.session.commit()
-
-        flash('Message deleted permanently', 'success')
-        return redirect(url_for('admin_contacts_list'))
-    except Exception as e:
-        db.session.rollback()
-        app.logger.error(f'Error deleting contact: {str(e)}')
-        flash('Error deleting message', 'error')
-        return redirect(url_for('admin_contacts_list'))
-
-
-@app.route('/admin/contacts/empty-spam', methods=['POST'])
-@custom_login_required
-def admin_empty_spam():
-    """Delete all spam messages"""
-    spam_count = ContactSubmission.query.filter_by(is_spam=True).count()
-
-    if spam_count == 0:
-        flash('Spam folder is already empty', 'info')
-        return redirect(url_for('admin_contacts_list'))
-
-    # Delete all spam
-    ContactSubmission.query.filter_by(is_spam=True).delete()
+    contact.archived_at = None if contact.archived_at else datetime.utcnow()
     db.session.commit()
-
-    app.logger.info(f'Spam folder emptied by {current_user.username}: {spam_count} messages deleted')
-    flash(f'Deleted {spam_count} spam messages', 'success')
-    return redirect(url_for('admin_contacts_list', show='spam'))
+    app.logger.info('CRM contact %s archive state changed by admin user %s', contact.id, current_user.id)
+    flash('Archive state updated.', 'success')
+    return redirect(url_for('admin_contact_view', contact_id=contact.id))
 
 
 # ============================================================================
@@ -735,7 +762,7 @@ def admin_empty_spam():
 # ============================================================================
 
 @app.route('/admin/blocklist')
-@custom_login_required
+@admin_required
 def admin_blocklist():
     """View spam blocklist"""
     entries = SpamBlocklist.query.order_by(SpamBlocklist.created_at.desc()).all()
@@ -743,7 +770,7 @@ def admin_blocklist():
 
 
 @app.route('/admin/blocklist/add', methods=['POST'])
-@custom_login_required
+@admin_required
 def admin_blocklist_add():
     """Add entry to blocklist"""
     value = request.form.get('value', '').strip()
@@ -774,13 +801,13 @@ def admin_blocklist_add():
     db.session.add(entry)
     db.session.commit()
 
-    app.logger.info(f'Blocklist entry added by {current_user.username}: {entry_type}={value}')
+    app.logger.info('Blocklist entry %s added by admin user %s', entry.id, current_user.id)
     flash(f'Blocked {entry_type}: {value}', 'success')
     return redirect(url_for('admin_blocklist'))
 
 
 @app.route('/admin/blocklist/delete/<int:id>', methods=['POST'])
-@custom_login_required
+@admin_required
 def admin_blocklist_delete(id):
     """Remove entry from blocklist"""
     entry = SpamBlocklist.query.get_or_404(id)
@@ -790,7 +817,7 @@ def admin_blocklist_delete(id):
     db.session.delete(entry)
     db.session.commit()
 
-    app.logger.info(f'Blocklist entry removed by {current_user.username}: {entry_type}={value}')
+    app.logger.info('Blocklist entry %s removed by admin user %s', id, current_user.id)
     flash(f'Unblocked {entry_type}: {value}', 'success')
     return redirect(url_for('admin_blocklist'))
 
