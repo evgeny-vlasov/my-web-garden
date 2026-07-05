@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+{% block title %}Create Private Chat Room{% endblock %}
+{% block content %}
+<div class="container py-4" style="max-width: 760px">
+    <a href="{{ url_for('admin_chat_rooms_list') }}" class="text-decoration-none small">← Back to chat rooms</a>
+    <h1 class="h3 mt-2 mb-4">Create private chat room</h1>
+    <div class="card border-0 shadow-sm"><div class="card-body">
+        {% if clients %}<form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">{{ form.client_id.label(class='form-label') }}{{ form.client_id(class='form-select') }}{% for error in form.client_id.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</div>
+            <div class="mb-3">{{ form.title.label(class='form-label') }}{{ form.title(class='form-control', maxlength=200) }}<div class="form-text">Optional administrative label.</div></div>
+            <button class="btn btn-primary" type="submit">Create room</button>
+        </form>{% else %}<p class="mb-0">Create a client record before creating a chat room.</p>{% endif %}
+    </div></div>
+</div>
+{% endblock %}

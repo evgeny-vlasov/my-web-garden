@@ -1,0 +1,23 @@
+{% extends "client_room/base.html" %}
+{% block title %}Private Room #{{ room.id }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center gap-3 mb-3">
+    <div><h1 class="h4 mb-1">Private messaging room</h1><span class="badge bg-secondary">{{ room.status|title }}</span></div>
+    <form method="POST" action="{{ url_for('client_room_logout') }}">{{ action_form.hidden_tag() }}<button class="btn btn-sm btn-outline-secondary" type="submit">End access</button></form>
+</div>
+<div class="card border-0 shadow-sm"><div class="card-body">
+    {% if messages %}{% for message in messages %}
+        <div class="mb-3 p-3 rounded {% if message.sender_type == 'client' %}bg-primary text-white ms-md-5{% else %}bg-light me-md-5{% endif %}">
+            <div class="d-flex justify-content-between gap-2"><strong>{{ 'You' if message.sender_type == 'client' else 'Administrator' }}</strong><small class="{% if message.sender_type == 'client' %}text-white-50{% else %}text-muted{% endif %}">{{ message.created_at.strftime('%b %d, %Y %I:%M %p') }}</small></div>
+            <div class="mt-2" style="white-space: pre-wrap">{{ message.body }}</div>
+        </div>
+    {% endfor %}{% else %}<p class="text-muted">No messages yet.</p>{% endif %}
+    {% if room.status == 'active' %}
+        <form method="POST" action="{{ url_for('client_room_message_create', room_id=room.id) }}">
+            {{ message_form.hidden_tag() }}
+            {{ message_form.body(class='form-control', rows=4, maxlength=10000, placeholder='Write a message…') }}
+            <button class="btn btn-primary mt-2" type="submit">Send message</button>
+        </form>
+    {% else %}<div class="alert alert-secondary mb-0">This room is closed. Previous messages remain available to read.</div>{% endif %}
+</div></div>
+{% endblock %}

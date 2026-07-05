@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% block title %}Chat Room Invite{% endblock %}
+{% block content %}
+<div class="container py-4" style="max-width: 800px">
+    <a href="{{ url_for('admin_chat_room_view', room_id=room.id) }}" class="text-decoration-none small">← Back to room</a>
+    <h1 class="h3 mt-2">New private invite</h1>
+    <div class="alert alert-warning">This link is shown only now. Copy it securely; generating another invite invalidates this one.</div>
+    <label class="form-label" for="inviteUrl">Invite link</label>
+    <textarea id="inviteUrl" class="form-control" rows="3" readonly>{{ invite_url }}</textarea>
+    <p class="small text-muted mt-2">The secret is stored only as a one-way SHA-256 hash.</p>
+</div>
+{% endblock %}

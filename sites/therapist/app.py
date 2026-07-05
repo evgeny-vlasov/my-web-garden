@@ -5,6 +5,8 @@ Main application file for the professional psychotherapy website.
 
 import os
 import sys
+import hashlib
+import secrets
 from datetime import datetime
 from pathlib import Path
 from werkzeug.utils import secure_filename
@@ -29,8 +31,8 @@ load_dotenv()
 # Import shared modules
 from shared.base_app import create_base_app, db, limiter, login_manager, mail
 from shared.models import (
-    BlogPost, Client, ContactSubmission, CRMActivity, SpamBlocklist, UploadedFile,
-    User,
+    BlogPost, ChatMessage, ChatRoom, Client, ContactSubmission, CRMActivity,
+    SpamBlocklist, UploadedFile, User,
 )
 from shared.forms import ContactForm, LoginForm, BlogPostForm, BookingRequestForm
 from shared.email import send_contact_notification, send_contact_confirmation
@@ -47,6 +49,12 @@ from sites.therapist.crm_forms import (
     ContactActionForm,
     ContactCRMForm,
 )
+from sites.therapist.chat_forms import (
+    ChatMessageForm,
+    ChatRoomActionForm,
+    ChatRoomCreateForm,
+    ClientRoomAccessForm,
+)
 
 # Additional imports for page editing
 from flask_wtf import FlaskForm
@@ -59,6 +67,21 @@ app = create_base_app('therapist', config[config_name])
 
 # Register CLI commands
 register_cli_commands(app)
+
+
+@app.after_request
+def protect_private_room_responses(response):
+    """Prevent client-room pages from being cached, indexed, or leaked as referrers."""
+    if request.path == '/room-access' or request.path.startswith('/client-room/'):
+        response.headers['X-Robots-Tag'] = 'noindex, nofollow, noarchive'
+        response.headers['Cache-Control'] = 'no-store, private'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Referrer-Policy'] = 'no-referrer'
+    elif request.path.startswith('/admin/chat-rooms/') and request.path.endswith('/invite'):
+        response.headers['Cache-Control'] = 'no-store, private'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Referrer-Policy'] = 'no-referrer'
+    return response
 
 
 # ============================================================================
@@ -875,10 +898,11 @@ def admin_client_view(client_id):
     activities = client.activities.order_by(
         CRMActivity.created_at.desc(), CRMActivity.id.desc()
     ).all()
+    chat_rooms = client.chat_rooms.order_by(ChatRoom.updated_at.desc()).all()
     return render_template(
         'admin/client_detail.html', client=client, contacts=contacts,
         activity_form=ActivityForm(), complete_form=ActivityCompleteForm(),
-        activities=activities, now=datetime.utcnow(),
+        activities=activities, chat_rooms=chat_rooms, now=datetime.utcnow(),
     )
 
 
@@ -1030,6 +1054,234 @@ def admin_contact_convert_to_client(contact_id):
     return render_template(
         'admin/contact_convert.html', contact=contact, form=form
     )
+
+
+# ============================================================================
+# PRIVATE CLIENT CHAT ROOMS
+# ============================================================================
+
+def _token_digest(token):
+    return hashlib.sha256(token.encode('utf-8')).hexdigest()
+
+
+def _client_room_granted(room):
+    grants = session.get('client_room_access', {})
+    return (
+        room.client_access_enabled
+        and room.status in {'active', 'closed'}
+        and grants.get(str(room.id)) == room.access_version
+    )
+
+
+def _chat_messages(room):
+    return room.messages.order_by(
+        ChatMessage.created_at.asc(), ChatMessage.id.asc()
+    ).all()
+
+
+@app.route('/admin/chat-rooms')
+@admin_required
+def admin_chat_rooms_list():
+    rooms = ChatRoom.query.order_by(ChatRoom.updated_at.desc(), ChatRoom.id.desc()).all()
+    room_rows = []
+    for room in rooms:
+        latest = room.messages.order_by(ChatMessage.created_at.desc(), ChatMessage.id.desc()).first()
+        unread = room.messages.filter_by(sender_type='client', read_by_admin_at=None).count()
+        room_rows.append((room, latest, unread))
+    return render_template('admin/chat_rooms_list.html', room_rows=room_rows)
+
+
+@app.route('/admin/chat-rooms/new', methods=['GET', 'POST'])
+@admin_required
+def admin_chat_room_create():
+    form = ChatRoomCreateForm()
+    clients = Client.query.order_by(Client.name.asc(), Client.id.asc()).all()
+    form.client_id.choices = [(client.id, f'Client #{client.id} — {client.name}') for client in clients]
+    requested_client_id = request.args.get('client_id', type=int)
+    if request.method == 'GET' and requested_client_id in {client.id for client in clients}:
+        form.client_id.data = requested_client_id
+    if form.validate_on_submit():
+        client = db.session.get(Client, form.client_id.data)
+        if client is None:
+            abort(400)
+        room = ChatRoom(
+            client_id=client.id,
+            title=(form.title.data or '').strip() or None,
+            created_by_user_id=current_user.id,
+        )
+        db.session.add(room)
+        db.session.commit()
+        app.logger.info('Chat room %s created by admin user %s', room.id, current_user.id)
+        flash('Private chat room created.', 'success')
+        return redirect(url_for('admin_chat_room_view', room_id=room.id))
+    return render_template('admin/chat_room_form.html', form=form, clients=clients)
+
+
+@app.route('/admin/chat-rooms/<int:room_id>')
+@admin_required
+def admin_chat_room_view(room_id):
+    room = ChatRoom.query.get_or_404(room_id)
+    now = datetime.utcnow()
+    unread = ChatMessage.query.filter_by(
+        room_id=room.id, sender_type='client', read_by_admin_at=None
+    ).update({'read_by_admin_at': now}, synchronize_session=False)
+    if unread:
+        db.session.commit()
+    return render_template(
+        'admin/chat_room_detail.html', room=room, messages=_chat_messages(room),
+        message_form=ChatMessageForm(), action_form=ChatRoomActionForm(),
+    )
+
+
+@app.route('/admin/chat-rooms/<int:room_id>/messages', methods=['POST'])
+@admin_required
+@limiter.limit('30 per minute')
+def admin_chat_message_create(room_id):
+    room = ChatRoom.query.get_or_404(room_id)
+    form = ChatMessageForm()
+    if room.status != 'active':
+        flash('Reopen the room before sending a message.', 'warning')
+    elif form.validate_on_submit():
+        message = ChatMessage(
+            room_id=room.id, sender_type='admin', sender_user_id=current_user.id,
+            body=form.body.data.strip(), read_by_admin_at=datetime.utcnow(),
+        )
+        room.updated_at = datetime.utcnow()
+        db.session.add(message)
+        db.session.commit()
+        app.logger.info('Chat message %s added to room %s by admin user %s', message.id, room.id, current_user.id)
+        flash('Message sent.', 'success')
+    else:
+        flash('Enter a message of 10,000 characters or fewer.', 'error')
+    return redirect(url_for('admin_chat_room_view', room_id=room.id))
+
+
+@app.route('/admin/chat-rooms/<int:room_id>/invite', methods=['POST'])
+@admin_required
+@limiter.limit('10 per hour')
+def admin_chat_room_invite(room_id):
+    room = ChatRoom.query.get_or_404(room_id)
+    form = ChatRoomActionForm()
+    if not form.validate_on_submit():
+        abort(400)
+    if room.status == 'archived':
+        flash('Reopen the room before generating an invite.', 'warning')
+        return redirect(url_for('admin_chat_room_view', room_id=room.id))
+    token = secrets.token_urlsafe(32)
+    room.invite_token_hash = _token_digest(token)
+    room.invite_created_at = datetime.utcnow()
+    room.client_access_enabled = True
+    room.access_version += 1
+    db.session.commit()
+    app.logger.info('Chat room %s invite regenerated by admin user %s', room.id, current_user.id)
+    invite_url = url_for('client_room_access', _external=True, _scheme='https') + '#' + token
+    return render_template('admin/chat_room_invite.html', room=room, invite_url=invite_url)
+
+
+@app.route('/admin/chat-rooms/<int:room_id>/state/<action>', methods=['POST'])
+@admin_required
+def admin_chat_room_state(room_id, action):
+    room = ChatRoom.query.get_or_404(room_id)
+    form = ChatRoomActionForm()
+    if not form.validate_on_submit() or action not in {'close', 'reopen', 'archive'}:
+        abort(400)
+    valid_transition = (
+        (action == 'close' and room.status == 'active')
+        or (action == 'reopen' and room.status in {'closed', 'archived'})
+        or (action == 'archive' and room.status in {'active', 'closed'})
+    )
+    if not valid_transition:
+        abort(400)
+    now = datetime.utcnow()
+    if action == 'close':
+        room.status = 'closed'
+        room.closed_at = now
+    elif action == 'reopen':
+        room.status = 'active'
+        room.closed_at = None
+        room.archived_at = None
+        room.client_access_enabled = True
+    else:
+        room.status = 'archived'
+        room.archived_at = now
+        room.client_access_enabled = False
+        room.invite_token_hash = None
+        room.access_version += 1
+    room.updated_at = now
+    db.session.commit()
+    app.logger.info('Chat room %s state changed to %s by admin user %s', room.id, room.status, current_user.id)
+    flash(f'Room is now {room.status}.', 'success')
+    return redirect(url_for('admin_chat_room_view', room_id=room.id))
+
+
+@app.route('/room-access', methods=['GET', 'POST'])
+@limiter.limit('10 per minute')
+def client_room_access():
+    form = ClientRoomAccessForm()
+    if form.validate_on_submit():
+        digest = _token_digest(form.token.data.strip())
+        room = ChatRoom.query.filter_by(invite_token_hash=digest).first()
+        if room and room.client_access_enabled and room.status in {'active', 'closed'}:
+            session.clear()
+            session.permanent = True
+            session['client_room_access'] = {str(room.id): room.access_version}
+            room.invite_last_used_at = datetime.utcnow()
+            db.session.commit()
+            app.logger.info('Client access established for chat room %s', room.id)
+            return redirect(url_for('client_room_view', room_id=room.id))
+        flash('This access link is invalid or no longer active.', 'error')
+    return render_template('client_room/access.html', form=form)
+
+
+@app.route('/client-room/<int:room_id>')
+def client_room_view(room_id):
+    room = ChatRoom.query.get_or_404(room_id)
+    if not _client_room_granted(room):
+        abort(404)
+    now = datetime.utcnow()
+    unread = ChatMessage.query.filter_by(
+        room_id=room.id, sender_type='admin', read_by_client_at=None
+    ).update({'read_by_client_at': now}, synchronize_session=False)
+    if unread:
+        db.session.commit()
+    return render_template(
+        'client_room/room.html', room=room, messages=_chat_messages(room),
+        message_form=ChatMessageForm(), action_form=ChatRoomActionForm(),
+    )
+
+
+@app.route('/client-room/<int:room_id>/messages', methods=['POST'])
+@limiter.limit('20 per minute')
+def client_room_message_create(room_id):
+    room = ChatRoom.query.get_or_404(room_id)
+    if not _client_room_granted(room):
+        abort(404)
+    form = ChatMessageForm()
+    if room.status != 'active':
+        flash('This room is closed and cannot accept new messages.', 'warning')
+    elif form.validate_on_submit():
+        message = ChatMessage(
+            room_id=room.id, sender_type='client', body=form.body.data.strip(),
+            read_by_client_at=datetime.utcnow(),
+        )
+        room.updated_at = datetime.utcnow()
+        db.session.add(message)
+        db.session.commit()
+        app.logger.info('Client chat message %s added to room %s', message.id, room.id)
+        flash('Message sent.', 'success')
+    else:
+        flash('Enter a message of 10,000 characters or fewer.', 'error')
+    return redirect(url_for('client_room_view', room_id=room.id))
+
+
+@app.route('/client-room/logout', methods=['POST'])
+def client_room_logout():
+    form = ChatRoomActionForm()
+    if not form.validate_on_submit():
+        abort(400)
+    session.pop('client_room_access', None)
+    flash('Private room access ended.', 'success')
+    return redirect(url_for('client_room_access'))
 
 
 # ============================================================================

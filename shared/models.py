@@ -99,6 +99,7 @@ class Client(db.Model):
         'CRMActivity', back_populates='client', lazy='dynamic',
         cascade='all, delete-orphan',
     )
+    chat_rooms = db.relationship('ChatRoom', back_populates='client', lazy='dynamic')
 
     def __repr__(self):
         return f'<Client id={self.id}>'
@@ -232,6 +233,103 @@ class CRMActivity(db.Model):
 
     def __repr__(self):
         return f'<CRMActivity id={self.id} type={self.activity_type}>'
+
+
+class ChatRoom(db.Model):
+    """Private messaging room for exactly one CRM client."""
+    __tablename__ = 'chat_rooms'
+    __table_args__ = (
+        db.CheckConstraint(
+            "status IN ('active', 'closed', 'archived')",
+            name='ck_chat_rooms_status',
+        ),
+        db.CheckConstraint(
+            'access_version >= 1', name='ck_chat_rooms_access_version_positive'
+        ),
+    )
+
+    id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(
+        db.Integer, db.ForeignKey('clients.id'), nullable=False, index=True
+    )
+    title = db.Column(db.String(200))
+    status = db.Column(
+        db.String(20), default='active', server_default='active', nullable=False,
+        index=True,
+    )
+    invite_token_hash = db.Column(db.String(64), unique=True, index=True)
+    invite_created_at = db.Column(db.DateTime)
+    invite_last_used_at = db.Column(db.DateTime)
+    client_access_enabled = db.Column(
+        db.Boolean, default=True, server_default=db.true(), nullable=False
+    )
+    access_version = db.Column(
+        db.Integer, default=1, server_default='1', nullable=False
+    )
+    created_by_user_id = db.Column(
+        db.Integer, db.ForeignKey('users.id', ondelete='SET NULL'), index=True
+    )
+    created_at = db.Column(
+        db.DateTime, default=datetime.utcnow, server_default=db.func.now(), nullable=False
+    )
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow,
+        server_default=db.func.now(), nullable=False,
+    )
+    closed_at = db.Column(db.DateTime)
+    archived_at = db.Column(db.DateTime)
+
+    client = db.relationship('Client', back_populates='chat_rooms')
+    created_by = db.relationship('User', foreign_keys=[created_by_user_id])
+    messages = db.relationship(
+        'ChatMessage', back_populates='room', lazy='dynamic',
+        cascade='all, delete-orphan',
+    )
+
+    def __repr__(self):
+        return f'<ChatRoom id={self.id} status={self.status}>'
+
+
+class ChatMessage(db.Model):
+    """Plain-text message in a private client room."""
+    __tablename__ = 'chat_messages'
+    __table_args__ = (
+        db.CheckConstraint(
+            "sender_type IN ('admin', 'client')",
+            name='ck_chat_messages_sender_type',
+        ),
+        db.CheckConstraint(
+            "length(trim(body)) > 0", name='ck_chat_messages_body_not_blank'
+        ),
+        db.CheckConstraint(
+            "(sender_type = 'admin' AND sender_user_id IS NOT NULL) OR "
+            "(sender_type = 'client' AND sender_user_id IS NULL)",
+            name='ck_chat_messages_sender_user',
+        ),
+    )
+
+    id = db.Column(db.Integer, primary_key=True)
+    room_id = db.Column(
+        db.Integer, db.ForeignKey('chat_rooms.id', ondelete='CASCADE'),
+        nullable=False, index=True,
+    )
+    sender_type = db.Column(db.String(20), nullable=False)
+    sender_user_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), index=True
+    )
+    body = db.Column(db.Text, nullable=False)
+    created_at = db.Column(
+        db.DateTime, default=datetime.utcnow, server_default=db.func.now(), nullable=False,
+        index=True,
+    )
+    read_by_admin_at = db.Column(db.DateTime)
+    read_by_client_at = db.Column(db.DateTime)
+
+    room = db.relationship('ChatRoom', back_populates='messages')
+    sender_user = db.relationship('User', foreign_keys=[sender_user_id])
+
+    def __repr__(self):
+        return f'<ChatMessage id={self.id} room_id={self.room_id}>'
 
 
 class SpamBlocklist(db.Model):

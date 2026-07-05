@@ -30,6 +30,24 @@
                     {% for contact in contacts %}<a href="{{ url_for('admin_contact_view', contact_id=contact.id) }}" class="list-group-item list-group-item-action px-0"><strong>Inquiry #{{ contact.id }}</strong><br><small class="text-muted">{{ contact.submitted_at.strftime('%b %d, %Y %I:%M %p') }} · {{ contact.status|title }}</small></a>{% endfor %}
                 </div>{% else %}<p class="text-muted mb-0">No linked contact submissions.</p>{% endif %}
             </div></div>
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h2 class="h5 mb-0">Private chat rooms</h2>
+                    <a href="{{ url_for('admin_chat_room_create', client_id=client.id) }}" class="btn btn-sm btn-primary">Create room</a>
+                </div>
+                <div class="card-body">
+                    {% if chat_rooms %}
+                        <div class="list-group list-group-flush">
+                            {% for room in chat_rooms %}
+                                <a href="{{ url_for('admin_chat_room_view', room_id=room.id) }}" class="list-group-item list-group-item-action px-0">
+                                    Room #{{ room.id }}{% if room.title %} — {{ room.title }}{% endif %}
+                                    <span class="badge bg-secondary float-end">{{ room.status|title }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}<p class="text-muted mb-0">No private chat rooms.</p>{% endif %}
+                </div>
+            </div>
             {% set activity_action = url_for('admin_client_activity_create', client_id=client.id) %}
             {% include 'admin/components/activity_timeline.html' %}
         </div>

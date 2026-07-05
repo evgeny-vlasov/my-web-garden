@@ -54,6 +54,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {% if 'chat_room' in request.endpoint %}active{% endif %}" href="{{ url_for('admin_chat_rooms_list') }}">
+                            <i class="bi bi-chat-left-text me-1"></i>Chat Rooms
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {% if 'blocklist' in request.endpoint %}active{% endif %}" href="{{ url_for('admin_blocklist') }}">
                             <i class="bi bi-shield-x me-1"></i>Blocklist
                         </a>

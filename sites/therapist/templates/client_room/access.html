@@ -1,0 +1,16 @@
+{% extends "client_room/base.html" %}
+{% block title %}Access Private Room{% endblock %}
+{% block content %}
+<div class="card border-0 shadow-sm"><div class="card-body p-4">
+    <h1 class="h4">Access your private room</h1>
+    <p class="text-muted">Open the complete invite link supplied by the administrator, or paste the private token below.</p>
+    <form method="POST" id="roomAccessForm" autocomplete="off">
+        {{ form.hidden_tag() }}
+        {{ form.token.label(class='form-label') }}
+        {{ form.token(class='form-control', autocomplete='off', spellcheck='false') }}
+        {% for error in form.token.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+        <button class="btn btn-primary mt-3" type="submit">Open private room</button>
+    </form>
+</div></div>
+<script src="{{ url_for('static', filename='js/client-room-access.js') }}" defer></script>
+{% endblock %}

@@ -6,6 +6,7 @@ Allow: /
 # Sitemap (add when available)
 # Sitemap: https://therapist.example.com/sitemap.xml
 
-# Disallow admin areas (Sprint 2)
-# Disallow: /admin/
-# Disallow: /login
+# Private and administrative areas
+Disallow: /admin/
+Disallow: /client-room/
+Disallow: /room-access
