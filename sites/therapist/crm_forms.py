@@ -7,6 +7,15 @@ from wtforms.validators import DataRequired, Length, Optional, ValidationError
 
 CONTACT_STATUSES = ("new", "contacted", "booked", "closed", "spam")
 STATUS_CHOICES = tuple((status, status.title()) for status in CONTACT_STATUSES)
+ACTIVITY_TYPE_CHOICES = (
+    ("note", "Note"),
+    ("call", "Call"),
+    ("email", "Email"),
+    ("voicemail", "Voicemail"),
+    ("appointment", "Appointment"),
+    ("follow_up", "Follow-up"),
+    ("other", "Other"),
+)
 
 
 class ContactCRMForm(FlaskForm):
@@ -24,6 +33,24 @@ class ContactCRMForm(FlaskForm):
 
 class ContactActionForm(FlaskForm):
     """CSRF-only form used for read, spam, archive, and contact actions."""
+
+
+class ActivityForm(FlaskForm):
+    activity_type = SelectField(
+        "Activity type", choices=ACTIVITY_TYPE_CHOICES, validate_choice=True
+    )
+    body = TextAreaField(
+        "Private activity note", validators=[DataRequired(), Length(max=10000)]
+    )
+    due_at = DateTimeLocalField(
+        "Follow-up date and time",
+        format="%Y-%m-%dT%H:%M",
+        validators=[Optional()],
+    )
+
+
+class ActivityCompleteForm(FlaskForm):
+    """CSRF-only form for completing an open follow-up."""
 
 
 CLIENT_STATUS_CHOICES = (

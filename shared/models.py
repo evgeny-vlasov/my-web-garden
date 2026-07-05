@@ -95,6 +95,10 @@ class Client(db.Model):
     contact_submissions = db.relationship(
         'ContactSubmission', back_populates='client', lazy='dynamic'
     )
+    activities = db.relationship(
+        'CRMActivity', back_populates='client', lazy='dynamic',
+        cascade='all, delete-orphan',
+    )
 
     def __repr__(self):
         return f'<Client id={self.id}>'
@@ -145,6 +149,10 @@ class ContactSubmission(db.Model):
     )
 
     client = db.relationship('Client', back_populates='contact_submissions')
+    activities = db.relationship(
+        'CRMActivity', back_populates='contact_submission', lazy='dynamic',
+        cascade='all, delete-orphan',
+    )
 
     def mark_as_read(self):
         """Mark submission as read."""
@@ -167,6 +175,63 @@ class ContactSubmission(db.Model):
 
     def __repr__(self):
         return f'<ContactSubmission id={self.id}>'
+
+
+class CRMActivity(db.Model):
+    """Private office/admin activity attached to one CRM record."""
+    __tablename__ = 'crm_activities'
+    __table_args__ = (
+        db.CheckConstraint(
+            '(client_id IS NOT NULL) <> (contact_submission_id IS NOT NULL)',
+            name='ck_crm_activities_exactly_one_parent',
+        ),
+        db.CheckConstraint(
+            "activity_type IN ('note', 'call', 'email', 'voicemail', "
+            "'appointment', 'follow_up', 'other')",
+            name='ck_crm_activities_type',
+        ),
+        db.CheckConstraint(
+            "length(trim(body)) > 0",
+            name='ck_crm_activities_body_not_blank',
+        ),
+        db.CheckConstraint(
+            "completed_at IS NULL OR due_at IS NOT NULL OR activity_type = 'follow_up'",
+            name='ck_crm_activities_completion_relevant',
+        ),
+    )
+
+    id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(
+        db.Integer, db.ForeignKey('clients.id', ondelete='CASCADE'), index=True
+    )
+    contact_submission_id = db.Column(
+        db.Integer,
+        db.ForeignKey('contact_submissions.id', ondelete='CASCADE'),
+        index=True,
+    )
+    actor_user_id = db.Column(
+        db.Integer, db.ForeignKey('users.id', ondelete='SET NULL'), index=True
+    )
+    activity_type = db.Column(db.String(20), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    due_at = db.Column(db.DateTime, index=True)
+    completed_at = db.Column(db.DateTime)
+    created_at = db.Column(
+        db.DateTime, default=datetime.utcnow, server_default=db.func.now(), nullable=False
+    )
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow,
+        server_default=db.func.now(), nullable=False,
+    )
+
+    client = db.relationship('Client', back_populates='activities')
+    contact_submission = db.relationship(
+        'ContactSubmission', back_populates='activities'
+    )
+    actor = db.relationship('User')
+
+    def __repr__(self):
+        return f'<CRMActivity id={self.id} type={self.activity_type}>'
 
 
 class SpamBlocklist(db.Model):

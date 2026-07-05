@@ -30,6 +30,8 @@
                     {% for contact in contacts %}<a href="{{ url_for('admin_contact_view', contact_id=contact.id) }}" class="list-group-item list-group-item-action px-0"><strong>Inquiry #{{ contact.id }}</strong><br><small class="text-muted">{{ contact.submitted_at.strftime('%b %d, %Y %I:%M %p') }} · {{ contact.status|title }}</small></a>{% endfor %}
                 </div>{% else %}<p class="text-muted mb-0">No linked contact submissions.</p>{% endif %}
             </div></div>
+            {% set activity_action = url_for('admin_client_activity_create', client_id=client.id) %}
+            {% include 'admin/components/activity_timeline.html' %}
         </div>
     </div>
 </div>

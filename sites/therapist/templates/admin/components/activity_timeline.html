@@ -1,0 +1,56 @@
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-header bg-white"><h2 class="h5 mb-0">Private activity timeline</h2></div>
+    <div class="card-body">
+        <form method="POST" action="{{ activity_action }}" class="mb-4">
+            {{ activity_form.hidden_tag() }}
+            <div class="row g-3">
+                <div class="col-md-4">
+                    {{ activity_form.activity_type.label(class='form-label') }}
+                    {{ activity_form.activity_type(class='form-select') }}
+                </div>
+                <div class="col-md-8">
+                    {{ activity_form.due_at.label(class='form-label') }}
+                    {{ activity_form.due_at(class='form-control') }}
+                    <div class="form-text">Optional. Due items appear on the dashboard.</div>
+                </div>
+                <div class="col-12">
+                    {{ activity_form.body.label(class='form-label') }}
+                    {{ activity_form.body(class='form-control', rows=3, maxlength=10000) }}
+                    <div class="form-text">Office/admin information only. Visible only to administrators.</div>
+                </div>
+                <div class="col-12"><button class="btn btn-primary" type="submit">Add activity</button></div>
+            </div>
+        </form>
+
+        {% if activities %}
+            <div class="list-group list-group-flush">
+                {% for activity in activities %}
+                    <div class="list-group-item px-0 {% if activity.due_at and not activity.completed_at and activity.due_at < now %}border-start border-danger border-4 ps-3{% endif %}">
+                        <div class="d-flex flex-wrap justify-content-between gap-2">
+                            <div>
+                                <span class="badge bg-secondary">{{ activity.activity_type|replace('_', ' ')|title }}</span>
+                                <small class="text-muted ms-2">{{ activity.created_at.strftime('%b %d, %Y %I:%M %p') }}</small>
+                            </div>
+                            {% if activity.due_at %}
+                                <span class="badge {% if activity.completed_at %}bg-success{% elif activity.due_at < now %}bg-danger{% else %}bg-warning text-dark{% endif %}">
+                                    {% if activity.completed_at %}Completed{% elif activity.due_at < now %}Overdue{% else %}Due{% endif %}
+                                    {{ activity.due_at.strftime('%b %d, %Y %I:%M %p') }}
+                                </span>
+                            {% elif activity.completed_at %}<span class="badge bg-success">Completed</span>{% endif %}
+                        </div>
+                        <div class="crm-message mt-2">{{ activity.body }}</div>
+                        {% if not activity.completed_at and (activity.due_at or activity.activity_type == 'follow_up') %}
+                            <form method="POST" action="{{ url_for('admin_activity_complete', activity_id=activity.id) }}" class="mt-2">
+                                {{ complete_form.hidden_tag() }}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Mark complete</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted mb-0">No activities recorded.</p>
+        {% endif %}
+    </div>
+</div>

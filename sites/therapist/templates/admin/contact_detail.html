@@ -43,6 +43,8 @@
                     <div class="crm-message">{{ contact.message }}</div>
                 </div>
             </div>
+            {% set activity_action = url_for('admin_contact_activity_create', contact_id=contact.id) %}
+            {% include 'admin/components/activity_timeline.html' %}
         </div>
 
         <div class="col-xl-5">

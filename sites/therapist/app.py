@@ -28,7 +28,10 @@ load_dotenv()
 
 # Import shared modules
 from shared.base_app import create_base_app, db, limiter, login_manager, mail
-from shared.models import Client, ContactSubmission, User, BlogPost, UploadedFile, SpamBlocklist
+from shared.models import (
+    BlogPost, Client, ContactSubmission, CRMActivity, SpamBlocklist, UploadedFile,
+    User,
+)
 from shared.forms import ContactForm, LoginForm, BlogPostForm, BookingRequestForm
 from shared.email import send_contact_notification, send_contact_confirmation
 from shared.decorators import login_required as custom_login_required, admin_required, anonymous_required
@@ -37,6 +40,8 @@ from shared.image_handler import save_image, allowed_file
 from sites.therapist.config import config
 from sites.therapist.cli import register_cli_commands
 from sites.therapist.crm_forms import (
+    ActivityCompleteForm,
+    ActivityForm,
     CONTACT_STATUSES,
     ClientForm,
     ContactActionForm,
@@ -397,11 +402,19 @@ def admin_dashboard():
         ContactSubmission.submitted_at.desc()
     ).limit(5).all()
 
+    open_followups = CRMActivity.query.filter(
+        or_(CRMActivity.due_at.isnot(None), CRMActivity.activity_type == 'follow_up'),
+        CRMActivity.completed_at.is_(None),
+    ).order_by(CRMActivity.due_at.asc().nullslast(), CRMActivity.id.asc()).limit(25).all()
+
     return render_template(
         'admin/dashboard.html',
         stats=stats,
         recent_posts=recent_posts,
-        recent_contacts=recent_contacts
+        recent_contacts=recent_contacts,
+        open_followups=open_followups,
+        now=datetime.utcnow(),
+        complete_form=ActivityCompleteForm(),
     )
 
 
@@ -647,11 +660,18 @@ def admin_contact_view(contact_id):
     contact = ContactSubmission.query.get_or_404(contact_id)
     crm_form = ContactCRMForm(obj=contact)
     action_form = ContactActionForm()
+    activities = contact.activities.order_by(
+        CRMActivity.created_at.desc(), CRMActivity.id.desc()
+    ).all()
     return render_template(
         'admin/contact_detail.html',
         contact=contact,
         crm_form=crm_form,
         action_form=action_form,
+        activity_form=ActivityForm(),
+        complete_form=ActivityCompleteForm(),
+        activities=activities,
+        now=datetime.utcnow(),
     )
 
 @app.route('/admin/contacts/<int:contact_id>/crm', methods=['POST'])
@@ -662,11 +682,18 @@ def admin_contact_update_crm(contact_id):
     form = ContactCRMForm()
     if not form.validate_on_submit():
         flash('Please correct the CRM form fields.', 'error')
+        activities = contact.activities.order_by(
+            CRMActivity.created_at.desc(), CRMActivity.id.desc()
+        ).all()
         return render_template(
             'admin/contact_detail.html',
             contact=contact,
             crm_form=form,
             action_form=ContactActionForm(),
+            activity_form=ActivityForm(),
+            complete_form=ActivityCompleteForm(),
+            activities=activities,
+            now=datetime.utcnow(),
         ), 400
 
     try:
@@ -845,9 +872,87 @@ def admin_client_view(client_id):
     contacts = client.contact_submissions.order_by(
         ContactSubmission.submitted_at.desc()
     ).all()
+    activities = client.activities.order_by(
+        CRMActivity.created_at.desc(), CRMActivity.id.desc()
+    ).all()
     return render_template(
-        'admin/client_detail.html', client=client, contacts=contacts
+        'admin/client_detail.html', client=client, contacts=contacts,
+        activity_form=ActivityForm(), complete_form=ActivityCompleteForm(),
+        activities=activities, now=datetime.utcnow(),
     )
+
+
+def _create_activity(form, client=None, contact=None):
+    """Persist one validated private activity without logging its content."""
+    activity = CRMActivity(
+        client=client,
+        contact_submission=contact,
+        actor_user_id=current_user.id,
+        activity_type=form.activity_type.data,
+        body=form.body.data.strip(),
+        due_at=form.due_at.data,
+    )
+    db.session.add(activity)
+    db.session.commit()
+    app.logger.info('CRM activity %s created by admin user %s', activity.id, current_user.id)
+
+
+@app.route('/admin/clients/<int:client_id>/activities', methods=['POST'])
+@admin_required
+def admin_client_activity_create(client_id):
+    client = Client.query.get_or_404(client_id)
+    form = ActivityForm()
+    if not form.validate_on_submit():
+        flash('Please correct the activity form fields.', 'error')
+        return redirect(url_for('admin_client_view', client_id=client.id))
+    try:
+        _create_activity(form, client=client)
+        flash('Activity added.', 'success')
+    except Exception:
+        db.session.rollback()
+        app.logger.exception('CRM client activity creation failed for client %s', client.id)
+        flash('Activity could not be added.', 'error')
+    return redirect(url_for('admin_client_view', client_id=client.id))
+
+
+@app.route('/admin/contacts/<int:contact_id>/activities', methods=['POST'])
+@admin_required
+def admin_contact_activity_create(contact_id):
+    contact = ContactSubmission.query.get_or_404(contact_id)
+    form = ActivityForm()
+    if not form.validate_on_submit():
+        flash('Please correct the activity form fields.', 'error')
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+    try:
+        _create_activity(form, contact=contact)
+        flash('Activity added.', 'success')
+    except Exception:
+        db.session.rollback()
+        app.logger.exception('CRM contact activity creation failed for contact %s', contact.id)
+        flash('Activity could not be added.', 'error')
+    return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+
+@app.route('/admin/activities/<int:activity_id>/complete', methods=['POST'])
+@admin_required
+def admin_activity_complete(activity_id):
+    form = ActivityCompleteForm()
+    if not form.validate_on_submit():
+        abort(400)
+    activity = CRMActivity.query.get_or_404(activity_id)
+    if activity.completed_at is None and (
+        activity.due_at is not None or activity.activity_type == 'follow_up'
+    ):
+        activity.completed_at = datetime.utcnow()
+        db.session.commit()
+        app.logger.info('CRM activity %s completed by admin user %s', activity.id, current_user.id)
+        flash('Follow-up completed.', 'success')
+    target = request.form.get('next', '')
+    if target.startswith('/admin/'):
+        return redirect(target)
+    if activity.client_id:
+        return redirect(url_for('admin_client_view', client_id=activity.client_id))
+    return redirect(url_for('admin_contact_view', contact_id=activity.contact_submission_id))
 
 
 @app.route('/admin/clients/<int:client_id>/edit', methods=['GET', 'POST'])

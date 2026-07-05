@@ -89,6 +89,42 @@
     <div class="row mb-4">
         <div class="col-12">
             <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white"><h2 class="h5 mb-0"><i class="bi bi-check2-square me-2"></i>Open follow-ups</h2></div>
+                <div class="card-body">
+                    {% if open_followups %}
+                        <div class="list-group list-group-flush">
+                            {% for activity in open_followups %}
+                                <div class="list-group-item px-0 {% if activity.due_at and activity.due_at < now %}border-start border-danger border-4 ps-3{% endif %}">
+                                    <div class="d-flex flex-wrap justify-content-between gap-2 align-items-start">
+                                        <div>
+                                            <a href="{% if activity.client_id %}{{ url_for('admin_client_view', client_id=activity.client_id) }}{% else %}{{ url_for('admin_contact_view', contact_id=activity.contact_submission_id) }}{% endif %}" class="text-decoration-none">
+                                                {% if activity.client_id %}Client #{{ activity.client_id }}{% else %}Contact #{{ activity.contact_submission_id }}{% endif %}
+                                            </a>
+                                            <div class="crm-message small mt-1">{{ activity.body }}</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge {% if activity.due_at and activity.due_at < now %}bg-danger{% else %}bg-warning text-dark{% endif %}">
+                                                {% if not activity.due_at %}No due date{% elif activity.due_at < now %}Overdue {{ activity.due_at.strftime('%b %d, %Y %I:%M %p') }}{% else %}Due {{ activity.due_at.strftime('%b %d, %Y %I:%M %p') }}{% endif %}
+                                            </span>
+                                            <form method="POST" action="{{ url_for('admin_activity_complete', activity_id=activity.id) }}" class="mt-2">
+                                                {{ complete_form.hidden_tag() }}
+                                                <input type="hidden" name="next" value="{{ request.path }}">
+                                                <button class="btn btn-sm btn-outline-success" type="submit">Mark complete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}<p class="text-muted mb-0">No open follow-ups.</p>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title mb-3">
                         <i class="bi bi-lightning-charge me-2"></i>Quick Actions
