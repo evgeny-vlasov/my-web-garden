@@ -25,7 +25,7 @@ Shared modules (shared/):
 
 Individual sites (sites/):
   ├─ psyling/             (Professional psychotherapy website)
-  └─ therapist -> psyling (compatibility symlink)
+  ├─ therapist -> psyling (compatibility symlink)
   └─ keystone/             (Hardscaping business website)
 
 Deployment (deploy/):
@@ -61,7 +61,6 @@ Deployment (deploy/):
 │
 ├── sites/                           # INDIVIDUAL SITES
 │   ├── psyling/                    # Psychotherapy website
-│   ├── therapist -> psyling        # Compatibility symlink
 │   │   ├── app.py                 # Main Flask app (uses create_base_app)
 │   │   ├── config.py              # Site-specific configuration
 │   │   ├── cli.py                 # CLI commands (create-admin, etc.)
@@ -79,6 +78,7 @@ Deployment (deploy/):
 │   │   ├── migrations/            # Database migrations
 │   │   └── README.md              # Comprehensive site docs
 │   │
+│   ├── therapist -> psyling        # Compatibility symlink
 │   └── keystone/                   # Hardscaping business website
 │       ├── app.py                 # Main Flask app
 │       ├── config.py              # Site-specific configuration

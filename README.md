@@ -75,7 +75,6 @@ webgarden/
 │       └── errors/
 ├── sites/                      # Individual site applications
 │   ├── psyling/                # Psychotherapy site
-│   ├── therapist -> psyling    # Compatibility symlink
 │   │   ├── app.py              # Main application
 │   │   ├── config.py           # Site configuration
 │   │   ├── cli.py              # CLI commands
@@ -432,7 +431,7 @@ sudo systemctl restart dentist.service
 ```
 
 **Port Reference:**
-- 8001: psyling (therapist compatibility symlink: sites/therapist -> sites/psyling)
+- 8001: psyling (service: webgarden-psyling; compatibility symlink retained at sites/therapist)
 - 8002: keystone (hardscapes)
 - 8003+: Available for new sites
 
