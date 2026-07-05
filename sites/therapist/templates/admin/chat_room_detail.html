@@ -27,7 +27,13 @@
             <div class="card border-0 shadow-sm mb-4"><div class="card-header bg-white"><h2 class="h5 mb-0">Client access</h2></div><div class="card-body">
                 <p class="small text-muted">Generating a new invite invalidates previous invite links and client sessions.</p>
                 {% if room.status != 'archived' %}<form method="POST" action="{{ url_for('admin_chat_room_invite', room_id=room.id) }}">{{ action_form.hidden_tag() }}<button class="btn btn-outline-primary w-100" type="submit">Generate new invite</button></form>{% else %}<p class="text-muted mb-0">Archived rooms cannot generate invites.</p>{% endif %}
-                <dl class="small mt-3 mb-0"><dt>Invite created</dt><dd>{{ room.invite_created_at.strftime('%b %d, %Y %I:%M %p') if room.invite_created_at else 'Not generated' }}</dd><dt>Last used</dt><dd class="mb-0">{{ room.invite_last_used_at.strftime('%b %d, %Y %I:%M %p') if room.invite_last_used_at else 'Never' }}</dd></dl>
+                {% if invite_state != 'revoked' %}<form method="POST" action="{{ url_for('admin_chat_room_invite_revoke', room_id=room.id) }}" class="mt-2">{{ action_form.hidden_tag() }}<button class="btn btn-outline-danger w-100" type="submit">Revoke invite and access</button></form>{% endif %}
+                <dl class="small mt-3 mb-0">
+                    <dt>Invite status</dt><dd><span class="badge {% if invite_state == 'active' %}bg-success{% elif invite_state == 'expired' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">{{ invite_state|title }}</span></dd>
+                    <dt>Created</dt><dd>{{ room.invite_created_at.strftime('%b %d, %Y %I:%M %p') if room.invite_created_at else 'Not generated' }}</dd>
+                    <dt>Expires</dt><dd>{{ room.invite_expires_at.strftime('%b %d, %Y %I:%M %p') if room.invite_expires_at else 'Not set' }}</dd>
+                    <dt>Last used</dt><dd class="mb-0">{{ room.invite_last_used_at.strftime('%b %d, %Y %I:%M %p') if room.invite_last_used_at else 'Never' }}</dd>
+                </dl>
             </div></div>
             <div class="card border-0 shadow-sm"><div class="card-header bg-white"><h2 class="h5 mb-0">Room state</h2></div><div class="card-body d-grid gap-2">
                 {% if room.status == 'active' %}<form method="POST" action="{{ url_for('admin_chat_room_state', room_id=room.id, action='close') }}">{{ action_form.hidden_tag() }}<button class="btn btn-outline-warning w-100" type="submit">Close room</button></form>{% else %}<form method="POST" action="{{ url_for('admin_chat_room_state', room_id=room.id, action='reopen') }}">{{ action_form.hidden_tag() }}<button class="btn btn-outline-success w-100" type="submit">Reopen room</button></form>{% endif %}

@@ -259,6 +259,7 @@ class ChatRoom(db.Model):
     )
     invite_token_hash = db.Column(db.String(64), unique=True, index=True)
     invite_created_at = db.Column(db.DateTime)
+    invite_expires_at = db.Column(db.DateTime, index=True)
     invite_last_used_at = db.Column(db.DateTime)
     client_access_enabled = db.Column(
         db.Boolean, default=True, server_default=db.true(), nullable=False
