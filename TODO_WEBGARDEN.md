@@ -24,7 +24,7 @@ rotation, backup installation, deployment, and DNS changes into one operation.
 - Select and approve an encrypted offsite tool/target. Restic, Borg, Rclone, and
   rsync are not currently installed.
 
-### 2. Protect shkolakoda/daycamp source
+### 2. Protect shkolakoda source
 
 Do not clean or reset the live directory in place.
 
@@ -39,8 +39,8 @@ Do not clean or reset the live directory in place.
    deployment documentation.
 6. Create a private remote and verify clone/rebuild in an isolated directory.
 7. Compare the staged app with production before considering any switch.
-8. Do not move the live path or restart `daycamp.service` during source-control
-   cleanup unless separately approved.
+8. Do not move the live path or restart `webgarden-shkolakoda.service` during
+   source-control cleanup unless separately approved.
 
 ### 3. Resolve accidental `/home/fluffy/.git`
 

@@ -37,7 +37,7 @@ or certificate problem is suspected.
 systemctl --failed --no-pager
 systemctl status webgarden-psyling.service --no-pager
 systemctl status tomumber.service --no-pager
-systemctl status daycamp.service --no-pager
+systemctl status webgarden-shkolakoda.service --no-pager
 systemctl status postgresql@15-main.service --no-pager
 ```
 
@@ -71,7 +71,7 @@ Prefer narrow time windows, counts, and error signatures:
 ```bash
 journalctl -u webgarden-psyling.service --since '15 minutes ago' --no-pager
 journalctl -u tomumber.service --since '15 minutes ago' --no-pager
-journalctl -u daycamp.service --since '15 minutes ago' --no-pager
+journalctl -u webgarden-shkolakoda.service --since '15 minutes ago' --no-pager
 ```
 
 Before sharing output, redact URLs, query strings, addresses, identifiers, and
@@ -94,7 +94,7 @@ Current protected application environment:
 
 - psyling: `/etc/webgarden/psyling.env`
 - tomumber: environment-file standardization pending
-- daycamp: no application environment file identified
+- shkolakoda: no application environment file identified
 
 ## Database Checks
 
