@@ -49,7 +49,7 @@ class User(UserMixin, db.Model):
 
 
 class Client(db.Model):
-    """Minimal admin-only client record for the therapist CRM."""
+    """Minimal admin-only client record for the Psyling CRM."""
     __tablename__ = 'clients'
     __table_args__ = (
         db.CheckConstraint(

@@ -33,7 +33,7 @@ The Psyling contact form email notification system has been successfully impleme
 ### 2. Configuration Updates ✅
 
 **Environment File Template:**
-- Created: `/var/www/webgarden/webgarden/sites/therapist/psyling.env.NEW`
+- Created: `/var/www/webgarden/sites/psyling/psyling.env.NEW`
 - Updated for psyling.com domain (replacing mg.mywebgarden.qzz.io)
 - Added ADMIN_EMAIL configuration
 - Included placeholder for SMTP password (Eugene needs to fill in real password)
@@ -81,7 +81,7 @@ ADMIN_EMAIL=psyling@gmail.com
 
 ### 4. Testing Infrastructure ✅
 
-**Test Script Created:** `/var/www/webgarden/webgarden/sites/therapist/test_email_smtp.py`
+**Test Script Created:** `/var/www/webgarden/sites/psyling/test_email_smtp.py`
 
 **Features:**
 - Loads environment variables from `/etc/webgarden/psyling.env`
@@ -95,7 +95,7 @@ ADMIN_EMAIL=psyling@gmail.com
 
 **Usage:**
 ```bash
-cd /var/www/webgarden/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 source venv/bin/activate
 python3 test_email_smtp.py
 ```
@@ -118,7 +118,7 @@ python3 test_email_smtp.py
   - Support resources
 
 **DNS Records Reference:**
-- **File:** `/var/www/webgarden/webgarden/sites/therapist/MAILGUN_DNS_RECORDS.txt`
+- **File:** `/var/www/webgarden/sites/psyling/MAILGUN_DNS_RECORDS.txt`
 - **Content:**
   - Step-by-step Cloudflare DNS setup
   - Exact DNS record values needed
@@ -128,7 +128,7 @@ python3 test_email_smtp.py
   - Mailgun dashboard navigation
 
 **Post-Implementation Checklist:**
-- **File:** `/var/www/webgarden/webgarden/sites/therapist/POST_IMPLEMENTATION_CHECKLIST.md`
+- **File:** `/var/www/webgarden/sites/psyling/POST_IMPLEMENTATION_CHECKLIST.md`
 - **Content:**
   - 10-phase deployment checklist
   - Estimated time for each phase
@@ -172,13 +172,13 @@ python3 test_email_smtp.py
 
 ### Created New Files
 
-**1. `/var/www/webgarden/webgarden/sites/therapist/psyling.env.NEW`**
+**1. `/var/www/webgarden/sites/psyling/psyling.env.NEW`**
 - Environment file template with psyling.com configuration
 - Includes placeholder for SMTP password
 - Documents where Eugene gets real values
 - Preserves old configuration as comments
 
-**2. `/var/www/webgarden/webgarden/sites/therapist/test_email_smtp.py`**
+**2. `/var/www/webgarden/sites/psyling/test_email_smtp.py`**
 - Standalone SMTP test script
 - 350+ lines of code
 - Comprehensive error handling
@@ -189,17 +189,17 @@ python3 test_email_smtp.py
 - 22 pages, 900+ lines
 - Covers architecture through maintenance
 
-**4. `/var/www/webgarden/webgarden/sites/therapist/MAILGUN_DNS_RECORDS.txt`**
+**4. `/var/www/webgarden/sites/psyling/MAILGUN_DNS_RECORDS.txt`**
 - DNS setup guide for Eugene
 - 250+ lines
 - Step-by-step Cloudflare instructions
 
-**5. `/var/www/webgarden/webgarden/sites/therapist/POST_IMPLEMENTATION_CHECKLIST.md`**
+**5. `/var/www/webgarden/sites/psyling/POST_IMPLEMENTATION_CHECKLIST.md`**
 - Deployment checklist
 - 10 phases with time estimates
 - Complete troubleshooting section
 
-**6. `/var/www/webgarden/webgarden/sites/therapist/EMAIL_IMPLEMENTATION_SUMMARY.md`**
+**6. `/var/www/webgarden/sites/psyling/EMAIL_IMPLEMENTATION_SUMMARY.md`**
 - This file
 - Executive summary of implementation
 
@@ -318,7 +318,7 @@ Eugene needs to complete **10 phases** to deploy the email system to production:
 ### Phase 1: SMTP Test (Before Production)
 
 ```bash
-cd /var/www/webgarden/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 source venv/bin/activate
 python3 test_email_smtp.py
 ```
@@ -627,23 +627,23 @@ The email functions are backward compatible. If issues occur:
 
 ### Configuration
 - **Current environment:** `/etc/webgarden/psyling.env`
-- **New environment template:** `/var/www/webgarden/webgarden/sites/therapist/psyling.env.NEW`
+- **New environment template:** `/var/www/webgarden/sites/psyling/psyling.env.NEW`
 - **Backup (Eugene will create):** `/etc/webgarden/psyling.env.backup`
 
 ### Application Code
-- **Main app:** `/var/www/webgarden/webgarden/sites/therapist/app.py`
+- **Main app:** `/var/www/webgarden/sites/psyling/app.py`
 - **Email functions:** `/var/www/webgarden/webgarden/shared/email.py`
 - **Base app config:** `/var/www/webgarden/webgarden/shared/base_app.py`
 
 ### Testing
-- **Test script:** `/var/www/webgarden/webgarden/sites/therapist/test_email_smtp.py`
+- **Test script:** `/var/www/webgarden/sites/psyling/test_email_smtp.py`
 - **Test by visiting:** https://psyling.com/contact
 
 ### Documentation
 - **Email system docs:** `/var/www/webgarden/webgarden/docs/EMAIL_SETUP.md`
-- **DNS setup guide:** `/var/www/webgarden/webgarden/sites/therapist/MAILGUN_DNS_RECORDS.txt`
-- **Deployment checklist:** `/var/www/webgarden/webgarden/sites/therapist/POST_IMPLEMENTATION_CHECKLIST.md`
-- **This summary:** `/var/www/webgarden/webgarden/sites/therapist/EMAIL_IMPLEMENTATION_SUMMARY.md`
+- **DNS setup guide:** `/var/www/webgarden/sites/psyling/MAILGUN_DNS_RECORDS.txt`
+- **Deployment checklist:** `/var/www/webgarden/sites/psyling/POST_IMPLEMENTATION_CHECKLIST.md`
+- **This summary:** `/var/www/webgarden/sites/psyling/EMAIL_IMPLEMENTATION_SUMMARY.md`
 
 ### Service Management
 - **Service file:** `/etc/systemd/system/psyling.service`
@@ -671,7 +671,7 @@ The email functions are backward compatible. If issues occur:
 **Quick commands:**
 ```bash
 # Test SMTP
-cd /var/www/webgarden/webgarden/sites/therapist && source venv/bin/activate && python3 test_email_smtp.py
+cd /var/www/webgarden/sites/psyling && source venv/bin/activate && python3 test_email_smtp.py
 
 # Restart service
 sudo systemctl restart psyling && sudo systemctl status psyling

@@ -1,5 +1,5 @@
 """
-WebGarden Therapist Site
+WebGarden Psyling Site
 Professional psychotherapy website application.
 """
 

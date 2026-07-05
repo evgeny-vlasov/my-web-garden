@@ -14,7 +14,7 @@
 
 ### 1. Homepage Redirect ✅
 
-**File:** `/var/www/webgarden/webgarden/sites/therapist/app.py`
+**File:** `/var/www/webgarden/sites/psyling/app.py`
 
 **Changed:** Lines 107-119 in `index()` function
 

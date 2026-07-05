@@ -1,0 +1,18 @@
+[Unit]
+Description=WebGarden Psyling Flask Site
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=fluffy
+Group=fluffy
+WorkingDirectory=/var/www/webgarden/sites/psyling
+EnvironmentFile=/etc/webgarden/psyling.env
+
+ExecStart=/var/www/webgarden/sites/psyling/venv/bin/gunicorn --workers 4 --bind 127.0.0.1:5001 app:app
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

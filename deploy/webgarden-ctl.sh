@@ -6,10 +6,10 @@
 # Usage: webgarden-ctl {start|stop|restart|status|logs|reload} {site-name}
 #
 # Examples:
-#   webgarden-ctl restart therapist
-#   webgarden-ctl status therapist
-#   webgarden-ctl logs therapist
-#   webgarden-ctl logs therapist -f  (follow logs)
+#   webgarden-ctl restart psyling
+#   webgarden-ctl status psyling
+#   webgarden-ctl logs psyling
+#   webgarden-ctl logs psyling -f  (follow logs)
 
 set -e
 
@@ -47,16 +47,16 @@ Commands:
   logs        View service logs
 
 Sites:
-  therapist   Therapist psychotherapy site
+  psyling     Psyling psychotherapy site
   handyman    Handyman business site (coming soon)
   lab         Computer lab site (coming soon)
 
 Examples:
-  $(basename $0) start therapist
-  $(basename $0) restart therapist
-  $(basename $0) status therapist
-  $(basename $0) logs therapist
-  $(basename $0) logs therapist -f    # Follow logs in real-time
+  $(basename $0) start psyling
+  $(basename $0) restart psyling
+  $(basename $0) status psyling
+  $(basename $0) logs psyling
+  $(basename $0) logs psyling -f    # Follow logs in real-time
 
 EOF
     exit 1
@@ -74,12 +74,12 @@ check_privileges() {
 validate_site() {
     local site=$1
     case $site in
-        therapist|handyman|lab)
+        psyling|therapist|handyman|lab)
             return 0
             ;;
         *)
             print_message "$RED" "Error: Invalid site name '$site'"
-            print_message "$YELLOW" "Valid sites: therapist, handyman, lab"
+            print_message "$YELLOW" "Valid sites: psyling, therapist, handyman, lab"
             exit 1
             ;;
     esac
@@ -87,7 +87,14 @@ validate_site() {
 
 # Get service name
 get_service_name() {
-    echo "webgarden-$1.service"
+    case $1 in
+        psyling|therapist)
+            echo "webgarden-psyling.service"
+            ;;
+        *)
+            echo "webgarden-$1.service"
+            ;;
+    esac
 }
 
 # Start service

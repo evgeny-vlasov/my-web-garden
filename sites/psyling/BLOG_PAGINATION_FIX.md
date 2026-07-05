@@ -35,7 +35,7 @@ return render_template('admin/posts_list.html',
                       ...)
 ```
 
-**Location:** `/var/www/webgarden/webgarden/sites/therapist/app.py` lines 342-362
+**Location:** `/var/www/webgarden/sites/psyling/app.py` lines 342-362
 
 ---
 
@@ -91,7 +91,7 @@ This issue was not addressed in this fix. The pagination error could have caused
 
 ## Files Modified
 
-### 1. `/var/www/webgarden/webgarden/sites/therapist/app.py`
+### 1. `/var/www/webgarden/sites/psyling/app.py`
 
 **Changed:** Lines 342-362 in `admin_posts_list()` function
 

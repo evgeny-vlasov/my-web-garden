@@ -1,5 +1,5 @@
 """csrf
-Therapist Site Flask Application
+Psyling Site Flask Application
 Main application file for the professional psychotherapy website.
 """
 
@@ -39,9 +39,9 @@ from shared.email import send_contact_notification, send_contact_confirmation
 from shared.decorators import login_required as custom_login_required, admin_required, anonymous_required
 from shared.sanitizer import sanitize_html, create_excerpt
 from shared.image_handler import save_image, allowed_file
-from sites.therapist.config import config
-from sites.therapist.cli import register_cli_commands
-from sites.therapist.crm_forms import (
+from sites.psyling.config import config
+from sites.psyling.cli import register_cli_commands
+from sites.psyling.crm_forms import (
     ActivityCompleteForm,
     ActivityForm,
     CONTACT_STATUSES,
@@ -49,7 +49,7 @@ from sites.therapist.crm_forms import (
     ContactActionForm,
     ContactCRMForm,
 )
-from sites.therapist.chat_forms import (
+from sites.psyling.chat_forms import (
     ChatMessageForm,
     ChatRoomActionForm,
     ChatRoomCreateForm,
@@ -63,7 +63,7 @@ from wtforms.validators import DataRequired
 
 # Create Flask application
 config_name = os.getenv('FLASK_ENV', 'production')
-app = create_base_app('therapist', config[config_name])
+app = create_base_app('psyling', config[config_name])
 
 # Register CLI commands
 register_cli_commands(app)
@@ -1504,7 +1504,7 @@ def upload_image():
             db.session.commit()
 
             # Return URL for TinyMCE
-            file_url = url_for('static', filename=f"../uploads/therapist/blog/inline/{result['filename']}")
+            file_url = url_for('static', filename=f"../uploads/psyling/blog/inline/{result['filename']}")
             return jsonify({'location': file_url})
         else:
             return jsonify({'error': 'Failed to save image'}), 500

@@ -64,7 +64,7 @@ Follow these steps **in order** to complete the email system deployment.
 
 **Goal:** Add required DNS records to Cloudflare
 
-**Reference file:** `/var/www/webgarden/webgarden/sites/therapist/MAILGUN_DNS_RECORDS.txt`
+**Reference file:** `/var/www/webgarden/sites/psyling/MAILGUN_DNS_RECORDS.txt`
 
 #### Step 2.1: Access Cloudflare
 ```
@@ -184,7 +184,7 @@ Follow these steps **in order** to complete the email system deployment.
 #### Step 6.1: Install New Environment File
 ```bash
 # Navigate to therapist directory
-cd /var/www/webgarden/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 
 # Backup current environment file
 sudo cp /etc/webgarden/psyling.env /etc/webgarden/psyling.env.backup
@@ -233,7 +233,7 @@ ls -la /etc/webgarden/psyling.env
 
 ```bash
 # Navigate to therapist directory
-cd /var/www/webgarden/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 
 # Activate virtual environment
 source venv/bin/activate
@@ -455,19 +455,19 @@ sudo journalctl -u psyling.service -f
 
 **Configuration:**
 - Environment file: `/etc/webgarden/psyling.env`
-- Environment template: `/var/www/webgarden/webgarden/sites/therapist/psyling.env.NEW`
+- Environment template: `/var/www/webgarden/sites/psyling/psyling.env.NEW`
 - Service config: `/etc/systemd/system/psyling.service`
 
 **Application:**
-- Main app: `/var/www/webgarden/webgarden/sites/therapist/app.py`
+- Main app: `/var/www/webgarden/sites/psyling/app.py`
 - Email functions: `/var/www/webgarden/webgarden/shared/email.py`
 - Base app: `/var/www/webgarden/webgarden/shared/base_app.py`
 
 **Testing & Documentation:**
-- Test script: `/var/www/webgarden/webgarden/sites/therapist/test_email_smtp.py`
+- Test script: `/var/www/webgarden/sites/psyling/test_email_smtp.py`
 - Full documentation: `/var/www/webgarden/webgarden/docs/EMAIL_SETUP.md`
-- DNS records guide: `/var/www/webgarden/webgarden/sites/therapist/MAILGUN_DNS_RECORDS.txt`
-- This checklist: `/var/www/webgarden/webgarden/sites/therapist/POST_IMPLEMENTATION_CHECKLIST.md`
+- DNS records guide: `/var/www/webgarden/sites/psyling/MAILGUN_DNS_RECORDS.txt`
+- This checklist: `/var/www/webgarden/sites/psyling/POST_IMPLEMENTATION_CHECKLIST.md`
 
 ---
 
@@ -475,7 +475,7 @@ sudo journalctl -u psyling.service -f
 
 ```bash
 # Navigate to therapist directory
-cd /var/www/webgarden/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 
 # Activate virtual environment
 source venv/bin/activate
@@ -555,10 +555,10 @@ Email system is **COMPLETE** when:
 
 **Internal Documentation:**
 - Full guide: `/var/www/webgarden/webgarden/docs/EMAIL_SETUP.md`
-- DNS guide: `/var/www/webgarden/webgarden/sites/therapist/MAILGUN_DNS_RECORDS.txt`
+- DNS guide: `/var/www/webgarden/sites/psyling/MAILGUN_DNS_RECORDS.txt`
 
 **Testing:**
-- Test script: `/var/www/webgarden/webgarden/sites/therapist/test_email_smtp.py`
+- Test script: `/var/www/webgarden/sites/psyling/test_email_smtp.py`
 - Contact form: https://psyling.com/contact
 
 ---

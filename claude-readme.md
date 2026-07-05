@@ -9,7 +9,7 @@
 **Language:** Python 3.10+
 **Framework:** Flask 3.0
 **Database:** PostgreSQL
-**Current Sites:** 2 (psyling/therapist, keystone)
+**Current Sites:** 2 (psyling, keystone)
 **Latest Sprint:** Sprint 4 - AI Chatbot Integration (Complete)
 
 ## Architecture Overview
@@ -24,7 +24,8 @@ Shared modules (shared/):
      (app factory, models, forms, email, security)
 
 Individual sites (sites/):
-  ├─ therapist/ (psyling)  (Professional psychotherapy website)
+  ├─ psyling/             (Professional psychotherapy website)
+  └─ therapist -> psyling (compatibility symlink)
   └─ keystone/             (Hardscaping business website)
 
 Deployment (deploy/):
@@ -59,7 +60,8 @@ Deployment (deploy/):
 │   └── README.md                   # Comprehensive shared modules docs
 │
 ├── sites/                           # INDIVIDUAL SITES
-│   ├── therapist/                  # Psychotherapy website
+│   ├── psyling/                    # Psychotherapy website
+│   ├── therapist -> psyling        # Compatibility symlink
 │   │   ├── app.py                 # Main Flask app (uses create_base_app)
 │   │   ├── config.py              # Site-specific configuration
 │   │   ├── cli.py                 # CLI commands (create-admin, etc.)
@@ -188,7 +190,7 @@ Each site configures the widget with specific parameters:
 ```html
 <script
     src="{{ url_for('static', filename='js/bot-widget.js') }}"
-    data-bot-id="therapist"
+    data-bot-id="psyling"
     data-bot-name="Psyling Assistant"
     data-api-url=""
     data-position="bottom-right"
@@ -197,7 +199,7 @@ Each site configures the widget with specific parameters:
 ```
 
 **Configuration Options:**
-- `data-bot-id`: Bot identifier (e.g., "therapist", "keystone-landscaping")
+- `data-bot-id`: Bot identifier (e.g., "psyling", "keystone-landscaping")
 - `data-bot-name`: Display name shown in widget header
 - `data-api-url`: API endpoint (empty = same origin)
 - `data-position`: Widget position (bottom-right, bottom-left)
@@ -349,7 +351,7 @@ class Newsletter(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     subscribed_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-# In sites/therapist/app.py
+# In sites/psyling/app.py
 from shared.models import Newsletter
 
 @app.route('/subscribe', methods=['POST'])
@@ -521,12 +523,12 @@ PostgreSQL
 
 ```bash
 # systemd services
-sudo systemctl start webgarden-therapist
+sudo systemctl start webgarden-psyling
 sudo systemctl start webgarden-keystone
 
 # Wrapper script
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh start therapist
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh logs therapist -f
+sudo /var/www/webgarden/deploy/webgarden-ctl.sh start psyling
+sudo /var/www/webgarden/deploy/webgarden-ctl.sh logs psyling -f
 ```
 
 ### Deployment Process
@@ -569,11 +571,11 @@ flask shell               # Python shell with app context
 
 ```bash
 # Service control
-sudo deploy/webgarden-ctl.sh start therapist
-sudo deploy/webgarden-ctl.sh stop therapist
-sudo deploy/webgarden-ctl.sh restart therapist
-sudo deploy/webgarden-ctl.sh status therapist
-sudo deploy/webgarden-ctl.sh logs therapist [-f]
+sudo deploy/webgarden-ctl.sh start psyling
+sudo deploy/webgarden-ctl.sh stop psyling
+sudo deploy/webgarden-ctl.sh restart psyling
+sudo deploy/webgarden-ctl.sh status psyling
+sudo deploy/webgarden-ctl.sh logs psyling [-f]
 
 # New site creation
 sudo deploy/new_site.sh <sitename> <domain> <port>
@@ -662,7 +664,7 @@ Follow conventional commits:
 
 ### Adding a New Site
 
-1. Copy existing site: `cp -r sites/therapist sites/newsite`
+1. Copy existing site: `cp -r sites/psyling sites/newsite`
 2. Update `config.py` with new site info
 3. Update `app.py` site name
 4. Customize templates and static files
@@ -708,7 +710,7 @@ Follow conventional commits:
 
 - **Main Docs:** `/README.md`
 - **Shared Modules:** `/shared/README.md`
-- **Therapist Site:** `/sites/therapist/README.md`
+- **Psyling Site:** `/sites/psyling/README.md`
 - **Keystone Site:** `/sites/keystone/README.md`
 - **Deployment:** `/deploy/README.md`
 - **Changelog:** `/CHANGELOG.md`

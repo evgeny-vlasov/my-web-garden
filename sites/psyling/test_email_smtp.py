@@ -4,7 +4,7 @@ SMTP Connection Test for Psyling Mailgun Setup
 Run this to verify email configuration before integrating with contact form
 
 Usage:
-    cd /var/www/webgarden/webgarden/sites/therapist
+    cd /var/www/webgarden/sites/psyling
     source venv/bin/activate
     python3 test_email_smtp.py
 

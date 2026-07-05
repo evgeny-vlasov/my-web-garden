@@ -495,7 +495,7 @@ return redirect(url_for('schedule'))
 - **Update availability**: Edit Google Calendar directly
 
 ### For Developers
-- **Code location**: `/var/www/webgarden/webgarden/sites/therapist/`
+- **Code location**: `/var/www/webgarden/sites/psyling/`
 - **Main files**: `app.py` (lines 180-339), `templates/schedule.html`
 - **Service restart**: `sudo systemctl restart psyling`
 - **Check logs**: `sudo journalctl -u psyling -f`

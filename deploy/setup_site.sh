@@ -5,7 +5,7 @@
 #
 # Usage: sudo ./setup_site.sh {site-name} {domain}
 #
-# Example: sudo ./setup_site.sh therapist therapist.example.com
+# Example: sudo ./setup_site.sh psyling psyling.example.com
 
 set -e
 
@@ -55,11 +55,11 @@ WebGarden Site Setup Script
 Usage: sudo $(basename $0) {site-name} {domain}
 
 Arguments:
-  site-name    Name of the site (e.g., therapist, handyman, lab)
-  domain       Domain name for the site (e.g., therapist.example.com)
+  site-name    Name of the site (e.g., psyling, handyman, lab)
+  domain       Domain name for the site (e.g., psyling.example.com)
 
 Example:
-  sudo $(basename $0) therapist therapist.example.com
+  sudo $(basename $0) psyling psyling.example.com
 
 This script will:
   1. Create system user and directories
@@ -234,8 +234,8 @@ configure_nginx() {
 
     # Copy and update nginx config
     cp "$source_conf" "$nginx_conf"
-    sed -i "s/therapist\.example\.com/$DOMAIN/g" "$nginx_conf"
-    sed -i "s/www\.therapist\.example\.com/www.$DOMAIN/g" "$nginx_conf"
+    sed -i "s/psyling\.example\.com/$DOMAIN/g" "$nginx_conf"
+    sed -i "s/www\.psyling\.example\.com/www.$DOMAIN/g" "$nginx_conf"
 
     # Enable site
     ln -sf "$nginx_conf" "/etc/nginx/sites-enabled/$SITE_NAME"

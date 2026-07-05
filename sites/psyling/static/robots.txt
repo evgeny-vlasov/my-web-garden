@@ -1,10 +1,10 @@
-# robots.txt for WebGarden Therapist Site
+# robots.txt for WebGarden Psyling Site
 
 User-agent: *
 Allow: /
 
 # Sitemap (add when available)
-# Sitemap: https://therapist.example.com/sitemap.xml
+# Sitemap: https://psyling.com/sitemap.xml
 
 # Private and administrative areas
 Disallow: /admin/

@@ -211,7 +211,7 @@ After registration, you'll receive:
 
 Edit the `.env` file:
 ```bash
-sudo nano /var/www/webgarden/webgarden/sites/therapist/.env
+sudo nano /var/www/webgarden/sites/psyling/.env
 ```
 
 Add these lines:
@@ -437,7 +437,7 @@ sudo journalctl -u psyling -f | grep -E "(Honeypot|reCAPTCHA)"
 **Solutions:**
 1. Check if RECAPTCHA_SITE_KEY is set:
    ```bash
-   grep RECAPTCHA_SITE_KEY /var/www/webgarden/webgarden/sites/therapist/.env
+   grep RECAPTCHA_SITE_KEY /var/www/webgarden/sites/psyling/.env
    ```
 2. Verify key is correct (check Google reCAPTCHA admin)
 3. Check domain matches registration

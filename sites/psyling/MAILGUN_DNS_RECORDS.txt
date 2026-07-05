@@ -7,7 +7,7 @@ Eugene, add these DNS records to Cloudflare for the psyling.com domain.
 After adding records:
 1. Wait 10-60 minutes for DNS propagation
 2. Verify in Mailgun dashboard (domain should show "Active")
-3. Run test script: cd /var/www/webgarden/webgarden/sites/therapist && python3 test_email_smtp.py
+3. Run test script: cd /var/www/webgarden/sites/psyling && python3 test_email_smtp.py
 
 -----------------------------------------------------------------------------
 
@@ -209,7 +209,7 @@ NEXT STEPS AFTER DNS SETUP
    sudo systemctl status psyling
 
 6. Run SMTP test:
-   cd /var/www/webgarden/webgarden/sites/therapist
+   cd /var/www/webgarden/sites/psyling
    source venv/bin/activate
    python3 test_email_smtp.py
 
@@ -254,7 +254,7 @@ Comprehensive documentation:
 /var/www/webgarden/webgarden/docs/EMAIL_SETUP.md
 
 Test script location:
-/var/www/webgarden/webgarden/sites/therapist/test_email_smtp.py
+/var/www/webgarden/sites/psyling/test_email_smtp.py
 
 Mailgun DNS guide:
 https://documentation.mailgun.com/en/latest/quickstart-sending.html#verify-your-domain

@@ -1,6 +1,6 @@
 """
-Therapist Site Configuration
-Site-specific configuration for the therapist psychotherapy site.
+Psyling Site Configuration
+Site-specific configuration for the psychotherapy site.
 """
 
 import os
@@ -37,7 +37,7 @@ class Config:
 
     # Upload settings
     MAX_CONTENT_LENGTH = int(os.getenv('MAX_UPLOAD_SIZE', 5242880))  # 5MB default
-    UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', '/var/www/webgarden/uploads/therapist')
+    UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', '/var/www/webgarden/uploads/psyling')
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
     # Mail settings (Mailgun)
@@ -51,8 +51,8 @@ class Config:
     ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', os.getenv('MAIL_DEFAULT_SENDER', 'info@example.com'))
 
     # Site information
-    SITE_NAME = os.getenv('SITE_NAME', 'Professional Psychotherapy')
-    SITE_DOMAIN = os.getenv('SITE_DOMAIN', 'localhost')
+    SITE_NAME = os.getenv('SITE_NAME', 'Psyling')
+    SITE_DOMAIN = os.getenv('SITE_DOMAIN', 'psyling.com')
     SITE_TAGLINE = 'Professional Psychotherapy Services in Toronto'
     OFFICE_LOCATION = 'East York M4C, Toronto, Ontario, Canada'
     OFFICE_PHONE = os.getenv('OFFICE_PHONE', '(647) 360-8980')

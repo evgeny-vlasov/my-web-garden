@@ -35,7 +35,7 @@ or certificate problem is suspected.
 
 ```bash
 systemctl --failed --no-pager
-systemctl status webgarden-therapist.service --no-pager
+systemctl status webgarden-psyling.service --no-pager
 systemctl status tomumber.service --no-pager
 systemctl status daycamp.service --no-pager
 systemctl status postgresql@15-main.service --no-pager
@@ -69,7 +69,7 @@ that permission error alone does not mean the active configuration is invalid.
 Prefer narrow time windows, counts, and error signatures:
 
 ```bash
-journalctl -u webgarden-therapist.service --since '15 minutes ago' --no-pager
+journalctl -u webgarden-psyling.service --since '15 minutes ago' --no-pager
 journalctl -u tomumber.service --since '15 minutes ago' --no-pager
 journalctl -u daycamp.service --since '15 minutes ago' --no-pager
 ```
@@ -84,7 +84,7 @@ a graceful reload as `ERROR`; correlate it with the master’s HUP/reload event.
 List variable names only:
 
 ```bash
-awk -F= '/^[A-Za-z_][A-Za-z0-9_]*=/{print $1}' /etc/webgarden/therapist.env
+awk -F= '/^[A-Za-z_][A-Za-z0-9_]*=/{print $1}' /etc/webgarden/psyling.env
 ```
 
 Do not use `cat`, `env`, `printenv`, `systemctl show -p Environment`, process
@@ -92,7 +92,7 @@ environment dumps, shell tracing, or commands that echo connection URLs.
 
 Current protected application environment:
 
-- psyling: `/etc/webgarden/therapist.env`
+- psyling: `/etc/webgarden/psyling.env`
 - tomumber: environment-file standardization pending
 - daycamp: no application environment file identified
 
@@ -111,7 +111,7 @@ URL directly in a command, service report, or ticket.
 Psyling migration directory:
 
 ```text
-/var/www/webgarden/sites/therapist/migrations
+/var/www/webgarden/sites/psyling/migrations
 ```
 
 ## Git Checks

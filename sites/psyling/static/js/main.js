@@ -1,5 +1,5 @@
 /**
- * Therapist Site JavaScript
+ * Psyling Site JavaScript
  * Interactive features and enhancements
  */
 

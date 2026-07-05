@@ -1,10 +1,10 @@
-# Therapist Site Documentation
+# Psyling Site Documentation
 
 Professional psychotherapy website built on the WebGarden platform.
 
 ## Site Overview
 
-The therapist site provides a professional online presence for a psychotherapy practice, featuring:
+The Psyling site provides a professional online presence for a psychotherapy practice, featuring:
 - Information about services and approach
 - Contact form for inquiries
 - Blog with mental health articles
@@ -14,7 +14,7 @@ The therapist site provides a professional online presence for a psychotherapy p
 ## Site Structure
 
 ```
-sites/therapist/
+sites/psyling/
 ├── app.py                 # Main Flask application
 ├── config.py              # Site configuration
 ├── cli.py                 # CLI commands
@@ -288,7 +288,7 @@ Template: `templates/admin/contacts_list.html`
 **Response:**
 ```json
 {
-  "location": "/static/uploads/therapist/blog/inline/uuid-filename.jpg"
+  "location": "/uploads/psyling/blog/inline/uuid-filename.jpg"
 }
 ```
 
@@ -296,7 +296,7 @@ Template: `templates/admin/contacts_list.html`
 
 ## Configuration
 
-Located in `sites/therapist/config.py`
+Located in `sites/psyling/config.py`
 
 ### Configuration Classes
 
@@ -328,7 +328,7 @@ class ProductionConfig(Config):
 
 ### Environment Variables
 
-Required variables in `/etc/webgarden/therapist.env`:
+Required variables in `/etc/webgarden/psyling.env`:
 
 ```bash
 # Flask
@@ -341,27 +341,27 @@ DATABASE_URL=postgresql://webgarden:password@localhost/therapist_db
 # Mail
 MAIL_SERVER=smtp.mailgun.org
 MAIL_PORT=587
-MAIL_USERNAME=postmaster@therapist.example.com
+MAIL_USERNAME=postmaster@psyling.com
 MAIL_PASSWORD=<mailgun-api-key>
-MAIL_DEFAULT_SENDER=info@therapist.example.com
-ADMIN_EMAIL=admin@therapist.example.com
+MAIL_DEFAULT_SENDER=info@psyling.com
+ADMIN_EMAIL=admin@psyling.com
 
 # Site
 SITE_NAME=Professional Psychotherapy
-SITE_DOMAIN=therapist.example.com
-UPLOAD_FOLDER=/var/www/webgarden/uploads/therapist
+SITE_DOMAIN=psyling.com
+UPLOAD_FOLDER=/var/www/webgarden/uploads/psyling
 MAX_UPLOAD_SIZE=5242880
 ```
 
 ## CLI Commands
 
-Located in `sites/therapist/cli.py`
+Located in `sites/psyling/cli.py`
 
 ### `flask init-db`
 Initialize the database (create all tables).
 
 ```bash
-cd /var/www/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 source venv/bin/activate
 flask init-db
 ```
@@ -388,7 +388,7 @@ flask test-email
 
 ### Tables Used
 
-The therapist site uses these tables from shared models:
+The Psyling site uses these tables from shared models:
 
 1. **users**
    - Admin and editor accounts
@@ -518,7 +518,7 @@ The site features an AI-powered chatbot assistant called "Psyling Assistant" tha
 
 ### Configuration
 ```html
-data-bot-id="therapist"
+data-bot-id="psyling"
 data-bot-name="Psyling Assistant"
 data-position="bottom-right"
 data-primary-color="#7c3aed"
@@ -610,28 +610,28 @@ The site runs with:
 
 ```bash
 # Start service
-sudo systemctl start webgarden-therapist
+sudo systemctl start webgarden-psyling
 
 # Stop service
-sudo systemctl stop webgarden-therapist
+sudo systemctl stop webgarden-psyling
 
 # Restart service
-sudo systemctl restart webgarden-therapist
+sudo systemctl restart webgarden-psyling
 
 # Check status
-sudo systemctl status webgarden-therapist
+sudo systemctl status webgarden-psyling
 
 # View logs
-sudo journalctl -u webgarden-therapist -f
+sudo journalctl -u webgarden-psyling -f
 ```
 
 ### Using Control Script
 
 ```bash
 # Convenient wrapper around systemctl
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh start therapist
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh restart therapist
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh logs therapist -f
+sudo /var/www/webgarden/deploy/webgarden-ctl.sh start psyling
+sudo /var/www/webgarden/deploy/webgarden-ctl.sh restart psyling
+sudo /var/www/webgarden/deploy/webgarden-ctl.sh logs psyling -f
 ```
 
 ## Development
@@ -640,7 +640,7 @@ sudo /var/www/webgarden/deploy/webgarden-ctl.sh logs therapist -f
 
 1. **Create virtual environment:**
 ```bash
-cd /var/www/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 python3 -m venv venv
 source venv/bin/activate
 ```
@@ -755,12 +755,12 @@ def test_contact_form(client):
 **Issue: 500 Error on Contact Form**
 - Check MAIL_* environment variables
 - Verify Mailgun credentials
-- Check application logs: `sudo journalctl -u webgarden-therapist -n 50`
+- Check application logs: `sudo journalctl -u webgarden-psyling -n 50`
 
 **Issue: Blog Images Not Displaying**
 - Check UPLOAD_FOLDER exists and has correct permissions
 - Verify nginx is serving /uploads/ correctly
-- Check file was actually uploaded: `ls /var/www/webgarden/uploads/therapist/blog/inline/`
+- Check file was actually uploaded: `ls /var/www/webgarden/uploads/psyling/blog/inline/`
 
 **Issue: Can't Login to Admin**
 - Verify user exists: `flask shell` then `User.query.all()`
@@ -788,10 +788,10 @@ flask run --debug
 
 ### Log Locations
 
-- Application logs: `sudo journalctl -u webgarden-therapist`
-- Nginx access: `/var/log/nginx/therapist-access.log`
-- Nginx errors: `/var/log/nginx/therapist-error.log`
-- Gunicorn logs: `/var/log/webgarden/therapist-access.log`
+- Application logs: `sudo journalctl -u webgarden-psyling`
+- Nginx access: `/var/log/nginx/psyling-access.log`
+- Nginx errors: `/var/log/nginx/psyling-error.log`
+- Gunicorn logs: `/var/log/webgarden/psyling-access.log`
 
 ## Future Enhancements
 

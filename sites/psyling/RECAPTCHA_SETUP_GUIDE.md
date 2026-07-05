@@ -52,7 +52,7 @@ Follow these steps to activate reCAPTCHA v3 spam protection on the contact form.
 
 2. **Edit the .env file:**
    ```bash
-   sudo nano /var/www/webgarden/webgarden/sites/therapist/.env
+   sudo nano /var/www/webgarden/sites/psyling/.env
    ```
 
 3. **Add these lines at the end:**
@@ -135,7 +135,7 @@ You should see: `Active: active (running)`
 
 **Check 1:** Verify keys are set:
 ```bash
-grep RECAPTCHA /var/www/webgarden/webgarden/sites/therapist/.env
+grep RECAPTCHA /var/www/webgarden/sites/psyling/.env
 ```
 
 Should show two lines with your keys.
@@ -154,7 +154,7 @@ Should show two lines with your keys.
 
 **Check 1:** Verify Secret Key is correct:
 ```bash
-grep RECAPTCHA_SECRET_KEY /var/www/webgarden/webgarden/sites/therapist/.env
+grep RECAPTCHA_SECRET_KEY /var/www/webgarden/sites/psyling/.env
 ```
 
 **Check 2:** Make sure Site Key and Secret Key are from the same registration
@@ -174,7 +174,7 @@ Should return: `HTTP/2 405` (method not allowed is OK - means connection works)
 
 1. Edit app.py:
    ```bash
-   sudo nano /var/www/webgarden/webgarden/sites/therapist/app.py
+   sudo nano /var/www/webgarden/sites/psyling/app.py
    ```
 
 2. Find this line (around line 220):

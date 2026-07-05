@@ -55,7 +55,7 @@ sudo systemctl restart dentist.service
 
 Use the next available port:
 
-- 8001: psyling (therapist site)
+- 8001: psyling (psychotherapy site)
 - 8002: keystone (landscaping site)
 - **8003: NEXT AVAILABLE**
 - 8004+: Future sites

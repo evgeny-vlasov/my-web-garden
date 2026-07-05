@@ -134,7 +134,7 @@ All 113 messages are currently marked as "new" because they haven't been opened 
 ### Q: Are all 113 messages really there?
 **A:** Yes! Confirmed in database. Run this to verify anytime:
 ```bash
-cd /var/www/webgarden/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 venv/bin/python check_contacts.py
 ```
 

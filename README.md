@@ -17,7 +17,7 @@ WebGarden is a production-ready Flask-based web hosting platform designed to eff
 ## 📋 Project Status
 
 ✅ **Sprint 1 - Foundation (Complete)**
-- Therapist psychotherapy website (MVP)
+- Psyling psychotherapy website (MVP)
 - Shared module library
 - Database schema and migrations
 - Deployment configurations
@@ -49,7 +49,7 @@ WebGarden is a production-ready Flask-based web hosting platform designed to eff
 - Graceful error handling and offline support
 
 🚀 **Active Sites:**
-- **psyling** (Therapist/Psychotherapy) - Port 8001 - With "Psyling Assistant" chatbot
+- **psyling** (Psychotherapy) - Port 8001 - With "Psyling Assistant" chatbot
 - **keystone** (Hardscapes/Landscaping) - Port 8002 - With "Keystone Assistant" chatbot
 
 🔮 **Future Development:**
@@ -74,7 +74,8 @@ webgarden/
 │       ├── base.html
 │       └── errors/
 ├── sites/                      # Individual site applications
-│   ├── therapist/              # Psychotherapy site (psyling)
+│   ├── psyling/                # Psychotherapy site
+│   ├── therapist -> psyling    # Compatibility symlink
 │   │   ├── app.py              # Main application
 │   │   ├── config.py           # Site configuration
 │   │   ├── cli.py              # CLI commands
@@ -113,7 +114,7 @@ webgarden/
 │   ├── nginx/                 # Nginx configs
 │   └── systemd/               # Systemd service files
 ├── uploads/                    # File uploads (per site)
-│   ├── therapist/
+│   ├── psyling/
 │   └── keystone/
 ├── backups/                    # Backup storage
 ├── .env.example               # Environment template
@@ -185,7 +186,7 @@ For manual setup or understanding the internals, see the [Manual Setup Guide](#d
 ### Using systemctl
 
 ```bash
-# Replace {sitename} with: therapist, keystone, or your site name
+# Replace {sitename} with: psyling, keystone, or your site name
 
 # Start service
 sudo systemctl start {sitename}.service
@@ -203,7 +204,7 @@ sudo systemctl status {sitename}.service
 sudo journalctl -u {sitename}.service -f
 
 # Examples:
-sudo systemctl restart therapist.service
+sudo systemctl restart psyling.service
 sudo systemctl status keystone.service
 ```
 
@@ -211,7 +212,7 @@ sudo systemctl status keystone.service
 
 ```bash
 # For sites deployed with old setup_site.sh
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh restart therapist
+sudo /var/www/webgarden/deploy/webgarden-ctl.sh restart psyling
 ```
 
 ## 📝 Configuration
@@ -250,7 +251,7 @@ OFFICE_EMAIL=info@yourdomain.com
 ```
 
 **Active sites:**
-- `/etc/webgarden/therapist.env` - Psychotherapy site
+- `/etc/webgarden/psyling.env` - Psychotherapy site
 - `/etc/webgarden/keystone.env` - Hardscapes site
 
 ### Database Configuration
@@ -258,7 +259,7 @@ OFFICE_EMAIL=info@yourdomain.com
 Each site has its own isolated PostgreSQL database:
 
 ```bash
-# Access database (replace {sitename} with therapist, keystone, etc.)
+# Access database (replace {sitename} with psyling, keystone, etc.)
 sudo -u postgres psql {sitename}_db
 
 # Backup database
@@ -290,11 +291,11 @@ sudo nginx -t
 sudo systemctl reload nginx
 
 # List all WebGarden site configs
-ls -l /etc/nginx/sites-available/ | grep -E '(therapist|keystone)'
+ls -l /etc/nginx/sites-available/ | grep -E '(psyling|keystone)'
 ```
 
 **Active configs:**
-- `/etc/nginx/sites-available/therapist` - Port 8001
+- `/etc/nginx/sites-available/psyling.com` - Port 8001
 - `/etc/nginx/sites-available/keystone` - Port 8002
 
 ## 🔧 Development
@@ -303,7 +304,7 @@ ls -l /etc/nginx/sites-available/ | grep -E '(therapist|keystone)'
 
 1. **Create virtual environment:**
 ```bash
-cd /var/www/webgarden/sites/therapist
+cd /var/www/webgarden/sites/psyling
 python3 -m venv venv
 source venv/bin/activate
 ```
@@ -390,9 +391,9 @@ pip install --upgrade -r requirements.txt
 
 3. **Monitor logs:**
 ```bash
-sudo journalctl -u webgarden-therapist -f
-tail -f /var/log/nginx/therapist-access.log
-tail -f /var/log/nginx/therapist-error.log
+sudo journalctl -u webgarden-psyling -f
+tail -f /var/log/nginx/psyling-access.log
+tail -f /var/log/nginx/psyling-error.log
 ```
 
 4. **Regular backups:**
@@ -431,7 +432,7 @@ sudo systemctl restart dentist.service
 ```
 
 **Port Reference:**
-- 8001: therapist (psyling)
+- 8001: psyling (therapist compatibility symlink: sites/therapist -> sites/psyling)
 - 8002: keystone (hardscapes)
 - 8003+: Available for new sites
 
@@ -447,7 +448,7 @@ For manual setup, copy an existing site directory and update configurations manu
 
 ```bash
 # Service status
-sudo systemctl status webgarden-therapist
+sudo systemctl status webgarden-psyling
 
 # Process information
 ps aux | grep gunicorn
@@ -460,17 +461,17 @@ sudo netstat -tlnp | grep 8001
 
 ```bash
 # Application logs
-sudo journalctl -u webgarden-therapist -n 100
+sudo journalctl -u webgarden-psyling -n 100
 
 # Nginx access logs
-sudo tail -f /var/log/nginx/therapist-access.log
+sudo tail -f /var/log/nginx/psyling-access.log
 
 # Nginx error logs
-sudo tail -f /var/log/nginx/therapist-error.log
+sudo tail -f /var/log/nginx/psyling-error.log
 
 # Gunicorn logs
-sudo tail -f /var/log/webgarden/therapist-access.log
-sudo tail -f /var/log/webgarden/therapist-error.log
+sudo tail -f /var/log/webgarden/psyling-access.log
+sudo tail -f /var/log/webgarden/psyling-error.log
 ```
 
 ## 🐛 Troubleshooting
@@ -479,16 +480,16 @@ sudo tail -f /var/log/webgarden/therapist-error.log
 
 ```bash
 # Check service status
-sudo systemctl status webgarden-therapist
+sudo systemctl status webgarden-psyling
 
 # Check logs
-sudo journalctl -u webgarden-therapist -n 50
+sudo journalctl -u webgarden-psyling -n 50
 
 # Check if port is in use
 sudo netstat -tlnp | grep 8001
 
 # Verify environment file
-cat /etc/webgarden/therapist.env
+cat /etc/webgarden/psyling.env
 ```
 
 ### Database connection issues
@@ -501,7 +502,7 @@ sudo -u postgres psql therapist_db -c "\conninfo"
 sudo -u postgres psql -l | grep therapist
 
 # Verify DATABASE_URL in env file
-grep DATABASE_URL /etc/webgarden/therapist.env
+grep DATABASE_URL /etc/webgarden/psyling.env
 ```
 
 ### Nginx/SSL issues
@@ -522,11 +523,11 @@ sudo certbot renew --dry-run
 ```bash
 # Fix ownership
 sudo chown -R webgarden:webgarden /var/www/webgarden
-sudo chown -R webgarden:webgarden /var/www/webgarden/uploads/therapist
+sudo chown -R webgarden:webgarden /var/www/webgarden/uploads/psyling
 
 # Fix permissions
 sudo chmod 755 /var/www/webgarden
-sudo chmod 644 /etc/webgarden/therapist.env
+sudo chmod 644 /etc/webgarden/psyling.env
 ```
 
 ## 📚 Useful Commands
@@ -535,7 +536,7 @@ sudo chmod 644 /etc/webgarden/therapist.env
 
 ```bash
 # Navigate to your site directory
-cd /var/www/webgarden/webgarden/sites/{sitename}
+cd /var/www/webgarden/sites/{sitename}
 source venv/bin/activate
 
 # Create admin user
@@ -558,7 +559,7 @@ flask db upgrade
 flask shell
 
 # Examples:
-cd /var/www/webgarden/webgarden/sites/therapist && source venv/bin/activate && flask create-admin
+cd /var/www/webgarden/sites/psyling && source venv/bin/activate && flask create-admin
 cd /var/www/webgarden/webgarden/sites/keystone && source venv/bin/activate && flask list-users
 ```
 
@@ -599,7 +600,7 @@ For issues or questions:
 ## 🗺️ Roadmap
 
 ### ✅ Sprint 1 - Foundation (Complete)
-- [x] Therapist psychotherapy website MVP
+- [x] Psyling psychotherapy website MVP
 - [x] Shared module library
 - [x] Database schema and migrations
 - [x] Production deployment configurations

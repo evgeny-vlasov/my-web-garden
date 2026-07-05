@@ -34,7 +34,7 @@ def create_base_app(site_name, config_object=None):
     Create and configure a Flask application instance.
 
     Args:
-        site_name: Name of the site (e.g., 'therapist', 'handyman')
+        site_name: Name of the site (e.g., 'psyling', 'handyman')
         config_object: Configuration object/class to load
 
     Returns:
@@ -47,7 +47,7 @@ def create_base_app(site_name, config_object=None):
     )
 
     # Configure Jinja2 to search in both site-specific and shared template directories
-    # app.root_path points to the site directory (e.g., /var/www/webgarden/webgarden/sites/therapist)
+    # app.root_path points to the site directory (e.g., /var/www/webgarden/sites/psyling)
     site_templates = os.path.join(app.root_path, 'templates')
     # Go up two levels to get to webgarden root, then into shared/templates
     shared_templates = os.path.join(os.path.dirname(os.path.dirname(app.root_path)), 'shared', 'templates')
