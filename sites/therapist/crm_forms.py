@@ -1,8 +1,8 @@
 """CSRF-protected forms for the small admin contact CRM."""
 
 from flask_wtf import FlaskForm
-from wtforms import DateTimeLocalField, SelectField, TextAreaField
-from wtforms.validators import Length, Optional
+from wtforms import DateTimeLocalField, EmailField, SelectField, StringField, TextAreaField
+from wtforms.validators import DataRequired, Length, Optional, ValidationError
 
 
 CONTACT_STATUSES = ("new", "contacted", "booked", "closed", "spam")
@@ -25,3 +25,43 @@ class ContactCRMForm(FlaskForm):
 class ContactActionForm(FlaskForm):
     """CSRF-only form used for read, spam, archive, and contact actions."""
 
+
+CLIENT_STATUS_CHOICES = (
+    ("active", "Active"),
+    ("inactive", "Inactive"),
+    ("archived", "Archived"),
+)
+PREFERRED_CONTACT_CHOICES = (
+    ("none", "Not specified"),
+    ("email", "Email"),
+    ("phone", "Phone call"),
+    ("text", "Text message"),
+)
+LANGUAGE_CHOICES = (
+    ("unknown", "Not specified"),
+    ("en", "English"),
+    ("ru", "Russian"),
+    ("other", "Other"),
+)
+
+
+class ClientForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired(), Length(max=100)])
+    email = EmailField("Email", validators=[Optional(), Length(max=120)])
+    phone = StringField("Phone", validators=[Optional(), Length(max=20)])
+    preferred_contact_method = SelectField(
+        "Preferred contact method",
+        choices=PREFERRED_CONTACT_CHOICES,
+        validate_choice=True,
+    )
+    language = SelectField("Language", choices=LANGUAGE_CHOICES, validate_choice=True)
+    status = SelectField("Status", choices=CLIENT_STATUS_CHOICES, validate_choice=True)
+    private_notes = TextAreaField(
+        "Private notes", validators=[Optional(), Length(max=10000)]
+    )
+
+    def validate_preferred_contact_method(self, field):
+        if field.data == "email" and not (self.email.data or "").strip():
+            raise ValidationError("An email address is required for email contact.")
+        if field.data in {"phone", "text"} and not (self.phone.data or "").strip():
+            raise ValidationError("A phone number is required for phone or text contact.")

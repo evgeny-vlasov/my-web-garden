@@ -48,6 +48,58 @@ class User(UserMixin, db.Model):
         return f'<User {self.username}>'
 
 
+class Client(db.Model):
+    """Minimal admin-only client record for the therapist CRM."""
+    __tablename__ = 'clients'
+    __table_args__ = (
+        db.CheckConstraint(
+            "preferred_contact_method IN ('email', 'phone', 'text', 'none')",
+            name='ck_clients_preferred_contact_method',
+        ),
+        db.CheckConstraint(
+            "language IN ('en', 'ru', 'other', 'unknown')",
+            name='ck_clients_language',
+        ),
+        db.CheckConstraint(
+            "status IN ('active', 'inactive', 'archived')",
+            name='ck_clients_status',
+        ),
+    )
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120))
+    phone = db.Column(db.String(20))
+    preferred_contact_method = db.Column(
+        db.String(20), default='none', server_default='none', nullable=False
+    )
+    language = db.Column(
+        db.String(20), default='unknown', server_default='unknown', nullable=False
+    )
+    status = db.Column(
+        db.String(20), default='active', server_default='active', nullable=False,
+        index=True,
+    )
+    private_notes = db.Column(db.Text)
+    created_at = db.Column(
+        db.DateTime, default=datetime.utcnow, server_default=db.func.now(), nullable=False
+    )
+    updated_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+        server_default=db.func.now(),
+        nullable=False,
+    )
+
+    contact_submissions = db.relationship(
+        'ContactSubmission', back_populates='client', lazy='dynamic'
+    )
+
+    def __repr__(self):
+        return f'<Client id={self.id}>'
+
+
 class ContactSubmission(db.Model):
     """
     Contact form submissions.
@@ -62,6 +114,12 @@ class ContactSubmission(db.Model):
     )
 
     id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(
+        db.Integer,
+        db.ForeignKey('clients.id', ondelete='SET NULL'),
+        nullable=True,
+        index=True,
+    )
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.String(20))
@@ -85,6 +143,8 @@ class ContactSubmission(db.Model):
         server_default=db.func.now(),
         nullable=False,
     )
+
+    client = db.relationship('Client', back_populates='contact_submissions')
 
     def mark_as_read(self):
         """Mark submission as read."""

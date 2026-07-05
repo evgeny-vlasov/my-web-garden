@@ -49,6 +49,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {% if 'client' in request.endpoint %}active{% endif %}" href="{{ url_for('admin_clients_list') }}">
+                            <i class="bi bi-people me-1"></i>Clients
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {% if 'blocklist' in request.endpoint %}active{% endif %}" href="{{ url_for('admin_blocklist') }}">
                             <i class="bi bi-shield-x me-1"></i>Blocklist
                         </a>

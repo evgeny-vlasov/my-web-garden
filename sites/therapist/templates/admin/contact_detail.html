@@ -107,6 +107,23 @@
                     </dl>
                 </div>
             </div>
+
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-header bg-white"><h2 class="h5 mb-0">Client record</h2></div>
+                <div class="card-body">
+                    {% if contact.client %}
+                        <p>This inquiry is linked to client #{{ contact.client.id }}.</p>
+                        <a href="{{ url_for('admin_client_view', client_id=contact.client.id) }}" class="btn btn-outline-primary">
+                            Open client record
+                        </a>
+                    {% else %}
+                        <p class="text-muted">No client record is linked to this inquiry.</p>
+                        <a href="{{ url_for('admin_contact_convert_to_client', contact_id=contact.id) }}" class="btn btn-success">
+                            Convert to client
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

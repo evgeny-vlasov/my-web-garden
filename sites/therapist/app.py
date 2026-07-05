@@ -28,7 +28,7 @@ load_dotenv()
 
 # Import shared modules
 from shared.base_app import create_base_app, db, limiter, login_manager, mail
-from shared.models import ContactSubmission, User, BlogPost, UploadedFile, SpamBlocklist
+from shared.models import Client, ContactSubmission, User, BlogPost, UploadedFile, SpamBlocklist
 from shared.forms import ContactForm, LoginForm, BlogPostForm, BookingRequestForm
 from shared.email import send_contact_notification, send_contact_confirmation
 from shared.decorators import login_required as custom_login_required, admin_required, anonymous_required
@@ -38,6 +38,7 @@ from sites.therapist.config import config
 from sites.therapist.cli import register_cli_commands
 from sites.therapist.crm_forms import (
     CONTACT_STATUSES,
+    ClientForm,
     ContactActionForm,
     ContactCRMForm,
 )
@@ -297,16 +298,16 @@ def contact():
             try:
                 send_contact_notification(submission)
                 send_contact_confirmation(submission)
-            except Exception as email_error:
+            except Exception:
                 # Log email error but don't fail the submission
-                app.logger.error(f'Failed to send email notification: {str(email_error)}')
+                app.logger.error('Failed to send contact notification email')
 
             flash('Thank you for your message! We will get back to you soon.', 'success')
             return redirect(url_for('contact'))
 
-        except Exception as e:
+        except Exception:
             db.session.rollback()
-            app.logger.error(f'Error saving contact submission: {str(e)}')
+            app.logger.error('Error saving contact submission')
             flash('An error occurred. Please try again later.', 'error')
 
     return render_template('contact.html', form=form)
@@ -755,6 +756,175 @@ def admin_contact_toggle_archive(contact_id):
     app.logger.info('CRM contact %s archive state changed by admin user %s', contact.id, current_user.id)
     flash('Archive state updated.', 'success')
     return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+
+# ============================================================================
+# ADMIN CLIENT CRM ROUTES
+# ============================================================================
+
+def _apply_client_form(client, form):
+    """Apply validated client fields without touching related contact data."""
+    client.name = form.name.data.strip()
+    client.email = (form.email.data or '').strip() or None
+    client.phone = (form.phone.data or '').strip() or None
+    client.preferred_contact_method = form.preferred_contact_method.data
+    client.language = form.language.data
+    client.status = form.status.data
+    client.private_notes = form.private_notes.data or None
+
+
+@app.route('/admin/clients')
+@admin_required
+def admin_clients_list():
+    """List and search minimal client records."""
+    page = request.args.get('page', 1, type=int)
+    status_filter = request.args.get('status', '').strip().lower()
+    search = request.args.get('q', '').strip()[:100]
+    allowed_statuses = {'active', 'inactive', 'archived'}
+    if status_filter and status_filter not in allowed_statuses:
+        abort(400)
+
+    query = Client.query
+    if status_filter:
+        query = query.filter_by(status=status_filter)
+    if search:
+        escaped = search.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_')
+        pattern = f'%{escaped}%'
+        query = query.filter(or_(
+            Client.name.ilike(pattern, escape='\\'),
+            Client.email.ilike(pattern, escape='\\'),
+            Client.phone.ilike(pattern, escape='\\'),
+        ))
+
+    clients = query.order_by(Client.updated_at.desc(), Client.id.desc()).paginate(
+        page=page, per_page=20, error_out=False
+    )
+    counts = {
+        status: Client.query.filter_by(status=status).count()
+        for status in allowed_statuses
+    }
+    counts['all'] = Client.query.count()
+    return render_template(
+        'admin/clients_list.html',
+        clients=clients,
+        pagination=clients,
+        counts=counts,
+        status_filter=status_filter,
+        search=search,
+        endpoint='admin_clients_list',
+        kwargs={'status': status_filter, 'q': search},
+    )
+
+
+@app.route('/admin/clients/new', methods=['GET', 'POST'])
+@admin_required
+def admin_client_create():
+    """Create a client manually."""
+    form = ClientForm()
+    if form.validate_on_submit():
+        client = Client()
+        _apply_client_form(client, form)
+        try:
+            db.session.add(client)
+            db.session.commit()
+            app.logger.info('CRM client %s created by admin user %s', client.id, current_user.id)
+            flash('Client created.', 'success')
+            return redirect(url_for('admin_client_view', client_id=client.id))
+        except Exception:
+            db.session.rollback()
+            app.logger.exception('CRM client creation failed')
+            flash('Client creation failed.', 'error')
+    return render_template('admin/client_form.html', form=form, client=None)
+
+
+@app.route('/admin/clients/<int:client_id>')
+@admin_required
+def admin_client_view(client_id):
+    """Show a client and linked contact submissions."""
+    client = Client.query.get_or_404(client_id)
+    contacts = client.contact_submissions.order_by(
+        ContactSubmission.submitted_at.desc()
+    ).all()
+    return render_template(
+        'admin/client_detail.html', client=client, contacts=contacts
+    )
+
+
+@app.route('/admin/clients/<int:client_id>/edit', methods=['GET', 'POST'])
+@admin_required
+def admin_client_edit(client_id):
+    """Edit a client without modifying linked submissions."""
+    client = Client.query.get_or_404(client_id)
+    form = ClientForm(obj=client)
+    if form.validate_on_submit():
+        _apply_client_form(client, form)
+        try:
+            db.session.commit()
+            app.logger.info('CRM client %s updated by admin user %s', client.id, current_user.id)
+            flash('Client updated.', 'success')
+            return redirect(url_for('admin_client_view', client_id=client.id))
+        except Exception:
+            db.session.rollback()
+            app.logger.exception('CRM client %s update failed', client.id)
+            flash('Client update failed.', 'error')
+    return render_template('admin/client_form.html', form=form, client=client)
+
+
+@app.route('/admin/contacts/<int:contact_id>/convert', methods=['GET', 'POST'])
+@admin_required
+def admin_contact_convert_to_client(contact_id):
+    """Create and atomically link one client from one contact submission."""
+    contact = ContactSubmission.query.get_or_404(contact_id)
+    if contact.client_id:
+        flash('This contact is already linked to a client.', 'info')
+        return redirect(url_for('admin_client_view', client_id=contact.client_id))
+
+    form = ClientForm()
+    if request.method == 'GET':
+        form.name.data = contact.name
+        form.email.data = contact.email
+        form.phone.data = contact.phone
+        form.preferred_contact_method.data = (
+            'email' if contact.email else ('phone' if contact.phone else 'none')
+        )
+        form.language.data = 'unknown'
+        form.status.data = 'active'
+
+    if form.validate_on_submit():
+        try:
+            locked_contact = ContactSubmission.query.filter_by(
+                id=contact_id
+            ).with_for_update().first_or_404()
+            if locked_contact.client_id:
+                existing_client_id = locked_contact.client_id
+                db.session.rollback()
+                flash('This contact is already linked to a client.', 'info')
+                return redirect(
+                    url_for('admin_client_view', client_id=existing_client_id)
+                )
+
+            client = Client()
+            _apply_client_form(client, form)
+            db.session.add(client)
+            db.session.flush()
+            locked_contact.client_id = client.id
+            db.session.commit()
+            app.logger.info(
+                'CRM contact %s converted to client %s by admin user %s',
+                locked_contact.id,
+                client.id,
+                current_user.id,
+            )
+            flash('Contact converted to a client.', 'success')
+            return redirect(url_for('admin_client_view', client_id=client.id))
+        except Exception:
+            db.session.rollback()
+            app.logger.exception('CRM contact %s conversion failed', contact_id)
+            flash('Contact conversion failed.', 'error')
+
+    return render_template(
+        'admin/contact_convert.html', contact=contact, form=form
+    )
 
 
 # ============================================================================

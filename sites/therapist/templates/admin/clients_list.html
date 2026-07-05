@@ -1,0 +1,78 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Clients{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h1 class="h3 mb-1"><i class="bi bi-people me-2"></i>Clients</h1>
+            <p class="text-muted mb-0">Private administrator-only client records</p>
+        </div>
+        <a href="{{ url_for('admin_client_create') }}" class="btn btn-primary">
+            <i class="bi bi-person-plus me-1"></i>New client
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-2 align-items-end">
+                <div class="col-lg-6">
+                    <label for="client-search" class="form-label">Search</label>
+                    <input id="client-search" type="search" name="q" value="{{ search }}"
+                           maxlength="100" class="form-control" placeholder="Name, email, or phone">
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <label for="client-status" class="form-label">Status</label>
+                    <select id="client-status" name="status" class="form-select">
+                        <option value="">All statuses</option>
+                        {% for status in ('active', 'inactive', 'archived') %}
+                        <option value="{{ status }}" {% if status_filter == status %}selected{% endif %}>{{ status|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-auto">
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Search</button>
+                    <a href="{{ url_for('admin_clients_list') }}" class="btn btn-outline-secondary">Clear</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <a href="{{ url_for('admin_clients_list') }}" class="btn btn-sm {% if not status_filter %}btn-primary{% else %}btn-outline-primary{% endif %}">All {{ counts.all }}</a>
+        {% for status in ('active', 'inactive', 'archived') %}
+        <a href="{{ url_for('admin_clients_list', status=status) }}" class="btn btn-sm {% if status_filter == status %}btn-primary{% else %}btn-outline-primary{% endif %}">
+            {{ status|title }} {{ counts[status] }}
+        </a>
+        {% endfor %}
+    </div>
+
+    {% if clients.items %}
+    <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light"><tr><th>Client</th><th>Status</th><th>Preferred contact</th><th>Language</th><th>Linked inquiries</th><th class="text-end">Action</th></tr></thead>
+                <tbody>
+                {% for client in clients.items %}
+                    <tr>
+                        <td><strong>{{ client.name }}</strong><br><small class="text-muted">Client #{{ client.id }}</small></td>
+                        <td><span class="badge client-status client-status-{{ client.status }}">{{ client.status|title }}</span></td>
+                        <td>{{ client.preferred_contact_method|title }}</td>
+                        <td>{{ client.language|upper if client.language in ('en', 'ru') else client.language|title }}</td>
+                        <td>{{ client.contact_submissions.count() }}</td>
+                        <td class="text-end"><a href="{{ url_for('admin_client_view', client_id=client.id) }}" class="btn btn-primary btn-sm">Open</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mt-4">{% include 'admin/components/pagination.html' %}</div>
+    {% else %}
+    <div class="card border-0 shadow-sm"><div class="card-body text-center py-5">
+        <i class="bi bi-people display-1 text-muted"></i><h2 class="h4 mt-3">No matching clients</h2>
+    </div></div>
+    {% endif %}
+</div>
+{% endblock %}
