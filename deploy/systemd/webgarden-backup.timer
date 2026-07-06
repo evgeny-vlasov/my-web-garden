@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Web Garden local backup daily
+
+[Timer]
+OnCalendar=*-*-* 03:30:00 UTC
+Persistent=true
+Unit=webgarden-backup.service
+
+[Install]
+WantedBy=timers.target
