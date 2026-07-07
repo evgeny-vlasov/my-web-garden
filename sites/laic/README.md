@@ -44,6 +44,66 @@ Suggested variable names:
 
 Do not commit environment files or secrets.
 
+## PostgreSQL Setup
+
+Recommended names:
+
+- Database: `laic_db`
+- Role: `laic_user`
+
+Create the role and database without printing the password:
+
+```bash
+read -rsp "New PostgreSQL password for laic_user: " LAIC_DB_PASSWORD; echo
+sudo -u postgres psql <<SQL
+DO \$\$
+BEGIN
+   IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'laic_user') THEN
+      CREATE ROLE laic_user LOGIN PASSWORD '${LAIC_DB_PASSWORD}';
+   ELSE
+      ALTER ROLE laic_user WITH LOGIN PASSWORD '${LAIC_DB_PASSWORD}';
+   END IF;
+END
+\$\$;
+SQL
+unset LAIC_DB_PASSWORD
+sudo -u postgres psql -tc "SELECT 1 FROM pg_database WHERE datname = 'laic_db'" | grep -q 1 || sudo -u postgres createdb --owner=laic_user laic_db
+sudo -u postgres psql -d laic_db -c "REVOKE ALL ON SCHEMA public FROM PUBLIC; GRANT USAGE, CREATE ON SCHEMA public TO laic_user;"
+```
+
+Set the application environment without printing the value:
+
+```bash
+read -rsp "PostgreSQL password for laic_user: " LAIC_DB_PASSWORD; echo
+sudo /bin/bash -lc 'umask 077; {
+  grep -v "^DATABASE_URL=" /etc/webgarden/laic.env 2>/dev/null || true
+  printf "%s\n" "DATABASE_URL=postgresql://laic_user:${LAIC_DB_PASSWORD}@localhost/laic_db"
+} > /etc/webgarden/laic.env.tmp && mv /etc/webgarden/laic.env.tmp /etc/webgarden/laic.env'
+unset LAIC_DB_PASSWORD
+```
+
+Initialize the LAIC schema:
+
+```bash
+cd /var/www/webgarden/sites/laic
+set -a
+source /etc/webgarden/laic.env
+set +a
+venv/bin/python - <<'PY'
+from app import app
+from database import ensure_schema
+ensure_schema(app.config["DATABASE_URL"])
+print("LAIC schema initialized.")
+PY
+```
+
+Safe verification commands:
+
+```bash
+sudo -u postgres psql -d laic_db -XAt -c "SELECT current_database(); SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_name='contact_submissions';"
+curl --max-time 10 -sS -o /dev/null -w 'laic_local=%{http_code}\n' http://127.0.0.1:8004/contact
+```
+
 ## Local Run
 
 ```bash
