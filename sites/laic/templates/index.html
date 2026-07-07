@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Practical AI help for local nonprofits | Local AI Collective{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Local AI Collective</p>
+        <h1>Practical AI help for local nonprofits</h1>
+        <p class="hero-copy">
+          Local AI Collective helps community organizations explore and build useful AI tools without enterprise budgets.
+        </p>
+        <div class="button-row">
+          <a class="button button-primary" href="{{ url_for('contact') }}">Tell us what you need</a>
+          <a class="button button-secondary" href="{{ url_for('microprojects') }}">See example microprojects</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <h2>Useful tools, not hype</h2>
+        <ul class="feature-list">
+          <li>Chatbots for FAQs and service navigation</li>
+          <li>Knowledge-base search for staff</li>
+          <li>Document assistants and reporting helpers</li>
+          <li>Workflow automations and small prototypes</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">What we help with</p>
+        <h2>Small AI tools that solve concrete operational problems</h2>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Front-door support</h3>
+          <p>Website FAQ bots, intake helpers, and service navigation tools that help people find the right next step.</p>
+        </article>
+        <article class="card">
+          <h3>Internal staff support</h3>
+          <p>Search across policies, shared documents, and program notes so small teams spend less time digging for answers.</p>
+        </article>
+        <article class="card">
+          <h3>Reporting and admin help</h3>
+          <p>Summaries, drafts, spreadsheet cleanup, and lightweight automations that reduce repetitive work.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Who it is for</p>
+        <h2>Organizations doing real work with limited time and budget</h2>
+      </div>
+      <div class="prose">
+        <p>We focus on nonprofits, local initiatives, community groups, and service organizations that need practical help, not a giant platform rollout.</p>
+        <p>That includes teams dealing with messy data, busy staff, and urgent service work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">How a microproject works</p>
+        <h2>Start small, test quickly, keep human review in place</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span>1</span><h3>Pick one problem</h3><p>Choose a real bottleneck: repeated questions, messy files, intake triage, or staff search.</p></div>
+        <div class="step"><span>2</span><h3>Build a bounded prototype</h3><p>Create a small tool or workflow in days or weeks, not a year-long platform.</p></div>
+        <div class="step"><span>3</span><h3>Review and refine</h3><p>Test usefulness, privacy fit, and staff trust before expanding anything further.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Example projects</p>
+        <h2>Representative microprojects</h2>
+      </div>
+      <div class="card-grid">
+        {% for project in example_projects %}
+          <article class="card">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.summary }}</p>
+          </article>
+        {% endfor %}
+      </div>
+      <p class="section-cta"><a href="{{ url_for('love_sugar_dough') }}">View the Love Sugar &amp; Dough example project</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-banner">
+      <div>
+        <p class="eyebrow">Contact and intake</p>
+        <h2>Have a small problem worth testing?</h2>
+        <p>Tell us what your organization is trying to improve. We can start with a conversation, a short review, or a small prototype.</p>
+      </div>
+      <a class="button button-primary" href="{{ url_for('contact') }}">Open the intake form</a>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,16 @@
+[Unit]
+Description=Web Garden LAIC Flask app
+After=network.target
+
+[Service]
+User=fluffy
+Group=www-data
+WorkingDirectory=/var/www/webgarden/sites/laic
+EnvironmentFile=-/etc/webgarden/laic.env
+Environment="PATH=/var/www/webgarden/sites/laic/venv/bin"
+ExecStart=/var/www/webgarden/sites/laic/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8004 app:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | Local AI Collective{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container narrow">
+      <p class="eyebrow">Contact</p>
+      <h1>Tell us what you need</h1>
+      <p>Start with a short intake note. A small, clear problem statement is enough.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-layout">
+      <form class="contact-form" method="post">
+        <label>
+          Organization name
+          <input type="text" name="organization_name" value="{{ form_data.organization_name }}" required>
+        </label>
+        <label>
+          Contact name
+          <input type="text" name="contact_name" value="{{ form_data.contact_name }}" required>
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" value="{{ form_data.email }}" required>
+        </label>
+        <label>
+          Type of organization
+          <input type="text" name="organization_type" value="{{ form_data.organization_type }}" placeholder="Nonprofit, community group, school, social enterprise..." required>
+        </label>
+        <label>
+          What problem do you want help with?
+          <textarea name="problem_to_solve" rows="7" required>{{ form_data.problem_to_solve }}</textarea>
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" name="privacy_sensitive" {% if form_data.privacy_sensitive == "yes" %}checked{% endif %}>
+          <span>This may involve sensitive client, staff, or internal data.</span>
+        </label>
+        <button class="button button-primary" type="submit">Send intake note</button>
+      </form>
+
+      <aside class="note-panel">
+        <h2>Before you send</h2>
+        <p>You do not need a complete technical brief. A rough description of the workflow, bottleneck, or repeated question is enough for a first pass.</p>
+        <p>For especially sensitive data, keep details high level in the first message and note the privacy concern.</p>
+      </aside>
+    </div>
+  </section>
+{% endblock %}

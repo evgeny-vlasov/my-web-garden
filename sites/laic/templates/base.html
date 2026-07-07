@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="{% block meta_description %}Local AI Collective helps nonprofits and community organizations explore practical AI tools without enterprise budgets.{% endblock %}"
+    >
+    <title>{% block title %}Local AI Collective{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="container topbar">
+          <a class="brand" href="{{ url_for('index') }}">
+            <span class="brand-mark">LAIC</span>
+            <span class="brand-copy">
+              <strong>Local AI Collective</strong>
+              <span>Practical AI help for local nonprofits</span>
+            </span>
+          </a>
+          <nav class="site-nav" aria-label="Primary">
+            {% for label, endpoint in nav_links %}
+              <a href="{{ url_for(endpoint) }}">{{ label }}</a>
+            {% endfor %}
+          </nav>
+          <a class="button button-primary nav-cta" href="{{ url_for('contact') }}">Tell us what you need</a>
+        </div>
+      </header>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="container flash-stack">
+            {% for category, message in messages %}
+              <div class="flash flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-grid">
+          <div>
+            <h2>Local AI Collective</h2>
+            <p>Small, practical AI support for nonprofits and community organizations.</p>
+          </div>
+          <div>
+            <h3>Explore</h3>
+            <ul>
+              <li><a href="{{ url_for('services') }}">Services</a></li>
+              <li><a href="{{ url_for('microprojects') }}">Microprojects</a></li>
+              <li><a href="{{ url_for('for_nonprofits') }}">For nonprofits</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Contact</h3>
+            <p><a href="{{ url_for('contact') }}">Start with one small problem</a></p>
+            <p class="small-note">Contact storage mode: {{ storage_mode }}</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Microprojects | Local AI Collective{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container narrow">
+      <p class="eyebrow">Microprojects</p>
+      <h1>Small, bounded AI projects</h1>
+      <p>A microproject is a focused AI tool or workflow improvement built around one problem, one audience, and a short timeline.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card-grid">
+      <article class="card"><h2>FAQ bot trained on public website content</h2><p>Helps visitors get quick answers without replacing the website itself.</p></article>
+      <article class="card"><h2>Volunteer onboarding assistant</h2><p>Makes role expectations, orientation materials, and common questions easier to navigate.</p></article>
+      <article class="card"><h2>Donation or grant report helper</h2><p>Drafts summaries and highlights from existing notes and metrics.</p></article>
+      <article class="card"><h2>Service navigation chatbot</h2><p>Supports people trying to figure out which program, service, or resource fits their situation.</p></article>
+      <article class="card"><h2>Spreadsheet cleanup and reporting helper</h2><p>Improves consistency and reporting from exported operational data.</p></article>
+      <article class="card"><h2>Internal policy and document search</h2><p>Lets staff ask plain-language questions against approved internal materials.</p></article>
+      <article class="card"><h2>Client inquiry triage</h2><p>Organizes common inquiry types so staff can respond more quickly and consistently.</p></article>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Example project</p>
+        <h2>Love Sugar &amp; Dough chatbot/demo</h2>
+      </div>
+      <div class="prose">
+        <p>This older prototype is included as an example of bounded project work. It is not the central mission of the site.</p>
+        <p><a href="{{ url_for('love_sugar_dough') }}">Read the example project page</a></p>
+      </div>
+    </div>
+  </section>
+{% endblock %}
