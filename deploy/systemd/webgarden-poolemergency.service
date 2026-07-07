@@ -1,0 +1,18 @@
+[Unit]
+Description=WebGarden PoolEmergency Flask Site
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=fluffy
+Group=fluffy
+WorkingDirectory=/var/www/webgarden/sites/poolemergency
+EnvironmentFile=/etc/webgarden/poolemergency.env
+
+ExecStart=/var/www/webgarden/sites/poolemergency/venv/bin/gunicorn --workers 2 --bind 127.0.0.1:8003 app:app
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
