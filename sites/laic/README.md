@@ -75,10 +75,17 @@ Set the application environment without printing the value:
 
 ```bash
 read -rsp "PostgreSQL password for laic_user: " LAIC_DB_PASSWORD; echo
-sudo /bin/bash -lc 'umask 077; {
-  grep -v "^DATABASE_URL=" /etc/webgarden/laic.env 2>/dev/null || true
+sudo install -d -m 0755 /etc/webgarden
+sudo touch /etc/webgarden/laic.env
+sudo chmod 0600 /etc/webgarden/laic.env
+sudo chown root:root /etc/webgarden/laic.env
+{
+  sudo grep -v "^DATABASE_URL=" /etc/webgarden/laic.env 2>/dev/null || true
   printf "%s\n" "DATABASE_URL=postgresql://laic_user:${LAIC_DB_PASSWORD}@localhost/laic_db"
-} > /etc/webgarden/laic.env.tmp && mv /etc/webgarden/laic.env.tmp /etc/webgarden/laic.env'
+} | sudo tee /etc/webgarden/laic.env.tmp >/dev/null
+sudo chmod 0600 /etc/webgarden/laic.env.tmp
+sudo chown root:root /etc/webgarden/laic.env.tmp
+sudo mv /etc/webgarden/laic.env.tmp /etc/webgarden/laic.env
 unset LAIC_DB_PASSWORD
 ```
 
