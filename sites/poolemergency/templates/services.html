@@ -1,10 +1,87 @@
 {% extends "base.html" %}
 
-{% block title %}Services - {{ site_name }}{% endblock %}
+{% block title %}Pool Liner Repair Services - {{ site_name }}{% endblock %}
+{% block meta_description %}Small PVC and vinyl pool liner repair services, including patches, minor tears, seam repairs where appropriate, temporary patches, and repair advice.{% endblock %}
+{% block extra_nav_items %}
+<li class="nav-item">
+    <a class="nav-link nav-phone" href="tel:+14036690220">403-669-0220</a>
+</li>
+{% endblock %}
+{% block footer_tagline %}Small PVC and vinyl pool liner repairs. Call or text 403-669-0220.{% endblock %}
+{% block social_links %}
+<a href="tel:+14036690220" class="footer-phone">Call or text 403-669-0220</a>
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <h1>Our Services</h1>
-    <p>Add your services here.</p>
-</div>
+<section class="page-header">
+    <div class="container">
+        <p class="eyebrow">Services</p>
+        <h1>Small pool liner repairs and practical advice</h1>
+        <p>PoolEmergency focuses on smaller PVC and vinyl repair work: leaks, patches, minor damage, and repair decisions that depend on the real condition of the pool.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="content-block">
+                    <h2>What I can help with</h2>
+                    <ul class="check-list">
+                        <li>Small pool liner leaks</li>
+                        <li>PVC and vinyl patches</li>
+                        <li>Minor tears, cuts, and punctures</li>
+                        <li>Seam repairs where the material and location make repair reasonable</li>
+                        <li>Emergency temporary patches to slow water loss</li>
+                        <li>Inspection and repair advice before you spend more than needed</li>
+                        <li>Small pool-related PVC repairs using hot air welding when suitable</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="content-block warning-block">
+                    <h2>What may not be repairable</h2>
+                    <p>Not every liner problem is a good candidate for repair. A patch or weld may not hold if the liner is brittle, stretched, dirty, badly aged, inaccessible, under heavy tension, or damaged in a difficult location.</p>
+                    <p class="mb-0">Large liner failures, major structural pool work, full liner replacement, and construction projects are outside the normal scope of this small repair service.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-muted">
+    <div class="container">
+        <h2 class="section-title">How a visit works</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-card">
+                    <span>1</span>
+                    <h3>Describe the problem</h3>
+                    <p>Call, text, or use the form. Include your neighbourhood, pool type if known, and what changed.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <span>2</span>
+                    <h3>Assess access and material</h3>
+                    <p>The damage needs to be reachable, cleanable, and made of material that can accept the repair method.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <span>3</span>
+                    <h3>Repair if it makes sense</h3>
+                    <p>If a practical repair is reasonable, the work is kept focused. If not, you get a clear explanation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-band">
+    <div class="container">
+        <h2>Need help with a small liner leak or tear?</h2>
+        <a href="tel:+14036690220" class="btn btn-light btn-lg">Call or text 403-669-0220</a>
+    </div>
+</section>
 {% endblock %}

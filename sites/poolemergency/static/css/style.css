@@ -1,8 +1,296 @@
-/* Custom site styles */
+/* PoolEmergency site styles */
 
 :root {
-    --primary-color: #007bff;
-    --secondary-color: #6c757d;
+    --primary-color: #0b6b7a;
+    --secondary-color: #43505c;
+    --accent-color: #d86c2f;
+    --ink: #18242d;
+    --muted: #5d6b76;
+    --soft: #eef6f5;
+    --line: #d7e2e1;
 }
 
-/* Add your custom styles here */
+body {
+    color: var(--ink);
+    background: #fbfdfd;
+}
+
+.navbar {
+    border-bottom: 1px solid var(--line);
+}
+
+.navbar .nav-link {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.navbar .nav-link.active,
+.navbar .nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-phone {
+    color: var(--accent-color) !important;
+    font-weight: 700 !important;
+}
+
+.btn {
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--primary-color);
+    --bs-btn-border-color: var(--primary-color);
+    --bs-btn-hover-bg: #084f5b;
+    --bs-btn-hover-border-color: #084f5b;
+}
+
+.btn-outline-light {
+    --bs-btn-hover-color: var(--primary-color);
+}
+
+.hero-section {
+    background:
+        linear-gradient(120deg, rgba(8, 68, 82, 0.96), rgba(10, 112, 125, 0.86)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='560' viewBox='0 0 900 560'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.16'%3E%3Cpath d='M0 80c90 40 170 40 260 0s170-40 260 0 170 40 260 0 170-40 260 0'/%3E%3Cpath d='M-80 180c90 40 170 40 260 0s170-40 260 0 170 40 260 0 170-40 260 0'/%3E%3Cpath d='M0 280c90 40 170 40 260 0s170-40 260 0 170 40 260 0 170-40 260 0'/%3E%3Cpath d='M-80 380c90 40 170 40 260 0s170-40 260 0 170 40 260 0 170-40 260 0'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: cover;
+    color: #fff;
+    padding: 5rem 0;
+}
+
+.hero-section h1,
+.page-header h1 {
+    font-size: clamp(2.35rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: 0;
+    max-width: 820px;
+}
+
+.hero-copy {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    max-width: 760px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 2rem 0 1rem;
+}
+
+.eyebrow {
+    color: var(--accent-color);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    margin-bottom: 0.7rem;
+    text-transform: uppercase;
+}
+
+.small-note {
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 0;
+}
+
+.repair-panel,
+.content-block,
+.form-panel,
+.info-card,
+.step-card,
+.tip-article {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+.repair-panel {
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.22);
+    color: var(--ink);
+    padding: 2rem;
+}
+
+.repair-panel h2,
+.content-block h2,
+.form-panel h2,
+.info-card h2,
+.tip-article h2 {
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.repair-panel ul,
+.check-list {
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.repair-panel li,
+.check-list li {
+    border-bottom: 1px solid var(--line);
+    padding: 0.65rem 0;
+}
+
+.repair-panel li::before,
+.check-list li::before {
+    color: var(--primary-color);
+    content: "\2713";
+    font-weight: 800;
+    margin-right: 0.5rem;
+}
+
+.section {
+    padding: 4.5rem 0;
+}
+
+.section-muted {
+    background: var(--soft);
+}
+
+.section-title {
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.info-card,
+.step-card,
+.content-block,
+.form-panel,
+.tip-article {
+    height: 100%;
+    padding: 1.5rem;
+}
+
+.info-card i {
+    color: var(--accent-color);
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.info-card p,
+.step-card p,
+.content-block p,
+.tip-article p,
+.page-header p {
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.page-header {
+    background: linear-gradient(120deg, #eef6f5, #ffffff);
+    border-bottom: 1px solid var(--line);
+    padding: 4.5rem 0;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    max-width: 780px;
+}
+
+.warning-block {
+    background: #fff8f3;
+    border-color: #f0d4bd;
+}
+
+.step-card span {
+    align-items: center;
+    background: var(--primary-color);
+    border-radius: 50%;
+    color: #fff;
+    display: inline-flex;
+    font-weight: 800;
+    height: 2.4rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    width: 2.4rem;
+}
+
+.step-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.cta-band {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.cta-band h2 {
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.phone-display {
+    color: var(--accent-color);
+    display: inline-block;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.phone-display:hover,
+.footer-phone:hover {
+    color: #a94c1e;
+}
+
+.form-label {
+    font-weight: 700;
+}
+
+.form-control {
+    border-color: var(--line);
+    border-radius: 6px;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(11, 107, 122, 0.16);
+}
+
+.tips-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.tip-article {
+    height: auto;
+}
+
+footer {
+    border-top: 1px solid var(--line);
+}
+
+.footer-phone {
+    color: var(--accent-color);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+@media (max-width: 767.98px) {
+    .hero-section,
+    .page-header,
+    .section {
+        padding: 3rem 0;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .repair-panel,
+    .content-block,
+    .form-panel,
+    .info-card,
+    .step-card,
+    .tip-article {
+        padding: 1.25rem;
+    }
+}

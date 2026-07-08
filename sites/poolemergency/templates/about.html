@@ -1,10 +1,49 @@
 {% extends "base.html" %}
 
 {% block title %}About - {{ site_name }}{% endblock %}
+{% block meta_description %}PoolEmergency is a small independent PVC and vinyl pool liner repair service focused on practical hands-on repairs and honest assessment.{% endblock %}
+{% block extra_nav_items %}
+<li class="nav-item">
+    <a class="nav-link nav-phone" href="tel:+14036690220">403-669-0220</a>
+</li>
+{% endblock %}
+{% block footer_tagline %}Small PVC and vinyl pool liner repairs. Call or text 403-669-0220.{% endblock %}
+{% block social_links %}
+<a href="tel:+14036690220" class="footer-phone">Call or text 403-669-0220</a>
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <h1>About Us</h1>
-    <p>Add your content here.</p>
-</div>
+<section class="page-header">
+    <div class="container">
+        <p class="eyebrow">About</p>
+        <h1>A small independent pool repair service</h1>
+        <p>PoolEmergency is built around practical hands-on repair work for PVC and vinyl pool liner problems, especially small leaks, patches, and minor damage.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-7">
+                <h2>Focused on repairs, not big construction</h2>
+                <p>This is a small local service for pool owners who need a direct answer about a liner leak, tear, puncture, or small PVC repair. The goal is to look at the actual damage and decide what is realistic.</p>
+                <p>A hot air welding tool is available for suitable PVC and vinyl repairs. Whether welding, patching, or a temporary repair is appropriate depends on the material, access, surface condition, water level, and where the damage sits.</p>
+                <p class="mb-0">No exaggerated guarantees and no pretending every problem has a quick fix. If the liner is too worn or the damage is in the wrong place, the honest answer may be that repair is limited or not worth doing.</p>
+            </div>
+            <div class="col-lg-5">
+                <div class="content-block">
+                    <h2>What to expect</h2>
+                    <ul class="check-list">
+                        <li>Plain language about what can be repaired</li>
+                        <li>Small-job mindset and practical fixes</li>
+                        <li>Hot air welding when suitable for the material</li>
+                        <li>Advice before big promises</li>
+                        <li>Phone-first contact for urgent issues</li>
+                    </ul>
+                    <a href="tel:+14036690220" class="btn btn-primary w-100">Call or text 403-669-0220</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -1,10 +1,42 @@
 {% extends "base.html" %}
 
-{% block title %}Blog - {{ site_name }}{% endblock %}
+{% block title %}Pool Repair Tips - {{ site_name }}{% endblock %}
+{% block meta_description %}Short practical tips for small pool leaks, vinyl patches, and PVC repair preparation.{% endblock %}
+{% block extra_nav_items %}
+<li class="nav-item">
+    <a class="nav-link nav-phone" href="tel:+14036690220">403-669-0220</a>
+</li>
+{% endblock %}
+{% block footer_tagline %}Small PVC and vinyl pool liner repairs. Call or text 403-669-0220.{% endblock %}
+{% block social_links %}
+<a href="tel:+14036690220" class="footer-phone">Call or text 403-669-0220</a>
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <h1>Blog</h1>
-    <p>Add your blog posts here.</p>
-</div>
+<section class="page-header">
+    <div class="container">
+        <p class="eyebrow">Tips</p>
+        <h1>Practical pool liner repair notes</h1>
+        <p>Short, non-technical notes for small PVC and vinyl pool liner problems.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container tips-list">
+        <article class="tip-article">
+            <h2>What to do when you find a small pool leak</h2>
+            <p>Try to note where the water level stops dropping and whether the leak changes when the pump is running. Avoid scrubbing or stretching the damaged area until it has been looked at. If the leak is active, call or text and describe where you see water loss, bubbles, wrinkles, or damage.</p>
+        </article>
+
+        <article class="tip-article">
+            <h2>When a vinyl patch can work</h2>
+            <p>A patch has the best chance when the liner still has some flexibility, the damaged area is reachable, and the surface can be cleaned. Patches are less reliable on brittle, badly aged, oily, or heavily stretched material. The location matters as much as the size of the hole.</p>
+        </article>
+
+        <article class="tip-article">
+            <h2>Why clean and dry surfaces matter for PVC repairs</h2>
+            <p>Most repair methods need a clean surface to bond or weld properly. Dirt, algae, sunscreen residue, moisture, and loose material can all weaken a repair. Some wet or underwater temporary patches may help slow a leak, but a cleaner repair area usually gives a better result.</p>
+        </article>
+    </div>
+</section>
 {% endblock %}

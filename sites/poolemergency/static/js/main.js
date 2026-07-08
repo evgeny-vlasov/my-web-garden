@@ -1,5 +1,1 @@
-// Custom site JavaScript
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Site loaded successfully');
-});
+// Site-specific JavaScript can be added here when needed.

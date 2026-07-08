@@ -1,10 +1,92 @@
 {% extends "base.html" %}
 
 {% block title %}Contact - {{ site_name }}{% endblock %}
+{% block meta_description %}Call or text PoolEmergency at 403-669-0220, or send a pool liner repair inquiry through the contact form.{% endblock %}
+{% block extra_nav_items %}
+<li class="nav-item">
+    <a class="nav-link nav-phone" href="tel:+14036690220">403-669-0220</a>
+</li>
+{% endblock %}
+{% block footer_tagline %}Small PVC and vinyl pool liner repairs. Call or text 403-669-0220.{% endblock %}
+{% block social_links %}
+<a href="tel:+14036690220" class="footer-phone">Call or text 403-669-0220</a>
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <h1>Contact Us</h1>
-    <p>Add your contact form here.</p>
-</div>
+<section class="page-header">
+    <div class="container">
+        <p class="eyebrow">Contact</p>
+        <h1>Call, text, or send repair details</h1>
+        <p>For urgent small leak or liner repair requests, phone is the fastest first step.</p>
+        <a href="tel:+14036690220" class="phone-display">403-669-0220</a>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-7">
+                <div class="form-panel">
+                    <h2>Repair inquiry form</h2>
+                    <p>Include the basics first. Photos are helpful, but this form does not upload files; photo sharing can be discussed after contact.</p>
+                    <form method="POST" action="{{ url_for('contact') }}">
+                        {{ form.hidden_tag() }}
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Name *</label>
+                                {{ form.name(class="form-control form-control-lg", id="name", autocomplete="name") }}
+                                {% for error in form.name.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone *</label>
+                                {{ form.phone(class="form-control form-control-lg", id="phone", placeholder="403-669-0220", autocomplete="tel") }}
+                                {% for error in form.phone.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email optional</label>
+                            {{ form.email(class="form-control form-control-lg", id="email", autocomplete="email") }}
+                            {% for error in form.email.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location or neighbourhood *</label>
+                            {{ form.location(class="form-control form-control-lg", id="location", placeholder="Calgary neighbourhood or nearby area") }}
+                            {% for error in form.location.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="material" class="form-label">Pool type or material if known</label>
+                            {{ form.material(class="form-control form-control-lg", id="material", placeholder="Vinyl liner, PVC, above-ground, not sure...") }}
+                            {% for error in form.material.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="message" class="form-label">What happened? *</label>
+                            {{ form.message(class="form-control form-control-lg", id="message", rows="7", placeholder="Where is the damage? Is the pool full or drained? Is it a leak, tear, puncture, loose seam, or something else?") }}
+                            {% for error in form.message.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Send repair request</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <aside class="content-block">
+                    <h2>Helpful details to include</h2>
+                    <ul class="check-list">
+                        <li>Where the pool is located</li>
+                        <li>Whether the pool is full, partly drained, or empty</li>
+                        <li>Approximate size and location of the damage</li>
+                        <li>Pool type or liner material if you know it</li>
+                        <li>Whether the leak is getting worse</li>
+                    </ul>
+                    <p class="mb-0">Repair depends on condition, access, material, and the location of the damage. A clear description helps decide whether a visit makes sense.</p>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
