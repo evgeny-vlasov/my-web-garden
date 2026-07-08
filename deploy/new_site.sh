@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# DEPRECATED / DO NOT USE ON HAPPYS.
+# This legacy deploy helper still assumes old paths such as
+# /var/www/webgarden/webgarden, the old user "chip", command-line database
+# passwords, and older secret/env handling patterns. Keep for reference only
+# until it is replaced with the current reviewed Web Garden deployment flow.
 
 ################################################################################
 # WebGarden Site Deployment Script

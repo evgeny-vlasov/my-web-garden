@@ -1,5 +1,10 @@
 #!/bin/bash
 #
+# DEPRECATED / DO NOT USE ON HAPPYS.
+# This legacy setup helper assumes old users/groups and deployment conventions,
+# prints/generated secrets in unsafe ways, and does not match the current
+# /var/www/webgarden production layout. Keep for reference only until replaced.
+#
 # WebGarden Site Setup Script
 # Automated setup for new WebGarden sites
 #

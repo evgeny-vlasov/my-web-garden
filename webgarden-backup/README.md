@@ -3,6 +3,11 @@
 The local backup job archives site source, selected uploads, PostgreSQL or SQLite
 data, nginx/systemd configuration, and `/etc/webgarden`.
 
+The global system config archive is expected to include the active nginx
+available/enabled files for Psyling, Shkolakoda, Tom Umber, LAIC,
+PoolEmergency, and the Shkolakoda default fallback, plus the active Web Garden
+systemd units and timer.
+
 ## Privileges
 
 Run `backup-webgarden.sh` as root. Environment files in `/etc/webgarden` are
