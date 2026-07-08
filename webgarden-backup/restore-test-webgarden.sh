@@ -15,19 +15,48 @@ die() {
   exit 1
 }
 
+require_root() {
+  if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
+    die "restore-test-webgarden.sh must run as root to read protected backup archives"
+  fi
+}
+
+backup_status() {
+  local backup_dir="$1"
+  local manifest="$backup_dir/manifest.txt"
+  [[ -f "$manifest" ]] || return 1
+  awk -F= '$1 == "status" { print $2; exit }' "$manifest"
+}
+
+is_successful_backup() {
+  local backup_dir="$1"
+  [[ -d "$backup_dir" ]] || return 1
+  [[ "$(backup_status "$backup_dir" 2>/dev/null || true)" == "success" ]]
+}
+
 latest_backup_dir() {
   local candidate=""
+
+  while IFS= read -r candidate; do
+    [[ -n "$candidate" ]] || continue
+    if is_successful_backup "$candidate"; then
+      printf '%s' "$candidate"
+      return 0
+    fi
+  done < <(
+    find "$BACKUP_ROOT" -maxdepth 1 -mindepth 1 -type d -regextype posix-extended \
+      -regex '.*/[0-9]{8}T[0-9]{6}Z' | sort -r
+  )
+
   if [[ -L "$DEFAULT_BACKUP_DIR" || -d "$DEFAULT_BACKUP_DIR" ]]; then
     candidate="$(readlink -f "$DEFAULT_BACKUP_DIR" 2>/dev/null || true)"
-    if [[ -n "$candidate" && -d "$candidate" ]]; then
+    if [[ -n "$candidate" ]] && is_successful_backup "$candidate"; then
       printf '%s' "$candidate"
       return 0
     fi
   fi
 
-  candidate="$(find "$BACKUP_ROOT" -maxdepth 1 -mindepth 1 -type d -regextype posix-extended -regex '.*/[0-9]{8}T[0-9]{6}Z' | sort | tail -n1 || true)"
-  [[ -n "$candidate" ]] || return 1
-  printf '%s' "$candidate"
+  return 1
 }
 
 verify_tarball() {
@@ -50,9 +79,11 @@ verify_sqlite_copy() {
 }
 
 main() {
+  require_root
+
   local backup_dir
   backup_dir="$(latest_backup_dir || true)"
-  [[ -n "$backup_dir" ]] || die "no backup directory found under $BACKUP_ROOT"
+  [[ -n "$backup_dir" ]] || die "no successful backup directory found under $BACKUP_ROOT"
 
   log "restore-test: backup_dir=$backup_dir"
   log "restore-test: validation-only mode; no production data will be modified"

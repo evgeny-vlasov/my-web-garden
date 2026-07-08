@@ -31,6 +31,14 @@ declare -a global_lines=()
 had_error=0
 retention_days_global=30
 
+require_root() {
+  if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
+    printf 'ERROR: backup-webgarden.sh must run as root to read protected /etc/webgarden env files and create protected backup archives.\n' >&2
+    printf 'ERROR: install deploy/systemd/webgarden-backup.service or run with sudo.\n' >&2
+    exit 1
+  fi
+}
+
 warn() {
   local message="$1"
   warnings+=("$message")
@@ -64,7 +72,16 @@ record_verification() {
 ensure_dir() {
   local dir="$1"
   mkdir -p "$dir"
+  chown root:root "$dir"
   chmod 700 "$dir"
+}
+
+protect_file() {
+  local path="$1"
+  if [[ -e "$path" ]]; then
+    chown root:root "$path"
+    chmod 600 "$path"
+  fi
 }
 
 file_size() {
@@ -716,6 +733,7 @@ write_manifest() {
     printf 'status=%s\n' "$([[ $had_error -eq 0 ]] && printf success || printf partial)"
     printf 'sites=%s\n\n' "$(printf '%s ' "${site_names[@]:-}" | sed 's/ $//')"
   } > "$manifest_file"
+  protect_file "$manifest_file"
 
   append_manifest_block "Created files:" "${created_files[@]}"
   append_manifest_block "Verification:" "${verification_lines[@]}"
@@ -725,6 +743,8 @@ write_manifest() {
 }
 
 main() {
+  require_root
+
   if [[ ! -d "$CONFIG_DIR" ]]; then
     note_error "missing site config directory: $CONFIG_DIR"
     exit 1
@@ -756,13 +776,17 @@ main() {
   backup_global_assets "$backup_dir"
   write_manifest
   printf '%s backup_dir=%s status=%s warnings=%d\n' "$timestamp" "$backup_dir" "$([[ $had_error -eq 0 ]] && printf success || printf partial)" "${#warnings[@]}" >> "$log_file"
+  protect_file "$log_file"
 
   if [[ $had_error -eq 0 ]]; then
-    ln -sfn "$backup_dir" "$BACKUP_ROOT/latest"
+    ln -sfn "$backup_dir" "$BACKUP_ROOT/.latest.tmp"
+    mv -Tf "$BACKUP_ROOT/.latest.tmp" "$BACKUP_ROOT/latest"
     prune_old_backups "$retention_days_global"
     printf '%s latest=%s\n' "$timestamp" "$backup_dir" >> "$log_file"
+    protect_file "$log_file"
   else
     printf '%s latest=unchanged\n' "$timestamp" >> "$log_file"
+    protect_file "$log_file"
   fi
 
   if [[ $had_error -ne 0 ]]; then

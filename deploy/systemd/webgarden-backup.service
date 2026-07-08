@@ -4,8 +4,6 @@ After=network.target
 
 [Service]
 Type=oneshot
-User=fluffy
-Group=fluffy
 WorkingDirectory=/home/fluffy/webgarden-backup
 Environment=BACKUP_ROOT=/home/fluffy/backups/webgarden
 ExecStart=/home/fluffy/webgarden-backup/backup-webgarden.sh
