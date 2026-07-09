@@ -64,6 +64,21 @@ Do not run `reload` or `restart` as part of a check. The unprivileged account
 cannot complete `nginx -t` because Let’s Encrypt certificates are restricted;
 that permission error alone does not mean the active configuration is invalid.
 
+Shkolakoda must keep matching IPv4 and IPv6 listeners on its named nginx
+server blocks:
+
+```nginx
+listen 80;
+listen [::]:80;
+listen 443 ssl;
+listen [::]:443 ssl;
+```
+
+On 2026-07-09, `https://shkolakoda.com` was presenting the LAIC certificate on
+IPv6 because the Shkolakoda HTTPS block had `listen 443 ssl` but no
+`listen [::]:443 ssl`. Adding the IPv6 HTTP and HTTPS listen lines fixed
+`shkolakoda.com`, `www.shkolakoda.com`, and `science.shkolakoda.com`.
+
 ## Safe Log Inspection
 
 Prefer narrow time windows, counts, and error signatures:
