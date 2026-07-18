@@ -322,13 +322,31 @@ def contact():
             db.session.add(submission)
             db.session.commit()
 
-            # Send notification emails
+            # Send notification emails after the inquiry is safely saved.
+            if not submission.is_spam:
+                try:
+                    if not send_contact_notification(submission):
+                        app.logger.error(
+                            'Admin notification delivery failed for contact submission %s; inquiry remains saved',
+                            submission.id,
+                        )
+                except Exception:
+                    app.logger.exception(
+                        'Unexpected admin notification error for contact submission %s; inquiry remains saved',
+                        submission.id,
+                    )
+
             try:
-                send_contact_notification(submission)
-                send_contact_confirmation(submission)
+                if not send_contact_confirmation(submission):
+                    app.logger.error(
+                        'Contact confirmation delivery failed for contact submission %s',
+                        submission.id,
+                    )
             except Exception:
-                # Log email error but don't fail the submission
-                app.logger.error('Failed to send contact notification email')
+                app.logger.exception(
+                    'Unexpected contact confirmation error for contact submission %s',
+                    submission.id,
+                )
 
             flash('Thank you for your message! We will get back to you soon.', 'success')
             return redirect(url_for('contact'))
@@ -1524,15 +1542,32 @@ def init_db():
 
 @app.cli.command()
 def test_email():
-    """Test email configuration."""
+    """Test email configuration without printing secret values."""
     from shared.email import send_email
 
     recipient = input('Enter recipient email: ')
+    required_vars = [
+        'MAIL_SERVER',
+        'MAIL_PORT',
+        'MAIL_USERNAME',
+        'MAIL_PASSWORD',
+        'MAIL_DEFAULT_SENDER',
+        'ADMIN_EMAIL',
+    ]
+    print('Email configuration:')
+    for key in required_vars:
+        value = app.config.get(key)
+        if key == 'MAIL_PASSWORD':
+            display = 'set' if value else 'missing'
+        else:
+            display = value or 'missing'
+        print(f'  {key}: {display}')
+
     result = send_email(
-        subject='Test Email from WebGarden',
+        subject='Test Email from Psyling',
         recipients=[recipient],
-        text_body='This is a test email to verify email configuration.',
-        html_body='<p>This is a test email to verify email configuration.</p>'
+        text_body='This is a test email to verify Psyling email configuration.',
+        html_body='<p>This is a test email to verify Psyling email configuration.</p>'
     )
 
     if result:

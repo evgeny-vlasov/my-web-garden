@@ -249,6 +249,86 @@ footer a:hover {
     color: var(--primary-color);
 }
 
+.footer-section ul {
+    margin-bottom: 0;
+}
+
+.footer-section li + li {
+    margin-top: 0.35rem;
+}
+
+/* Header verification link */
+.psychology-today-mobile-link {
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.psychology-today-mobile-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-item-verification {
+    display: flex;
+    align-items: center;
+}
+
+/* Psychology Today verification badge */
+.psychology-today-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    max-width: 14rem;
+    margin-top: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background-color: #fff;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.psychology-today-badge:hover {
+    color: var(--text-primary);
+    border-color: var(--primary-light);
+    opacity: 1;
+}
+
+.psychology-today-badge__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.psychology-today-badge__text {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.psychology-today-badge__title {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.psychology-today-badge__subtitle {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+}
+
 /* Accordion */
 .accordion-button {
     font-weight: 600;

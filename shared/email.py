@@ -3,10 +3,11 @@ WebGarden Email Utilities
 Email sending functionality with Mailgun integration.
 """
 
-from flask import current_app, render_template
+from flask import current_app, url_for
 from flask_mail import Message
 from shared.base_app import mail
 import logging
+from markupsafe import escape
 
 logger = logging.getLogger(__name__)
 
@@ -60,21 +61,38 @@ def send_contact_notification(contact_submission):
     Returns:
         True if email sent successfully, False otherwise
     """
+    if contact_submission.is_spam:
+        logger.info(
+            'Skipping admin notification for spam contact submission %s',
+            contact_submission.id,
+        )
+        return False
+
     site_name = current_app.config['SITE_NAME']
     admin_email = current_app.config.get('ADMIN_EMAIL', current_app.config['MAIL_DEFAULT_SENDER'])
     site_domain = current_app.config.get('SITE_DOMAIN', 'localhost')
+    url_kwargs = {'_external': True}
+    if site_domain != 'localhost':
+        url_kwargs['_scheme'] = 'https'
+    admin_contact_url = url_for(
+        'admin_contact_view',
+        contact_id=contact_submission.id,
+        **url_kwargs,
+    )
+    submitted_at = contact_submission.submitted_at.strftime('%Y-%m-%d %H:%M:%S UTC')
 
-    subject = f'New Contact Form Submission from {contact_submission.name}'
+    subject = f'New Psyling inquiry from {contact_submission.name}'
 
     text_body = f"""
-New contact form submission from {site_domain}:
+New Psyling inquiry from {site_domain}:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-CLIENT INFORMATION:
+VISITOR INFORMATION:
 Name:     {contact_submission.name}
 Email:    {contact_submission.email}
 Phone:    {contact_submission.phone or 'Not provided'}
+Submitted: {submitted_at}
 
 MESSAGE:
 {contact_submission.message}
@@ -85,13 +103,16 @@ NEXT STEPS:
 • Click "Reply" in your email to respond directly to the client
 • Client will receive your response at: {contact_submission.email}
 
-View all submissions: https://{site_domain}/admin/dashboard
-
-Timestamp: {contact_submission.submitted_at.strftime('%Y-%m-%d %H:%M:%S %Z')}
+Open this inquiry in the admin panel:
+{admin_contact_url}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 {site_name} - Contact Form Automated Notification
     """
+    html_name = escape(contact_submission.name)
+    html_email = escape(contact_submission.email)
+    html_phone = escape(contact_submission.phone or 'Not provided')
+    html_message = escape(contact_submission.message)
 
     html_body = f"""
     <html>
@@ -122,44 +143,44 @@ Timestamp: {contact_submission.submitted_at.strftime('%Y-%m-%d %H:%M:%S %Z')}
     <body>
         <div class="container">
             <div class="header">
-                <h2>🔔 New Contact Form Submission</h2>
+                <h2>New Psyling Inquiry</h2>
             </div>
             <div class="content">
                 <div class="info-section">
                     <div class="field">
-                        <div class="label">Client Name</div>
-                        <div class="value">{contact_submission.name}</div>
+                        <div class="label">Visitor Name</div>
+                        <div class="value">{html_name}</div>
                     </div>
                     <div class="field">
                         <div class="label">Email Address</div>
-                        <div class="value"><a href="mailto:{contact_submission.email}">{contact_submission.email}</a></div>
+                        <div class="value"><a href="mailto:{html_email}">{html_email}</a></div>
                     </div>
                     <div class="field">
                         <div class="label">Phone Number</div>
-                        <div class="value">{contact_submission.phone or 'Not provided'}</div>
+                        <div class="value">{html_phone}</div>
                     </div>
                     <div class="field">
                         <div class="label">Submitted</div>
-                        <div class="value">{contact_submission.submitted_at.strftime('%B %d, %Y at %I:%M %p %Z')}</div>
+                        <div class="value">{submitted_at}</div>
                     </div>
                 </div>
 
                 <div class="field">
-                    <div class="label">Client Message</div>
-                    <div class="message-box">{contact_submission.message}</div>
+                    <div class="label">Message</div>
+                    <div class="message-box">{html_message}</div>
                 </div>
 
                 <div class="action-section">
-                    <h3>📋 Next Steps</h3>
+                    <h3>Next Steps</h3>
                     <ul>
-                        <li><strong>Click "Reply"</strong> in your email client to respond directly to {contact_submission.name}</li>
-                        <li>Your response will go to: <strong>{contact_submission.email}</strong></li>
+                        <li><strong>Click "Reply"</strong> in your email client to respond directly to {html_name}</li>
+                        <li>Your response will go to: <strong>{html_email}</strong></li>
                         <li>Typical response time: Within 48 hours</li>
                     </ul>
                 </div>
 
                 <div style="text-align: center; margin-top: 25px;">
-                    <a href="https://{site_domain}/admin/dashboard" class="admin-link">View Admin Dashboard</a>
+                    <a href="{admin_contact_url}" class="admin-link">Open Inquiry in Admin</a>
                 </div>
             </div>
             <div class="footer">
@@ -188,8 +209,12 @@ Timestamp: {contact_submission.submitted_at.strftime('%Y-%m-%d %H:%M:%S %Z')}
         return True
 
     except Exception as e:
-        logger.error(f'❌ Failed to send admin notification: {str(e)}')
-        logger.error(f'   Submission from {contact_submission.email} saved but email not delivered')
+        logger.exception(
+            'Failed to send admin notification for contact submission %s; '
+            'submission from %s remains saved',
+            contact_submission.id,
+            contact_submission.email,
+        )
         return False
 
 

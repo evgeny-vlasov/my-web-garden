@@ -108,6 +108,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item nav-item-verification">
+                        <a class="nav-link psychology-today-mobile-link"
+                           href="https://www.psychologytoday.com/profile/176232"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            ✓ Verified by Psychology Today
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">{% if current_lang == 'ru' %}Главная{% else %}Home{% endif %}</a>
                     </li>
@@ -156,12 +164,12 @@
     <!-- Footer -->
     <footer class="mt-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row gy-4">
+                <div class="col-lg-3 col-md-6">
                     <h5>{{ config.SITE_NAME }}</h5>
                     <p class="text-muted">{% block footer_tagline %}{% if current_lang == 'ru' %}Профессиональные психотерапевтические услуги в Торонто{% else %}Professional psychotherapy services in Toronto{% endif %}{% endblock %}</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-lg-3 col-md-6 footer-section footer-section-quick-links">
                     <h6>{% if current_lang == 'ru' %}Быстрые Ссылки{% else %}Quick Links{% endif %}</h6>
                     <ul class="list-unstyled">
                         <li><a href="{{ url_for('index') }}" class="text-decoration-none">{% if current_lang == 'ru' %}Главная{% else %}Home{% endif %}</a></li>
@@ -172,13 +180,22 @@
                         <li><a href="{{ url_for('contact') }}" class="text-decoration-none">{% if current_lang == 'ru' %}Контакты{% else %}Contact{% endif %}</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
+                <div class="col-lg-3 col-md-6 footer-section footer-section-connect">
                     <h6>{% if current_lang == 'ru' %}Связь{% else %}Connect{% endif %}</h6>
-                    <div class="social-links">
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('contact') }}" class="text-decoration-none">{% if current_lang == 'ru' %}Контакты{% else %}Contact{% endif %}</a></li>
+                        <li><a href="{{ url_for('schedule') }}" target="_blank" class="text-decoration-none">{% if current_lang == 'ru' %}Запись на Прием{% else %}Book Appointment{% endif %}</a></li>
+                        <li><a href="https://www.psychologytoday.com/profile/176232" target="_blank" rel="noopener noreferrer" class="text-decoration-none">Psychology Today profile</a></li>
+                    </ul>
+                    <div class="social-links visually-hidden">
                         {% block social_links %}
                         <!-- Social media links placeholder -->
                         {% endblock %}
                     </div>
+                </div>
+                <div class="col-lg-3 col-md-6 footer-section footer-section-verification">
+                    <h6>{% if current_lang == 'ru' %}Проверка{% else %}Verification{% endif %}</h6>
+                    {% include 'components/psychology_today_badge.html' %}
                 </div>
             </div>
             <hr>
