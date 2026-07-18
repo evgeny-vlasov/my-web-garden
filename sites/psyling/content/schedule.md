@@ -8,10 +8,12 @@ The easiest way to schedule an appointment is to use my calenbdar.
 
 ## Office Hours
 
+Please noye that I am away from my office July 10- August 1, 2026.
+
 **Wednesday - Friday:** 9:00 AM - 5:00 PM by appointments
 
 Evening hours are available for mandated clients.
-**Saturday-Sunday-Holidays:** Days off
+**Saturday-Sunday-Monday-Tuesday-Holidays:** Days off
 
 ## How to Schedule
 
@@ -44,6 +46,6 @@ Your first session typically involves:
 Sessions are 50 minutes long, with 10 minutes for summary and scheduling.
 
 ---
-Last updated: March, 4 2026
+Last updated: July 11, 4 2026
 ---
 *For urgent matters, please see crisis resources on the [Contact](/contact) page.*

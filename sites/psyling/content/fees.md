@@ -3,12 +3,13 @@
 # Fees & Payment Information
 ## Session Rates
 
-- **Standard Rate:** $160 CAD per one hour one-on-one session (with benefits)
-- **Sliding Scale:** $ 90-$140 CAD based on individual circumstances (or without benefits)
-- **Reduced fee** for refugee claimants
-- **Additional Fees:** for Report writing
+- **Psychology Rate:** $$255 CAD per one hour one-on-one session (with benefits for psychology = under supervision)
+- **Psychotherapy Benefits Rate:** $170 CAD per one hour one-on-one session (with benefits for psychotherapy)
+- **Sliding Scale:** $140-$90 CAD based on individual circumstances (or without benefits)
+- **Reduced fee** for refugee claimants (contact me)
+- **Additional Fees:** for Report writing for Legal Representative ($600-$900-$1200 based on complexity and urgence)
 - Couples session: Contact for availability and rates
-- Extended Session: available (prorated)
+- Extended Session: available 1.5-2 hours (prorated)
 
 **[Book an Appointment](https://calendar.app.google/kVakTWCcxaM8GfG18)**
 
@@ -25,13 +26,9 @@ I accept the following payment methods:
 ## Insurance Coverage
 
 Many extended health insurance plans in Ontario and other Canadian provinces cover psychotherapy services with a Registered Psychotherapist (RP).
-
 - Please check your specific plan for coverage for psychotherapy (fees; lenght of session; timeline for submitting documents and new year term; total coverage per year; coverage for relatives)
-
 - A receipt will be issued after each session by request
-
 - You can submit receipts to your insurance provider for reimbursement
-
 Some clients claim psychotherapy services as consulting services for tax purposes (consult your accountant).
 
 ## Cancellation Policy
@@ -45,4 +42,4 @@ If you're experiencing financial difficulties or inbetween jobs, please discuss 
 **[Book an Appointment](https://calendar.app.google/kVakTWCcxaM8GfG18)**
 ---
 
-Last updated: March 4, 2026
+Last updated: July 11, 2026
