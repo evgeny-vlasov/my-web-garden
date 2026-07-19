@@ -1,4 +1,9 @@
+from pathlib import Path
+
 from curriculum import PROJECT_DETAILS as COORDINATE_PROJECTS
+
+
+STATIC_ROOT = Path(__file__).with_name("static")
 
 
 def step(title, task, checkpoint, mistake):
@@ -554,6 +559,11 @@ for project_slug, project in PROJECTS.items():
     project.setdefault("related_topics", [project.get("topic_endpoint", "coordinates").replace("_topic", "")])
     project["program"] = PROGRAM_NAMES[project["program_key"]]
     project["meta_description"] = project.get("meta_description") or f"School of Code project: {project['name']}. Build, test, debug, explain, and improve a practical {project['program']} system."
+    for download in project.get("downloads", []):
+        download_path = STATIC_ROOT / "projects" / project_slug / download["filename"]
+        download["size_bytes"] = download_path.stat().st_size if download_path.exists() else 0
+        download["size_label"] = f"{download['size_bytes'] / 1024:.1f} KB" if download["size_bytes"] else "Build required"
+        download["url"] = f"/projects/{project_slug}/downloads/{download['filename']}"
 
 
 PROJECT_ORDER = [

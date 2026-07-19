@@ -1,0 +1,3 @@
+scratchblocks 3.7.1
+Source: https://github.com/scratchblocks/scratchblocks
+Licence: MIT (see LICENSE.txt)

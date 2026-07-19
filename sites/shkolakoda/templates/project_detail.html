@@ -4,6 +4,10 @@
 {% block title %}{{ project.name }} | School of Code Project{% endblock %}
 {% block meta_description %}{{ project.meta_description }}{% endblock %}
 {% block og_title %}{{ project.name }} | School of Code Project{% endblock %}
+{% block scripts %}{% if project.scratch_pilot is defined %}
+  <script defer src="{{ url_for('static', filename='vendor/scratchblocks/scratchblocks-3.7.1.min.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/scratch-project.js') }}"></script>
+{% endif %}{% endblock %}
 
 {% block content %}
   <section class="curriculum-hero project-hero{% if project.status_class == 'later' %} project-hero-later{% endif %}"><div class="container">
@@ -12,7 +16,9 @@
     {{ metadata_strip([('Program', project.program), ('Project type', project.project_type), ('Difficulty', project.difficulty), ('Estimated time', project.estimated_time)]) }}
   </div></section>
 
-  {% if project.status_class == 'later' %}
+  {% if project.scratch_pilot is defined %}
+    {% include "_scratch_project_pilot.html" %}
+  {% elif project.status_class == 'later' %}
     <section class="section section-yellow"><div class="container"><div class="not-this"><strong>Available later</strong>{{ project.setup_note }}</div></div></section>
     <section class="section"><div class="container two-column"><div><p class="eyebrow">Future build</p><h2>What the project is intended to contain.</h2><ul class="check-list">{% for item in project.what_students_build %}<li>{{ item }}</li>{% endfor %}</ul></div><div><p class="eyebrow">Future learning value</p><h2>Why it belongs in the larger program.</h2><ul class="concept-list">{% for item in project.what_students_learn %}<li>{{ item }}</li>{% endfor %}</ul></div></div></section>
     <section class="section section-blue"><div class="container two-column"><div><p class="eyebrow">Evaluation preview</p><h2>Questions that keep the tool honest.</h2><ul class="question-list">{% for item in project.test_questions %}<li>{{ item }}</li>{% endfor %}</ul></div><div><p class="eyebrow">Risks to inspect</p><h2>What could weaken the project.</h2><ul class="warning-list">{% for item in project.common_mistakes %}<li>{{ item }}</li>{% endfor %}</ul></div></div></section>

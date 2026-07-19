@@ -27,6 +27,13 @@ and is served at `science.shkolakoda.com`.
   the custom 404 handler.
 - `templates/_macros.html` contains shared cards, badges, breadcrumbs,
   metadata, tags, related-content links, and parent explanations.
+- `scratch_projects/` contains enriched records for complete downloadable
+  Scratch productions. These records are merged into the same project library;
+  they do not create a second content or routing system.
+
+The first production pilot is **Escape from the Giant Pigeon**. Its isolated
+builder, validator, shared-code architecture, regeneration instructions, and
+future-project checklist are documented in `../../tools/scratch/README.md`.
 
 Content is deliberately file-backed. Adding a topic, lesson, project, or post
 does not require a database or a generic CMS.
@@ -83,6 +90,15 @@ Run the public-site integrity tests:
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 venv/bin/python -m unittest -v tests.test_public_site
+```
+
+Run the Scratch production tests after generating the pilot:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 venv/bin/python -m unittest -v tests.test_scratch_project
+cd ../../tools/scratch
+npm ci
+npm run check
 ```
 
 Production uses the existing `webgarden-shkolakoda.service` runtime on

@@ -1,3 +1,4 @@
+from pathlib import Path
 from xml.sax.saxutils import escape
 
 from flask import Flask, Response, abort, render_template, send_from_directory
@@ -16,6 +17,10 @@ from project_library import PROJECT_ORDER, PROJECTS
 app = Flask(__name__)
 
 SITE_URL = "https://shkolakoda.com"
+SCRATCH_DOWNLOAD_MIME_TYPES = {
+    ".sb3": "application/x.scratch.sb3",
+    ".zip": "application/zip",
+}
 
 
 PROGRAMS = {
@@ -249,6 +254,21 @@ def project_detail(slug):
         lesson=lesson,
         related_topics=related_topics,
         related_projects=related_projects,
+    )
+
+
+@app.get("/projects/<slug>/downloads/<filename>")
+def project_download(slug, filename):
+    project = PROJECTS.get(slug)
+    if project is None or filename not in {item["filename"] for item in project.get("downloads", [])}:
+        abort(404)
+    suffix = Path(filename).suffix.lower()
+    return send_from_directory(
+        Path(app.static_folder) / "projects" / slug,
+        filename,
+        as_attachment=True,
+        download_name=filename,
+        mimetype=SCRATCH_DOWNLOAD_MIME_TYPES.get(suffix, "application/octet-stream"),
     )
 
 

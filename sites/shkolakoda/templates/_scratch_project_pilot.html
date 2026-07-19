@@ -1,0 +1,120 @@
+<section class="section pigeon-preview" aria-labelledby="finished-game-summary">
+  <div class="container">
+    <nav class="project-contents" aria-label="On this project page">
+      <strong>On this page</strong>
+      <ul>{% for label, anchor in project.contents %}<li><a href="#{{ anchor }}">{{ label }}</a></li>{% endfor %}</ul>
+    </nav>
+    <div class="pigeon-preview-grid">
+      <div>
+        <p class="eyebrow">Finished-game summary</p>
+        <h2 id="finished-game-summary">A small chase with rules you can explain.</h2>
+        <p class="lead">{{ project.finished_summary }}</p>
+        <h3>Controls</h3>
+        <ul class="plain-list">{% for item in project.game_controls %}<li>{{ item }}</li>{% endfor %}</ul>
+      </div>
+      <figure class="project-artwork">
+        <img src="{{ url_for('static', filename=project.art_slots.cover.src) }}" alt="{{ project.art_slots.cover.alt }}" width="480" height="360">
+        <figcaption>{{ project.art_slots.cover.caption }}</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section section-blue" id="project-sketch" aria-labelledby="project-sketch-title">
+  <div class="container">
+    <div class="section-header"><div><p class="eyebrow">Project system sketch</p><h2 id="project-sketch-title">See the whole game before assembling it.</h2></div><p class="section-intro">Letters A–F connect stage positions, movement, pursuit, collision priority, the Panic meter, and the state flow.</p></div>
+    <figure class="system-sketch">
+      <img src="{{ url_for('static', filename=project.art_slots.project_sketch.src) }}" alt="{{ project.art_slots.project_sketch.alt }}" width="960" height="700">
+      <figcaption>{{ project.art_slots.project_sketch.caption }}</figcaption>
+    </figure>
+    <ol class="system-flow">{% for item in project.system_flow %}<li>{{ item }}</li>{% endfor %}</ol>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="pigeon-needs">
+  <div class="container build-learn-grid">
+    <article><p class="eyebrow">What you need</p><h2 id="pigeon-needs">A browser, Scratch, and room to test.</h2><ul class="plain-list">{% for item in project.needs %}<li>{{ item }}</li>{% endfor %}</ul><p class="mono-note">{{ project.setup_note }}</p></article>
+    <article><h3>What is already in the starter</h3><ul class="check-list"><li>Original backdrop and seven editable SVG costumes</li><li>Three small generated WAV effects</li><li>Named variables and visible monitors</li><li>Known positions and setup receivers</li><li>In-editor build instructions</li></ul></article>
+    <article><h3>What you still build</h3><ul class="concept-list"><li>Arrow-key movement and boundaries</li><li>Pursuit and fair timing</li><li>Caught-first collision priority</li><li>Panic and survival displays</li><li>SAFE / CAUGHT feedback and R restart</li></ul></article>
+  </div>
+</section>
+
+<section class="section section-yellow" id="start-building" aria-labelledby="start-building-title">
+  <div class="container">
+    <div class="section-header"><div><p class="eyebrow">Project downloads</p><h2 id="start-building-title">Start Building</h2></div><p class="section-intro">Each download is generated from original repository sources and checked before it reaches this panel.</p></div>
+    <div class="download-panel">
+      {% for download in project.downloads %}
+        <article class="download-card">
+          <div><span class="download-type">{{ download.file_type }}</span><strong>{{ download.size_label }}</strong></div>
+          <h3>{{ download.label }}</h3>
+          <p>{{ download.purpose }}</p>
+          <a class="button{% if loop.index != 1 %} button-secondary{% endif %}" href="{{ download.url }}" download="{{ download.filename }}">{{ download.label }}</a>
+          <small>{{ download.filename }}</small>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-ink" id="build-systems" aria-labelledby="build-systems-title">
+  <div class="container">
+    <div class="section-header"><div><p class="eyebrow">Systems you will build</p><h2 id="build-systems-title">Ten small systems, one coherent loop.</h2></div><p class="section-intro">Build in order. Test each system before adding the next one.</p></div>
+    <ol class="system-index">{% for section in project.code_sections %}<li><a href="#{{ section.anchor }}"><span>{{ '%02d' | format(loop.index) }}</span>{{ section.title }}</a></li>{% endfor %}</ol>
+    <aside class="teacher-checkpoint-panel" aria-labelledby="teacher-checkpoints-title"><h3 id="teacher-checkpoints-title">Teacher checkpoints</h3><ul>{% for item in project.teacher_checkpoints %}<li>{{ item }}</li>{% endfor %}</ul></aside>
+  </div>
+</section>
+
+{% for section in project.code_sections %}
+<section class="section scratch-code-section{% if loop.index is even %} section-blue{% endif %}" id="{{ section.anchor }}" aria-labelledby="{{ section.anchor }}-title">
+  <div class="container">
+    <div class="scratch-section-heading"><span>{{ '%02d' | format(loop.index) }}</span><div><p class="eyebrow">Build system</p><h2 id="{{ section.anchor }}-title">{{ section.title }}</h2><p class="lead">{{ section.does }}</p></div></div>
+    <div class="scratch-explanation-grid">
+      <div><h3>Plain-language logic</h3><p>{{ section.logic }}</p></div>
+      <div><h3>System pseudocode</h3><pre class="system-pseudocode"><code>{{ section.pseudocode }}</code></pre></div>
+    </div>
+    <div class="scratch-script-list">
+      {% for script in section.scripts %}
+      <article class="scratch-script-card">
+        <div class="scratch-script-meta"><strong>{{ script.target }}</strong><span>Script: {{ script.id }}</span></div>
+        <div class="scratchblocks-scroll" aria-label="Rendered Scratch script for {{ section.title }} on {{ script.target }}">
+          <pre class="scratchblocks" data-script-id="{{ script.id }}">{{ script.source }}</pre>
+        </div>
+        <details class="scratch-source-copy"><summary>View editable scratchblocks text</summary><pre><code>{{ script.source }}</code></pre></details>
+      </article>
+      {% endfor %}
+    </div>
+    <dl class="build-checks">
+      <div><dt>What to test</dt><dd>{{ section.test }}</dd></div>
+      <div><dt>Common mistake</dt><dd>{{ section.mistake }}</dd></div>
+      <div><dt>Teacher checkpoint</dt><dd>{{ section.teacher_checkpoint }}</dd></div>
+    </dl>
+  </div>
+</section>
+{% endfor %}
+
+<section class="section section-yellow" id="test-and-debug" aria-labelledby="test-checklist-title">
+  <div class="container">
+    <div class="section-header"><div><p class="eyebrow">Test checklist</p><h2 id="test-checklist-title">Try the awkward cases on purpose.</h2></div><p class="section-intro">Do not call the project finished after one easy win.</p></div>
+    <ol class="production-checklist">{% for item in project.test_checklist %}<li><span aria-hidden="true">□</span>{{ item }}</li>{% endfor %}</ol>
+    <div class="debugging-guide" aria-labelledby="debugging-guide-title"><h3 id="debugging-guide-title">Debugging guide</h3>{% for item in project.debugging_guide %}<article><strong>{{ item.symptom }}</strong><p>{{ item.clue }}</p></article>{% endfor %}</div>
+  </div>
+</section>
+
+<section class="section section-blue" id="challenges" aria-labelledby="challenge-title">
+  <div class="container">
+    <div class="section-header"><div><p class="eyebrow">Improve the system</p><h2 id="challenge-title">Change the idea without breaking the reset.</h2></div></div>
+    <div class="pilot-challenge-grid">
+      <article><span>BUILDER CHALLENGE</span><h3>Make the chase fair at a new speed.</h3><p>{{ project.builder_challenge }}</p></article>
+      <article><span>INVENTOR CHALLENGE</span><h3>Give Panic a second influence.</h3><p>{{ project.inventor_challenge }}</p></article>
+      <article><span>BOSS LEVEL</span><h3>Build a second stateful map.</h3><p>{{ project.boss_level_challenge }}</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-ink" aria-labelledby="project-demo">
+  <div class="container two-column"><div><p class="eyebrow">What to demonstrate</p><h2 id="project-demo">Show the code making a decision.</h2><p>Explain one coordinate change, one state transition, one edge-case test, and one improvement you made.</p></div><ul class="demonstrate-list">{% for item in project.demonstrate %}<li>{{ item }}</li>{% endfor %}</ul></div>
+</section>
+
+<section class="section project-production-note" aria-labelledby="production-note-title">
+  <div class="container narrow"><p class="eyebrow">Artwork and independence note</p><h2 id="production-note-title">Original, editable, and deliberately provisional.</h2><p>{{ project.provisional_note }}</p><p class="trademark-note">{{ project.trademark_note }}</p></div>
+</section>
