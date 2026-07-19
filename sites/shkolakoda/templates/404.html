@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found | School of Code{% endblock %}
+{% block meta_description %}This School of Code page could not be found. Return to the programs, topics, lessons, or project library.{% endblock %}
+
+{% block content %}
+  <section class="not-found-page"><div class="container not-found-grid"><div><p class="eyebrow">404 / Unknown coordinate</p><h1>This page moved somewhere the map cannot see.</h1><p class="lead">The useful debugging result is clear: the address does not match a public School of Code page.</p><div class="button-row"><a class="button" href="{{ url_for('home') }}">Return Home</a><a class="button button-secondary" href="{{ url_for('project_index') }}">Browse Projects</a></div></div><div class="not-found-diagram" role="img" aria-label="A coordinate grid with a missing point outside the known route"><span>x: ?</span><span>y: ?</span><strong>NOT_FOUND</strong></div></div></section>
+  <section class="section section-yellow"><div class="container"><div class="related-grid"><a class="related-card" href="{{ url_for('programs') }}"><span>Start here</span><strong>Programs</strong><b aria-hidden="true">-&gt;</b></a><a class="related-card" href="{{ url_for('topic_index') }}"><span>Curriculum</span><strong>Topics</strong><b aria-hidden="true">-&gt;</b></a><a class="related-card" href="{{ url_for('blog_index') }}"><span>Parent guides</span><strong>Blog</strong><b aria-hidden="true">-&gt;</b></a></div></div></section>
+{% endblock %}

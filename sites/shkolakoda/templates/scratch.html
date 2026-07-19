@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% from "_macros.html" import project_card, status_badge %}
+{% from "_macros.html" import project_card, status_badge, topic_card, lesson_card with context %}
 
-{% block title %}Scratch & Game Design | School of Code Calgary{% endblock %}
-{% block meta_description %}Active Scratch and game design classes in Calgary: beginner-friendly programming through original games, animation, simulation, and stories.{% endblock %}
+{% block title %}Scratch &amp; Game Design | School of Code Calgary{% endblock %}
+{% block meta_description %}Active Scratch and game design learning in Calgary through original games, animation, simulation, coordinates, loops, conditions, variables, and debugging.{% endblock %}
 
 {% block content %}
   <section class="page-hero">
@@ -10,62 +10,67 @@
       <div>
         <p class="eyebrow">Program / Scratch &amp; Game Design</p>
         <h1>Make the game. Learn what makes it work.</h1>
-        <p class="lead">Scratch is a beginner-friendly way to think in events, coordinates, loops, conditions, variables, and systems without getting stuck on typing syntax first.</p>
+        <p class="lead">Scratch is a beginner-friendly way to build games, animations, simulations, and interactive stories while learning events, coordinates, loops, conditions, variables, messages, state, and debugging.</p>
         <div class="button-row">
           <a class="button" href="{{ url_for('contact') }}">Ask About Scratch</a>
-          <a class="button button-secondary" href="{{ url_for('projects') }}">See Project Ideas</a>
+          <a class="button button-secondary" href="{{ url_for('project_index') }}#scratch-projects">See Scratch Projects</a>
         </div>
       </div>
       <aside class="status-panel">
         {{ status_badge('Active now', 'active') }}
         <h2>What students build</h2>
-        <p>Games, animations, simulations, and interactive stories with visible rules and room for personal invention.</p>
-        <h2>Good starting point</h2>
-        <p>No programming experience is required. Contact us to discuss fit and current class planning.</p>
+        <p>Playable games, original rules, animations, quizzes, simulations, and interactive stories that can be tested and demonstrated.</p>
+        <h2>Starting point</h2>
+        <p>Previous programming experience is not required. Challenge depth can change for the group and the student.</p>
       </aside>
     </div>
   </section>
 
-  <section class="section section-blue">
+  <section class="section section-blue" aria-labelledby="scratch-topic-path">
     <div class="container">
-      <p class="eyebrow">Topic path</p>
-      <h2>From making something move to managing a complete game.</h2>
-      <ol class="topic-path">
-        <li>Events</li>
-        <li class="topic-complete">
-          <a href="{{ url_for(completed_topic.endpoint) }}">Coordinates</a>
-          <span>Complete package</span>
-        </li>
-        <li>Loops</li>
-        <li>Conditions</li>
-        <li>Variables</li>
-        <li>Sensing and collision</li>
-        <li>Messages</li>
-        <li>Custom blocks</li>
-        <li>Game state</li>
-        <li>Debugging</li>
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Topic path</p>
+          <h2 id="scratch-topic-path">From the first event to a complete game system.</h2>
+        </div>
+        <p class="section-intro">Linked topics have public guides. The remaining entries show curriculum direction, not a claim that every package or class is already complete.</p>
+      </div>
+      <ol class="curriculum-route">
+        <li><a href="/topics/events-and-commands"><strong>Events and Commands</strong><span>Public topic and lesson</span></a></li>
+        <li class="route-complete"><a href="/topics/coordinates"><strong>Coordinates and Movement</strong><span>Complete topic package</span></a></li>
+        <li><a href="/topics/loops-and-repetition"><strong>Loops and Repetition</strong><span>Public topic and lesson</span></a></li>
+        <li><a href="/topics/conditions-and-decisions"><strong>Conditions and Decisions</strong><span>Public topic and lesson</span></a></li>
+        <li><a href="/topics/variables-and-state"><strong>Variables and Score</strong><span>Public topic and lesson</span></a></li>
+        <li><a href="/topics/sensing-and-collision"><strong>Sensing and Collision</strong><span>Public topic and lesson</span></a></li>
+        <li><span><strong>Messages and Communication</strong><small>Curriculum direction</small></span></li>
+        <li><span><strong>Randomness and Variation</strong><small>Curriculum direction</small></span></li>
+        <li><span><strong>Custom Blocks and Functions</strong><small>Curriculum direction</small></span></li>
+        <li><span><strong>Game State</strong><small>Connected through Variables and State</small></span></li>
+        <li><a href="/topics/debugging"><strong>Debugging</strong><span>Public topic and lesson</span></a></li>
+        <li><span><strong>Final Game Design</strong><small>Curriculum direction</small></span></li>
       </ol>
     </div>
   </section>
 
-  <section class="section curriculum-package">
+  <section class="section curriculum-package" aria-labelledby="completed-package">
     <div class="container">
       <div class="section-header">
         <div>
-          <p class="eyebrow">First completed topic package</p>
-          <h2>{{ completed_topic.title }}</h2>
-          <p class="section-intro">This package proves the route from a planned topic and lesson into one guided class build and two Computer Lab projects. It does not mean the full Scratch curriculum is complete.</p>
+          <p class="eyebrow">Complete topic package</p>
+          <h2 id="completed-package">Coordinates and Movement</h2>
+          <p class="section-intro">This first vertical slice runs from one topic and lesson into a guided class build, two distinct Computer Lab projects, a parent explanation, and related articles. It does not label the whole Scratch curriculum complete.</p>
         </div>
-        <a class="button" href="{{ url_for(completed_topic.endpoint) }}">Open Topic</a>
+        <a class="button" href="/topics/coordinates">Open Topic</a>
       </div>
       <div class="curriculum-package-grid">
-        <a class="package-card package-lesson" href="{{ url_for(completed_lesson.endpoint) }}">
-          <span>Lesson / {{ completed_lesson.duration }}</span>
-          <strong>{{ completed_lesson.title }}</strong>
-          <small>Coordinates, movement, guided build, modification, and demonstration.</small>
+        <a class="package-card package-lesson" href="/lessons/coordinates-and-movement">
+          <span>Lesson / 90 minutes</span>
+          <strong>How Does the Screen Know Where You Are?</strong>
+          <small>Read, predict, move, test, modify, and explain x and y.</small>
         </a>
-        {% for project in completed_projects %}
-          <a class="package-card package-project" href="{{ url_for(project.endpoint) }}">
+        {% for slug in ['escape-from-the-giant-pigeon', 'grandmas-intergalactic-taxi', 'astro-chicken-rescue'] %}
+          {% set project = projects[slug] %}
+          <a class="package-card package-project" href="{{ project.url }}">
             <span>{{ project.project_type }}</span>
             <strong>{{ project.name }}</strong>
             <small>{{ project.difficulty }} / {{ project.estimated_time }}</small>
@@ -75,31 +80,28 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" aria-labelledby="scratch-format">
     <div class="container two-column">
       <div>
-        <p class="eyebrow">Class structure</p>
-        <h2>A serious lesson can wear a ridiculous costume.</h2>
-        <p class="lead">A chase by a giant pigeon is still a lesson in coordinates, random movement, collision detection, score, state, and debugging.</p>
+        <p class="eyebrow">Class format</p>
+        <h2 id="scratch-format">A serious lesson can wear a ridiculous costume.</h2>
+        <p class="lead">The funny premise earns attention. The class makes the system visible underneath it.</p>
       </div>
       <ol class="class-rhythm">
-        <li><span>01</span><div><strong>Meet the idea</strong><small>See one concept in a small, understandable example.</small></div></li>
+        <li><span>01</span><div><strong>Meet the idea</strong><small>Name one concept with a small example.</small></div></li>
         <li><span>02</span><div><strong>Predict and test</strong><small>Say what the code should do, then run it.</small></div></li>
-        <li><span>03</span><div><strong>Build together</strong><small>Use the idea inside a guided project with clear checkpoints.</small></div></li>
-        <li><span>04</span><div><strong>Change the system</strong><small>Add a rule, repair a bug, or make the project behave differently.</small></div></li>
-        <li><span>05</span><div><strong>Explain the result</strong><small>Demonstrate what changed and name the ideas underneath it.</small></div></li>
+        <li><span>03</span><div><strong>Build together</strong><small>Use the idea in a guided project.</small></div></li>
+        <li><span>04</span><div><strong>Change the system</strong><small>Add a rule, repair a bug, or rebuild a weak part.</small></div></li>
+        <li><span>05</span><div><strong>Demonstrate</strong><small>Show what changed and explain the evidence.</small></div></li>
       </ol>
     </div>
   </section>
 
-  <section class="section section-ink">
+  <section class="section section-ink" aria-labelledby="scratch-projects">
     <div class="container">
       <div class="section-header">
-        <div>
-          <p class="eyebrow">Example projects</p>
-          <h2>Games worth showing to a friend.</h2>
-        </div>
-        <a class="button button-light" href="{{ url_for('projects') }}">Full Project Library</a>
+        <div><p class="eyebrow">Eight public projects</p><h2 id="scratch-projects">Games worth showing to a friend.</h2></div>
+        <a class="button button-light" href="{{ url_for('project_index') }}">Full Project Library</a>
       </div>
       <div class="project-grid">
         {% for project in page_projects %}{{ project_card(project) }}{% endfor %}
@@ -109,12 +111,9 @@
 
   <section class="section section-yellow">
     <div class="container two-column">
+      <div><p class="eyebrow">Computer Lab connection</p><h2>The class gives the idea. The lab gives the idea a life.</h2></div>
       <div>
-        <p class="eyebrow">Computer Lab connection</p>
-        <h2>The class gives the idea. The lab gives the idea a life.</h2>
-      </div>
-      <div>
-        <p class="lead">In class, a student may build the working core of a game. In the Computer Lab, that same student can add a second level, invent a stranger enemy, tune the difficulty, repair edge cases, or rebuild the controls.</p>
+        <p class="lead">A guided game establishes common concepts and checkpoints. Lab time lets a student add a level, change the controls, invent a stranger rule, repair an edge case, or rebuild the system in a different form.</p>
         <a class="text-link" href="{{ url_for('computer_lab') }}">How Computer Lab time works <span aria-hidden="true">-&gt;</span></a>
       </div>
     </div>
@@ -124,9 +123,11 @@
     <div class="container parent-callout">
       <blockquote>A program is a text. The student is an author.</blockquote>
       <div>
-        <p>For parents, a finished game makes learning visible. The student can point to a rule, show a bug, explain a variable, and describe why the latest version works differently from the first.</p>
+        <p>For parents, a finished game makes learning visible. A student can point to a rule, show a bug, explain a variable, and demonstrate why the latest version behaves differently from the first.</p>
         <a class="text-link" href="{{ url_for('parents') }}">More answers for parents <span aria-hidden="true">-&gt;</span></a>
       </div>
     </div>
   </section>
+
+  <section class="cta-band"><div class="container cta-grid"><div><h2>Ask about a suitable Scratch starting point.</h2><p>Current scheduling and group fit are discussed directly; no fixed age, venue, or price is implied here.</p></div><a class="button button-light" href="{{ url_for('contact') }}">Contact Eugene</a></div></section>
 {% endblock %}

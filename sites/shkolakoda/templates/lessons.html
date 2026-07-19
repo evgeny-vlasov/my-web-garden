@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from "_macros.html" import lesson_card %}
+
+{% block title %}Lesson Library | School of Code Calgary{% endblock %}
+{% block meta_description %}Browse ten public School of Code lesson outlines for Scratch and introductory robotics, each using a practical 90-minute build, test, modify, and demonstrate rhythm.{% endblock %}
+
+{% block content %}
+  <section class="page-hero"><div class="container"><p class="eyebrow">Lesson library / Public curriculum</p><h1>One idea, ninety minutes, something visible to explain.</h1><p class="lead">These public lesson pages show the educational rhythm and checkpoints behind School of Code projects. They are useful outlines, not private classroom administration or promises about a published schedule.</p><ol class="pathway" aria-label="Lesson rhythm"><li>Story</li><li>Theory</li><li>Guided build</li><li>Modification</li><li>Demonstration</li></ol></div></section>
+
+  <section class="section" aria-labelledby="scratch-lessons"><div class="container"><div class="section-header"><div><p class="eyebrow">Scratch &amp; Game Design</p><h2 id="scratch-lessons">Seven active-first lesson outlines.</h2></div><a class="text-link" href="{{ url_for('scratch') }}">Scratch program <span aria-hidden="true">-&gt;</span></a></div><div class="library-grid">{% for lesson in lesson_list if lesson.program_key == 'scratch' %}{{ lesson_card(lesson) }}{% endfor %}</div></div></section>
+
+  <section class="section section-blue" aria-labelledby="robot-lessons"><div class="container"><div class="section-header"><div><p class="eyebrow">Introductory Robotics</p><h2 id="robot-lessons">Three lessons from commands to feedback.</h2></div><a class="text-link" href="{{ url_for('robotics') }}">Robotics program <span aria-hidden="true">-&gt;</span></a></div><div class="library-grid">{% for lesson in lesson_list if lesson.program_key == 'robotics' %}{{ lesson_card(lesson) }}{% endfor %}</div></div></section>
+
+  <section class="section section-yellow"><div class="container parent-callout"><blockquote>The lesson introduces the idea.</blockquote><div><p>The guided project develops it. Computer Lab projects let it change form. Parent explanations make the hidden work observable without reducing the class to a list of software features.</p><a class="text-link" href="{{ url_for('method') }}">Read the teaching method <span aria-hidden="true">-&gt;</span></a></div></div></section>
+{% endblock %}

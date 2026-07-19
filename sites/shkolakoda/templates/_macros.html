@@ -1,10 +1,10 @@
-{% macro status_badge(label, style) -%}
+{% macro status_badge(label, style='demo') -%}
   <span class="status-badge status-{{ style }}">{{ label }}</span>
 {%- endmacro %}
 
-{% macro topic_tags(topics) -%}
+{% macro topic_tags(items) -%}
   <ul class="tag-list" aria-label="Topics">
-    {% for topic in topics %}<li>{{ topic }}</li>{% endfor %}
+    {% for item in items %}<li>{{ item }}</li>{% endfor %}
   </ul>
 {%- endmacro %}
 
@@ -21,53 +21,96 @@
       <div><dt>Core ideas</dt><dd>{{ program.concepts | join(', ') }}</dd></div>
       <div><dt>Example</dt><dd>{{ program.examples | join(' / ') }}</dd></div>
     </dl>
-    <a class="text-link" href="{{ url_for(program.endpoint) }}">Explore {{ program.short_name }} <span aria-hidden="true">-&gt;</span></a>
+    <a class="text-link" href="{{ program.url }}">Explore {{ program.short_name }} <span aria-hidden="true">-&gt;</span></a>
   </article>
 {%- endmacro %}
 
-{% macro project_card(project) -%}
-  <article class="project-card{% if project.endpoint %} project-card-linked{% else %} project-card-preview{% endif %}">
+{% macro project_card(project, compact=false) -%}
+  <article class="project-card project-card-linked{% if project.status_class == 'later' %} project-card-later{% endif %}">
     <div class="card-topline">
       <span class="project-program">{{ project.program }}</span>
       {{ status_badge(project.status, project.status_class) }}
     </div>
-    <h3>
-      {% if project.endpoint %}
-        <a href="{{ url_for(project.endpoint) }}">{{ project.name }}</a>
-      {% else %}
-        {{ project.name }}
-      {% endif %}
-    </h3>
-    <p>{{ project.mission }}</p>
-    {{ topic_tags(project.topics) }}
-    {% if project.endpoint %}
+    <h3><a href="{{ project.url }}">{{ project.name }}</a></h3>
+    <p>{{ project.card_summary }}</p>
+    {{ topic_tags(project.topics[:4]) }}
+    {% if not compact %}
       <div class="project-card-meta">
         <span>{{ project.difficulty }}</span>
         <span>{{ project.estimated_time }}</span>
       </div>
-      <a class="text-link project-card-link" href="{{ url_for(project.endpoint) }}">Open project <span aria-hidden="true">-&gt;</span></a>
-    {% else %}
-      <span class="preview-note">Library preview / full page not built yet</span>
     {% endif %}
+    <a class="text-link project-card-link" href="{{ project.url }}">
+      {% if project.status_class == 'later' %}Open future preview{% else %}Open project{% endif %}
+      <span aria-hidden="true">-&gt;</span>
+    </a>
+  </article>
+{%- endmacro %}
+
+{% macro topic_card(topic) -%}
+  <article class="library-card topic-library-card">
+    <div class="card-topline">
+      <span class="library-kind">Topic</span>
+      {{ status_badge(topic.status, topic.status_class) }}
+    </div>
+    <h3><a href="{{ topic.url }}">{{ topic.title }}</a></h3>
+    <p>{{ topic.summary }}</p>
+    <div class="connection-list" aria-label="Program connections">
+      {% for program_key in topic.programs %}<span>{{ programs[program_key].short_name }}</span>{% endfor %}
+    </div>
+    <a class="text-link" href="{{ topic.url }}">Read topic <span aria-hidden="true">-&gt;</span></a>
+  </article>
+{%- endmacro %}
+
+{% macro lesson_card(lesson) -%}
+  <article class="library-card lesson-library-card">
+    <div class="card-topline">
+      <span class="library-kind">90-minute lesson</span>
+      {{ status_badge('Public lesson', 'active') }}
+    </div>
+    <h3><a href="{{ lesson.url }}">{{ lesson.title }}</a></h3>
+    <p><strong>{{ lesson.program }}</strong> / {{ lesson.topic }}</p>
+    <p>{{ lesson.story }}</p>
+    <a class="text-link" href="{{ lesson.url }}">Open lesson <span aria-hidden="true">-&gt;</span></a>
+  </article>
+{%- endmacro %}
+
+{% macro blog_card(post) -%}
+  <article class="blog-card">
+    <span>{{ post.category }}</span>
+    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+    <p>{{ post.description }}</p>
+    <a class="text-link" href="{{ post.url }}">Read article <span aria-hidden="true">-&gt;</span></a>
   </article>
 {%- endmacro %}
 
 {% macro breadcrumbs(items, current) -%}
   <nav class="breadcrumbs" aria-label="Breadcrumb">
     <ol>
-      {% for label, endpoint in items %}
-        <li><a href="{{ url_for(endpoint) }}">{{ label }}</a></li>
-      {% endfor %}
+      {% for label, href in items %}<li><a href="{{ href }}">{{ label }}</a></li>{% endfor %}
       <li aria-current="page">{{ current }}</li>
     </ol>
   </nav>
 {%- endmacro %}
 
-{% macro related_card(title, label, endpoint, description='') -%}
-  <a class="related-card" href="{{ url_for(endpoint) }}">
+{% macro related_card(title, label, href, description='') -%}
+  <a class="related-card" href="{{ href }}">
     <span>{{ label }}</span>
     <strong>{{ title }}</strong>
     {% if description %}<small>{{ description }}</small>{% endif %}
     <b aria-hidden="true">-&gt;</b>
   </a>
+{%- endmacro %}
+
+{% macro metadata_strip(items) -%}
+  <dl class="metadata-strip">
+    {% for label, value in items %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}
+  </dl>
+{%- endmacro %}
+
+{% macro parent_panel(title, text) -%}
+  <aside class="parent-explanation parent-explanation-light">
+    <div><span class="feature-code">PARENT EXPLANATION</span><h2>{{ title }}</h2></div>
+    <p>{{ text }}</p>
+  </aside>
 {%- endmacro %}

@@ -1,150 +1,34 @@
 {% extends "base.html" %}
-{% from "_macros.html" import breadcrumbs, related_card, status_badge %}
+{% from "_macros.html" import breadcrumbs, metadata_strip, related_card, parent_panel, project_card %}
 
-{% block title %}{{ lesson.title }} | School of Code Calgary{% endblock %}
+{% block title %}{{ lesson.title }} | School of Code Lesson{% endblock %}
 {% block meta_description %}{{ lesson.meta_description }}{% endblock %}
+{% block og_title %}{{ lesson.title }} | School of Code Lesson{% endblock %}
 
 {% block content %}
-  <section class="curriculum-hero lesson-hero">
-    <div class="container">
-      {{ breadcrumbs([('Home', 'home'), ('Programs', 'programs'), ('Scratch', 'scratch'), (topic.title, topic.endpoint)], lesson.title) }}
-      <div class="curriculum-hero-grid">
-        <div>
-          <p class="eyebrow">Lesson / {{ lesson.program }}</p>
-          <h1>{{ lesson.title }}</h1>
-          <p class="lead">A public lesson plan for turning screen movement into a position problem students can predict, build, and explain.</p>
-        </div>
-        <dl class="curriculum-meta">
-          <div><dt>Program</dt><dd>{{ lesson.program }}</dd></div>
-          <div><dt>Topic</dt><dd><a href="{{ url_for(lesson.topic_endpoint) }}">{{ lesson.topic }}</a></dd></div>
-          <div><dt>Duration</dt><dd>{{ lesson.duration }}</dd></div>
-          <div><dt>Fit</dt><dd>{{ lesson.age_language }}</dd></div>
-        </dl>
-      </div>
-    </div>
-  </section>
+  <section class="curriculum-hero lesson-hero"><div class="container">
+    {{ breadcrumbs([('Home', '/'), ('Lessons', '/lessons'), (lesson.program, programs[lesson.program_key].url), (topic.title, topic.url)], lesson.title) }}
+    <div class="curriculum-hero-grid"><div><p class="eyebrow">Public lesson / {{ lesson.program }}</p><h1>{{ lesson.title }}</h1><p class="lead">{{ lesson.story }}</p></div><aside class="status-panel"><span class="feature-code">LESSON / 90 MIN</span><h2>{{ topic.title }}</h2><p>{{ lesson.age_language }}</p></aside></div>
+    {{ metadata_strip([('Program', lesson.program), ('Topic', topic.title), ('Duration', lesson.duration), ('Format', 'Guided class lesson')]) }}
+  </div></section>
 
-  <section class="section section-yellow">
-    <div class="container story-panel">
-      <span class="feature-code">PROBLEM / STORY</span>
-      <h2>A chase the computer cannot see.</h2>
-      <p>{{ lesson.story }}</p>
-    </div>
-  </section>
+  <section class="section" aria-labelledby="lesson-rhythm"><div class="container"><div class="section-header"><div><p class="eyebrow">Lesson rhythm</p><h2 id="lesson-rhythm">The idea moves toward a demonstration.</h2></div></div><ol class="lesson-timeline">{% for time, name, detail in lesson.timeline %}<li><time>{{ time }}</time><div><h3>{{ name }}</h3><p>{{ detail }}</p></div></li>{% endfor %}</ol></div></section>
 
-  <section class="section">
-    <div class="container">
-      <p class="eyebrow">Lesson rhythm</p>
-      <h2>Ninety minutes from question to demonstration.</h2>
-      <ol class="lesson-timeline">
-        {% for time, title, description in lesson.timeline %}
-          <li>
-            <time>{{ time }}</time>
-            <div><h3>{{ title }}</h3><p>{{ description }}</p></div>
-          </li>
-        {% endfor %}
-      </ol>
-    </div>
-  </section>
+  <section class="section section-blue" aria-labelledby="learning-goals"><div class="container two-column"><div><p class="eyebrow">Learning goals</p><h2 id="learning-goals">What students should be able to do and explain.</h2></div><ul class="check-list">{% for goal in lesson.learning_goals %}<li>{{ goal }}</li>{% endfor %}</ul></div></section>
 
-  <section class="section section-blue">
-    <div class="container two-column">
-      <div>
-        <p class="eyebrow">Learning goals</p>
-        <h2>What students should be able to do.</h2>
-        <ul class="check-list">
-          {% for goal in lesson.learning_goals %}<li>{{ goal }}</li>{% endfor %}
-        </ul>
-      </div>
-      <div>
-        <p class="eyebrow">Theory in small moves</p>
-        <h2>Read the change before running it.</h2>
-        <div class="theory-table" role="table" aria-label="Scratch coordinate movement examples">
-          {% for code, meaning in lesson.theory_examples %}
-            <div role="row"><code role="cell">{{ code }}</code><span aria-hidden="true">-&gt;</span><strong role="cell">{{ meaning }}</strong></div>
-          {% endfor %}
-        </div>
-        <p class="theory-note"><strong>Position and direction are related but different.</strong> Position says where a sprite is. Direction says which way it faces.</p>
-      </div>
-    </div>
-  </section>
+  <section class="section section-yellow" aria-labelledby="theory-kernel"><div class="container"><div class="section-header"><div><p class="eyebrow">Theory kernel</p><h2 id="theory-kernel">Small examples before the larger build.</h2></div></div><div class="theory-example-grid">{% for expression, meaning in lesson.theory_examples %}<article><code>{{ expression }}</code><span aria-hidden="true">-&gt;</span><p>{{ meaning }}</p></article>{% endfor %}</div>{% if lesson.slug == 'coordinates-and-movement' %}<p class="mono-note">Scratch direction and Scratch position are related, but they are different. Direction describes where a sprite faces; position describes where it is.</p>{% endif %}</div></section>
 
-  <section class="section">
-    <div class="container guided-preview">
-      <div>
-        <p class="eyebrow">Guided-build preview</p>
-        <h2>{{ guided_project.name }}</h2>
-        <p class="lead">Students build a top-down chase game with a known start, x/y controls, a pursuer, a safe zone, collision checks, win and loss states, and reliable restart behaviour.</p>
-        <p>The project page holds the teaching sequence and checkpoints. The lesson page keeps attention on why coordinates make the chase possible.</p>
-      </div>
-      <a class="button" href="{{ url_for(guided_project.endpoint) }}">Open Guided Project</a>
-    </div>
-  </section>
+  {% if guided_project %}<section class="section" aria-labelledby="guided-preview"><div class="container"><div class="section-header"><div><p class="eyebrow">Guided-build preview</p><h2 id="guided-preview">{{ guided_project.name }}</h2><p class="section-intro">{{ guided_project.mission }}</p></div><a class="button" href="{{ guided_project.url }}">Open Guided Project</a></div><div class="preview-system-grid"><article><strong>Students build</strong><p>{{ guided_project.what_students_build[:4] | join(', ') }}.</p></article><article><strong>Concepts in use</strong><p>{{ guided_project.topics[:5] | join(', ') }}.</p></article><article><strong>Finish line</strong><p>A working version, one modification, one repaired problem, and an explanation.</p></article></div></div></section>{% endif %}
 
-  <section class="section section-ink">
-    <div class="container">
-      <p class="eyebrow">Teacher checkpoints</p>
-      <h2>Visible evidence before the project grows.</h2>
-      <ol class="checkpoint-grid">
-        {% for checkpoint in lesson.checkpoints %}<li>{{ checkpoint }}</li>{% endfor %}
-      </ol>
-    </div>
-  </section>
+  <section class="section section-ink" aria-labelledby="teacher-checkpoints"><div class="container"><div class="section-header"><div><p class="eyebrow">Teacher checkpoints</p><h2 id="teacher-checkpoints">Evidence before adding complexity.</h2></div></div><ol class="checkpoint-grid">{% for checkpoint in lesson.checkpoints %}<li><span>{{ loop.index }}</span>{{ checkpoint }}</li>{% endfor %}</ol></div></section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Modification challenge</p>
-          <h2>Choose the next useful difficulty.</h2>
-        </div>
-        <p class="section-intro">Advanced ideas are optional. The challenge should deepen coordinate reasoning rather than hide it beneath extra features.</p>
-      </div>
-      <div class="challenge-grid">
-        {% for level in lesson.challenge_levels %}
-          <article class="challenge-card challenge-{{ loop.index }}">
-            <span>LEVEL 0{{ loop.index }}</span>
-            <h3>{{ level.name }}</h3>
-            <ul>{% for idea in level.ideas %}<li>{{ idea }}</li>{% endfor %}</ul>
-          </article>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+  <section class="section" aria-labelledby="lesson-mistakes"><div class="container two-column"><div><p class="eyebrow">Common mistakes</p><h2 id="lesson-mistakes">Pause, inspect, and test one cause.</h2></div><ul class="warning-list">{% for mistake in lesson.common_mistakes %}<li>{{ mistake }}</li>{% endfor %}</ul></div></section>
 
-  <section class="section section-yellow">
-    <div class="container two-column">
-      <div>
-        <p class="eyebrow">End-of-class demonstration</p>
-        <h2>Finish by explaining the system.</h2>
-      </div>
-      <ol class="question-list">
-        {% for question in lesson.demonstration_questions %}<li>{{ question }}</li>{% endfor %}
-      </ol>
-    </div>
-  </section>
+  <section class="section section-blue" aria-labelledby="lesson-challenges"><div class="container"><div class="section-header"><div><p class="eyebrow">Modification challenge</p><h2 id="lesson-challenges">Three levels, one concept kept visible.</h2></div><p class="section-intro">Higher levels are optional. They deepen the current idea rather than turning a beginner lesson into an unrelated advanced task.</p></div><div class="challenge-level-grid">{% for level in lesson.challenge_levels %}<article class="challenge-{{ loop.index }}"><span>LEVEL {{ loop.index }}</span><h3>{{ level.name }}</h3><ul>{% for idea in level.ideas %}<li>{{ idea }}</li>{% endfor %}</ul></article>{% endfor %}</div></div></section>
 
-  <section class="section">
-    <div class="container parent-explanation parent-explanation-light">
-      <div>
-        <span class="feature-code">COPY-READY PARENT SUMMARY</span>
-        <h2>What students practised</h2>
-      </div>
-      <p>{{ lesson.parent_summary }}</p>
-    </div>
-  </section>
+  <section class="section section-yellow" aria-labelledby="lesson-demo"><div class="container two-column"><div><p class="eyebrow">End-of-class demonstration</p><h2 id="lesson-demo">Explain the work while it is still visible.</h2></div><ol class="question-list">{% for question in lesson.demonstration_questions %}<li>{{ question }}</li>{% endfor %}</ol></div></section>
 
-  <section class="section section-blue related-content">
-    <div class="container">
-      <p class="eyebrow">Continue the topic</p>
-      <h2>Lesson, guided build, then structured freedom.</h2>
-      <div class="related-grid">
-        {{ related_card(topic.title, 'Topic', topic.endpoint, 'Core idea and coordinate map') }}
-        {{ related_card(guided_project.name, guided_project.project_type, guided_project.endpoint, guided_project.estimated_time) }}
-        {% for project in lab_projects %}
-          {{ related_card(project.name, project.project_type, project.endpoint, project.estimated_time) }}
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+  <section class="section"><div class="container">{{ parent_panel('Copy-ready parent summary', lesson.parent_summary) }}</div></section>
+
+  <section class="section related-content"><div class="container"><p class="eyebrow">Continue through the curriculum</p><h2>One concise next step in each direction.</h2><div class="related-grid">{{ related_card(topic.title, 'Topic', topic.url, topic.status) }}{% if guided_project %}{{ related_card(guided_project.name, guided_project.project_type, guided_project.url, guided_project.estimated_time) }}{% endif %}{% for project in related_projects %}{{ related_card(project.name, project.project_type, project.url, project.difficulty) }}{% endfor %}</div></div></section>
 {% endblock %}

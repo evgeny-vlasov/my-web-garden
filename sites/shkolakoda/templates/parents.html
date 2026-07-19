@@ -1,76 +1,30 @@
 {% extends "base.html" %}
 
 {% block title %}For Parents | School of Code Calgary{% endblock %}
-{% block meta_description %}Practical answers for Calgary parents about School of Code classes, Computer Lab time, experience, devices, small groups, and student work.{% endblock %}
+{% block meta_description %}Plain answers for Calgary parents about School of Code classes, projects, Scratch, introductory robotics, devices, small groups, privacy, and Computer Lab time.{% endblock %}
 
 {% block content %}
-  <section class="page-hero">
-    <div class="container">
-      <p class="eyebrow">For Parents</p>
-      <h1>Practical answers before you choose a class.</h1>
-      <p class="lead">School of Code is small, project-based, and serious about making learning visible. Some operating details are still being finalized, so we say that plainly instead of filling gaps with promises.</p>
-      <a class="button" href="{{ url_for('contact') }}">Discuss Fit With Eugene</a>
-    </div>
-  </section>
+  <section class="page-hero"><div class="container"><p class="eyebrow">For Parents</p><h1>Practical answers before you choose a class.</h1><p class="lead">School of Code is small, project-based, and serious about making learning visible. Some operating details are still being finalized, so we say that plainly instead of filling gaps with promises.</p><a class="button" href="{{ url_for('contact') }}">Discuss Fit With Eugene</a></div></section>
 
-  <section class="section section-blue">
-    <div class="container">
-      <div class="faq-grid">
-        <details open>
-          <summary>Is this just more screen time?</summary>
-          <div class="faq-answer">No. Students are expected to make decisions, predict results, build, test, debug, explain, and improve. The computer is a construction material, not a stream of content to consume.</div>
-        </details>
-        <details>
-          <summary>Does my child need experience?</summary>
-          <div class="faq-answer">No programming experience is required for a suitable beginner starting point. Previous experience is useful because projects and challenge depth can change. Contact us to discuss fit.</div>
-        </details>
-        <details>
-          <summary>What ages are suitable?</summary>
-          <div class="faq-answer">Exact age ranges have not been finalized for publication. Readiness depends on the program, the student's interests, and comfort working through a problem. Contact us to discuss fit.</div>
-        </details>
-        <details>
-          <summary>What device is needed?</summary>
-          <div class="faq-answer">Device arrangements have not been finalized for all formats. Requirements may differ between Scratch and robotics work. We will confirm current expectations before registration.</div>
-        </details>
-        <details>
-          <summary>What is the difference between class and lab?</summary>
-          <div class="faq-answer">Class follows a planned learning path and introduces ideas through guided work. Computer Lab is additional guided project time to finish, modify, test, rebuild, debug, or prepare a demonstration.</div>
-        </details>
-        <details>
-          <summary>What does a student take away from a game project?</summary>
-          <div class="faq-answer">A visible program plus the reasoning underneath it: coordinates, conditions, variables, state, debugging, design choices, and the ability to explain how the system behaves.</div>
-        </details>
-        <details>
-          <summary>What happens when a student gets stuck?</summary>
-          <div class="faq-answer">Getting stuck is part of the work. The instructor helps reduce the problem, identify evidence, form a prediction, and choose a useful test without simply taking over the project.</div>
-        </details>
-        <details>
-          <summary>What if my child is advanced?</summary>
-          <div class="faq-answer">The same concept can support a harder system, a stricter constraint, a deeper debugging task, or a more independent Lab Project. Placement and challenge level should be discussed before joining.</div>
-        </details>
-        <details>
-          <summary>How large are the groups?</summary>
-          <div class="faq-answer">School of Code is designed around small groups so the instructor can understand each student's actual project. A final published maximum has not yet been set.</div>
-        </details>
-        <details>
-          <summary>Are Roblox and AI available now?</summary>
-          <div class="faq-answer">No. Scratch &amp; Game Design and Robotics are the active first programs. Roblox Studio / Lua and AI &amp; Smart Machines are marked Available Later.</div>
-        </details>
-        <details>
-          <summary>How will student work be shared safely?</summary>
-          <div class="faq-answer">Students can demonstrate work directly to families. Any future public gallery or blog should use clear family permission, avoid unnecessary personal information, and separate a student's identity from public project files. Public sharing is not assumed.</div>
-        </details>
-      </div>
-    </div>
-  </section>
+  <section class="section section-blue" aria-labelledby="parent-questions"><div class="container"><h2 class="visually-hidden" id="parent-questions">Frequently asked questions</h2><div class="faq-grid">
+    <details open><summary>Is this just more screen time?</summary><div class="faq-answer">Students make decisions, predict results, build, test, debug, explain, and improve. The computer is construction material, not a stream of content to consume. Classes still need a defined task, breaks, conversation, and an ending.</div></details>
+    <details><summary>Does my child need experience?</summary><div class="faq-answer">No programming experience is required for a suitable beginner starting point. Previous experience changes project depth and independence. Contact us to discuss fit rather than guessing from software familiarity.</div></details>
+    <details><summary>What ages are suitable?</summary><div class="faq-answer">Exact age ranges are not finalized for publication. Fit depends on the program, the student's interests, reading comfort, and willingness to work through a small problem. Contact us to discuss fit.</div></details>
+    <details><summary>What device is needed?</summary><div class="faq-answer">Device arrangements are not finalized for every format. Browser Scratch and robotics work can require different setups. Current expectations will be confirmed before any registration decision.</div></details>
+    <details><summary>What is the difference between class and Lab?</summary><div class="faq-answer">Class follows a planned learning path and introduces an idea through guided work. Computer Lab is additional guided project time to finish, modify, test, rebuild, debug, or prepare a demonstration. The school comes first.</div></details>
+    <details><summary>What does a student learn from making games?</summary><div class="faq-answer">A visible game can contain coordinates, events, loops, conditions, variables, messages, state, collision, probability, writing, design choices, and debugging. The demonstration makes those ideas observable.</div></details>
+    <details><summary>Why use Scratch?</summary><div class="faq-answer">Scratch makes program structure visible while reducing early typing and punctuation friction. Logical errors remain: a sprite can move the wrong way, score twice, or fail to reset. Students can focus on systems before text syntax becomes the main difficulty.</div></details>
+    <details><summary>How does robotics begin?</summary><div class="faq-answer">With Sense, Decide, Act: exact commands, paper or simulated routes, inputs and outputs, simple circuits, sensors, and feedback. Advanced autonomous hardware is not required to begin learning robotics.</div></details>
+    <details><summary>What happens when a child gets stuck?</summary><div class="faq-answer">The instructor helps reduce the problem, name the expected result, inspect evidence, form a prediction, and choose one useful test without simply taking over the project.</div></details>
+    <details><summary>What if my child is advanced?</summary><div class="faq-answer">The same concept can support a stricter constraint, deeper system, harder edge case, reusable structure, or more independent Lab mission. Challenge level and group fit should be discussed before joining.</div></details>
+    <details><summary>Why small groups?</summary><div class="faq-answer">A coding project can look busy while one wrong state quietly controls everything. Small groups let the instructor understand the actual project, ask a relevant question, and preserve student authorship. A final published maximum is not set.</div></details>
+    <details><summary>Are Roblox and AI available now?</summary><div class="faq-answer">No. Scratch &amp; Game Design and Robotics are active first. Roblox Studio / Lua and AI &amp; Smart Machines are clearly marked Available Later; their pages explain direction, not schedules.</div></details>
+    <details><summary>How are projects shared safely?</summary><div class="faq-answer">Direct demonstrations to family do not require public posting. Any future public gallery entry requires clear permission, minimal identifying information, and review of what the project file or link reveals.</div></details>
+    <details><summary>Are student photos or full names published?</summary><div class="faq-answer">Not by default. The gallery foundation proposes first name or nickname only and no identifiable photo without explicit parent permission. Current examples are labeled School of Code demonstration projects, not student submissions.</div></details>
+    <details><summary>What information is not finalized yet?</summary><div class="faq-answer">Exact ages, prices, schedules, venue details, group maximums, device arrangements, registration dates, and future-program timing are not published as finalized. Contact Eugene for the current planning state.</div></details>
+  </div></div></section>
 
-  <section class="section">
-    <div class="container parent-callout">
-      <blockquote>A finished small project beats a perfect unfinished one.</blockquote>
-      <div>
-        <p>Finishing does not mean a project has no bugs or room to grow. It means the student has reached a version that works well enough to show, explain, and use as the starting point for the next question.</p>
-        <a class="text-link" href="{{ url_for('method') }}">Read the public teaching method <span aria-hidden="true">-&gt;</span></a>
-      </div>
-    </div>
-  </section>
+  <section class="section" aria-labelledby="hidden-curriculum"><div class="container"><div class="section-header"><div><p class="eyebrow">What sits under the visible project</p><h2 id="hidden-curriculum">A parent can ask concrete questions.</h2></div></div><div class="idea-translation-grid"><article><strong>Chase game</strong><span>Where does it start? How is collision tested?</span></article><article><strong>Quiz</strong><span>Which condition selects an answer? When does score change?</span></article><article><strong>Traffic light</strong><span>Which state comes next? What prevents an unsafe transition?</span></article><article><strong>Robot patrol</strong><span>What is sensed? What causes correction? When does it stop?</span></article></div></div></section>
+
+  <section class="section section-yellow"><div class="container parent-callout"><blockquote>A finished small project beats a perfect unfinished one.</blockquote><div><p>Finished does not mean flawless. It means the student reached a version that works well enough to demonstrate, explain, criticize, and use as the starting point for a better version.</p><div class="button-row"><a class="text-link" href="{{ url_for('method') }}">Read our method <span aria-hidden="true">-&gt;</span></a><a class="text-link" href="/blog/is-coding-class-just-more-screen-time">Read the screen-time guide <span aria-hidden="true">-&gt;</span></a></div></div></div></section>
 {% endblock %}

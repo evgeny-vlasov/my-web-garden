@@ -1,162 +1,38 @@
 {% extends "base.html" %}
-{% from "_macros.html" import breadcrumbs, related_card, status_badge %}
+{% from "_macros.html" import status_badge, project_card, related_card, breadcrumbs, parent_panel %}
 
-{% block title %}{{ topic.title }} | School of Code Calgary{% endblock %}
+{% block title %}{{ topic.title }} | School of Code Topic{% endblock %}
 {% block meta_description %}{{ topic.meta_description }}{% endblock %}
+{% block og_title %}{{ topic.title }} | School of Code{% endblock %}
 
 {% block content %}
   <section class="curriculum-hero topic-hero">
     <div class="container">
-      {{ breadcrumbs([('Home', 'home'), ('Programs', 'programs'), ('Scratch', 'scratch')], topic.title) }}
+      {{ breadcrumbs([('Home', '/'), ('Topics', '/topics')], topic.title) }}
       <div class="curriculum-hero-grid">
-        <div>
-          <p class="eyebrow">Topic / {{ topic.program }}</p>
-          <h1>{{ topic.title }}</h1>
-          <p class="lead">{{ topic.intro }}</p>
-          <a class="button" href="{{ url_for(lesson.endpoint) }}">Open the Lesson</a>
-        </div>
-        <aside class="core-idea-panel">
-          <span class="feature-code">CORE_IDEA</span>
-          <p><strong>Coordinates describe position.</strong></p>
-          <p>A screen is a map made from numbers. Every sprite, object, button, robot marker, game character, and target needs a way to answer:</p>
-          <p class="core-question">Where am I?</p>
-        </aside>
+        <div><p class="eyebrow">Curriculum topic</p><h1>{{ topic.title }}</h1><p class="lead">{{ topic.intro }}</p></div>
+        <aside class="status-panel">{{ status_badge(topic.status, topic.status_class) }}<h2>Central question</h2><p>{% if topic.slug == 'coordinates' %}Where am I, and how does a number move me?{% elif topic.slug == 'sensors' %}What exactly is the machine measuring?{% elif topic.slug == 'debugging' %}What evidence explains the difference?{% else %}What rule makes the visible behaviour happen?{% endif %}</p></aside>
       </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="coordinate-map-title">
-    <div class="container two-column coordinate-section">
-      <div>
-        <p class="eyebrow">Read the screen</p>
-        <h2 id="coordinate-map-title">Two number lines make a map.</h2>
-        <p class="lead"><strong>x</strong> means left and right. <strong>y</strong> means down and up. Together, they name a position.</p>
-        <p>The centre is the origin: <code>x: 0, y: 0</code>. Positive x moves right, negative x moves left, positive y moves up, and negative y moves down.</p>
-        <ul class="coordinate-key" aria-label="Example coordinates">
-          <li><span class="point-swatch point-a-swatch"></span><code>x: -150, y: 110</code></li>
-          <li><span class="point-swatch point-b-swatch"></span><code>x: 140, y: 120</code></li>
-          <li><span class="point-swatch point-c-swatch"></span><code>x: -120, y: -100</code></li>
-          <li><span class="point-swatch point-d-swatch"></span><code>x: 160, y: -90</code></li>
-        </ul>
-      </div>
-      <figure class="coordinate-figure">
-        <div class="coordinate-plane" role="img" aria-label="Coordinate plane with the origin and four example points">
-          <span class="axis axis-x" aria-hidden="true"></span>
-          <span class="axis axis-y" aria-hidden="true"></span>
-          <span class="axis-label axis-positive-x">+x right</span>
-          <span class="axis-label axis-negative-x">-x left</span>
-          <span class="axis-label axis-positive-y">+y up</span>
-          <span class="axis-label axis-negative-y">-y down</span>
-          <span class="coordinate-point point-origin"><b>0</b><small>x: 0, y: 0</small></span>
-          <span class="coordinate-point point-a"><b>A</b><small>-150, 110</small></span>
-          <span class="coordinate-point point-b"><b>B</b><small>140, 120</small></span>
-          <span class="coordinate-point point-c"><b>C</b><small>-120, -100</small></span>
-          <span class="coordinate-point point-d"><b>D</b><small>160, -90</small></span>
-        </div>
-        <figcaption>A position changes when its x value, y value, or both values change.</figcaption>
-      </figure>
-    </div>
-  </section>
+  {% if topic.slug == 'coordinates' %}
+    <section class="section coordinate-section" aria-labelledby="coordinate-map-title"><div class="container"><div class="section-header"><div><p class="eyebrow">Scratch coordinate map</p><h2 id="coordinate-map-title">x goes sideways. y goes vertically.</h2></div><p class="section-intro">The centre gives every point a shared origin: x: 0, y: 0.</p></div><figure class="coordinate-figure"><div class="coordinate-plane" role="img" aria-label="Coordinate plane with horizontal x-axis, vertical y-axis, origin, and four example points"><span class="axis axis-x" aria-hidden="true"></span><span class="axis axis-y" aria-hidden="true"></span><span class="axis-label axis-positive-x">+x / right</span><span class="axis-label axis-negative-x">-x / left</span><span class="axis-label axis-positive-y">+y / up</span><span class="axis-label axis-negative-y">-y / down</span><span class="origin">x: 0, y: 0</span><span class="plot-point point-a"><b>A</b><small>x: 140, y: 90</small></span><span class="plot-point point-b"><b>B</b><small>x: -150, y: 70</small></span><span class="plot-point point-c"><b>C</b><small>x: -120, y: -80</small></span><span class="plot-point point-d"><b>D</b><small>x: 160, y: -95</small></span></div><figcaption>Example points are approximate positions on a map, not instructions to memorize.</figcaption></figure></div></section>
+  {% endif %}
 
-  <section class="section section-blue">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Why it matters</p>
-          <h2>The same idea returns in larger systems.</h2>
-        </div>
-        <p class="section-intro">This first lesson does not teach every advanced application. It establishes a position model that students will meet again.</p>
-      </div>
-      <div class="concept-grid">
-        {% for title, description in topic.returns_later %}
-          <article class="concept-card">
-            <h3>{{ title }}</h3>
-            <p>{{ description }}</p>
-          </article>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+  <section class="section{% if topic.slug != 'coordinates' %} section-blue{% endif %}" aria-labelledby="why-topic-matters"><div class="container two-column"><div><p class="eyebrow">Why it matters</p><h2 id="why-topic-matters">A small idea that returns in larger systems.</h2><p class="lead">{{ topic.why_it_matters }}</p></div><div><p class="eyebrow">Real-world connection</p><p>{{ topic.real_world_story }}</p><p class="mono-note">The connection shows where the idea returns; it does not claim every advanced application is taught in this first topic.</p></div></div></section>
 
-  <section class="section">
-    <div class="container two-column">
-      <div>
-        <p class="eyebrow">Math kernel</p>
-        <h2>The compact mathematics inside movement.</h2>
-        <p class="lead">Students do not need formal advanced mathematics to begin, but the numbers should remain visible and meaningful.</p>
-      </div>
-      <dl class="kernel-list">
-        {% for term, explanation in topic.math_kernel %}
-          <div><dt>{{ term }}</dt><dd>{{ explanation }}</dd></div>
-        {% endfor %}
-      </dl>
-    </div>
-  </section>
+  <section class="section section-yellow" aria-labelledby="logic-kernel"><div class="container"><div class="section-header"><div><p class="eyebrow">Math and logic kernel</p><h2 id="logic-kernel">The structure beneath the project.</h2></div></div><div class="kernel-grid">{% for name, explanation in topic.logic_kernel %}<article><h3>{{ name }}</h3><p>{{ explanation }}</p></article>{% endfor %}</div></div></section>
 
-  <section class="section section-yellow">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Programs where it appears</p>
-          <h2>One coordinate idea, several future forms.</h2>
-        </div>
-      </div>
-      <div class="program-appearance-grid">
-        {% for name, status, style, endpoint in topic.program_appearances %}
-          <a class="appearance-card" href="{{ url_for(endpoint) }}">
-            {{ status_badge(status, style) }}
-            <strong>{{ name }}</strong>
-            <span>See program <b aria-hidden="true">-&gt;</b></span>
-          </a>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+  <section class="section" aria-labelledby="small-examples"><div class="container"><div class="section-header"><div><p class="eyebrow">Small examples</p><h2 id="small-examples">Make one relationship visible at a time.</h2></div></div><div class="example-grid">{% for name, explanation in topic.examples %}<article><span>{{ loop.index | string }}</span><h3>{{ name }}</h3><p>{{ explanation }}</p></article>{% endfor %}</div></div></section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Common mistakes</p>
-          <h2>Read the numbers before adding more code.</h2>
-        </div>
-      </div>
-      <div class="mistake-grid">
-        {% for title, explanation in topic.common_mistakes %}
-          <article class="mistake-card">
-            <h3>{{ title }}</h3>
-            <p>{{ explanation }}</p>
-          </article>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+  <section class="section section-blue" aria-labelledby="program-connections"><div class="container"><div class="section-header"><div><p class="eyebrow">Program connections</p><h2 id="program-connections">Where this topic appears.</h2></div></div><div class="program-connection-grid">{% for program_key in topic.programs %}{% set program = programs[program_key] %}<article><div>{{ status_badge(program.status, program.status_class) }}</div><h3><a href="{{ program.url }}">{{ program.name }}</a></h3><p>{{ program.summary }}</p></article>{% endfor %}</div></div></section>
 
-  <section class="section section-ink">
-    <div class="container">
-      <div class="parent-explanation">
-        <div>
-          <span class="feature-code">PARENT_NOTE</span>
-          <h2>What is hiding under the chase game?</h2>
-        </div>
-        <p>{{ topic.parent_note }}</p>
-      </div>
-    </div>
-  </section>
+  <section class="section section-ink" aria-labelledby="topic-mistakes"><div class="container"><div class="section-header"><div><p class="eyebrow">Common mistakes</p><h2 id="topic-mistakes">Useful clues, not reasons to stop.</h2></div></div><div class="mistake-grid">{% for item in topic.common_mistakes %}<article><span aria-hidden="true">!</span>{% if item is string %}<p>{{ item }}</p>{% else %}<h3>{{ item[0] }}</h3><p>{{ item[1] }}</p>{% endif %}</article>{% endfor %}</div></div></section>
 
-  <section class="section related-content">
-    <div class="container">
-      <p class="eyebrow">Continue through the curriculum</p>
-      <h2>Connected pages</h2>
-      <div class="related-grid">
-        {{ related_card(lesson.title, 'Lesson', lesson.endpoint, lesson.duration) }}
-        {% for project in related_projects %}
-          {{ related_card(project.name, project.project_type, project.endpoint, project.difficulty) }}
-        {% endfor %}
-        {{ related_card('Scratch & Game Design', 'Program', 'scratch', 'Active now') }}
-        {{ related_card('Robotics', 'Program', 'robotics', 'Coordinates return later') }}
-        {{ related_card('Computer Lab', 'School project mode', 'computer_lab', 'Structured freedom') }}
-      </div>
-    </div>
-  </section>
+  <section class="section" aria-labelledby="topic-projects"><div class="container"><div class="section-header"><div><p class="eyebrow">Lesson and projects</p><h2 id="topic-projects">Use the idea inside a working system.</h2></div>{% if lesson %}<a class="button" href="{{ lesson.url }}">Open Lesson</a>{% endif %}</div><div class="project-grid">{% for project in related_projects %}{{ project_card(project, true) }}{% endfor %}</div></div></section>
+
+  <section class="section section-yellow"><div class="container">{{ parent_panel('What a parent can observe', topic.parent_note) }}</div></section>
+
+  <section class="section related-content"><div class="container"><p class="eyebrow">Continue through the curriculum</p><h2>Nearby pages, chosen for the idea.</h2><div class="related-grid">{% if lesson %}{{ related_card(lesson.title, 'Lesson', lesson.url, lesson.duration) }}{% endif %}{% for related in related_topics %}{{ related_card(related.title, 'Related topic', related.url, related.status) }}{% endfor %}{% if topic.slug == 'coordinates' %}{{ related_card('Computer Lab', 'School project mode', '/computer-lab', 'Structured freedom') }}{% endif %}</div></div></section>
 {% endblock %}

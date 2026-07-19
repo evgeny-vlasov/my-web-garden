@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://shkolakoda.com/sitemap.xml

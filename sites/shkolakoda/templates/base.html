@@ -4,10 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f4c542">
-    <meta
-      name="description"
-      content="{% block meta_description %}School of Code is a small independent Calgary school for practical programming, game design, and robotics.{% endblock %}"
-    >
+    <meta name="description" content="{% block meta_description %}School of Code is a small independent Calgary school for practical programming, game design, and robotics.{% endblock %}">
+    <link rel="canonical" href="{{ site_url }}{{ request.path }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="School of Code">
+    <meta property="og:title" content="{% block og_title %}School of Code | Programming and Robotics in Calgary{% endblock %}">
+    <meta property="og:description" content="Programming and robotics for kids who want to build things. A small independent school in Calgary, Alberta.">
+    <meta property="og:url" content="{{ site_url }}{{ request.path }}">
     <title>{% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}</title>
     <link rel="icon" href="{{ url_for('favicon_svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
@@ -18,15 +21,12 @@
       <div class="container header-inner">
         <a class="brand" href="{{ url_for('home') }}" aria-label="School of Code home">
           <span class="brand-mark" aria-hidden="true"><span>&lt;</span><b>SC</b><span>/&gt;</span></span>
-          <span class="brand-words">
-            <strong>School of Code</strong>
-            <small>Computer Lab / Calgary</small>
-          </span>
+          <span class="brand-words"><strong>School of Code</strong><small>Computer Lab / Calgary</small></span>
         </a>
 
         <nav class="desktop-nav" aria-label="Primary navigation">
           <a class="nav-link{% if request.endpoint == 'home' %} is-active{% endif %}" href="{{ url_for('home') }}">Home</a>
-          <details class="nav-dropdown{% if request.endpoint in ['programs', 'scratch', 'robotics', 'roblox', 'ai', 'coordinates_topic', 'coordinates_lesson'] %} is-active{% endif %}">
+          <details class="nav-dropdown{% if request.endpoint in ['programs', 'scratch', 'robotics', 'roblox', 'ai'] %} is-active{% endif %}">
             <summary>Programs</summary>
             <div class="nav-dropdown-menu">
               <a href="{{ url_for('programs') }}">All programs</a>
@@ -36,10 +36,12 @@
               <a href="{{ url_for('ai') }}">AI &amp; Smart Machines <span>Later</span></a>
             </div>
           </details>
-          <a class="nav-link{% if request.endpoint in ['projects', 'giant_pigeon_project', 'grandmas_taxi_project', 'astro_chicken_project'] %} is-active{% endif %}" href="{{ url_for('projects') }}">Projects</a>
+          <a class="nav-link{% if request.endpoint in ['project_index', 'project_detail', 'gallery'] %} is-active{% endif %}" href="{{ url_for('project_index') }}">Projects</a>
+          <a class="nav-link{% if request.endpoint in ['topic_index', 'topic_detail', 'lesson_index', 'lesson_detail'] %} is-active{% endif %}" href="{{ url_for('topic_index') }}">Topics</a>
           <a class="nav-link{% if request.endpoint == 'computer_lab' %} is-active{% endif %}" href="{{ url_for('computer_lab') }}">Computer Lab</a>
           <a class="nav-link{% if request.endpoint == 'parents' %} is-active{% endif %}" href="{{ url_for('parents') }}">For Parents</a>
           <a class="nav-link{% if request.endpoint == 'method' %} is-active{% endif %}" href="{{ url_for('method') }}">Our Method</a>
+          <a class="nav-link{% if request.endpoint in ['blog_index', 'blog_post'] %} is-active{% endif %}" href="{{ url_for('blog_index') }}">Blog</a>
           <a class="button button-small" href="{{ url_for('contact') }}">Contact</a>
         </nav>
 
@@ -52,36 +54,50 @@
             <a class="mobile-subnav" href="{{ url_for('robotics') }}">Robotics</a>
             <a class="mobile-subnav" href="{{ url_for('roblox') }}">Roblox Studio / Lua</a>
             <a class="mobile-subnav" href="{{ url_for('ai') }}">AI &amp; Smart Machines</a>
-            <a href="{{ url_for('projects') }}">Projects</a>
+            <a href="{{ url_for('project_index') }}">Projects</a>
+            <a href="{{ url_for('topic_index') }}">Topics</a>
+            <a class="mobile-subnav" href="{{ url_for('lesson_index') }}">Lessons</a>
             <a href="{{ url_for('computer_lab') }}">Computer Lab</a>
             <a href="{{ url_for('parents') }}">For Parents</a>
             <a href="{{ url_for('method') }}">Our Method</a>
+            <a href="{{ url_for('blog_index') }}">Blog</a>
             <a href="{{ url_for('contact') }}">Contact</a>
           </nav>
         </details>
       </div>
     </header>
 
-    <main id="main-content">
-      {% block content %}{% endblock %}
-    </main>
+    <main id="main-content">{% block content %}{% endblock %}</main>
 
     <footer class="site-footer">
-      <div class="container footer-grid">
+      <div class="container footer-grid footer-grid-expanded">
         <div>
           <a class="footer-brand" href="{{ url_for('home') }}">School of Code</a>
-          <p>Programming, game design, and robotics in Calgary.</p>
+          <p>Programming and robotics for kids who want to build things.</p>
+          <p>Calgary, Alberta</p>
+          <a class="footer-email" href="mailto:hello@shkolakoda.com">hello@shkolakoda.com</a>
         </div>
-        <div>
-          <strong>Build something visible.</strong>
-          <p>Then test it, explain it, and make it stranger.</p>
-        </div>
-        <nav aria-label="Footer navigation">
+        <nav aria-label="Programs and curriculum">
+          <strong>Build</strong>
           <a href="{{ url_for('programs') }}">Programs</a>
-          <a href="{{ url_for('projects') }}">Projects</a>
+          <a href="{{ url_for('project_index') }}">Projects</a>
+          <a href="{{ url_for('topic_index') }}">Topics</a>
+          <a href="{{ url_for('lesson_index') }}">Lessons</a>
+          <a href="{{ url_for('gallery') }}">Gallery</a>
+        </nav>
+        <nav aria-label="School information">
+          <strong>School</strong>
+          <a href="{{ url_for('computer_lab') }}">Computer Lab</a>
           <a href="{{ url_for('parents') }}">For Parents</a>
+          <a href="{{ url_for('method') }}">Our Method</a>
+          <a href="{{ url_for('blog_index') }}">Blog</a>
           <a href="{{ url_for('contact') }}">Contact</a>
         </nav>
+        <div class="footer-science">
+          <strong>A separate project</strong>
+          <p>Hands-on science workshops and labs live at Happy Science.</p>
+          <a href="https://science.shkolakoda.com">Visit Happy Science <span aria-hidden="true">-&gt;</span></a>
+        </div>
       </div>
     </footer>
   </body>

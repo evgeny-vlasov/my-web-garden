@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% from "_macros.html" import blog_card %}
+
+{% block title %}School of Code Blog | Parent Guides and Curriculum Notes{% endblock %}
+{% block meta_description %}Read practical School of Code guides about coding for kids, robotics, AI limits, project-based learning, small groups, and active computer use.{% endblock %}
+
+{% block content %}
+  <section class="page-hero"><div class="container"><p class="eyebrow">School of Code blog / 16 evergreen guides</p><h1>Questions from parents. Notes from the curriculum.</h1><p class="lead">Concrete arguments about what children build, what sits underneath the project, where the difficulty belongs, and what adults should ask. No fabricated research, invented enrollment story, or trend report.</p><nav class="category-nav" aria-label="Article categories">{% for category, posts in category_groups %}<a href="#{{ category | lower | replace(' ', '-') }}">{{ category }} <span>{{ posts | length }}</span></a>{% endfor %}</nav></div></section>
+
+  {% for category, posts in category_groups %}
+    <section class="section{% if loop.index is even %} section-blue{% endif %}" id="{{ category | lower | replace(' ', '-') }}" aria-labelledby="category-{{ loop.index }}">
+      <div class="container"><div class="section-header"><div><p class="eyebrow">Article category</p><h2 id="category-{{ loop.index }}">{{ category }}</h2></div><span class="project-count">{{ posts | length }} article{% if posts | length != 1 %}s{% endif %}</span></div>
+      {% if posts %}<div class="blog-grid">{% for post in posts %}{{ blog_card(post) }}{% endfor %}</div>{% else %}<div class="empty-state"><strong>Category foundation</strong><p>Relevant public notes will be added when they answer a real question without duplicating another article.</p></div>{% endif %}
+      </div>
+    </section>
+  {% endfor %}
+
+  <section class="cta-band"><div class="container cta-grid"><div><h2>Need an answer tied to your child?</h2><p>Ask about program fit, experience, current planning, device requirements, or future groups.</p></div><a class="button button-light" href="{{ url_for('contact') }}">Contact Eugene</a></div></section>
+{% endblock %}
