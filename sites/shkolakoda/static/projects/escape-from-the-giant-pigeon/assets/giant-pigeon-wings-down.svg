@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 110" role="img" aria-labelledby="title desc">
+  <title id="title">Giant Pigeon — wings down</title>
+  <desc id="desc">Original funny oversized pigeon with lowered wings for a two-frame flap.</desc>
+  <g stroke="#20201d" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <path fill="#a9b0b2" d="M27 50 Q18 27 39 20 Q55 18 65 33 Q72 20 91 23 Q111 27 112 48 Q136 45 147 58 Q128 74 105 69 Q95 95 61 91 Q33 87 27 50 Z"/>
+        <path fill="#c9d0d1" d="M38 50 Q9 54 4 79 Q37 79 70 57 Q49 88 56 103 Q82 81 85 54 Z"/>
+        <path fill="#fffdf4" d="M83 24 Q101 7 119 19 Q131 30 119 48 Q110 58 95 48 Z"/>
+        <circle cx="109" cy="29" r="8" fill="#fffdf4"/>
+        <circle cx="112" cy="29" r="3" fill="#20201d"/>
+        <path fill="#f4c542" d="M119 36 L145 42 L120 49 Z"/>
+        <path fill="none" d="M61 91 L57 105 M73 91 L77 105 M49 106 L63 105 M69 106 L84 105"/>
+        <path fill="none" d="M43 62 Q66 75 93 61"/>
+      </g>
+</svg>

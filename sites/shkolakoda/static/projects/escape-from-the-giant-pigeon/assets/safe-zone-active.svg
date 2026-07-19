@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 105" role="img" aria-labelledby="title desc">
+  <title id="title">Safe Zone — active</title>
+  <desc id="desc">Original striped shelter glowing after the player reaches safety.</desc>
+  <g stroke="#20201d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path fill="#dff5e7" d="M10 94 L10 35 L45 7 L80 35 L80 94 Z"/>
+        <path fill="#147d64" d="M5 36 L45 3 L85 36 L78 45 L45 18 L12 45 Z"/>
+        <path fill="#f4c542" d="M29 94 L29 49 Q45 38 61 49 L61 94 Z"/>
+        <path fill="none" d="M37 67 L44 75 L56 57" stroke-width="6"/>
+        <path fill="#f4c542" d="M7 10 L12 17 L20 14 L15 22 L21 28 L12 25 L6 32 L8 22 L1 17 L10 18 Z"/>
+        <path fill="#f4c542" d="M74 10 L78 17 L87 17 L80 22 L83 31 L76 25 L68 30 L72 21 L66 15 L75 17 Z"/>
+      </g>
+</svg>

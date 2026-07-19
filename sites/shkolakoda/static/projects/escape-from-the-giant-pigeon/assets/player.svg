@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 90" role="img" aria-labelledby="title desc">
+  <title id="title">Player — normal costume</title>
+  <desc id="desc">Original sketch-style child adventurer with a yellow scarf.</desc>
+  <g stroke="#20201d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path fill="#fffdf4" d="M22 38 Q18 52 21 70 L15 84 L29 85 L35 68 L42 85 L56 83 L49 68 Q53 52 47 38 Z"/>
+        <path fill="#f2b48c" d="M21 21 Q21 6 36 5 Q52 7 51 23 Q48 37 36 38 Q24 36 21 21 Z"/>
+        <path fill="#2257b5" d="M19 18 Q25 2 39 5 Q49 6 53 15 Q44 12 34 14 Q25 17 19 18 Z"/>
+        <path fill="#f4c542" d="M20 37 Q35 43 50 35 L51 46 Q35 51 18 43 Z"/>
+        <circle cx="31" cy="22" r="1.8" fill="#20201d" stroke="none"/>
+        <circle cx="43" cy="21" r="1.8" fill="#20201d" stroke="none"/>
+        <path fill="none" d="M32 29 Q37 33 43 28"/>
+        <path fill="none" d="M21 50 L10 64 M49 50 L61 61"/>
+      </g>
+</svg>

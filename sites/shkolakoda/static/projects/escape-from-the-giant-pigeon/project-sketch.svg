@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 700" role="img" aria-labelledby="title desc">
+  <title id="title">Escape from the Giant Pigeon — project system sketch</title>
+  <desc id="desc">Inventor notebook diagram labelling A Player start, B Giant Pigeon start, C Safe Zone, D boundaries, E Panic meter, and F the READY, PLAYING, CAUGHT, SAFE state flow.</desc>
+  <defs>
+      <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#d9e6eb" stroke-width="1"/></pattern>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#20201d"/></marker>
+    </defs>
+    <rect width="960" height="700" fill="#fffdf4"/>
+    <rect width="960" height="700" fill="url(#grid)"/>
+    <path d="M44 45 Q480 36 914 48 L907 650 Q476 665 48 649 Z" fill="none" stroke="#20201d" stroke-width="4" stroke-dasharray="11 7"/>
+    <text x="72" y="92" font-family="Georgia,serif" font-size="34" font-weight="bold" fill="#20201d">ESCAPE SYSTEM — inventor's sketch</text>
+    <text x="73" y="122" font-family="Arial,sans-serif" font-size="16" fill="#555">Provisional School of Code project artwork · stage coordinates 480 × 360</text>
+    <g transform="translate(75 160)">
+      <rect width="520" height="390" rx="8" fill="#fffef8" stroke="#20201d" stroke-width="4"/>
+      <path d="M20 20H500V370H20Z" fill="none" stroke="#c93d32" stroke-width="3" stroke-dasharray="9 7"/>
+      <circle cx="75" cy="305" r="23" fill="#2257b5" stroke="#20201d" stroke-width="3"/><text x="66" y="313" font-family="Arial" font-size="22" font-weight="bold" fill="white">A</text>
+      <path d="M384 82 q46 -54 92 0 q-50 -18 -92 0" fill="#a9b0b2" stroke="#20201d" stroke-width="4"/><circle cx="443" cy="58" r="17" fill="white" stroke="#20201d" stroke-width="3"/><text x="438" y="65" font-family="Arial" font-size="19" font-weight="bold">B</text>
+      <path d="M403 337V248L454 210L501 249V337Z" fill="#e2f4ed" stroke="#20201d" stroke-width="4"/><text x="442" y="295" font-family="Arial" font-size="24" font-weight="bold">C</text>
+      <text x="28" y="46" font-family="Arial" font-size="20" font-weight="bold" fill="#c93d32">D — STAGE BOUNDARIES</text>
+      <path d="M99 294 Q242 250 402 111" fill="none" stroke="#20201d" stroke-width="4" marker-end="url(#arrow)"/>
+      <text x="146" y="236" font-family="Arial" font-size="17" transform="rotate(-17 146 236)">pigeon points toward Player</text>
+      <path d="M95 314 Q252 352 397 302" fill="none" stroke="#147d64" stroke-width="4" marker-end="url(#arrow)"/>
+      <text x="174" y="360" font-family="Arial" font-size="17">Player moves with x / y</text>
+      <text x="34" y="345" font-family="Arial" font-size="14">x -190, y -110</text>
+      <text x="365" y="106" font-family="Arial" font-size="14">x 155, y 100</text>
+      <text x="379" y="361" font-family="Arial" font-size="14">x 190, y -115</text>
+    </g>
+    <g transform="translate(630 158)" font-family="Arial,sans-serif" fill="#20201d">
+      <rect width="250" height="116" rx="7" fill="#fff4bd" stroke="#20201d" stroke-width="3"/>
+      <text x="18" y="31" font-size="20" font-weight="bold">E — PANIC METER</text>
+      <rect x="19" y="52" width="211" height="26" fill="white" stroke="#20201d" stroke-width="2"/>
+      <rect x="22" y="55" width="148" height="20" fill="#c93d32"/>
+      <text x="19" y="101" font-size="14">100 − round(distance ÷ 4)</text>
+      <text x="0" y="160" font-size="21" font-weight="bold">F — MAIN GAME-STATE FLOW</text>
+      <rect x="7" y="181" width="104" height="42" rx="20" fill="#fff4bd" stroke="#20201d" stroke-width="3"/><text x="27" y="208" font-size="17" font-weight="bold">READY</text>
+      <path d="M111 202H146" stroke="#20201d" stroke-width="3" marker-end="url(#arrow)"/>
+      <rect x="151" y="181" width="98" height="42" rx="20" fill="#e9effb" stroke="#20201d" stroke-width="3"/><text x="167" y="208" font-size="17" font-weight="bold">PLAYING</text>
+      <path d="M200 224V271" stroke="#20201d" stroke-width="3" marker-end="url(#arrow)"/>
+      <path d="M200 246H58V271" fill="none" stroke="#20201d" stroke-width="3" marker-end="url(#arrow)"/>
+      <rect x="7" y="277" width="104" height="42" rx="20" fill="#fde9e5" stroke="#20201d" stroke-width="3"/><text x="21" y="304" font-size="17" font-weight="bold">CAUGHT</text>
+      <rect x="151" y="277" width="98" height="42" rx="20" fill="#e2f4ed" stroke="#20201d" stroke-width="3"/><text x="176" y="304" font-size="17" font-weight="bold">SAFE</text>
+      <text x="2" y="350" font-size="15">touch pigeon → CAUGHT</text>
+      <text x="2" y="376" font-size="15">touch safe zone → SAFE</text>
+      <text x="2" y="414" font-size="15" font-weight="bold">R or green flag</text>
+      <path d="M124 421 C270 450 278 95 127 100" fill="none" stroke="#c93d32" stroke-width="3" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+    </g>
+    <text x="75" y="615" font-family="Arial,sans-serif" font-size="18" fill="#20201d">Collision priority note: safety is checked only when the Player is NOT touching the pigeon.</text>
+</svg>

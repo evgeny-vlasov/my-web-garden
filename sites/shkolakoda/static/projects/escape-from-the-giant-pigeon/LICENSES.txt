@@ -1,0 +1,26 @@
+ESCAPE FROM THE GIANT PIGEON — LICENCE AND ATTRIBUTION
+
+Original project content
+------------------------
+The Player, Giant Pigeon, Safe Zone, backdrop, project sketch, WAV effects,
+Scratch scripts, and written project instructions were created for School of
+Code in 2026. They contain no copied Scratch characters, library media,
+screenshots, protected logos, or external project layouts.
+
+These original educational materials are licensed under the Creative Commons
+Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+Scratch clarity
+---------------
+Scratch is a project of the Scratch Foundation. School of Code is an independent
+educational project and is not affiliated with or endorsed by the Scratch
+Foundation. Scratch names are used only to identify the programming language,
+editor, and project format.
+
+Tooling
+-------
+scratchblocks 3.7.1 is self-hosted separately under its MIT licence. See
+sites/shkolakoda/static/vendor/scratchblocks/LICENSE.txt.
+The official Scratch VM is a pinned development/validation dependency and is not
+shipped as a website runtime dependency.

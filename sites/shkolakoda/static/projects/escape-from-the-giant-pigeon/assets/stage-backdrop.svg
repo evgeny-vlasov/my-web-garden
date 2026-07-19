@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-labelledby="title desc">
+  <title id="title">Escape from the Giant Pigeon stage</title>
+  <desc id="desc">Original paper-like top-down chase backdrop with a lower-left start, skyline doodles, stage boundary, and lower-right safe zone.</desc>
+  <rect width="480" height="360" fill="#fffdf4"/>
+      <path d="M0 52 Q118 38 237 53 T480 47 M0 299 Q120 286 242 301 T480 295" fill="none" stroke="#e7e1cf" stroke-width="3"/>
+      <path d="M58 41 L71 22 L85 41 M76 41 L91 14 L107 41 M91 41 L110 25 L128 41" fill="none" stroke="#89959a" stroke-width="5"/>
+      <path d="M329 43 L343 15 L355 43 M348 43 L362 27 L377 43 M370 43 L388 10 L403 43 M396 43 L415 24 L431 43" fill="none" stroke="#89959a" stroke-width="5"/>
+      <path d="M28 315 Q54 292 83 311 T139 309" fill="none" stroke="#147d64" stroke-width="7"/>
+      <path d="M169 294 Q201 268 234 291 T301 289" fill="none" stroke="#d8d0b7" stroke-width="9" stroke-dasharray="7 12"/>
+      <path d="M349 307 L455 307 L455 196" fill="none" stroke="#f4c542" stroke-width="12" stroke-linecap="round"/>
+      <path d="M18 333 L152 333" stroke="#2257b5" stroke-width="4" stroke-dasharray="9 8"/>
+      <text x="22" y="350" font-family="Arial, sans-serif" font-size="13" fill="#20201d">START — x -190, y -110</text>
+      <text x="354" y="332" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#20201d">SAFE ZONE</text>
+      <path d="M220 87 q16 -19 33 0 q-19 -7 -33 0 M251 83 q13 -15 27 1" fill="none" stroke="#687174" stroke-width="3"/>
+      <path d="M18 18 H462 V342 H18 Z" fill="none" stroke="#20201d" stroke-width="3" stroke-dasharray="8 5"/>
+</svg>

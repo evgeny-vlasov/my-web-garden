@@ -1,3 +1,6 @@
+from scratch_content import load_scratch_project
+
+
 TOPICS = {
     "coordinates": {
         "title": "Coordinates and Movement",
@@ -459,6 +462,11 @@ PROJECT_DETAILS = {
         ),
     },
 }
+
+
+PROJECT_DETAILS["escape-from-the-giant-pigeon"].update(
+    load_scratch_project("escape-from-the-giant-pigeon.json")
+)
 
 
 PROGRAM_LINKS = {

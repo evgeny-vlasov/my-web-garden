@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 90" role="img" aria-labelledby="title desc">
+  <title id="title">Player — caught costume</title>
+  <desc id="desc">Original sketch-style player looking surprised after being caught.</desc>
+  <g stroke="#20201d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path fill="#fffdf4" d="M22 38 Q18 52 21 70 L15 84 L29 85 L35 68 L42 85 L56 83 L49 68 Q53 52 47 38 Z"/>
+        <path fill="#f2b48c" d="M21 21 Q21 6 36 5 Q52 7 51 23 Q48 37 36 38 Q24 36 21 21 Z"/>
+        <path fill="#2257b5" d="M19 18 Q25 2 39 5 Q49 6 53 15 Q44 12 34 14 Q25 17 19 18 Z"/>
+        <path fill="#c93d32" d="M20 37 Q35 43 50 35 L51 46 Q35 51 18 43 Z"/>
+        <path fill="none" d="M27 18 L34 25 M34 18 L27 25 M40 18 L47 25 M47 18 L40 25"/>
+        <ellipse cx="37" cy="31" rx="5" ry="3" fill="none"/>
+        <path fill="none" d="M21 49 L7 38 M49 49 L63 37"/>
+        <path fill="#a9b0b2" d="M4 10 L11 5 L13 14 L22 11 L18 20 L8 19 Z"/>
+      </g>
+</svg>
