@@ -25,6 +25,7 @@ Use one low-volume request and report only the status code:
 curl --max-time 15 -sS -o /dev/null -w '%{http_code}\n' https://psyling.com/
 curl --max-time 15 -sS -o /dev/null -w '%{http_code}\n' https://tomumber.com/
 curl --max-time 15 -sS -o /dev/null -w '%{http_code}\n' https://shkolakoda.com/
+curl --max-time 15 -sS -o /dev/null -w '%{http_code}\n' https://science.shkolakoda.com/
 ```
 
 Expected healthy result: `200`. Do not submit forms or test private room links
@@ -38,6 +39,7 @@ systemctl --failed --no-pager
 systemctl status webgarden-psyling.service --no-pager
 systemctl status tomumber.service --no-pager
 systemctl status webgarden-shkolakoda.service --no-pager
+systemctl status webgarden-science.service --no-pager
 systemctl status postgresql@15-main.service --no-pager
 ```
 
@@ -64,8 +66,8 @@ Do not run `reload` or `restart` as part of a check. The unprivileged account
 cannot complete `nginx -t` because Let’s Encrypt certificates are restricted;
 that permission error alone does not mean the active configuration is invalid.
 
-Shkolakoda must keep matching IPv4 and IPv6 listeners on its named nginx
-server blocks:
+Shkolakoda and Science must keep matching IPv4 and IPv6 listeners on their
+named nginx server blocks:
 
 ```nginx
 listen 80;
@@ -78,6 +80,12 @@ On 2026-07-09, `https://shkolakoda.com` was presenting the LAIC certificate on
 IPv6 because the Shkolakoda HTTPS block had `listen 443 ssl` but no
 `listen [::]:443 ssl`. Adding the IPv6 HTTP and HTTPS listen lines fixed
 `shkolakoda.com`, `www.shkolakoda.com`, and `science.shkolakoda.com`.
+
+Current intended split:
+
+- `sites/shkolakoda` -> School of Code on `127.0.0.1:8000`. Public School of
+  Code content has not yet been rebuilt.
+- `sites/science` -> Happy Science on `127.0.0.1:8005`.
 
 ## Safe Log Inspection
 
@@ -110,6 +118,7 @@ Current protected application environment:
 - psyling: `/etc/webgarden/psyling.env`
 - tomumber: environment-file standardization pending
 - shkolakoda: no application environment file identified
+- science: no application environment file identified
 
 ## Database Checks
 

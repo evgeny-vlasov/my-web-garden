@@ -51,7 +51,8 @@ WebGarden is a production-ready Flask-based web hosting platform designed to eff
 🚀 **Active Sites:**
 - **psyling** (Psychotherapy) - Port 8001 - With "Psyling Assistant" chatbot
 - **keystone** (Hardscapes/Landscaping) - Port 8002 - With "Keystone Assistant" chatbot
-- **shkolakoda** (School of Code Calgary) - Port 8000 - Public-facing site for `shkolakoda.com` and `science.shkolakoda.com`
+- **shkolakoda** (School of Code Calgary) - Port 8000 - Public-facing site for `shkolakoda.com`; public School of Code content has not yet been rebuilt
+- **science** (Happy Science Calgary) - Port 8005 - Preserved science site for `science.shkolakoda.com`
 
 🔮 **Future Development:**
 - Cal.com booking integration
@@ -434,8 +435,9 @@ sudo systemctl restart dentist.service
 **Port Reference:**
 - 8001: psyling (service: webgarden-psyling; compatibility symlink retained at sites/therapist)
 - 8002: keystone (hardscapes)
-- 8000: shkolakoda (service: webgarden-shkolakoda; compatibility symlink retained at sites/daycamp)
-- 8003+: Available for new sites
+- 8000: shkolakoda / School of Code (service: webgarden-shkolakoda; content rebuild pending)
+- 8005: science / Happy Science (planned service: webgarden-science)
+- 8006+: Available for new sites
 
 **Full documentation:** See `deploy/README.md` for comprehensive deployment guide.
 

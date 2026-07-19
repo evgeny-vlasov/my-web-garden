@@ -1,0 +1,17 @@
+venv/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+instance/
+*.sqlite
+*.db
+uploads/
+logs/
+.env
+*.pem
+*.key
+node_modules/
+build/
+dist/
+.cache/
+cache/

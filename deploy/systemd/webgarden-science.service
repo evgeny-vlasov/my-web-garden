@@ -1,0 +1,14 @@
+[Unit]
+Description=Happy Science Flask app
+After=network.target
+
+[Service]
+User=fluffy
+Group=www-data
+WorkingDirectory=/var/www/webgarden/sites/science
+Environment="PATH=/var/www/webgarden/sites/science/venv/bin"
+ExecStart=/var/www/webgarden/sites/science/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8005 wsgi:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
