@@ -225,6 +225,11 @@ class PublicSiteTest(unittest.TestCase):
 
     def test_internal_links_and_fragments(self):
         known_paths = set(self.paths) | {"/robots.txt", "/sitemap.xml", "/favicon.svg"}
+        known_paths.update(
+            download["url"]
+            for project in PROJECTS.values()
+            for download in project.get("downloads", [])
+        )
         for source_path, (_, parser) in self.pages.items():
             for href in parser.hrefs:
                 split = urlsplit(href)
