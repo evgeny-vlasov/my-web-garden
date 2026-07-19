@@ -1,17 +1,19 @@
 import re
+import sys
 import unittest
 from collections import Counter, defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
 
+SITE_ROOT = Path(__file__).resolve().parents[1]
+if str(SITE_ROOT) not in sys.path:
+    sys.path.insert(0, str(SITE_ROOT))
+
 from app import PROGRAMS, app, public_paths
 from blog_content import BLOG_CATEGORIES, BLOG_POSTS
 from curriculum import LESSONS, TOPICS
 from project_library import PROJECTS
-
-
-SITE_ROOT = Path(__file__).resolve().parents[1]
 
 
 class PageParser(HTMLParser):
