@@ -10,7 +10,7 @@ Roblox Studio / Lua and AI & Smart Machines are documented as future programs.
 
 The first public release is informational. It has no database, registration
 backend, admin area, migrations, or upload storage. Contact is handled directly
-through `schoolofcode@vlasov.ca` and the published phone number.
+through `hello@shkolakoda.com` and the published phone number.
 
 The preserved Happy Science site is a separate application in `sites/science`
 and is served at `science.shkolakoda.com`.
