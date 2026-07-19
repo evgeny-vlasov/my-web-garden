@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_macros.html" import related_card %}
 
 {% block title %}Computer Lab | School of Code Calgary{% endblock %}
 {% block meta_description %}The School of Code Computer Lab provides structured guided project time to modify, test, rebuild, debug, and demonstrate class projects.{% endblock %}
@@ -53,6 +54,23 @@
           <li>Prepare something to demonstrate</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="section lab-project-examples">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">One lesson idea, two Lab forms</p>
+          <h2>Coordinates leave the chase game and become new systems.</h2>
+          <p class="section-intro">After the School lesson introduces position and movement, structured Lab time lets the same idea change form without becoming random device time.</p>
+        </div>
+      </div>
+      <div class="related-grid related-grid-two">
+        {{ related_card("Grandma's Intergalactic Taxi", 'Computer Lab Project', 'grandmas_taxi_project', 'Coordinates become destinations, routes, and dispatch') }}
+        {{ related_card('Astro-Chicken Rescue', 'Computer Lab Project', 'astro_chicken_project', 'Coordinates belong to the ship, chickens, and hazards') }}
+      </div>
+      <p class="mono-note"><a href="{{ url_for('coordinates_lesson') }}">Start with the lesson: How Does the Screen Know Where You Are?</a></p>
     </div>
   </section>
 

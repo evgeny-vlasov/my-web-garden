@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumbs, related_card, topic_tags %}
+
+{% block title %}{{ project.name }} | School of Code Calgary{% endblock %}
+{% block meta_description %}{{ project.meta_description }}{% endblock %}
+
+{% block content %}
+  <section class="curriculum-hero project-hero project-hero-{{ project.type_class }}">
+    <div class="container">
+      {{ breadcrumbs([('Home', 'home'), ('Projects', 'projects')], project.name) }}
+      <div class="curriculum-hero-grid">
+        <div>
+          <p class="eyebrow">{{ project.project_type }} / {{ project.program }}</p>
+          <h1>{{ project.name }}</h1>
+          <p class="lead">{{ project.mission }}</p>
+          {{ topic_tags(project.topics) }}
+        </div>
+        <dl class="curriculum-meta">
+          <div><dt>Project type</dt><dd>{{ project.project_type }}</dd></div>
+          <div><dt>Program</dt><dd><a href="{{ url_for(project.program_endpoint) }}">{{ project.program }}</a></dd></div>
+          <div><dt>Main topic</dt><dd><a href="{{ url_for(project.topic_endpoint) }}">{{ project.topic }}</a></dd></div>
+          <div><dt>Difficulty</dt><dd>{{ project.difficulty }}</dd></div>
+          <div><dt>Estimated time</dt><dd>{{ project.estimated_time }}</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  {% if project.mode == 'guided' %}
+    <section class="section">
+      <div class="container two-column">
+        <div>
+          <p class="eyebrow">What students build</p>
+          <h2>A complete small chase system.</h2>
+          <ul class="check-list">
+            {% for item in project.what_students_build %}<li>{{ item }}</li>{% endfor %}
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow">What students learn</p>
+          <h2>The hidden structure.</h2>
+          <ul class="concept-chip-list">
+            {% for item in project.what_students_learn %}<li>{{ item }}</li>{% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-blue">
+      <div class="container two-column">
+        <div>
+          <p class="eyebrow">What students need</p>
+          <h2>Keep the setup ordinary.</h2>
+          <ul class="check-list">
+            {% for item in project.needs %}<li>{{ item }}</li>{% endfor %}
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>Browser and saving note</h3>
+          <p>{{ project.needs_note }}</p>
+          <p>Students should draw their own characters or use ordinary built-in Scratch assets. This project does not provide or depend on copyrighted character artwork.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Build sequence</p>
+            <h2>Ten decisions from blank stage to reliable restart.</h2>
+          </div>
+          <p class="section-intro">The steps describe the system and its checks rather than transcribing a wall of blocks.</p>
+        </div>
+        <ol class="build-steps">
+          {% for step in project.build_steps %}
+            <li class="build-step-card">
+              <div class="build-step-number">{{ loop.index | string }}</div>
+              <div class="build-step-main">
+                <h3>{{ step.title }}</h3>
+                <p><strong>Task:</strong> {{ step.task }}</p>
+                <p>{{ step.explanation }}</p>
+              </div>
+              <div class="build-step-checks">
+                <p><span>Checkpoint</span>{{ step.checkpoint }}</p>
+                <p><span>Likely mistake</span>{{ step.mistake }}</p>
+              </div>
+            </li>
+          {% endfor %}
+        </ol>
+        <div class="pseudo-block-grid" aria-label="Representative pseudo-block examples">
+          {% for example in project.pseudo_blocks %}<pre><code>{{ example }}</code></pre>{% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-yellow">
+      <div class="container two-column">
+        <div>
+          <p class="eyebrow">Test it</p>
+          <h2>Try to prove the game wrong.</h2>
+          <ul class="test-list">
+            {% for question in project.test_questions %}<li>{{ question }}</li>{% endfor %}
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow">Improve it</p>
+          <h2>Keep the core idea visible.</h2>
+          <ul class="check-list">
+            {% for idea in project.improvements %}<li>{{ idea }}</li>{% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Challenges</p>
+        <h2>Choose a level after the core works.</h2>
+        <div class="challenge-grid">
+          {% for level in project.challenge_levels %}
+            <article class="challenge-card challenge-{{ loop.index }}">
+              <span>LEVEL 0{{ loop.index }}</span>
+              <h3>{{ level.name }}</h3>
+              <p>{{ level.description }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% else %}
+    <section class="section section-yellow">
+      <div class="container lab-brief">
+        <div>
+          <p class="eyebrow">Computer Lab character</p>
+          <h2>Mission, constraints, and several correct solutions.</h2>
+        </div>
+        <p class="lead">{{ project.lab_note }}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container two-column">
+        <div>
+          <p class="eyebrow">Required systems</p>
+          <h2>What must exist.</h2>
+          <ul class="check-list">
+            {% for system in project.required_systems %}<li>{{ system }}</li>{% endfor %}
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow">Suggested build order</p>
+          <h2>One useful route through the problem.</h2>
+          <ol class="numbered-build-list">
+            {% for step in project.build_order %}<li>{{ step }}</li>{% endfor %}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-ink">
+      <div class="container">
+        <p class="eyebrow">Checkpoints</p>
+        <h2>Evidence that the system is becoming reliable.</h2>
+        <ol class="checkpoint-grid">
+          {% for checkpoint in project.checkpoints %}<li>{{ checkpoint }}</li>{% endfor %}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section-blue">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Challenge cards</p>
+            <h2>Change the lesson idea without repeating the guided project.</h2>
+          </div>
+          <p class="section-intro">A student can choose one card, combine compatible cards, or propose an equivalent challenge.</p>
+        </div>
+        <div class="challenge-card-grid">
+          {% for challenge in project.challenge_cards %}
+            <article><span>CHALLENGE {{ loop.index | string }}</span><p>{{ challenge }}</p></article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container boss-panel">
+        <span class="feature-code">BOSS_LEVEL / OPTIONAL</span>
+        <h2>Make position information part of the mission.</h2>
+        <p>{{ project.boss_level }}</p>
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="section{% if project.mode == 'guided' %} section-ink{% endif %}">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Show-teacher checkpoint</p>
+        <h2>Demonstrate the working decisions.</h2>
+      </div>
+      <ul class="demonstrate-list">
+        {% for item in project.demonstrate %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-yellow">
+    <div class="container parent-explanation parent-explanation-light">
+      <div>
+        <span class="feature-code">PARENT_EXPLANATION</span>
+        <h2>What this project develops</h2>
+      </div>
+      <p>{{ project.parent_explanation }}</p>
+    </div>
+  </section>
+
+  <section class="section related-content">
+    <div class="container">
+      <p class="eyebrow">Related curriculum</p>
+      <h2>See the idea before and after this project.</h2>
+      <div class="related-grid">
+        {{ related_card(topic.title, 'Topic', topic.endpoint, 'Core idea') }}
+        {{ related_card(lesson.title, 'Lesson', lesson.endpoint, lesson.duration) }}
+        {% for related in related_projects %}
+          {{ related_card(related.name, related.project_type, related.endpoint, related.difficulty) }}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -32,7 +32,10 @@
       <h2>From making something move to managing a complete game.</h2>
       <ol class="topic-path">
         <li>Events</li>
-        <li>Coordinates</li>
+        <li class="topic-complete">
+          <a href="{{ url_for(completed_topic.endpoint) }}">Coordinates</a>
+          <span>Complete package</span>
+        </li>
         <li>Loops</li>
         <li>Conditions</li>
         <li>Variables</li>
@@ -42,6 +45,33 @@
         <li>Game state</li>
         <li>Debugging</li>
       </ol>
+    </div>
+  </section>
+
+  <section class="section curriculum-package">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">First completed topic package</p>
+          <h2>{{ completed_topic.title }}</h2>
+          <p class="section-intro">This package proves the route from a planned topic and lesson into one guided class build and two Computer Lab projects. It does not mean the full Scratch curriculum is complete.</p>
+        </div>
+        <a class="button" href="{{ url_for(completed_topic.endpoint) }}">Open Topic</a>
+      </div>
+      <div class="curriculum-package-grid">
+        <a class="package-card package-lesson" href="{{ url_for(completed_lesson.endpoint) }}">
+          <span>Lesson / {{ completed_lesson.duration }}</span>
+          <strong>{{ completed_lesson.title }}</strong>
+          <small>Coordinates, movement, guided build, modification, and demonstration.</small>
+        </a>
+        {% for project in completed_projects %}
+          <a class="package-card package-project" href="{{ url_for(project.endpoint) }}">
+            <span>{{ project.project_type }}</span>
+            <strong>{{ project.name }}</strong>
+            <small>{{ project.difficulty }} / {{ project.estimated_time }}</small>
+          </a>
+        {% endfor %}
+      </div>
     </div>
   </section>
 

@@ -23,7 +23,12 @@ and is served at `science.shkolakoda.com`.
 - `/programs/robotics`
 - `/programs/roblox`
 - `/programs/ai`
+- `/topics/coordinates`
+- `/lessons/coordinates-and-movement`
 - `/projects`
+- `/projects/escape-from-the-giant-pigeon`
+- `/projects/grandmas-intergalactic-taxi`
+- `/projects/astro-chicken-rescue`
 - `/computer-lab`
 - `/parents`
 - `/method`

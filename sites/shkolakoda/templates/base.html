@@ -26,7 +26,7 @@
 
         <nav class="desktop-nav" aria-label="Primary navigation">
           <a class="nav-link{% if request.endpoint == 'home' %} is-active{% endif %}" href="{{ url_for('home') }}">Home</a>
-          <details class="nav-dropdown{% if request.endpoint in ['programs', 'scratch', 'robotics', 'roblox', 'ai'] %} is-active{% endif %}">
+          <details class="nav-dropdown{% if request.endpoint in ['programs', 'scratch', 'robotics', 'roblox', 'ai', 'coordinates_topic', 'coordinates_lesson'] %} is-active{% endif %}">
             <summary>Programs</summary>
             <div class="nav-dropdown-menu">
               <a href="{{ url_for('programs') }}">All programs</a>
@@ -36,7 +36,7 @@
               <a href="{{ url_for('ai') }}">AI &amp; Smart Machines <span>Later</span></a>
             </div>
           </details>
-          <a class="nav-link{% if request.endpoint == 'projects' %} is-active{% endif %}" href="{{ url_for('projects') }}">Projects</a>
+          <a class="nav-link{% if request.endpoint in ['projects', 'giant_pigeon_project', 'grandmas_taxi_project', 'astro_chicken_project'] %} is-active{% endif %}" href="{{ url_for('projects') }}">Projects</a>
           <a class="nav-link{% if request.endpoint == 'computer_lab' %} is-active{% endif %}" href="{{ url_for('computer_lab') }}">Computer Lab</a>
           <a class="nav-link{% if request.endpoint == 'parents' %} is-active{% endif %}" href="{{ url_for('parents') }}">For Parents</a>
           <a class="nav-link{% if request.endpoint == 'method' %} is-active{% endif %}" href="{{ url_for('method') }}">Our Method</a>

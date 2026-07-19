@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumbs, related_card, status_badge %}
+
+{% block title %}{{ topic.title }} | School of Code Calgary{% endblock %}
+{% block meta_description %}{{ topic.meta_description }}{% endblock %}
+
+{% block content %}
+  <section class="curriculum-hero topic-hero">
+    <div class="container">
+      {{ breadcrumbs([('Home', 'home'), ('Programs', 'programs'), ('Scratch', 'scratch')], topic.title) }}
+      <div class="curriculum-hero-grid">
+        <div>
+          <p class="eyebrow">Topic / {{ topic.program }}</p>
+          <h1>{{ topic.title }}</h1>
+          <p class="lead">{{ topic.intro }}</p>
+          <a class="button" href="{{ url_for(lesson.endpoint) }}">Open the Lesson</a>
+        </div>
+        <aside class="core-idea-panel">
+          <span class="feature-code">CORE_IDEA</span>
+          <p><strong>Coordinates describe position.</strong></p>
+          <p>A screen is a map made from numbers. Every sprite, object, button, robot marker, game character, and target needs a way to answer:</p>
+          <p class="core-question">Where am I?</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="coordinate-map-title">
+    <div class="container two-column coordinate-section">
+      <div>
+        <p class="eyebrow">Read the screen</p>
+        <h2 id="coordinate-map-title">Two number lines make a map.</h2>
+        <p class="lead"><strong>x</strong> means left and right. <strong>y</strong> means down and up. Together, they name a position.</p>
+        <p>The centre is the origin: <code>x: 0, y: 0</code>. Positive x moves right, negative x moves left, positive y moves up, and negative y moves down.</p>
+        <ul class="coordinate-key" aria-label="Example coordinates">
+          <li><span class="point-swatch point-a-swatch"></span><code>x: -150, y: 110</code></li>
+          <li><span class="point-swatch point-b-swatch"></span><code>x: 140, y: 120</code></li>
+          <li><span class="point-swatch point-c-swatch"></span><code>x: -120, y: -100</code></li>
+          <li><span class="point-swatch point-d-swatch"></span><code>x: 160, y: -90</code></li>
+        </ul>
+      </div>
+      <figure class="coordinate-figure">
+        <div class="coordinate-plane" role="img" aria-label="Coordinate plane with the origin and four example points">
+          <span class="axis axis-x" aria-hidden="true"></span>
+          <span class="axis axis-y" aria-hidden="true"></span>
+          <span class="axis-label axis-positive-x">+x right</span>
+          <span class="axis-label axis-negative-x">-x left</span>
+          <span class="axis-label axis-positive-y">+y up</span>
+          <span class="axis-label axis-negative-y">-y down</span>
+          <span class="coordinate-point point-origin"><b>0</b><small>x: 0, y: 0</small></span>
+          <span class="coordinate-point point-a"><b>A</b><small>-150, 110</small></span>
+          <span class="coordinate-point point-b"><b>B</b><small>140, 120</small></span>
+          <span class="coordinate-point point-c"><b>C</b><small>-120, -100</small></span>
+          <span class="coordinate-point point-d"><b>D</b><small>160, -90</small></span>
+        </div>
+        <figcaption>A position changes when its x value, y value, or both values change.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section-blue">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Why it matters</p>
+          <h2>The same idea returns in larger systems.</h2>
+        </div>
+        <p class="section-intro">This first lesson does not teach every advanced application. It establishes a position model that students will meet again.</p>
+      </div>
+      <div class="concept-grid">
+        {% for title, description in topic.returns_later %}
+          <article class="concept-card">
+            <h3>{{ title }}</h3>
+            <p>{{ description }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Math kernel</p>
+        <h2>The compact mathematics inside movement.</h2>
+        <p class="lead">Students do not need formal advanced mathematics to begin, but the numbers should remain visible and meaningful.</p>
+      </div>
+      <dl class="kernel-list">
+        {% for term, explanation in topic.math_kernel %}
+          <div><dt>{{ term }}</dt><dd>{{ explanation }}</dd></div>
+        {% endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section-yellow">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Programs where it appears</p>
+          <h2>One coordinate idea, several future forms.</h2>
+        </div>
+      </div>
+      <div class="program-appearance-grid">
+        {% for name, status, style, endpoint in topic.program_appearances %}
+          <a class="appearance-card" href="{{ url_for(endpoint) }}">
+            {{ status_badge(status, style) }}
+            <strong>{{ name }}</strong>
+            <span>See program <b aria-hidden="true">-&gt;</b></span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Common mistakes</p>
+          <h2>Read the numbers before adding more code.</h2>
+        </div>
+      </div>
+      <div class="mistake-grid">
+        {% for title, explanation in topic.common_mistakes %}
+          <article class="mistake-card">
+            <h3>{{ title }}</h3>
+            <p>{{ explanation }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-ink">
+    <div class="container">
+      <div class="parent-explanation">
+        <div>
+          <span class="feature-code">PARENT_NOTE</span>
+          <h2>What is hiding under the chase game?</h2>
+        </div>
+        <p>{{ topic.parent_note }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section related-content">
+    <div class="container">
+      <p class="eyebrow">Continue through the curriculum</p>
+      <h2>Connected pages</h2>
+      <div class="related-grid">
+        {{ related_card(lesson.title, 'Lesson', lesson.endpoint, lesson.duration) }}
+        {% for project in related_projects %}
+          {{ related_card(project.name, project.project_type, project.endpoint, project.difficulty) }}
+        {% endfor %}
+        {{ related_card('Scratch & Game Design', 'Program', 'scratch', 'Active now') }}
+        {{ related_card('Robotics', 'Program', 'robotics', 'Coordinates return later') }}
+        {{ related_card('Computer Lab', 'School project mode', 'computer_lab', 'Structured freedom') }}
+      </div>
+    </div>
+  </section>
+{% endblock %}

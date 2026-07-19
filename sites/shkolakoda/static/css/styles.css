@@ -1445,6 +1445,1024 @@ dl:last-child {
   font-size: 0.76rem;
 }
 
+.project-card h3 a {
+  color: var(--ink);
+  text-decoration-color: var(--yellow);
+  text-decoration-thickness: 3px;
+}
+
+.project-card-linked {
+  border-color: #b8b5a8;
+  box-shadow: 4px 4px 0 rgba(21, 21, 21, 0.08);
+}
+
+.project-card-meta {
+  border-top: 1px solid var(--soft-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+}
+
+.project-card-meta span,
+.preview-note {
+  color: var(--muted);
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.project-card-link {
+  margin-top: 0.85rem;
+}
+
+.preview-note {
+  border-top: 1px dashed var(--line);
+  display: block;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+}
+
+.library-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.library-key span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.library-key b {
+  color: var(--ink);
+  font-family: "Courier New", monospace;
+  margin-right: 0.3rem;
+  text-transform: uppercase;
+}
+
+.breadcrumbs {
+  margin-bottom: 2.4rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs li {
+  color: var(--muted);
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.breadcrumbs li + li::before {
+  color: var(--green);
+  content: ">";
+  margin-right: 0.35rem;
+}
+
+.breadcrumbs a {
+  color: var(--ink);
+}
+
+.curriculum-hero {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--soft-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--soft-line) 1px, transparent 1px);
+  background-size: 34px 34px;
+  border-bottom: 1px solid var(--line);
+  padding: 3rem 0 4.5rem;
+}
+
+.curriculum-hero-grid {
+  align-items: start;
+  display: grid;
+  gap: 3.5rem;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+}
+
+.curriculum-hero h1 {
+  max-width: 880px;
+}
+
+.curriculum-hero .tag-list {
+  margin-top: 0;
+  max-width: 760px;
+  padding-top: 0.4rem;
+}
+
+.core-idea-panel,
+.curriculum-meta {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow);
+  margin: 0;
+  padding: 1.5rem;
+}
+
+.core-idea-panel > p {
+  color: var(--muted);
+}
+
+.core-idea-panel > p strong {
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+}
+
+.core-idea-panel .core-question {
+  border-top: 1px solid var(--line);
+  color: var(--green);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-top: 1.2rem;
+  padding-top: 1.1rem;
+}
+
+.curriculum-meta div {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: 105px 1fr;
+  padding: 0.65rem 0;
+}
+
+.curriculum-meta div + div {
+  border-top: 1px solid var(--soft-line);
+}
+
+.curriculum-meta dt {
+  color: var(--muted);
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.curriculum-meta dd {
+  font-size: 0.92rem;
+  font-weight: 750;
+  margin: 0;
+}
+
+.curriculum-meta a {
+  color: var(--ink);
+}
+
+.coordinate-section {
+  align-items: center;
+}
+
+.coordinate-section code,
+.theory-table code,
+.pseudo-block-grid code {
+  font-family: "Courier New", monospace;
+}
+
+.coordinate-key {
+  display: grid;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.coordinate-key li {
+  align-items: center;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.point-swatch {
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+}
+
+.point-a-swatch,
+.point-a b {
+  background: var(--red);
+}
+
+.point-b-swatch,
+.point-b b {
+  background: var(--blue);
+}
+
+.point-c-swatch,
+.point-c b {
+  background: var(--violet);
+}
+
+.point-d-swatch,
+.point-d b {
+  background: var(--green);
+}
+
+.coordinate-figure {
+  margin: 0;
+}
+
+.coordinate-plane {
+  aspect-ratio: 1 / 1;
+  background-color: var(--white);
+  background-image:
+    linear-gradient(#eceae0 1px, transparent 1px),
+    linear-gradient(90deg, #eceae0 1px, transparent 1px);
+  background-size: 10% 10%;
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--yellow);
+  overflow: hidden;
+  position: relative;
+}
+
+.coordinate-figure figcaption {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-top: 1rem;
+}
+
+.coordinate-plane .axis {
+  background: var(--ink);
+  position: absolute;
+  z-index: 1;
+}
+
+.coordinate-plane .axis-x {
+  height: 2px;
+  left: 3%;
+  right: 3%;
+  top: 50%;
+}
+
+.coordinate-plane .axis-y {
+  bottom: 3%;
+  left: 50%;
+  top: 3%;
+  width: 2px;
+}
+
+.axis-label {
+  background: var(--white);
+  font-family: "Courier New", monospace;
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 0.1rem 0.25rem;
+  position: absolute;
+  z-index: 2;
+}
+
+.axis-positive-x {
+  right: 2%;
+  top: calc(50% + 7px);
+}
+
+.axis-negative-x {
+  left: 2%;
+  top: calc(50% + 7px);
+}
+
+.axis-positive-y {
+  left: calc(50% + 7px);
+  top: 2%;
+}
+
+.axis-negative-y {
+  bottom: 2%;
+  left: calc(50% + 7px);
+}
+
+.coordinate-point {
+  align-items: center;
+  display: flex;
+  gap: 0.35rem;
+  position: absolute;
+  z-index: 3;
+}
+
+.coordinate-point b {
+  align-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  color: var(--white);
+  display: flex;
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+  height: 26px;
+  justify-content: center;
+  width: 26px;
+}
+
+.coordinate-point small {
+  background: var(--white);
+  border: 1px solid var(--line);
+  font-family: "Courier New", monospace;
+  font-size: 0.61rem;
+  font-weight: 700;
+  padding: 0.15rem 0.25rem;
+  white-space: nowrap;
+}
+
+.point-origin {
+  left: 50%;
+  top: 50%;
+  transform: translate(-13px, -13px);
+}
+
+.point-origin b {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.point-a {
+  left: 12%;
+  top: 18%;
+}
+
+.point-b {
+  right: 7%;
+  top: 15%;
+}
+
+.point-c {
+  bottom: 17%;
+  left: 14%;
+}
+
+.point-d {
+  bottom: 20%;
+  right: 5%;
+}
+
+.concept-grid,
+.mistake-grid,
+.program-appearance-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.concept-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.concept-card,
+.mistake-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.2rem;
+}
+
+.concept-card h3,
+.mistake-card h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+}
+
+.concept-card p,
+.mistake-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.kernel-list {
+  margin: 0;
+}
+
+.kernel-list div {
+  border-bottom: 1px solid var(--line);
+  padding: 0.8rem 0;
+}
+
+.kernel-list dt {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.kernel-list dd {
+  color: var(--muted);
+  margin: 0.2rem 0 0;
+}
+
+.program-appearance-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.appearance-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 180px;
+  padding: 1.3rem;
+  text-decoration: none;
+}
+
+.appearance-card:hover,
+.appearance-card:focus {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.appearance-card .status-badge {
+  align-self: flex-start;
+}
+
+.appearance-card strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+}
+
+.appearance-card > span:last-child {
+  color: var(--green);
+  font-size: 0.8rem;
+  font-weight: 800;
+  margin-top: auto;
+}
+
+.mistake-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mistake-card {
+  border-left: 4px solid var(--red);
+}
+
+.parent-explanation {
+  align-items: center;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: 0.8fr 1.2fr;
+}
+
+.parent-explanation h2 {
+  font-size: 2.1rem;
+  margin: 0;
+}
+
+.parent-explanation > p {
+  color: #e3e1d8;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+
+.parent-explanation-light {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+}
+
+.parent-explanation-light > p {
+  color: var(--muted);
+}
+
+.related-content h2 {
+  margin-bottom: 2rem;
+}
+
+.related-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.related-grid-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.related-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 8px;
+  color: var(--ink);
+  display: grid;
+  min-height: 155px;
+  padding: 1.2rem;
+  text-decoration: none;
+}
+
+.related-card:hover,
+.related-card:focus {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.related-card > span {
+  color: var(--green);
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.related-card strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  margin: 0.55rem 0;
+}
+
+.related-card small {
+  color: var(--muted);
+}
+
+.related-card b {
+  align-self: end;
+  color: var(--green);
+  justify-self: end;
+}
+
+.story-panel {
+  max-width: 900px;
+}
+
+.story-panel h2 {
+  max-width: 680px;
+}
+
+.story-panel > p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+  line-height: 1.5;
+  max-width: 850px;
+}
+
+.lesson-timeline {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.lesson-timeline li {
+  align-items: start;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 130px 1fr;
+  padding: 1.2rem 0;
+}
+
+.lesson-timeline li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.lesson-timeline time {
+  color: var(--green);
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.lesson-timeline h3 {
+  margin-bottom: 0.3rem;
+}
+
+.lesson-timeline p {
+  color: var(--muted);
+}
+
+.check-list,
+.test-list,
+.demonstrate-list {
+  list-style: none;
+  margin: 1.3rem 0 0;
+  padding: 0;
+}
+
+.check-list li,
+.test-list li,
+.demonstrate-list li {
+  border-bottom: 1px solid var(--line);
+  padding: 0.65rem 0 0.65rem 1.7rem;
+  position: relative;
+}
+
+.check-list li::before,
+.demonstrate-list li::before {
+  color: var(--green);
+  content: "[+]";
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  left: 0;
+  position: absolute;
+}
+
+.test-list li::before {
+  color: var(--red);
+  content: "?";
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 900;
+  left: 0.35rem;
+  position: absolute;
+}
+
+.theory-table {
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.theory-table > div {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(150px, 1fr) auto 0.8fr;
+  padding: 0.75rem 0.9rem;
+}
+
+.theory-table > div + div {
+  border-top: 1px solid var(--soft-line);
+}
+
+.theory-table code {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.theory-table > div > span {
+  color: var(--green);
+  font-weight: 900;
+}
+
+.theory-table strong {
+  font-size: 0.88rem;
+}
+
+.theory-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.guided-preview,
+.lab-brief {
+  align-items: center;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: 1fr auto;
+}
+
+.checkpoint-grid {
+  counter-reset: checkpoint;
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.checkpoint-grid li {
+  background: #252522;
+  border: 1px solid #44443e;
+  counter-increment: checkpoint;
+  min-height: 170px;
+  padding: 3.2rem 1rem 1rem;
+  position: relative;
+}
+
+.checkpoint-grid li::before {
+  color: var(--yellow);
+  content: "CHECK 0" counter(checkpoint);
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  left: 1rem;
+  position: absolute;
+  top: 1rem;
+}
+
+.challenge-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem;
+}
+
+.challenge-card {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  padding: 1.4rem;
+}
+
+.challenge-card > span {
+  color: var(--green);
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.challenge-card h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  margin-top: 0.75rem;
+}
+
+.challenge-card ul {
+  color: var(--muted);
+  padding-left: 1.2rem;
+}
+
+.challenge-2 {
+  box-shadow: 5px 5px 0 var(--green);
+}
+
+.challenge-3 {
+  background: var(--yellow-soft);
+  box-shadow: 5px 5px 0 var(--yellow);
+}
+
+.question-list {
+  counter-reset: question;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.question-list li {
+  border-bottom: 1px solid #d2bd5a;
+  counter-increment: question;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  padding: 0.65rem 0 0.65rem 2.5rem;
+  position: relative;
+}
+
+.question-list li::before {
+  content: "0" counter(question);
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+  font-weight: 900;
+  left: 0;
+  position: absolute;
+  top: 0.9rem;
+}
+
+.topic-path .topic-complete {
+  border: 2px solid var(--green);
+  box-shadow: 3px 3px 0 var(--yellow);
+}
+
+.topic-path .topic-complete a {
+  color: var(--ink);
+  display: block;
+}
+
+.topic-path .topic-complete span {
+  color: var(--green);
+  display: block;
+  font-family: "Courier New", monospace;
+  font-size: 0.58rem;
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+}
+
+.curriculum-package {
+  border-bottom: 1px solid var(--line);
+}
+
+.curriculum-package-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.package-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--green);
+  border-radius: 8px;
+  color: var(--ink);
+  display: grid;
+  min-height: 150px;
+  padding: 1.2rem;
+  text-decoration: none;
+}
+
+.package-card:hover,
+.package-card:focus {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.package-card > span {
+  color: var(--green);
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.package-card strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin: 0.55rem 0;
+}
+
+.package-card small {
+  color: var(--muted);
+}
+
+.package-lesson {
+  border-left-color: var(--blue);
+}
+
+.concept-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 0;
+}
+
+.concept-chip-list li {
+  background: var(--yellow-soft);
+  border: 1px solid #d1b749;
+  border-radius: 4px;
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.45rem 0.6rem;
+}
+
+.build-steps {
+  counter-reset: none;
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.build-step-card {
+  align-items: start;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: 52px 1fr 0.9fr;
+  padding: 1.2rem;
+}
+
+.build-step-number {
+  align-items: center;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  display: flex;
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+  height: 44px;
+  justify-content: center;
+  width: 44px;
+}
+
+.build-step-main h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+}
+
+.build-step-main p,
+.build-step-checks p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.build-step-checks {
+  border-left: 1px solid var(--line);
+  padding-left: 1.2rem;
+}
+
+.build-step-checks span {
+  color: var(--green);
+  display: block;
+  font-family: "Courier New", monospace;
+  font-size: 0.66rem;
+  font-weight: 900;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+}
+
+.pseudo-block-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.5rem;
+}
+
+.pseudo-block-grid pre {
+  background: var(--ink);
+  border-left: 5px solid var(--yellow);
+  color: var(--white);
+  margin: 0;
+  overflow-x: auto;
+  padding: 1.2rem;
+  white-space: pre-wrap;
+}
+
+.numbered-build-list {
+  counter-reset: lab-build;
+  list-style: none;
+  margin: 1.3rem 0 0;
+  padding: 0;
+}
+
+.numbered-build-list li {
+  border-bottom: 1px solid var(--line);
+  counter-increment: lab-build;
+  padding: 0.7rem 0 0.7rem 2.6rem;
+  position: relative;
+}
+
+.numbered-build-list li::before {
+  color: var(--green);
+  content: counter(lab-build, decimal-leading-zero);
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  left: 0;
+  position: absolute;
+  top: 0.85rem;
+}
+
+.challenge-card-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.challenge-card-grid article {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-height: 145px;
+  padding: 1.1rem;
+}
+
+.challenge-card-grid span {
+  color: var(--green);
+  font-family: "Courier New", monospace;
+  font-size: 0.65rem;
+  font-weight: 900;
+}
+
+.challenge-card-grid p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.08rem;
+  margin-top: 0.75rem;
+}
+
+.boss-panel {
+  background: var(--yellow-soft);
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--yellow);
+  max-width: 900px;
+  padding: 2rem;
+}
+
+.boss-panel p {
+  color: var(--muted);
+  font-size: 1.1rem;
+  max-width: 760px;
+}
+
+.demonstrate-list {
+  margin-top: 0;
+}
+
+.section-ink .demonstrate-list li {
+  border-color: #44443e;
+}
+
+.lab-project-examples .mono-note {
+  margin-top: 1.25rem;
+}
+
+.lab-project-examples .mono-note a {
+  color: var(--ink);
+}
+
 @media (max-width: 1080px) {
   .desktop-nav {
     display: none;
@@ -1480,11 +2498,17 @@ dl:last-child {
 
   .hero-grid,
   .page-hero-grid,
+  .curriculum-hero-grid,
   .parent-callout,
+  .parent-explanation,
   .school-lab-grid,
   .two-column,
   .contact-grid {
     grid-template-columns: 1fr;
+  }
+
+  .curriculum-hero-grid {
+    gap: 2rem;
   }
 
   .build-board {
@@ -1498,8 +2522,39 @@ dl:last-child {
   }
 
   .project-grid,
-  .feature-grid {
+  .feature-grid,
+  .concept-grid,
+  .mistake-grid,
+  .program-appearance-grid,
+  .related-grid,
+  .challenge-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .checkpoint-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .checkpoint-grid li:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .build-step-card {
+    grid-template-columns: 52px 1fr;
+  }
+
+  .build-step-checks {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    grid-column: 2;
+    padding-left: 0;
+    padding-top: 1rem;
+  }
+
+  .guided-preview,
+  .lab-brief {
+    align-items: start;
+    grid-template-columns: 1fr;
   }
 
   .comparison-panel:last-child {
@@ -1614,8 +2669,77 @@ dl:last-child {
   .project-grid,
   .feature-grid,
   .faq-grid,
-  .principle-grid {
+  .principle-grid,
+  .concept-grid,
+  .mistake-grid,
+  .program-appearance-grid,
+  .related-grid,
+  .curriculum-package-grid,
+  .challenge-grid,
+  .challenge-card-grid,
+  .pseudo-block-grid,
+  .checkpoint-grid {
     grid-template-columns: 1fr;
+  }
+
+  .checkpoint-grid li:last-child {
+    grid-column: auto;
+  }
+
+  .curriculum-hero {
+    padding: 2.2rem 0 3.2rem;
+  }
+
+  .breadcrumbs {
+    margin-bottom: 1.7rem;
+  }
+
+  .curriculum-meta div {
+    grid-template-columns: 1fr;
+  }
+
+  .coordinate-point small {
+    display: none;
+  }
+
+  .coordinate-plane {
+    box-shadow: 5px 5px 0 var(--yellow);
+  }
+
+  .lesson-timeline li {
+    gap: 0.4rem;
+    grid-template-columns: 1fr;
+  }
+
+  .theory-table > div {
+    gap: 0.5rem;
+    grid-template-columns: 1fr auto;
+  }
+
+  .theory-table strong {
+    grid-column: 1 / -1;
+  }
+
+  .parent-explanation-light {
+    padding: 1.3rem;
+  }
+
+  .parent-explanation > p {
+    font-size: 1.15rem;
+  }
+
+  .build-step-card {
+    grid-template-columns: 42px 1fr;
+    padding: 1rem;
+  }
+
+  .build-step-number {
+    height: 36px;
+    width: 36px;
+  }
+
+  .build-step-checks {
+    grid-column: 1 / -1;
   }
 
   .verb-grid {

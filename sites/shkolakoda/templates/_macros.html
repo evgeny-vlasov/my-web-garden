@@ -26,13 +26,48 @@
 {%- endmacro %}
 
 {% macro project_card(project) -%}
-  <article class="project-card">
+  <article class="project-card{% if project.endpoint %} project-card-linked{% else %} project-card-preview{% endif %}">
     <div class="card-topline">
       <span class="project-program">{{ project.program }}</span>
       {{ status_badge(project.status, project.status_class) }}
     </div>
-    <h3>{{ project.name }}</h3>
+    <h3>
+      {% if project.endpoint %}
+        <a href="{{ url_for(project.endpoint) }}">{{ project.name }}</a>
+      {% else %}
+        {{ project.name }}
+      {% endif %}
+    </h3>
     <p>{{ project.mission }}</p>
     {{ topic_tags(project.topics) }}
+    {% if project.endpoint %}
+      <div class="project-card-meta">
+        <span>{{ project.difficulty }}</span>
+        <span>{{ project.estimated_time }}</span>
+      </div>
+      <a class="text-link project-card-link" href="{{ url_for(project.endpoint) }}">Open project <span aria-hidden="true">-&gt;</span></a>
+    {% else %}
+      <span class="preview-note">Library preview / full page not built yet</span>
+    {% endif %}
   </article>
+{%- endmacro %}
+
+{% macro breadcrumbs(items, current) -%}
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      {% for label, endpoint in items %}
+        <li><a href="{{ url_for(endpoint) }}">{{ label }}</a></li>
+      {% endfor %}
+      <li aria-current="page">{{ current }}</li>
+    </ol>
+  </nav>
+{%- endmacro %}
+
+{% macro related_card(title, label, endpoint, description='') -%}
+  <a class="related-card" href="{{ url_for(endpoint) }}">
+    <span>{{ label }}</span>
+    <strong>{{ title }}</strong>
+    {% if description %}<small>{{ description }}</small>{% endif %}
+    <b aria-hidden="true">-&gt;</b>
+  </a>
 {%- endmacro %}

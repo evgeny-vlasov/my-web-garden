@@ -1,5 +1,7 @@
 from flask import Flask, render_template, send_from_directory
 
+from curriculum import LESSONS, PROJECT_DETAILS, TOPICS
+
 
 app = Flask(__name__)
 
@@ -64,25 +66,26 @@ PROGRAMS = {
 }
 
 
+def curriculum_project_card(project_slug):
+    project = PROJECT_DETAILS[project_slug]
+    return {
+        "name": project["name"],
+        "program": "Scratch",
+        "group": "Scratch",
+        "topics": project["topics"][:4],
+        "mission": project["card_summary"],
+        "status": project["project_type"],
+        "status_class": "active" if project["mode"] == "guided" else "lab",
+        "endpoint": project["endpoint"],
+        "project_type": project["project_type"],
+        "difficulty": project["difficulty"],
+        "estimated_time": project["estimated_time"],
+    }
+
+
 PROJECTS = [
-    {
-        "name": "Escape from the Giant Pigeon",
-        "program": "Scratch",
-        "group": "Scratch",
-        "topics": ["Coordinates", "Collision", "State"],
-        "mission": "Build a fast chase game, keep score, and make the pigeon increasingly unreasonable.",
-        "status": "Active",
-        "status_class": "active",
-    },
-    {
-        "name": "Astro-Chicken Rescue",
-        "program": "Scratch",
-        "group": "Scratch",
-        "topics": ["Events", "Loops", "Messages"],
-        "mission": "Coordinate a space rescue where every sprite has a job and timing matters.",
-        "status": "Active",
-        "status_class": "active",
-    },
+    curriculum_project_card("escape-from-the-giant-pigeon"),
+    curriculum_project_card("astro-chicken-rescue"),
     {
         "name": "The Floor Is Definitely Lava",
         "program": "Scratch",
@@ -101,15 +104,7 @@ PROJECTS = [
         "status": "Active",
         "status_class": "active",
     },
-    {
-        "name": "Grandma's Intergalactic Taxi",
-        "program": "Scratch",
-        "group": "Scratch",
-        "topics": ["Conditions", "Broadcasts", "Coordinates"],
-        "mission": "Deliver strange passengers across a map while fuel, fares, and cosmic traffic change.",
-        "status": "Lab Project",
-        "status_class": "lab",
-    },
+    curriculum_project_card("grandmas-intergalactic-taxi"),
     {
         "name": "The Unreasonably Dangerous Elevator",
         "program": "Scratch",
@@ -219,6 +214,9 @@ def render_page(template_name, **context):
         template_name,
         programs=PROGRAMS,
         projects=PROJECTS,
+        topics=TOPICS,
+        lessons=LESSONS,
+        curriculum_projects=PROJECT_DETAILS,
         learning_path=LEARNING_PATH,
         **context,
     )
@@ -244,7 +242,74 @@ def programs():
 @app.get("/programs/scratch")
 def scratch():
     scratch_projects = [project for project in PROJECTS if project["group"] == "Scratch"]
-    return render_page("scratch.html", page_projects=scratch_projects[:6])
+    return render_page(
+        "scratch.html",
+        page_projects=scratch_projects,
+        completed_topic=TOPICS["coordinates"],
+        completed_lesson=LESSONS["coordinates-and-movement"],
+        completed_projects=[
+            PROJECT_DETAILS["escape-from-the-giant-pigeon"],
+            PROJECT_DETAILS["grandmas-intergalactic-taxi"],
+            PROJECT_DETAILS["astro-chicken-rescue"],
+        ],
+    )
+
+
+@app.get("/topics/coordinates")
+def coordinates_topic():
+    return render_page(
+        "topic_detail.html",
+        topic=TOPICS["coordinates"],
+        lesson=LESSONS["coordinates-and-movement"],
+        related_projects=[
+            PROJECT_DETAILS["escape-from-the-giant-pigeon"],
+            PROJECT_DETAILS["grandmas-intergalactic-taxi"],
+            PROJECT_DETAILS["astro-chicken-rescue"],
+        ],
+    )
+
+
+@app.get("/lessons/coordinates-and-movement")
+def coordinates_lesson():
+    return render_page(
+        "lesson_detail.html",
+        lesson=LESSONS["coordinates-and-movement"],
+        topic=TOPICS["coordinates"],
+        guided_project=PROJECT_DETAILS["escape-from-the-giant-pigeon"],
+        lab_projects=[
+            PROJECT_DETAILS["grandmas-intergalactic-taxi"],
+            PROJECT_DETAILS["astro-chicken-rescue"],
+        ],
+    )
+
+
+def render_project(project_slug):
+    return render_page(
+        "project_detail.html",
+        project=PROJECT_DETAILS[project_slug],
+        topic=TOPICS["coordinates"],
+        lesson=LESSONS["coordinates-and-movement"],
+        related_projects=[
+            project
+            for slug, project in PROJECT_DETAILS.items()
+            if slug != project_slug
+        ],
+    )
+
+
+@app.get("/projects/escape-from-the-giant-pigeon")
+def giant_pigeon_project():
+    return render_project("escape-from-the-giant-pigeon")
+
+
+@app.get("/projects/grandmas-intergalactic-taxi")
+def grandmas_taxi_project():
+    return render_project("grandmas-intergalactic-taxi")
+
+
+@app.get("/projects/astro-chicken-rescue")
+def astro_chicken_project():
+    return render_project("astro-chicken-rescue")
 
 
 @app.get("/programs/robotics")
