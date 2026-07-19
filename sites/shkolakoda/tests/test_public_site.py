@@ -101,6 +101,9 @@ class PublicSiteTest(unittest.TestCase):
         self.assertEqual(PROGRAMS["ai"]["status"], "Available later")
 
     def test_curriculum_records_are_complete_and_honest(self):
+        complete_topics = [slug for slug, topic in TOPICS.items() if topic["status"] == "Complete topic package"]
+        self.assertEqual(complete_topics, ["coordinates"])
+
         for slug, topic in TOPICS.items():
             with self.subTest(topic=slug):
                 for field in ("summary", "why_it_matters", "logic_kernel", "examples", "common_mistakes", "parent_note"):
@@ -143,6 +146,10 @@ class PublicSiteTest(unittest.TestCase):
                 else:
                     self.assertNotEqual(project["status_class"], "later")
 
+        led_page = self.client.get("/projects/led-traffic-light").get_data(as_text=True)
+        self.assertIn("Suggested build order", led_page)
+        self.assertNotIn("Computer Lab character", led_page)
+
     def test_blog_posts_are_substantial_and_categories_are_used(self):
         used_categories = set()
         for slug, post in BLOG_POSTS.items():
@@ -170,6 +177,10 @@ class PublicSiteTest(unittest.TestCase):
         favicon = self.client.get("/favicon.svg")
         self.assertEqual(favicon.status_code, 200)
         favicon.close()
+        stylesheet = self.client.get("/static/css/styles.css")
+        self.assertEqual(stylesheet.status_code, 200)
+        self.assertIn("text/css", stylesheet.content_type)
+        stylesheet.close()
 
     def test_custom_404_and_retired_science_paths(self):
         for path in ("/404", "/not-a-public-page", "/camps", "/safety"):

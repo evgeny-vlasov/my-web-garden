@@ -508,7 +508,7 @@ TOPICS.update(
         "events-and-commands": topic_entry(
             "Events and Commands",
             "Programs need a reason to begin and a precise instruction about what should happen next. Events provide the reason; commands provide the action.",
-            "Complete topic package",
+            "Project connection",
             ["scratch", "robotics", "roblox"],
             (
                 "Without events, a game cannot tell the difference between waiting and acting. "
@@ -548,7 +548,7 @@ TOPICS.update(
         "loops-and-repetition": topic_entry(
             "Loops and Repetition",
             "A loop asks a program to repeat useful work without copying the same instruction again and again.",
-            "Complete topic package",
+            "Project connection",
             ["scratch", "robotics", "roblox"],
             (
                 "Games constantly redraw motion, check collisions, create waves, and update timers. "
@@ -588,7 +588,7 @@ TOPICS.update(
         "conditions-and-decisions": topic_entry(
             "Conditions and Decisions",
             "Conditions let a program choose between actions by asking a question that can be answered yes or no.",
-            "Complete topic package",
+            "Project connection",
             ["scratch", "robotics", "roblox", "ai"],
             (
                 "A game needs to decide whether a player won, a quiz needs to check an answer, and a robot "
@@ -627,7 +627,7 @@ TOPICS.update(
         "variables-and-state": topic_entry(
             "Variables and State",
             "Variables give names to information that can change. State describes which situation the whole system is currently in.",
-            "Complete topic package",
+            "Project connection",
             ["scratch", "robotics", "roblox", "ai"],
             (
                 "Scores, health, fuel, mood, timers, current questions, and robot modes all need memory. "
@@ -666,7 +666,7 @@ TOPICS.update(
         "sensing-and-collision": topic_entry(
             "Sensing and Collision",
             "Sensing gives a program information about contact, distance, colour, input, or another changing part of the world.",
-            "Complete topic package",
+            "Project connection",
             ["scratch", "robotics", "roblox"],
             (
                 "Movement alone does not create interaction. Games become systems when they notice walls, hazards, "
@@ -744,7 +744,7 @@ TOPICS.update(
         "debugging": topic_entry(
             "Debugging",
             "Debugging is the disciplined work of explaining the difference between what a system should do and what it actually does.",
-            "Complete topic package",
+            "Project connection",
             ["scratch", "robotics", "roblox", "ai"],
             (
                 "Every substantial project contains surprises. Debugging teaches students to slow down, preserve evidence, "
@@ -783,7 +783,7 @@ TOPICS.update(
         "sensors": topic_entry(
             "Sensors",
             "A sensor turns part of the physical world into information a program can inspect.",
-            "Complete topic package",
+            "Project connection",
             ["robotics", "ai"],
             (
                 "Robots cannot respond intelligently without information. Sensors measure light, distance, motion, "
@@ -1123,7 +1123,11 @@ for lesson_slug, lesson in LESSONS.items():
     lesson.setdefault("timeline", STANDARD_TIMELINE)
     lesson["slug"] = lesson_slug
     lesson["url"] = f"/lessons/{lesson_slug}"
-    lesson.setdefault("meta_description", f"School of Code lesson: {lesson['title']}. A practical 90-minute public lesson for {lesson['program']}.")
+    punctuation = "" if lesson["title"].endswith((".", "?", "!")) else "."
+    lesson.setdefault(
+        "meta_description",
+        f"School of Code lesson: {lesson['title']}{punctuation} A practical 90-minute public lesson for {lesson['program']}.",
+    )
 
 for topic_slug, topic in TOPICS.items():
     topic["slug"] = topic_slug
