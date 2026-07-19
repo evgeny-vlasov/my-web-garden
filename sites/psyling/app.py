@@ -694,10 +694,10 @@ def admin_contacts_list():
     )
 
 
-@app.route('/admin/contacts/<int:contact_id>')
+@app.route('/admin/contacts/<int:contact_id>/view')
 @admin_required
 def admin_contact_view(contact_id):
-    """Show one contact and its CRM controls."""
+    """Show one contact on a normal, JavaScript-independent HTML page."""
     contact = ContactSubmission.query.get_or_404(contact_id)
     crm_form = ContactCRMForm(obj=contact)
     action_form = ContactActionForm()
@@ -714,6 +714,13 @@ def admin_contact_view(contact_id):
         activities=activities,
         now=datetime.utcnow(),
     )
+
+
+@app.route('/admin/contacts/<int:contact_id>')
+@admin_required
+def admin_contact_view_legacy(contact_id):
+    """Keep old inquiry links working while the explicit HTML route is adopted."""
+    return admin_contact_view(contact_id)
 
 @app.route('/admin/contacts/<int:contact_id>/crm', methods=['POST'])
 @admin_required
