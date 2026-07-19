@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% from "_macros.html" import program_card %}
+
+{% block title %}Programs | School of Code Calgary{% endblock %}
+{% block meta_description %}Explore School of Code programs in Scratch game design, robotics, Roblox Studio and Lua, and practical AI in Calgary.{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Programs</p>
+      <h1>One school. Several ways into code and machines.</h1>
+      <p class="lead">Scratch and Robotics are active first. Roblox Studio / Lua and AI &amp; Smart Machines belong to the larger educational direction and will be available later.</p>
+      <div class="direction-path" aria-label="Educational direction">
+        <div class="direction-step"><strong>Scratch</strong><span>visual logic and game systems</span></div>
+        <div class="direction-step"><strong>Robotics</strong><span>sense, decide, act</span></div>
+        <div class="direction-step"><strong>Roblox or text code</strong><span>scripts and larger systems</span></div>
+        <div class="direction-step"><strong>AI and smart machines</strong><span>patterns, limits, and autonomy</span></div>
+      </div>
+      <p class="mono-note">This is an educational direction, not a rigid mandatory sequence.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Program map</p>
+          <h2>Build first. Name the theory. Use it again.</h2>
+        </div>
+        <p class="section-intro">Each program connects a planned topic path to guided projects, Computer Lab extensions, parent explanations, and work worth sharing.</p>
+      </div>
+      <div class="program-grid">
+        {% for program in programs.values() %}{{ program_card(program) }}{% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-blue">
+    <div class="container">
+      <p class="eyebrow">How a program moves</p>
+      <h2>Learning has a route, but projects have room to wander.</h2>
+      <ol class="pathway" aria-label="School of Code teaching model">
+        {% for step in learning_path %}<li>{{ step }}</li>{% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Choosing a starting point</p>
+        <h2>Experience is useful, not required.</h2>
+      </div>
+      <div>
+        <p class="lead">Scratch is a clear starting point for students new to programming, and Robotics connects code to inputs, outputs, and physical behaviour. Previous experience can change the challenge level without skipping the underlying ideas.</p>
+        <p>Age ranges and group placement are not published yet. <a href="{{ url_for('contact') }}">Contact us to discuss fit</a> based on the student's experience, interests, and comfort with independent work.</p>
+      </div>
+    </div>
+  </section>
+{% endblock %}

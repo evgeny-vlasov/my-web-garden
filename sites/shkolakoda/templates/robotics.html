@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% from "_macros.html" import project_card, status_badge %}
+
+{% block title %}Robotics | School of Code Calgary{% endblock %}
+{% block meta_description %}Active robotics learning in Calgary through simulations, command logic, micro:bit, sensors, simple electronics, and small physical builds.{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container page-hero-grid">
+      <div>
+        <p class="eyebrow">Program / Robotics</p>
+        <h1>Teach a machine to notice, choose, and move.</h1>
+        <p class="lead">Robotics is the flagship long-term direction at School of Code. The first work builds reliable thinking through simulations, command logic, simple electronics, sensors, micro:bit, and small physical systems.</p>
+        <div class="button-row">
+          <a class="button" href="{{ url_for('contact') }}">Ask About Robotics</a>
+          <a class="button button-secondary" href="#robotics-projects">See Projects</a>
+        </div>
+      </div>
+      <aside class="status-panel">
+        {{ status_badge('Active now', 'active') }}
+        <h2>Flagship direction</h2>
+        <p>Students build toward autonomous systems by first understanding commands, inputs, outputs, decisions, state, and feedback.</p>
+        <h2>Hardware note</h2>
+        <p>Advanced autonomous robot hardware is a future direction, not a promise about every current class.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-yellow">
+    <div class="container">
+      <p class="eyebrow">The robotics loop</p>
+      <h2>Sense &rarr; Decide &rarr; Act</h2>
+      <div class="sense-diagram">
+        <div><strong>Sense</strong><span>Read a button, distance, light, time, or simulated world.</span></div>
+        <div><strong>Decide</strong><span>Use conditions, state, and goals to choose what happens next.</span></div>
+        <div><strong>Act</strong><span>Move, light an LED, sound a buzzer, display a message, or adjust.</span></div>
+      </div>
+      <p class="section-intro">Then the machine senses again. Feedback turns a list of commands into behaviour that can respond to the world.</p>
+    </div>
+  </section>
+
+  <section class="section section-blue">
+    <div class="container">
+      <p class="eyebrow">Topic path</p>
+      <h2>From instructions to autonomy.</h2>
+      <ol class="topic-path">
+        <li>Commands</li>
+        <li>Movement</li>
+        <li>Input and output</li>
+        <li>Sensors</li>
+        <li>Conditions</li>
+        <li>Loops</li>
+        <li>State</li>
+        <li>Motors</li>
+        <li>Feedback</li>
+        <li>Autonomy</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Start with the system</p>
+        <h2>Robotics is more than owning a robot.</h2>
+        <p class="lead">A simulation can expose movement logic. An LED can make output visible. A button can become a sensor. A reaction timer can introduce measurement, fairness, and state.</p>
+      </div>
+      <div>
+        <p>Physical hardware adds friction that matters: wires come loose, motors drift, sensors produce noisy readings, and the real floor does not behave like the perfect diagram. Students learn to separate code problems from system problems and use each failure as information.</p>
+        <p><strong>Theory is the skeleton.</strong> A physical build makes the skeleton move.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-ink" id="robotics-projects">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Example projects</p>
+          <h2>Small systems with visible behaviour.</h2>
+        </div>
+        <a class="button button-light" href="{{ url_for('projects') }}">Full Project Library</a>
+      </div>
+      <div class="project-grid">
+        {% for project in page_projects %}{{ project_card(project) }}{% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-yellow">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Computer Lab connection</p>
+        <h2>Use structured freedom to make the machine less obedient.</h2>
+      </div>
+      <div>
+        <p class="lead">After a guided build works, Lab time can add another sensor, change the patrol rules, measure a new signal, tune timing, or investigate why a real device behaves differently from the simulation.</p>
+        <a class="text-link" href="{{ url_for('computer_lab') }}">Explore Computer Lab time <span aria-hidden="true">-&gt;</span></a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

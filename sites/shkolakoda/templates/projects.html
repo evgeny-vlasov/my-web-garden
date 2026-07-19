@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "_macros.html" import project_card %}
+
+{% block title %}Project Library | School of Code Calgary{% endblock %}
+{% block meta_description %}Preview original School of Code projects across Scratch game design, robotics, simple electronics, Roblox Studio, and practical AI.{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Project library</p>
+      <h1>Things students can build, break, explain, and improve.</h1>
+      <p class="lead">These project previews show the character and concepts of School of Code work. Active, Lab Project, and Demonstration labels describe current teaching roles; Available Later marks future program directions.</p>
+    </div>
+  </section>
+
+  {% for group_name, group_projects in project_groups %}
+    <section class="section project-section{% if loop.index == 2 %} section-blue{% elif loop.index == 3 %} section-yellow{% endif %}">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Project shelf {{ loop.index | string }}</p>
+            <h2>{{ group_name }}</h2>
+          </div>
+          <span class="project-count">{{ group_projects | length }} project{% if group_projects | length != 1 %}s{% endif %}</span>
+        </div>
+        <div class="project-grid">
+          {% for project in group_projects %}{{ project_card(project) }}{% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endfor %}
+
+  <section class="cta-band">
+    <div class="container cta-grid">
+      <div>
+        <h2>A project is finished when it can be shown and explained.</h2>
+        <p>Ask which active program and project level may fit your child.</p>
+      </div>
+      <a class="button button-light" href="{{ url_for('contact') }}">Ask About Classes</a>
+    </div>
+  </section>
+{% endblock %}

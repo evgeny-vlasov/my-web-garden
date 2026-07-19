@@ -1,0 +1,38 @@
+{% macro status_badge(label, style) -%}
+  <span class="status-badge status-{{ style }}">{{ label }}</span>
+{%- endmacro %}
+
+{% macro topic_tags(topics) -%}
+  <ul class="tag-list" aria-label="Topics">
+    {% for topic in topics %}<li>{{ topic }}</li>{% endfor %}
+  </ul>
+{%- endmacro %}
+
+{% macro program_card(program) -%}
+  <article class="program-card program-card-{{ program.status_class }}">
+    <div class="card-topline">
+      {{ status_badge(program.status, program.status_class) }}
+      <span class="program-index">{{ program.short_name }}</span>
+    </div>
+    <h3>{{ program.name }}</h3>
+    <p>{{ program.summary }}</p>
+    <dl class="program-facts">
+      <div><dt>Students build</dt><dd>{{ program.builds }}</dd></div>
+      <div><dt>Core ideas</dt><dd>{{ program.concepts | join(', ') }}</dd></div>
+      <div><dt>Example</dt><dd>{{ program.examples | join(' / ') }}</dd></div>
+    </dl>
+    <a class="text-link" href="{{ url_for(program.endpoint) }}">Explore {{ program.short_name }} <span aria-hidden="true">-&gt;</span></a>
+  </article>
+{%- endmacro %}
+
+{% macro project_card(project) -%}
+  <article class="project-card">
+    <div class="card-topline">
+      <span class="project-program">{{ project.program }}</span>
+      {{ status_badge(project.status, project.status_class) }}
+    </div>
+    <h3>{{ project.name }}</h3>
+    <p>{{ project.mission }}</p>
+    {{ topic_tags(project.topics) }}
+  </article>
+{%- endmacro %}

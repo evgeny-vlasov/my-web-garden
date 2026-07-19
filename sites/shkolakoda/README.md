@@ -1,42 +1,57 @@
-# Happy Science Calgary
+# School of Code
 
-This Flask project serves the Happy Science Calgary website.
+This Flask application serves the School of Code public website at
+`shkolakoda.com` and `www.shkolakoda.com`.
 
-## Intended Deployment
+School of Code is a small independent Calgary school for programming, game
+design, and robotics. The Computer Lab is a guided project mode inside the
+school. Scratch & Game Design and Robotics are the active first programs;
+Roblox Studio / Lua and AI & Smart Machines are documented as future programs.
 
-This app is intended for `science.shkolakoda.com`.
+The first public release is informational. It has no database, registration
+backend, admin area, migrations, or upload storage. Contact is handled directly
+through `schoolofcode@vlasov.ca` and the published phone number.
 
-## URL Plan
+The preserved Happy Science site is a separate application in `sites/science`
+and is served at `science.shkolakoda.com`.
 
-- `/` shows the Happy Science Calgary homepage.
-- `/camps` shows pilot camp themes.
-- `/safety` shows parent safety and trust information.
-- `/contact` shows contact details and the interest list call to action.
-- The separate School of Code Calgary app will live at `https://shkolakoda.com`.
+## Routes
 
-## Debian VPS Deployment Notes
+- `/`
+- `/programs`
+- `/programs/scratch`
+- `/programs/robotics`
+- `/programs/roblox`
+- `/programs/ai`
+- `/projects`
+- `/computer-lab`
+- `/parents`
+- `/method`
+- `/contact`
+- `/robots.txt`
+- `/favicon.svg`
 
-In production, this app will run on `127.0.0.1:8001`.
+## Local development
 
 Create and activate a virtual environment:
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
 ```
 
-Test the production WSGI entry with Gunicorn:
+Run the Flask development server:
 
 ```bash
-gunicorn --bind 127.0.0.1:8001 wsgi:app
+flask --app app run
 ```
 
-Nginx reverse proxy configuration will be handled separately.
+Test the production WSGI entry:
 
-Systemd service configuration will be handled separately.
+```bash
+gunicorn --bind 127.0.0.1:8000 wsgi:app
+```
+
+Production uses the existing `webgarden-shkolakoda.service` runtime on
+`127.0.0.1:8000`; nginx deployment is managed separately.

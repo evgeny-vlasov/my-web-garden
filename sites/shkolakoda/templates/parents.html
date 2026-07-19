@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}For Parents | School of Code Calgary{% endblock %}
+{% block meta_description %}Practical answers for Calgary parents about School of Code classes, Computer Lab time, experience, devices, small groups, and student work.{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">For Parents</p>
+      <h1>Practical answers before you choose a class.</h1>
+      <p class="lead">School of Code is small, project-based, and serious about making learning visible. Some operating details are still being finalized, so we say that plainly instead of filling gaps with promises.</p>
+      <a class="button" href="{{ url_for('contact') }}">Discuss Fit With Eugene</a>
+    </div>
+  </section>
+
+  <section class="section section-blue">
+    <div class="container">
+      <div class="faq-grid">
+        <details open>
+          <summary>Is this just more screen time?</summary>
+          <div class="faq-answer">No. Students are expected to make decisions, predict results, build, test, debug, explain, and improve. The computer is a construction material, not a stream of content to consume.</div>
+        </details>
+        <details>
+          <summary>Does my child need experience?</summary>
+          <div class="faq-answer">No programming experience is required for a suitable beginner starting point. Previous experience is useful because projects and challenge depth can change. Contact us to discuss fit.</div>
+        </details>
+        <details>
+          <summary>What ages are suitable?</summary>
+          <div class="faq-answer">Exact age ranges have not been finalized for publication. Readiness depends on the program, the student's interests, and comfort working through a problem. Contact us to discuss fit.</div>
+        </details>
+        <details>
+          <summary>What device is needed?</summary>
+          <div class="faq-answer">Device arrangements have not been finalized for all formats. Requirements may differ between Scratch and robotics work. We will confirm current expectations before registration.</div>
+        </details>
+        <details>
+          <summary>What is the difference between class and lab?</summary>
+          <div class="faq-answer">Class follows a planned learning path and introduces ideas through guided work. Computer Lab is additional guided project time to finish, modify, test, rebuild, debug, or prepare a demonstration.</div>
+        </details>
+        <details>
+          <summary>What does a student take away from a game project?</summary>
+          <div class="faq-answer">A visible program plus the reasoning underneath it: coordinates, conditions, variables, state, debugging, design choices, and the ability to explain how the system behaves.</div>
+        </details>
+        <details>
+          <summary>What happens when a student gets stuck?</summary>
+          <div class="faq-answer">Getting stuck is part of the work. The instructor helps reduce the problem, identify evidence, form a prediction, and choose a useful test without simply taking over the project.</div>
+        </details>
+        <details>
+          <summary>What if my child is advanced?</summary>
+          <div class="faq-answer">The same concept can support a harder system, a stricter constraint, a deeper debugging task, or a more independent Lab Project. Placement and challenge level should be discussed before joining.</div>
+        </details>
+        <details>
+          <summary>How large are the groups?</summary>
+          <div class="faq-answer">School of Code is designed around small groups so the instructor can understand each student's actual project. A final published maximum has not yet been set.</div>
+        </details>
+        <details>
+          <summary>Are Roblox and AI available now?</summary>
+          <div class="faq-answer">No. Scratch &amp; Game Design and Robotics are the active first programs. Roblox Studio / Lua and AI &amp; Smart Machines are marked Available Later.</div>
+        </details>
+        <details>
+          <summary>How will student work be shared safely?</summary>
+          <div class="faq-answer">Students can demonstrate work directly to families. Any future public gallery or blog should use clear family permission, avoid unnecessary personal information, and separate a student's identity from public project files. Public sharing is not assumed.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container parent-callout">
+      <blockquote>A finished small project beats a perfect unfinished one.</blockquote>
+      <div>
+        <p>Finishing does not mean a project has no bugs or room to grow. It means the student has reached a version that works well enough to show, explain, and use as the starting point for the next question.</p>
+        <a class="text-link" href="{{ url_for('method') }}">Read the public teaching method <span aria-hidden="true">-&gt;</span></a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

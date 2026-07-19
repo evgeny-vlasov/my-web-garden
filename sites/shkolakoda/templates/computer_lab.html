@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Computer Lab | School of Code Calgary{% endblock %}
+{% block meta_description %}The School of Code Computer Lab provides structured guided project time to modify, test, rebuild, debug, and demonstrate class projects.{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">School of Code / Computer Lab</p>
+      <h1>The Computer Lab supports the school's learning path.</h1>
+      <p class="lead">Classes introduce ideas in a planned sequence. The Computer Lab gives students guided time to use those ideas more deeply, follow a problem, and make a project their own.</p>
+    </div>
+  </section>
+
+  <section class="section section-yellow">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Structured freedom</p>
+          <h2>Enough direction to keep moving. Enough room to invent.</h2>
+        </div>
+      </div>
+      <div class="school-lab-grid">
+        <article class="comparison-panel">
+          <span class="panel-number">CLASSES = PLANNED LEARNING PATH</span>
+          <h3>Learn the idea</h3>
+          <p>A topic, explanation, small test, guided build, and clear learning goal. Lessons connect so knowledge grows as a web rather than a pile of tricks.</p>
+        </article>
+        <article class="comparison-panel">
+          <span class="panel-number">COMPUTER LAB = GUIDED PROJECT TIME</span>
+          <h3>Give it a life</h3>
+          <p>Make a choice, try a strange feature, diagnose a failure, rebuild a weak section, or prepare the project for a demonstration.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">What students may do</p>
+        <h2>A useful menu of next moves.</h2>
+        <p class="lead">Students do not need to wait for a new assignment when the current project still has questions inside it.</p>
+      </div>
+      <div>
+        <ul class="lab-list">
+          <li>Finish a class project</li>
+          <li>Rebuild it differently</li>
+          <li>Add a feature</li>
+          <li>Test a strange idea</li>
+          <li>Repair a bug</li>
+          <li>Work through a challenge card</li>
+          <li>Prepare something to demonstrate</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-blue">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Instructor role</p>
+        <h2>Help without taking over the keyboard.</h2>
+      </div>
+      <div>
+        <p class="lead">The instructor can narrow the problem, ask for a prediction, point to evidence, suggest a test, or offer a challenge card. The student still makes the consequential choices and explains the result.</p>
+        <p>A bug is information. Lab time gives students enough breathing room to read it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="not-this">
+        <strong>What the Computer Lab is not</strong>
+        Random gaming, unsupervised browsing, or unstructured device time. Students arrive to build, test, debug, change, explain, or improve something connected to the School of Code program.
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-grid">
+      <div>
+        <h2>The class gives the idea. The lab gives the idea a life.</h2>
+        <p>Ask how class and Computer Lab time may work for your child.</p>
+      </div>
+      <a class="button button-light" href="{{ url_for('contact') }}">Ask About Fit</a>
+    </div>
+  </section>
+{% endblock %}

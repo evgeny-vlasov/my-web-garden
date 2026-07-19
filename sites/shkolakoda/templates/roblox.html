@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "_macros.html" import status_badge %}
+
+{% block title %}Roblox Studio / Lua | School of Code Calgary{% endblock %}
+{% block meta_description %}Future School of Code program using Roblox Studio and Lua to bridge visual programming, typed scripts, 3D space, and game systems.{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container page-hero-grid">
+      <div>
+        <p class="eyebrow">Program / Roblox Studio / Lua</p>
+        <h1>A future bridge from blocks to scripts and 3D systems.</h1>
+        <p class="lead">Roblox Studio can give students a familiar reason to write Lua, organize larger projects, and think about events, functions, coordinates, objects, and shared game rules.</p>
+        <a class="button" href="{{ url_for('contact') }}">Ask About Future Programs</a>
+      </div>
+      <aside class="status-panel">
+        {{ status_badge('Available later', 'later') }}
+        <h2>Not currently offered</h2>
+        <p>This page explains where Roblox fits in the School of Code direction. It is not an announcement of current classes or registration.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-blue">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Why it belongs</p>
+        <h2>A game world can become a reason to learn text-based code.</h2>
+      </div>
+      <div>
+        <p class="lead">Students who understand events, conditions, variables, and game state in Scratch can meet those ideas again in Lua. The syntax changes; the underlying questions remain.</p>
+        <p>Roblox also introduces 3D coordinates, object hierarchies, reusable functions, client-server thinking, and the responsibility of building for other players.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Future project direction</p>
+          <h2>Systems, not just decoration.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-code">PROJECT_01</span>
+          <h3>Disappearing Platform Factory</h3>
+          <p>Use events, timing, and state to build platforms that behave predictably even when the level does not.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-code">PROJECT_02</span>
+          <h3>Museum of Bad Traps</h3>
+          <p>Script several deliberately flawed obstacles, test them, and explain exactly why each one fails.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-code">PROJECT_03</span>
+          <h3>NPC With One Terrible Idea</h3>
+          <p>Build a character with a small state machine, clear triggers, and behaviour players can understand.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-grid">
+      <div>
+        <h2>Scratch and Robotics come first.</h2>
+        <p>Ask about the active programs or let us know that Roblox is part of your child's longer-term interest.</p>
+      </div>
+      <a class="button button-light" href="{{ url_for('contact') }}">Contact School of Code</a>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Our Method | School of Code Calgary{% endblock %}
+{% block meta_description %}The concise School of Code teaching philosophy: students as authors, theory inside projects, mistakes as data, and ideas brought to life in the Lab.{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container narrow">
+      <p class="eyebrow">Our Method</p>
+      <h1>Build something small enough to finish and rich enough to think about.</h1>
+      <p class="lead">School of Code teaches ideas through visible systems. The project is not a reward after the theory; it is where the theory becomes testable.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="principle-grid">
+        <article class="principle-card">
+          <h2>A program is a text.</h2>
+          <p>It has structure, sequence, intention, revision, and a reader: the computer. Code says something precise enough to run.</p>
+        </article>
+        <article class="principle-card">
+          <h2>The student is an author.</h2>
+          <p>Students should make consequential choices, not only reproduce the instructor's finished answer.</p>
+        </article>
+        <article class="principle-card">
+          <h2>Knowledge is a web, not a shelf.</h2>
+          <p>Coordinates connect to movement, movement to collision, collision to conditions, and conditions to state. Useful ideas keep meeting.</p>
+        </article>
+        <article class="principle-card">
+          <h2>Theory is the skeleton.</h2>
+          <p>A project can look lively, but theory gives it a structure the student can understand, repair, and reuse.</p>
+        </article>
+        <article class="principle-card">
+          <h2>Mistakes are data.</h2>
+          <p>A bug reveals a difference between the intended system and the actual one. That difference is a clue, not a verdict.</p>
+        </article>
+        <article class="principle-card">
+          <h2>Class and Lab have different jobs.</h2>
+          <p>The class gives the idea. The lab gives the idea a life through modification, testing, rebuilding, and invention.</p>
+        </article>
+        <article class="principle-card">
+          <h2>Serious ideas can live inside funny projects.</h2>
+          <p>A robot hamster and an angry snowball can carry conditions, variables, state, feedback, and careful debugging.</p>
+        </article>
+        <article class="principle-card">
+          <h2>Finished beats perfect and unfinished.</h2>
+          <p>A complete small version can be demonstrated, explained, criticized, and improved. That creates the next learning cycle.</p>
+        </article>
+      </div>
+      <p class="manifesto-line">The goal is not merely to make code run. It is to understand enough of the system to change it on purpose.</p>
+    </div>
+  </section>
+
+  <section class="section section-yellow">
+    <div class="container">
+      <p class="eyebrow">Teaching model</p>
+      <h2>A route from curriculum to visible work.</h2>
+      <ol class="pathway" aria-label="School of Code teaching model">
+        {% for step in learning_path %}<li>{{ step }}</li>{% endfor %}
+      </ol>
+    </div>
+  </section>
+{% endblock %}

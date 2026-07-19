@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% from "_macros.html" import status_badge %}
+
+{% block title %}AI & Smart Machines | School of Code Calgary{% endblock %}
+{% block meta_description %}Future practical AI learning at School of Code: patterns, prompts, machine limits, games, robotics, verification, and responsible questions.{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container page-hero-grid">
+      <div>
+        <p class="eyebrow">Program / AI &amp; Smart Machines</p>
+        <h1>Powerful, useful, limited, and often wrong.</h1>
+        <p class="lead">AI should be tested, questioned, and understood as a tool that produces outputs from patterns. Students need practical experience and good doubt, not hype.</p>
+        <a class="button" href="{{ url_for('contact') }}">Ask About Future Programs</a>
+      </div>
+      <aside class="status-panel">
+        {{ status_badge('Available later', 'later') }}
+        <h2>Not currently offered</h2>
+        <p>This is a future direction connected to programming and robotics. No AI class dates or registration are being announced yet.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-yellow">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Practical questions</p>
+        <h2>What is the machine doing, and how would we know?</h2>
+      </div>
+      <div>
+        <p class="lead">Students can compare prompts, inspect patterns, test image or text outputs, collect confident mistakes, and connect machine decisions to game and robot behaviour.</p>
+        <p>The important habit is verification: asking what evidence supports an answer, what data may be missing, and what a person remains responsible for deciding.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Future project direction</p>
+          <h2>Small experiments that expose the limits.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-code">TEST_01</span>
+          <h3>Is This AI Guessing?</h3>
+          <p>Ask related questions, classify the answers, and investigate whether confidence tracks correctness.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-code">TEST_02</span>
+          <h3>Confidently Wrong Machine</h3>
+          <p>Build a collection of plausible errors and design a checklist for checking machine-generated claims.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-code">TEST_03</span>
+          <h3>Robot Chooses a Snack</h3>
+          <p>Create simple decision rules, compare them with learned patterns, and debate what makes a choice sensible.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-blue">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Responsible use</p>
+        <h2>A prompt is not understanding.</h2>
+      </div>
+      <div>
+        <p class="lead">AI can help generate possibilities, images, text, or patterns. It can also reproduce errors, hide uncertainty, and make weak ideas sound polished.</p>
+        <p>Students should be able to explain what they asked, what they received, what they checked, what they changed, and which decisions remain their own.</p>
+      </div>
+    </div>
+  </section>
+{% endblock %}

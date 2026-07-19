@@ -83,8 +83,7 @@ IPv6 because the Shkolakoda HTTPS block had `listen 443 ssl` but no
 
 Current intended split:
 
-- `sites/shkolakoda` -> School of Code on `127.0.0.1:8000`. Public School of
-  Code content has not yet been rebuilt.
+- `sites/shkolakoda` -> School of Code on `127.0.0.1:8000`.
 - `sites/science` -> Happy Science on `127.0.0.1:8005`.
 
 ## Safe Log Inspection
