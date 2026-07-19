@@ -110,12 +110,75 @@ class ContactImprovementsTest(unittest.TestCase):
         notify_mock.assert_called_once()
         confirm_mock.assert_called_once()
 
-    def test_reply_link_uses_visitor_email(self):
+    def test_authenticated_contact_detail_is_complete_html_page(self):
         self._login_admin()
         contact = ContactSubmission(
             name='Reply Person',
             email='reply@example.com',
-            message='Please reply to this inquiry.',
+            phone='+1 647-555-0100',
+            message='First paragraph.\n\nSecond paragraph with the full request.',
+            notes='Call after 5 PM.',
+        )
+        db.session.add(contact)
+        db.session.commit()
+
+        response = self.client.get(f'/admin/contacts/{contact.id}/view')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('text/html', response.content_type)
+        html = response.get_data(as_text=True)
+        self.assertIn('Reply Person', html)
+        self.assertIn('First paragraph.\n\nSecond paragraph with the full request.', html)
+        self.assertIn('Call after 5 PM.', html)
+        self.assertIn('New', html)
+        self.assertIn('Reply by email', html)
+        self.assertIn('mailto:reply@example.com', html)
+        self.assertIn('href="tel:+1 647-555-0100"', html)
+        self.assertIn('subject=Re%3A%20Your%20inquiry%20to%20Psyling', html)
+        self.assertIn('Back to contacts', html)
+
+    def test_contact_list_has_real_detail_link_for_every_contact(self):
+        self._login_admin()
+        contacts = [
+            ContactSubmission(
+                name=f'Mobile Visitor {number}',
+                email=f'visitor{number}@example.com',
+                message=f'Inquiry {number}',
+            )
+            for number in range(1, 3)
+        ]
+        db.session.add_all(contacts)
+        db.session.commit()
+
+        response = self.client.get('/admin/contacts')
+
+        self.assertEqual(response.status_code, 200)
+        html = response.get_data(as_text=True)
+        for contact in contacts:
+            detail_href = f'href="/admin/contacts/{contact.id}/view"'
+            self.assertIn(detail_href, html)
+            self.assertIn(contact.name, html)
+
+    def test_unauthorized_contact_detail_redirects_to_login(self):
+        contact = ContactSubmission(
+            name='Private Visitor',
+            email='private@example.com',
+            message='This message must stay private.',
+        )
+        db.session.add(contact)
+        db.session.commit()
+
+        response = self.client.get(f'/admin/contacts/{contact.id}/view')
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('/admin/login', response.headers['Location'])
+
+    def test_legacy_contact_detail_url_still_returns_html(self):
+        self._login_admin()
+        contact = ContactSubmission(
+            name='Bookmarked Visitor',
+            email='bookmark@example.com',
+            message='An older saved link still works.',
         )
         db.session.add(contact)
         db.session.commit()
@@ -123,10 +186,8 @@ class ContactImprovementsTest(unittest.TestCase):
         response = self.client.get(f'/admin/contacts/{contact.id}')
 
         self.assertEqual(response.status_code, 200)
-        html = response.get_data(as_text=True)
-        self.assertIn('Reply by email', html)
-        self.assertIn('mailto:reply@example.com', html)
-        self.assertIn('subject=Re%3A%20Your%20inquiry%20to%20Psyling', html)
+        self.assertIn('text/html', response.content_type)
+        self.assertIn('An older saved link still works.', response.get_data(as_text=True))
 
     def test_psychology_today_verification_renders_without_embed_script(self):
         for path in ['/', '/about']:

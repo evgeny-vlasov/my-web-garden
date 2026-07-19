@@ -256,6 +256,33 @@ body {
     overflow-wrap: anywhere;
 }
 
+.contact-primary-link {
+    display: flex;
+    min-height: 44px;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--bs-link-color);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.contact-primary-link:hover .fw-semibold,
+.contact-primary-link:focus .fw-semibold {
+    text-decoration: underline;
+}
+
+.contact-open-link,
+.contact-detail-actions .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contacts-table.table-hover tbody tr:hover {
+    cursor: default;
+}
+
 .client-status {
     color: #fff;
 }
@@ -324,6 +351,88 @@ body {
     .btn-group .btn {
         border-radius: 0.25rem !important;
         margin-bottom: 0.25rem;
+    }
+
+    .contacts-list-card {
+        background: transparent;
+        box-shadow: none !important;
+    }
+
+    .contacts-table,
+    .contacts-table tbody,
+    .contacts-table tr,
+    .contacts-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .contacts-table thead {
+        display: none;
+    }
+
+    .contacts-table tbody {
+        background: transparent;
+    }
+
+    .contacts-table .contact-row {
+        margin-bottom: 1rem;
+        overflow: hidden;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        background: #fff;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .contacts-table .contact-row.table-warning {
+        background: var(--bs-warning-bg-subtle);
+    }
+
+    .contacts-table td {
+        display: grid;
+        grid-template-columns: minmax(5.75rem, 35%) minmax(0, 1fr);
+        gap: 0.75rem;
+        align-items: center;
+        padding: 0.7rem 1rem;
+        border-bottom: 1px solid #e9ecef;
+        overflow-wrap: anywhere;
+    }
+
+    .contacts-table td[data-label]::before {
+        content: attr(data-label);
+        color: #6c757d;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+    }
+
+    .contacts-table .contact-cell,
+    .contacts-table .contact-open-cell {
+        display: block;
+    }
+
+    .contacts-table .contact-cell {
+        padding: 0;
+    }
+
+    .contacts-table .contact-primary-link {
+        min-height: 56px;
+        padding: 0.65rem 1rem;
+    }
+
+    .contacts-table .contact-open-cell {
+        padding: 0.75rem 1rem;
+        border-bottom: 0;
+        text-align: left !important;
+    }
+
+    .contacts-table .contact-open-link {
+        width: 100%;
+    }
+
+    .contact-detail-header,
+    .contact-detail-actions {
+        width: 100%;
     }
 }
 
