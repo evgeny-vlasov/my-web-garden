@@ -1,0 +1,481 @@
+{
+  "scratch_pilot": true,
+  "status": "Complete downloadable pilot",
+  "finished_summary": "Guide the Player from the lower-left corner to the striped Safe Zone while a comically oversized pigeon closes in. The arrow keys change x and y, the explicit game state prevents conflicting endings, and R performs the same complete reset as the green flag.",
+  "game_controls": [
+    "Arrow keys — move the Player on the x and y axes",
+    "Green flag — stop the old run and start from known state",
+    "R key — reset positions, variables, costumes, timer, and messages"
+  ],
+  "contents": [
+    ["Project sketch", "project-sketch"],
+    ["Start Building", "start-building"],
+    ["Build systems", "build-systems"],
+    ["Test and debug", "test-and-debug"],
+    ["Challenges", "challenges"],
+    ["Demonstrate", "project-demo"]
+  ],
+  "downloads": [
+    {
+      "filename": "escape-from-the-giant-pigeon-starter.sb3",
+      "label": "Download Starter Project",
+      "file_type": "Scratch 3 project (.sb3)",
+      "purpose": "Original art, sounds, variables, known positions, and setup scripts—without the completed game systems."
+    },
+    {
+      "filename": "escape-from-the-giant-pigeon-finished.sb3",
+      "label": "Download Finished Reference",
+      "file_type": "Scratch 3 project (.sb3)",
+      "purpose": "The complete playable reference used by every code section on this page."
+    },
+    {
+      "filename": "escape-from-the-giant-pigeon-assets.zip",
+      "label": "Download Art and Sound Pack",
+      "file_type": "ZIP archive (.zip)",
+      "purpose": "Human-readable original SVG costumes, backdrop, WAV effects, sketch, README, and licence notes."
+    }
+  ],
+  "art_slots": {
+    "cover": {
+      "src": "projects/escape-from-the-giant-pigeon/assets/stage-backdrop.svg",
+      "alt": "Paper-textured chase stage with a start corner and striped shelter",
+      "caption": "Cover/stage artwork — provisional School of Code project artwork."
+    },
+    "project_sketch": {
+      "src": "projects/escape-from-the-giant-pigeon/project-sketch.svg",
+      "alt": "Inventor notebook diagram of the chase game systems",
+      "caption": "Technical project sketch — provisional School of Code project artwork."
+    },
+    "build": {
+      "src": "projects/escape-from-the-giant-pigeon/assets/player.svg",
+      "alt": "Original player sprite wearing a bright scarf",
+      "caption": "Build image slot — original editable Player SVG."
+    },
+    "debug": {
+      "src": "projects/escape-from-the-giant-pigeon/assets/safe-zone.svg",
+      "alt": "Original striped safe-zone shelter sprite",
+      "caption": "Debug image slot — collision silhouette for checking costume edges."
+    },
+    "boss_level": {
+      "src": "projects/escape-from-the-giant-pigeon/assets/giant-pigeon.svg",
+      "alt": "Original funny giant pigeon sprite with dramatic wings",
+      "caption": "Boss-level image slot — original editable Giant Pigeon SVG."
+    }
+  },
+  "system_flow": [
+    "READY resets every actor and gives the player a fair one-second look at the stage.",
+    "PLAYING enables movement, pursuit, the timer, panic, and collision checks.",
+    "Pigeon contact wins collision priority and changes the state to CAUGHT.",
+    "Safe Zone contact is accepted only when the Player is not touching the pigeon, then changes the state to SAFE.",
+    "R or a new green-flag click returns the whole project to READY."
+  ],
+  "teacher_checkpoints": [
+    "After reset: ask the student to name every value and visual state restored by Reset Game.",
+    "After movement: ask which keys change x and which change y, then test all four edges.",
+    "After pursuit: confirm the pigeon begins far away and does not move during READY.",
+    "After collision: place the Player where both contacts look possible and confirm CAUGHT has priority.",
+    "Before demonstration: run green flag, SAFE → R, CAUGHT → R, and three rapid green-flag restarts."
+  ],
+  "test_checklist": [
+    "Click the green flag three times; each run starts at the same positions with READY before PLAYING.",
+    "Win, press R, and confirm positions, variables, timer, costumes, visibility, and speech reset.",
+    "Get caught, press R, and confirm the Player returns to the normal costume.",
+    "Hold each arrow key at every stage edge; the Player remains between x -218/218 and y -158/158.",
+    "Confirm the pigeon starts at x 155, y 100 while the Player starts at x -190, y -110.",
+    "Enter the Safe Zone without pigeon contact; the state becomes SAFE exactly once.",
+    "Force an overlap near the Safe Zone; pigeon contact produces CAUGHT, never both endings.",
+    "Change each visible variable, restart, and confirm Game State, Panic, Survival Time, and Pigeon Speed reset.",
+    "Hide or change a sprite costume in the editor, then restart; every actor becomes visible in its initial costume."
+  ],
+  "debugging_guide": [
+    {
+      "symptom": "The Player travels off screen",
+      "clue": "Check all four boundary comparisons and confirm x rules set x while y rules set y."
+    },
+    {
+      "symptom": "The pigeon catches the Player immediately",
+      "clue": "Inspect both reset positions and make sure pursuit only runs while Game State equals PLAYING."
+    },
+    {
+      "symptom": "SAFE and CAUGHT seem to happen together",
+      "clue": "Keep the not-touching-pigeon guard around the Safe Zone check and set state before broadcasting the ending."
+    },
+    {
+      "symptom": "R leaves an old message or costume",
+      "clue": "Every sprite needs a Reset Actors receiver that restores costume, visibility, and speech as well as position."
+    },
+    {
+      "symptom": "Panic rises in the wrong direction",
+      "clue": "The formula subtracts scaled distance from 100; then two checks clamp the result to 0–100."
+    }
+  ],
+  "builder_challenge": "Change Pigeon Speed to 3, test three routes, and adjust one starting coordinate until the game remains fair.",
+  "inventor_challenge": "Add sandwich crumbs that reduce Panic without changing Game State. Explain how each crumb can trigger only once.",
+  "boss_level_challenge": "Create a second original backdrop with a new Safe Zone location. Reset the stage number, actor positions, and collision rules without duplicating the whole game.",
+  "provisional_note": "The sketch-style vectors, layout slots, and palette are production-ready placeholders for this pilot. A human illustrator can refine them later without changing sprite names, costume centres, scripts, downloads, or the reusable curriculum model.",
+  "trademark_note": "Scratch is a project of the Scratch Foundation. School of Code is an independent educational project and is not affiliated with or endorsed by the Scratch Foundation.",
+  "code_sections": [
+    {
+      "title": "Reset the game",
+      "anchor": "reset-the-game",
+      "does": "Creates one reliable starting state for every run.",
+      "logic": "The flag asks for Reset Game. That receiver sets READY first, restores every variable, resets the timer, waits for every actor to reset, then begins PLAYING after a fair pause.",
+      "pseudocode": "ON green flag:\n    ask the whole project to reset\nON Reset Game:\n    set READY and restore every value\n    reset every actor\n    wait for a fair start\n    set PLAYING",
+      "script_ids": ["stage-green-flag", "stage-reset-game", "player-reset", "safe-zone-reset"],
+      "test": "Click the green flag three times from different endings. The same positions and values must return each time.",
+      "mistake": "Setting PLAYING before the sprites have moved back lets collision code read stale positions.",
+      "teacher_checkpoint": "Ask the student why Reset Actors uses broadcast and wait instead of an ordinary broadcast."
+    },
+    {
+      "title": "Move the player",
+      "anchor": "move-the-player",
+      "does": "Reads all four arrow keys and changes one coordinate at a time.",
+      "logic": "Movement runs only in PLAYING. Right and left change x; up and down change y. Separate checks allow diagonal movement when two keys are held.",
+      "pseudocode": "WHILE the game is playing:\n    read the arrow keys\n    change x for left or right\n    change y for up or down",
+      "script_ids": ["player-movement"],
+      "test": "Hold one key at a time, then hold two together. Each axis should change in the expected direction.",
+      "mistake": "Using change y for left/right or reversing the negative signs.",
+      "teacher_checkpoint": "Have the student predict the new coordinate before pressing each arrow once."
+    },
+    {
+      "title": "Keep the player on stage",
+      "anchor": "keep-player-on-stage",
+      "does": "Clamps the Player to a readable rectangle inside the Scratch stage.",
+      "logic": "Four comparisons inspect the live x and y positions. If an edge is exceeded, the matching coordinate is set exactly to that edge.",
+      "pseudocode": "FOREVER during PLAYING:\n    if x passes either side, put x on the edge\n    if y passes top or bottom, put y on the edge",
+      "script_ids": ["player-boundaries"],
+      "test": "Hold every arrow key against every boundary, including two diagonal corners.",
+      "mistake": "Checking an x boundary and accidentally setting y.",
+      "teacher_checkpoint": "Ask why the limits are smaller than the stage coordinates -240/240 and -180/180."
+    },
+    {
+      "title": "Start the pigeon",
+      "anchor": "start-the-pigeon",
+      "does": "Restores the dramatic pigeon to a known, distant starting zone.",
+      "logic": "Reset Actors restores position, direction, costume, and visibility. The Stage remains in READY for one second before pursuit can run.",
+      "pseudocode": "ON Reset Actors:\n    stop any old chase appearance\n    move far from the Player\n    face left, show wings up, and show",
+      "script_ids": ["pigeon-reset"],
+      "test": "Move and repaint the pigeon during a run, restart, and confirm all its starting properties return.",
+      "mistake": "Resetting only the position while an ending costume or hidden state remains.",
+      "teacher_checkpoint": "Measure the visual distance between the two known starts before PLAYING begins."
+    },
+    {
+      "title": "Chase the player",
+      "anchor": "chase-the-player",
+      "does": "Uses one transparent pursuit rule: point toward the Player and move by Pigeon Speed.",
+      "logic": "The forever loop re-aims because the Player keeps moving. A short wait controls speed and makes the two wing costumes readable.",
+      "pseudocode": "WHILE the game is PLAYING:\n    point toward the Player's current position\n    move by Pigeon Speed\n    flap once and pause briefly",
+      "script_ids": ["pigeon-chase"],
+      "test": "Move in a large rectangle and confirm the pigeon continually corrects its direction.",
+      "mistake": "Pointing toward the Player once before the loop instead of during every chase step.",
+      "teacher_checkpoint": "Ask which single variable can make the chase easier or harder without rewriting it."
+    },
+    {
+      "title": "Detect being caught",
+      "anchor": "detect-caught",
+      "does": "Changes the state to CAUGHT exactly once when the Player touches the Giant Pigeon.",
+      "logic": "The outer state check prevents repeated endings. State changes before the broadcast, so every other PLAYING system stops on its next check.",
+      "pseudocode": "WHILE PLAYING:\n    if touching the Giant Pigeon:\n        set CAUGHT first\n        announce Caught",
+      "script_ids": ["player-detect-caught"],
+      "test": "Let the pigeon touch the Player from several directions and confirm CAUGHT appears once.",
+      "mistake": "Broadcasting the ending before changing state allows another detector to run as if play continues.",
+      "teacher_checkpoint": "Pause on the contact frame and ask which command prevents a second ending."
+    },
+    {
+      "title": "Detect reaching safety",
+      "anchor": "detect-safety",
+      "does": "Awards SAFE only when the Player reaches the shelter without pigeon contact.",
+      "logic": "The not-touching-pigeon guard gives CAUGHT priority in an overlap that looks simultaneous. Only then does the script inspect the Safe Zone.",
+      "pseudocode": "WHILE PLAYING:\n    if NOT touching the pigeon:\n        if touching the Safe Zone:\n            set SAFE first\n            announce Reached Safety",
+      "script_ids": ["player-detect-safe"],
+      "test": "Reach the shelter cleanly, then drag the pigeon over it and test the overlap priority.",
+      "mistake": "Testing safety without excluding pigeon contact makes the ending depend on script timing.",
+      "teacher_checkpoint": "Ask the student to explain the nested condition in one sentence."
+    },
+    {
+      "title": "Update the panic meter",
+      "anchor": "update-panic",
+      "does": "Turns distance into a 0–100 Panic value and records survival time.",
+      "logic": "Nearby pigeons create higher Panic. Two boundary checks keep the meter sensible. A separate Stage script rounds the timer to tenths while PLAYING.",
+      "pseudocode": "WHILE PLAYING:\n    Panic = 100 - rounded(distance / 4)\n    clamp Panic between 0 and 100\n    Survival Time = timer rounded to tenths",
+      "script_ids": ["player-panic", "stage-survival-time"],
+      "test": "Watch Panic at the far start, during approach, and on contact; restart and verify both values return to zero.",
+      "mistake": "Dividing 100 by distance instead of subtracting scaled distance makes the meter jump unpredictably.",
+      "teacher_checkpoint": "Ask why a game can display an approximate meter even though collision still uses direct touching."
+    },
+    {
+      "title": "End the game cleanly",
+      "anchor": "end-game-cleanly",
+      "does": "Shows one clear result using costume, sound, speech, and Safe Zone feedback.",
+      "logic": "Ending receivers do presentation work after the detector has committed the game state. Chase and movement stop because they are gated by PLAYING.",
+      "pseudocode": "ON Caught:\n    show caught costume and sound\n    explain how to restart\nON Reached Safety:\n    activate the shelter and play its sound\n    explain how to restart",
+      "script_ids": ["player-caught-response", "player-safe-response", "safe-zone-active-response"],
+      "test": "Trigger each ending and verify the other sound, costume, and state never appears.",
+      "mistake": "Using stop all before displaying the result prevents ending feedback and restart scripts.",
+      "teacher_checkpoint": "Ask which scripts stop because of state, even though no stop block is used."
+    },
+    {
+      "title": "Restart and test",
+      "anchor": "restart-and-test",
+      "does": "Routes the R key through the same complete Reset Game system as the flag.",
+      "logic": "There is one reset definition, so fixes apply to both start paths. R works after a win, after a loss, or during play.",
+      "pseudocode": "ON R key:\n    ask for Reset Game and wait\nTHEN test green flag, win-restart, caught-restart, edges, overlap, and variables",
+      "script_ids": ["stage-r-restart"],
+      "test": "Run every item in the page checklist, including three repeated flag clicks and both ending-to-R paths.",
+      "mistake": "Duplicating the reset commands under R eventually makes the two restart paths disagree.",
+      "teacher_checkpoint": "Student demonstrates one repaired bug and identifies the test that now catches it."
+    }
+  ],
+  "scripts": [
+    {
+      "id": "stage-green-flag",
+      "target": "Stage",
+      "starter": true,
+      "x": 40,
+      "y": 40,
+      "source": "when green flag clicked\nbroadcast [Reset Game v] and wait",
+      "blocks": [
+        {"op": "event_whenflagclicked"},
+        {"op": "event_broadcastandwait", "message": "Reset Game"}
+      ]
+    },
+    {
+      "id": "stage-r-restart",
+      "target": "Stage",
+      "x": 320,
+      "y": 40,
+      "source": "when [r v] key pressed\nbroadcast [Reset Game v] and wait",
+      "blocks": [
+        {"op": "event_whenkeypressed", "key": "r"},
+        {"op": "event_broadcastandwait", "message": "Reset Game"}
+      ]
+    },
+    {
+      "id": "stage-reset-game",
+      "target": "Stage",
+      "starter": true,
+      "x": 40,
+      "y": 160,
+      "source": "when I receive [Reset Game v]\nset [Game State v] to [READY]\nstop all sounds\nset [Panic v] to (0)\nset [Survival Time v] to (0)\nset [Pigeon Speed v] to (2)\nreset timer\nbroadcast [Reset Actors v] and wait\nwait (1) seconds\nset [Game State v] to [PLAYING]\nplay sound [start v] until done",
+      "blocks": [
+        {"op": "event_whenbroadcastreceived", "message": "Reset Game"},
+        {"op": "data_setvariableto", "variable": "Game State", "value": {"text": "READY"}},
+        {"op": "sound_stopallsounds"},
+        {"op": "data_setvariableto", "variable": "Panic", "value": {"number": 0}},
+        {"op": "data_setvariableto", "variable": "Survival Time", "value": {"number": 0}},
+        {"op": "data_setvariableto", "variable": "Pigeon Speed", "value": {"number": 2}},
+        {"op": "sensing_resettimer"},
+        {"op": "event_broadcastandwait", "message": "Reset Actors"},
+        {"op": "control_wait", "duration": {"number": 1}},
+        {"op": "data_setvariableto", "variable": "Game State", "value": {"text": "PLAYING"}},
+        {"op": "sound_playuntildone", "sound": "start"}
+      ]
+    },
+    {
+      "id": "stage-survival-time",
+      "target": "Stage",
+      "x": 520,
+      "y": 160,
+      "source": "when green flag clicked\nforever\n    if <(Game State) = [PLAYING]> then\n        set [Survival Time v] to ((round ((timer) * (10))) / (10))\n    end\nend",
+      "blocks": [
+        {"op": "event_whenflagclicked"},
+        {"op": "control_forever", "body": [
+          {"op": "control_if", "condition": {"op": "operator_equals", "left": {"variable": "Game State"}, "right": {"text": "PLAYING"}}, "body": [
+            {"op": "data_setvariableto", "variable": "Survival Time", "value": {"op": "operator_divide", "left": {"op": "operator_round", "value": {"op": "operator_multiply", "left": {"op": "sensing_timer"}, "right": {"number": 10}}}, "right": {"number": 10}}}
+          ]}
+        ]}
+      ]
+    },
+    {
+      "id": "player-reset",
+      "target": "Player",
+      "starter": true,
+      "x": 40,
+      "y": 40,
+      "source": "when I receive [Reset Actors v]\nset rotation style [left-right v]\ngo to x: (-190) y: (-110)\nswitch costume to [normal v]\nshow\nsay []",
+      "blocks": [
+        {"op": "event_whenbroadcastreceived", "message": "Reset Actors"},
+        {"op": "motion_setrotationstyle", "style": "left-right"},
+        {"op": "motion_gotoxy", "xValue": {"number": -190}, "yValue": {"number": -110}},
+        {"op": "looks_switchcostumeto", "costume": "normal"},
+        {"op": "looks_show"},
+        {"op": "looks_say", "message": {"text": ""}}
+      ]
+    },
+    {
+      "id": "player-movement",
+      "target": "Player",
+      "x": 330,
+      "y": 40,
+      "source": "when green flag clicked\nforever\n    if <(Game State) = [PLAYING]> then\n        if <key [right arrow v] pressed?> then\n            change x by (5)\n        end\n        if <key [left arrow v] pressed?> then\n            change x by (-5)\n        end\n        if <key [up arrow v] pressed?> then\n            change y by (5)\n        end\n        if <key [down arrow v] pressed?> then\n            change y by (-5)\n        end\n    end\nend",
+      "blocks": [
+        {"op": "event_whenflagclicked"},
+        {"op": "control_forever", "body": [
+          {"op": "control_if", "condition": {"op": "operator_equals", "left": {"variable": "Game State"}, "right": {"text": "PLAYING"}}, "body": [
+            {"op": "control_if", "condition": {"op": "sensing_keypressed", "key": "right arrow"}, "body": [{"op": "motion_changexby", "value": {"number": 5}}]},
+            {"op": "control_if", "condition": {"op": "sensing_keypressed", "key": "left arrow"}, "body": [{"op": "motion_changexby", "value": {"number": -5}}]},
+            {"op": "control_if", "condition": {"op": "sensing_keypressed", "key": "up arrow"}, "body": [{"op": "motion_changeyby", "value": {"number": 5}}]},
+            {"op": "control_if", "condition": {"op": "sensing_keypressed", "key": "down arrow"}, "body": [{"op": "motion_changeyby", "value": {"number": -5}}]}
+          ]}
+        ]}
+      ]
+    },
+    {
+      "id": "player-boundaries",
+      "target": "Player",
+      "x": 700,
+      "y": 40,
+      "source": "when green flag clicked\nforever\n    if <(Game State) = [PLAYING]> then\n        if <(x position) > (218)> then\n            set x to (218)\n        end\n        if <(x position) < (-218)> then\n            set x to (-218)\n        end\n        if <(y position) > (158)> then\n            set y to (158)\n        end\n        if <(y position) < (-158)> then\n            set y to (-158)\n        end\n    end\nend",
+      "blocks": [
+        {"op": "event_whenflagclicked"},
+        {"op": "control_forever", "body": [
+          {"op": "control_if", "condition": {"op": "operator_equals", "left": {"variable": "Game State"}, "right": {"text": "PLAYING"}}, "body": [
+            {"op": "control_if", "condition": {"op": "operator_gt", "left": {"op": "motion_xposition"}, "right": {"number": 218}}, "body": [{"op": "motion_setx", "value": {"number": 218}}]},
+            {"op": "control_if", "condition": {"op": "operator_lt", "left": {"op": "motion_xposition"}, "right": {"number": -218}}, "body": [{"op": "motion_setx", "value": {"number": -218}}]},
+            {"op": "control_if", "condition": {"op": "operator_gt", "left": {"op": "motion_yposition"}, "right": {"number": 158}}, "body": [{"op": "motion_sety", "value": {"number": 158}}]},
+            {"op": "control_if", "condition": {"op": "operator_lt", "left": {"op": "motion_yposition"}, "right": {"number": -158}}, "body": [{"op": "motion_sety", "value": {"number": -158}}]}
+          ]}
+        ]}
+      ]
+    },
+    {
+      "id": "player-detect-caught",
+      "target": "Player",
+      "x": 40,
+      "y": 500,
+      "source": "when green flag clicked\nforever\n    if <(Game State) = [PLAYING]> then\n        if <touching [Giant Pigeon v]?> then\n            set [Game State v] to [CAUGHT]\n            broadcast [Caught v]\n        end\n    end\nend",
+      "blocks": [
+        {"op": "event_whenflagclicked"},
+        {"op": "control_forever", "body": [
+          {"op": "control_if", "condition": {"op": "operator_equals", "left": {"variable": "Game State"}, "right": {"text": "PLAYING"}}, "body": [
+            {"op": "control_if", "condition": {"op": "sensing_touchingobject", "object": "Giant Pigeon"}, "body": [
+              {"op": "data_setvariableto", "variable": "Game State", "value": {"text": "CAUGHT"}},
+              {"op": "event_broadcast", "message": "Caught"}
+            ]}
+          ]}
+        ]}
+      ]
+    },
+    {
+      "id": "player-detect-safe",
+      "target": "Player",
+      "x": 400,
+      "y": 500,
+      "source": "when green flag clicked\nforever\n    if <(Game State) = [PLAYING]> then\n        if <not <touching [Giant Pigeon v]?>> then\n            if <touching [Safe Zone v]?> then\n                set [Game State v] to [SAFE]\n                broadcast [Reached Safety v]\n            end\n        end\n    end\nend",
+      "blocks": [
+        {"op": "event_whenflagclicked"},
+        {"op": "control_forever", "body": [
+          {"op": "control_if", "condition": {"op": "operator_equals", "left": {"variable": "Game State"}, "right": {"text": "PLAYING"}}, "body": [
+            {"op": "control_if", "condition": {"op": "operator_not", "value": {"op": "sensing_touchingobject", "object": "Giant Pigeon"}}, "body": [
+              {"op": "control_if", "condition": {"op": "sensing_touchingobject", "object": "Safe Zone"}, "body": [
+                {"op": "data_setvariableto", "variable": "Game State", "value": {"text": "SAFE"}},
+                {"op": "event_broadcast", "message": "Reached Safety"}
+              ]}
+            ]}
+          ]}
+        ]}
+      ]
+    },
+    {
+      "id": "player-panic",
+      "target": "Player",
+      "x": 760,
+      "y": 500,
+      "source": "when green flag clicked\nforever\n    if <(Game State) = [PLAYING]> then\n        set [Panic v] to ((100) - (round ((distance to [Giant Pigeon v]) / (4))))\n        if <(Panic) < (0)> then\n            set [Panic v] to (0)\n        end\n        if <(Panic) > (100)> then\n            set [Panic v] to (100)\n        end\n    end\nend",
+      "blocks": [
+        {"op": "event_whenflagclicked"},
+        {"op": "control_forever", "body": [
+          {"op": "control_if", "condition": {"op": "operator_equals", "left": {"variable": "Game State"}, "right": {"text": "PLAYING"}}, "body": [
+            {"op": "data_setvariableto", "variable": "Panic", "value": {"op": "operator_subtract", "left": {"number": 100}, "right": {"op": "operator_round", "value": {"op": "operator_divide", "left": {"op": "sensing_distanceto", "object": "Giant Pigeon"}, "right": {"number": 4}}}}},
+            {"op": "control_if", "condition": {"op": "operator_lt", "left": {"variable": "Panic"}, "right": {"number": 0}}, "body": [{"op": "data_setvariableto", "variable": "Panic", "value": {"number": 0}}]},
+            {"op": "control_if", "condition": {"op": "operator_gt", "left": {"variable": "Panic"}, "right": {"number": 100}}, "body": [{"op": "data_setvariableto", "variable": "Panic", "value": {"number": 100}}]}
+          ]}
+        ]}
+      ]
+    },
+    {
+      "id": "player-caught-response",
+      "target": "Player",
+      "x": 40,
+      "y": 900,
+      "source": "when I receive [Caught v]\nswitch costume to [caught v]\nplay sound [caught v] until done\nsay [CAUGHT! Press R to restart.]",
+      "blocks": [
+        {"op": "event_whenbroadcastreceived", "message": "Caught"},
+        {"op": "looks_switchcostumeto", "costume": "caught"},
+        {"op": "sound_playuntildone", "sound": "caught"},
+        {"op": "looks_say", "message": {"text": "CAUGHT! Press R to restart."}}
+      ]
+    },
+    {
+      "id": "player-safe-response",
+      "target": "Player",
+      "x": 390,
+      "y": 900,
+      "source": "when I receive [Reached Safety v]\nsay [SAFE! Press R to restart.]",
+      "blocks": [
+        {"op": "event_whenbroadcastreceived", "message": "Reached Safety"},
+        {"op": "looks_say", "message": {"text": "SAFE! Press R to restart."}}
+      ]
+    },
+    {
+      "id": "pigeon-reset",
+      "target": "Giant Pigeon",
+      "starter": true,
+      "x": 40,
+      "y": 40,
+      "source": "when I receive [Reset Actors v]\nset rotation style [all around v]\ngo to x: (155) y: (100)\npoint in direction (-90)\nswitch costume to [wings up v]\nshow",
+      "blocks": [
+        {"op": "event_whenbroadcastreceived", "message": "Reset Actors"},
+        {"op": "motion_setrotationstyle", "style": "all around"},
+        {"op": "motion_gotoxy", "xValue": {"number": 155}, "yValue": {"number": 100}},
+        {"op": "motion_pointindirection", "direction": {"number": -90}},
+        {"op": "looks_switchcostumeto", "costume": "wings up"},
+        {"op": "looks_show"}
+      ]
+    },
+    {
+      "id": "pigeon-chase",
+      "target": "Giant Pigeon",
+      "x": 380,
+      "y": 40,
+      "source": "when green flag clicked\nforever\n    if <(Game State) = [PLAYING]> then\n        point towards [Player v]\n        move (Pigeon Speed) steps\n        next costume\n        wait (0.08) seconds\n    end\nend",
+      "blocks": [
+        {"op": "event_whenflagclicked"},
+        {"op": "control_forever", "body": [
+          {"op": "control_if", "condition": {"op": "operator_equals", "left": {"variable": "Game State"}, "right": {"text": "PLAYING"}}, "body": [
+            {"op": "motion_pointtowards", "object": "Player"},
+            {"op": "motion_movesteps", "value": {"variable": "Pigeon Speed"}},
+            {"op": "looks_nextcostume"},
+            {"op": "control_wait", "duration": {"number": 0.08}}
+          ]}
+        ]}
+      ]
+    },
+    {
+      "id": "safe-zone-reset",
+      "target": "Safe Zone",
+      "starter": true,
+      "x": 40,
+      "y": 40,
+      "source": "when I receive [Reset Actors v]\ngo to x: (190) y: (-115)\nswitch costume to [inactive v]\nshow",
+      "blocks": [
+        {"op": "event_whenbroadcastreceived", "message": "Reset Actors"},
+        {"op": "motion_gotoxy", "xValue": {"number": 190}, "yValue": {"number": -115}},
+        {"op": "looks_switchcostumeto", "costume": "inactive"},
+        {"op": "looks_show"}
+      ]
+    },
+    {
+      "id": "safe-zone-active-response",
+      "target": "Safe Zone",
+      "x": 360,
+      "y": 40,
+      "source": "when I receive [Reached Safety v]\nswitch costume to [active v]\nplay sound [safe v] until done",
+      "blocks": [
+        {"op": "event_whenbroadcastreceived", "message": "Reached Safety"},
+        {"op": "looks_switchcostumeto", "costume": "active"},
+        {"op": "sound_playuntildone", "sound": "safe"}
+      ]
+    }
+  ]
+}

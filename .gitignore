@@ -80,6 +80,10 @@ htmlcov/
 docs/_build/
 site/
 
+# Isolated Node production tooling
+node_modules/
+npm-debug.log*
+
 # System files
 .DS_Store
 Thumbs.db

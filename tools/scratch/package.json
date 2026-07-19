@@ -1,0 +1,23 @@
+{
+  "name": "school-of-code-scratch-production",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Deterministic Scratch asset, project, and validation tooling for School of Code.",
+  "scripts": {
+    "build": "node build-giant-pigeon.js",
+    "validate": "node validate-giant-pigeon.js",
+    "check": "npm run build && npm run validate"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "jszip": "3.10.1",
+    "jsdom": "26.1.0",
+    "scratch-vm": "5.0.300",
+    "scratchblocks": "3.7.1"
+  },
+  "overrides": {
+    "isomorphic-dompurify": "2.22.0"
+  }
+}
