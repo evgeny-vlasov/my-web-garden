@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "kind": "campaign",
+  "id": "soccl.campaign.sample-scratch-week",
+  "slug": "sample-scratch-build-week",
+  "title": "Sample Scratch Build Week",
+  "summary": "An unpublished example campaign showing how a focused School of Code publishing package can connect a project, lesson, and original media.",
+  "status": "draft",
+  "publish_at": null,
+  "topics": ["Scratch", "Project-Based Learning", "Computer Lab"],
+  "categories": ["Sample Campaign"],
+  "seo": {
+    "title": "Sample Scratch Build Week | School of Code",
+    "description": "An unpublished School of Code campaign example for a focused week of Scratch building, testing, debugging, and explanation.",
+    "canonical_path": "/campaigns/sample-scratch-build-week",
+    "noindex": true
+  },
+  "internal_links": [
+    {
+      "label": "Build Escape from the Giant Pigeon",
+      "target_id": "soccl.project.escape-pigeon"
+    }
+  ],
+  "image": {
+    "media_id": "soccl.media.escape-pigeon-cover",
+    "alt": "Paper-textured Scratch chase stage introducing a project build week"
+  },
+  "related": {
+    "lessons": ["coordinates-and-movement"],
+    "projects": ["escape-from-the-giant-pigeon"],
+    "articles": []
+  },
+  "campaign_id": null,
+  "body": [
+    {
+      "heading": "Build one complete system",
+      "paragraphs": [
+        "Students begin with a known starting state, add movement and pursuit one system at a time, and test each part before the next dependency arrives."
+      ]
+    },
+    {
+      "heading": "Explain the evidence",
+      "paragraphs": [
+        "The campaign ends with a demonstration of coordinates, collision priority, restart behaviour, and one bug repaired from observable evidence."
+      ]
+    }
+  ],
+  "call_to_action": {
+    "label": "Open the production project",
+    "target_id": "soccl.project.escape-pigeon"
+  }
+}

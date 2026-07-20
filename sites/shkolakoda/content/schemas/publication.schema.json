@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shkolakoda.com/schemas/publication.schema.json",
+  "title": "School of Code Computer Lab publication",
+  "oneOf": [
+    { "$ref": "#/$defs/campaign" },
+    { "$ref": "#/$defs/article" },
+    { "$ref": "#/$defs/project" },
+    { "$ref": "#/$defs/scratch_project" },
+    { "$ref": "#/$defs/media" }
+  ],
+  "$defs": {
+    "seo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "description"],
+      "properties": {
+        "title": { "type": "string", "minLength": 10, "maxLength": 70 },
+        "description": { "type": "string", "minLength": 30, "maxLength": 180 },
+        "canonical_path": { "type": "string", "pattern": "^/[^\\\\]*$" },
+        "noindex": { "type": "boolean", "default": false }
+      }
+    },
+    "internal_link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "target_id"],
+      "properties": {
+        "label": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "target_id": { "$ref": "#/$defs/stable_id" }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["media_id", "alt"],
+      "properties": {
+        "media_id": { "$ref": "#/$defs/stable_id" },
+        "alt": { "type": "string", "minLength": 5, "maxLength": 250 }
+      }
+    },
+    "related": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lessons": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/slug" }
+        },
+        "projects": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/slug" }
+        },
+        "articles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/slug" }
+        }
+      }
+    },
+    "body_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["heading", "paragraphs"],
+      "properties": {
+        "heading": { "type": "string", "minLength": 3, "maxLength": 120 },
+        "paragraphs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 20 }
+        }
+      }
+    },
+    "body": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/body_section" }
+    },
+    "stable_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+      "minLength": 5,
+      "maxLength": 100
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 100
+    },
+    "common_properties": {
+      "type": "object",
+      "properties": {
+        "schema_version": { "const": 1 },
+        "kind": { "enum": ["campaign", "article", "project", "media"] },
+        "id": { "$ref": "#/$defs/stable_id" },
+        "slug": { "$ref": "#/$defs/slug" },
+        "title": { "type": "string", "minLength": 3, "maxLength": 140 },
+        "summary": { "type": "string", "minLength": 20, "maxLength": 360 },
+        "status": { "enum": ["draft", "scheduled", "published", "archived"] },
+        "publish_at": {
+          "oneOf": [
+            { "type": "string", "format": "date-time" },
+            { "type": "null" }
+          ]
+        },
+        "topics": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 2, "maxLength": 80 }
+        },
+        "categories": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 2, "maxLength": 80 }
+        },
+        "seo": { "$ref": "#/$defs/seo" },
+        "internal_links": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/internal_link" }
+        },
+        "image": {
+          "oneOf": [
+            { "$ref": "#/$defs/image" },
+            { "type": "null" }
+          ]
+        },
+        "related": { "$ref": "#/$defs/related" },
+        "campaign_id": {
+          "oneOf": [
+            { "$ref": "#/$defs/stable_id" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "common_required": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "kind",
+        "id",
+        "slug",
+        "title",
+        "summary",
+        "status",
+        "publish_at",
+        "topics",
+        "categories",
+        "seo",
+        "internal_links",
+        "image",
+        "related",
+        "campaign_id"
+      ],
+      "if": {
+        "properties": { "status": { "const": "scheduled" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": { "publish_at": { "type": "string", "format": "date-time" } }
+      }
+    },
+    "campaign": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/common_properties" },
+        { "$ref": "#/$defs/common_required" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "campaign" },
+            "body": { "$ref": "#/$defs/body" },
+            "call_to_action": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["label", "target_id"],
+              "properties": {
+                "label": { "type": "string", "minLength": 2, "maxLength": 80 },
+                "target_id": { "$ref": "#/$defs/stable_id" }
+              }
+            }
+          },
+          "required": ["body"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "article": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/common_properties" },
+        { "$ref": "#/$defs/common_required" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "article" },
+            "author": { "type": "string", "minLength": 2, "maxLength": 100 },
+            "body": { "$ref": "#/$defs/body" }
+          },
+          "required": ["author", "body"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "project_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["program_key", "program", "project_type", "difficulty", "estimated_time"],
+      "properties": {
+        "program_key": { "enum": ["scratch", "robotics", "roblox", "ai"] },
+        "program": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "project_type": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "difficulty": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "estimated_time": { "type": "string", "minLength": 2, "maxLength": 80 }
+      }
+    },
+    "project": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/common_properties" },
+        { "$ref": "#/$defs/common_required" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "project" },
+            "body": { "$ref": "#/$defs/body" },
+            "project": { "$ref": "#/$defs/project_metadata" }
+          },
+          "required": ["body", "project"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "scratch_project": {
+      "allOf": [
+        { "$ref": "#/$defs/common_properties" },
+        { "$ref": "#/$defs/common_required" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "project" },
+            "scratch_pilot": { "const": true },
+            "project_status": { "type": "string", "minLength": 2 },
+            "scripts": { "type": "array", "minItems": 1 },
+            "code_sections": { "type": "array", "minItems": 1 }
+          },
+          "required": ["scratch_pilot", "project_status", "scripts", "code_sections"]
+        }
+      ]
+    },
+    "media": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/common_properties" },
+        { "$ref": "#/$defs/common_required" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "media" },
+            "path": { "type": "string", "minLength": 3, "maxLength": 240 },
+            "media_type": { "type": "string", "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$" },
+            "alt": { "type": "string", "minLength": 5, "maxLength": 250 },
+            "credit": { "type": ["string", "null"], "maxLength": 250 }
+          },
+          "required": ["path", "media_type", "alt", "credit"]
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

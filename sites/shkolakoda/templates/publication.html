@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumbs, related_card, topic_tags %}
+
+{% block title %}{{ publication.seo.title }}{% endblock %}
+{% block meta_description %}{{ publication.seo.description }}{% endblock %}
+{% block og_title %}{{ publication.seo.title }}{% endblock %}
+{% block extra_head %}{% if publication.seo.noindex | default(false) %}<meta name="robots" content="noindex, nofollow">{% endif %}{% endblock %}
+
+{% block content %}
+  <article class="publication-page">
+    <header class="article-header"><div class="container narrow">
+      {% if publication.kind == 'campaign' %}{{ breadcrumbs([('Home', '/'), ('Campaigns', '/campaigns')], publication.title) }}
+      {% elif publication.kind == 'article' %}{{ breadcrumbs([('Home', '/'), ('Blog', '/blog')], publication.title) }}
+      {% else %}{{ breadcrumbs([('Home', '/'), ('Projects', '/projects')], publication.title) }}{% endif %}
+      <p class="eyebrow">{{ publication.categories | join(' / ') }}</p><h1>{{ publication.title }}</h1><p class="lead">{{ publication.summary }}</p>{{ topic_tags(publication.topics) }}
+    </div></header>
+
+    {% if publication.image %}<figure class="publication-hero-image container narrow"><img src="{{ publication.image.url }}" alt="{{ publication.image.alt }}"></figure>{% endif %}
+
+    <div class="container narrow publication-body">
+      {% for section in publication.body %}<section id="section-{{ loop.index }}"><h2>{{ section.heading }}</h2>{% for paragraph in section.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}</section>{% endfor %}
+
+      {% if publication.internal_links %}<section aria-labelledby="publication-links"><h2 id="publication-links">Continue with School of Code</h2><ul class="publication-link-list">{% for link in publication.internal_links %}<li><a href="{{ link.url }}">{{ link.label }} <span aria-hidden="true">-&gt;</span></a></li>{% endfor %}</ul></section>{% endif %}
+
+      {% if publication.call_to_action %}<p class="publication-cta"><a class="button" href="{{ publication.call_to_action.url }}">{{ publication.call_to_action.label }}</a></p>{% endif %}
+    </div>
+  </article>
+
+  {% if related_publications %}<section class="section section-blue"><div class="container"><p class="eyebrow">Related curriculum</p><h2>Follow the idea into another useful page.</h2><div class="related-grid">{% for related in related_publications %}{{ related_card(related.title, related.label, related.url) }}{% endfor %}</div></div></section>{% endif %}
+{% endblock %}

@@ -3382,6 +3382,82 @@ dl:last-child {
   max-width: 700px;
 }
 
+.publication-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.publication-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--yellow);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+.publication-card img,
+.publication-hero-image img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.publication-card img {
+  aspect-ratio: 16 / 9;
+  margin-bottom: 1.25rem;
+  object-fit: cover;
+}
+
+.publication-hero-image {
+  margin-bottom: 0;
+  margin-top: -2rem;
+}
+
+.publication-hero-image img {
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 0.5rem;
+}
+
+.publication-body {
+  padding-bottom: 5rem;
+  padding-top: 3rem;
+}
+
+.publication-body > section {
+  padding-top: 1rem;
+}
+
+.publication-body > section + section {
+  border-top: 1px solid var(--line);
+  margin-top: 2rem;
+  padding-top: 2.5rem;
+}
+
+.publication-body p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.publication-link-list {
+  list-style: none;
+  padding: 0;
+}
+
+.publication-link-list a {
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  font-weight: 800;
+  justify-content: space-between;
+  padding: 0.85rem 0;
+}
+
+.publication-cta {
+  margin-top: 2.5rem;
+}
+
 .not-found-page {
   background-color: var(--paper);
   background-image:
@@ -4005,6 +4081,10 @@ pre.scratchblocks {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .publication-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .checkpoint-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4232,6 +4312,7 @@ pre.scratchblocks {
   .challenge-grid,
   .challenge-card-grid,
   .pseudo-block-grid,
+  .publication-grid,
   .checkpoint-grid {
     grid-template-columns: 1fr;
   }

@@ -1,6 +1,32 @@
 {
+  "schema_version": 1,
+  "kind": "project",
+  "id": "soccl.project.escape-pigeon",
+  "slug": "escape-from-the-giant-pigeon",
+  "title": "Escape from the Giant Pigeon",
+  "summary": "A production Scratch project pilot with structured teaching guidance, original media, downloadable projects, and a complete build-and-debug path.",
+  "status": "published",
+  "publish_at": "2026-07-01T00:00:00Z",
+  "topics": ["Scratch", "Coordinates", "Movement", "Collision", "Game State", "Debugging"],
+  "categories": ["Scratch Projects", "Computer Lab"],
+  "seo": {
+    "title": "Escape from the Giant Pigeon | School of Code",
+    "description": "Build a complete Scratch chase game while learning coordinates, collision, state, reset logic, testing, and evidence-based debugging.",
+    "canonical_path": "/projects/escape-from-the-giant-pigeon"
+  },
+  "internal_links": [],
+  "image": {
+    "media_id": "soccl.media.escape-pigeon-cover",
+    "alt": "Paper-textured chase stage with a start corner and striped shelter"
+  },
+  "related": {
+    "lessons": ["coordinates-and-movement"],
+    "projects": [],
+    "articles": []
+  },
+  "campaign_id": null,
   "scratch_pilot": true,
-  "status": "Complete downloadable pilot",
+  "project_status": "Complete downloadable pilot",
   "finished_summary": "Guide the Player from the lower-left corner to the striped Safe Zone while a comically oversized pigeon closes in. The arrow keys change x and y, the explicit game state prevents conflicting endings, and R performs the same complete reset as the green flag.",
   "game_controls": [
     "Arrow keys — move the Player on the x and y axes",
