@@ -334,6 +334,24 @@ class BrandAssetTests(unittest.TestCase):
             [path for path in committed_brand_files if path.suffix.lower() in forbidden_suffixes]
         )
 
+    def test_private_reference_photo_copy_uses_confirmed_date_and_privacy_rules(self):
+        manifest = (SITE_ROOT / "brand" / "PHOTO_MANIFEST.md").read_text(
+            encoding="utf-8"
+        )
+        guide = BRAND_GUIDE.read_text(encoding="utf-8")
+        template = (TEMPLATE_ROOT / "photo-plus-caption.svg").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("19 November 2021", manifest)
+        self.assertIn("ground-truth capture date", manifest)
+        self.assertIn("private visual references", manifest)
+        self.assertIn("other student identities", manifest)
+        self.assertIn("19 November 2021", guide)
+        self.assertIn("separate documentary collection", guide)
+        self.assertIn("PROVENANCE: KEEP PRIVATE", template)
+        self.assertIn("student identities out of public copy", template)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -300,8 +300,9 @@ the canonical avatar at 100%, 64 px, and one-colour silhouette size.
 ## Photography, privacy, and captions
 
 Photography should show building, testing, explanation, collaboration, and
-physical evidence. It must never imply that an archive class is a current
-Calgary class.
+physical evidence. The private reference archive may inform composition and
+subject choices, but it is not documentary photography of School of Code
+Calgary cohorts and must not be presented as such.
 
 ### Publication gate
 
@@ -324,17 +325,17 @@ retained privately. Photographer, venue, withdrawal, expiry, and other
 third-party-rights questions are separate and remain open until independently
 confirmed.
 
-### Archive facts and date warning
+### Private-reference archive facts
 
 The inspected archive contains 13 photographs. Every filename begins
-`20211119_`, and embedded capture timestamps report 19 November 2021. The
-owner-reported remembered year is 2022. **Do not state a year publicly unless
-this discrepancy is resolved with evidence.** Public material does not need to
-state a year or location.
+`20211119_`, and embedded capture timestamps record 19 November 2021. The owner
+confirms that capture date as ground truth.
 
-The images are from an earlier robotics class taught by Evgeny in Krasnodar.
-They are not photographs of current Calgary students or a current Calgary
-class. Do not publish student names.
+These photographs are private visual references. Do not publish their source
+location, former institution, student names, or other student identities. Do
+not use them to document or imply a School of Code Calgary cohort. Any future
+Calgary classroom photographs are a separate documentary collection with
+their own provenance, permissions, and manifest.
 
 ### Selection and cropping
 
@@ -362,20 +363,21 @@ class. Do not publish student names.
 
 ### Honest captions
 
-Good:
+If a separately cleared image from the private reference set is used, describe
+only visible activity. Good:
 
-> Archive photograph from an earlier robotics class taught by Evgeny. This is
-> not a current Calgary class.
+> A tabletop robot being adjusted during a workshop.
 
-Neither year nor location is required in public copy. If either is useful,
-verify it first and keep the archive/current-class distinction explicit. A
-shorter adjacent label such as `ARCHIVE / EARLIER CLASS` is acceptable only
-when the full context appears in the caption or surrounding copy.
+The confirmed capture date is internal provenance and need not appear in public
+copy. Never include the source location, former institution, student names, or
+other student identities. Do not connect the image to a School of Code Calgary
+cohort.
 
 Do not write:
 
-- “Our Calgary students build robots”;
-- “School of Code class of 2022” before the date is verified;
+- captions assigning the image to a School of Code Calgary cohort;
+- a source location, former institution, student name, or other identifying
+  student detail;
 - invented testimonials, names, ages, outcomes, or enrolment claims;
 - captions that call a posed group “collaboration” without visible evidence.
 
@@ -461,7 +463,8 @@ Before a logo, mascot, photograph, or template export is published:
 2. Confirm the public name reads “School of Code Computer Lab.”
 3. Confirm minimum size, clear space, and crop safety.
 4. Verify contrast and do not rely on colour alone.
-5. Confirm archive/current-class language is honest.
+5. Confirm private-reference captions describe only visible activity and do
+   not identify the source or a student.
 6. Confirm photo modification and advertising permission where applicable.
 7. Remove former institution and third-party branding unless authorized.
 8. Strip and verify metadata.
