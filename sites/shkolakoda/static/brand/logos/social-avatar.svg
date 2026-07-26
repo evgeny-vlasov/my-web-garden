@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+  <title id="title">School of Code institutional social avatar</title>
+  <desc id="desc">The code slash mark on a yellow graph-paper field. This is the institutional fallback when the robot mascot is not used.</desc>
+  <defs>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0H0V72" fill="none" stroke="#151515" stroke-opacity=".09" stroke-width="3"/>
+    </pattern>
+  </defs>
+  <rect width="1080" height="1080" fill="#f4c542"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <rect x="194" y="194" width="716" height="716" fill="#151515" opacity=".13"/>
+  <rect x="170" y="170" width="716" height="716" fill="#fffef8" stroke="#151515" stroke-width="14" transform="rotate(-1 528 528)"/>
+  <g transform="translate(190 190) scale(11)">
+    <path d="M18 19 7 32l11 13M46 19l11 13-11 13" fill="none" stroke="#151515" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter"/>
+    <path d="m38 13-12 38" fill="none" stroke="#147d64" stroke-width="5"/>
+  </g>
+</svg>
