@@ -21,6 +21,7 @@ class PageParser(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.ids = []
         self.hrefs = []
+        self.images = []
         self.headings = []
         self.title_parts = []
         self.meta_description = None
@@ -35,6 +36,8 @@ class PageParser(HTMLParser):
             self.ids.append(attributes["id"])
         if tag == "a" and "href" in attributes:
             self.hrefs.append(attributes["href"])
+        if tag == "img":
+            self.images.append(attributes)
         if tag == "title":
             self._in_title = True
         if tag == "meta" and attributes.get("name", "").lower() == "description":
@@ -243,6 +246,81 @@ class PublicSiteTest(unittest.TestCase):
                     self.assertIn(target_path, known_paths)
                     if target_path in self.pages and split.fragment:
                         self.assertIn(split.fragment, self.pages[target_path][1].ids)
+
+    def test_images_are_accessible_local_and_intrinsically_sized(self):
+        for source_path, (_, parser) in self.pages.items():
+            for image in parser.images:
+                with self.subTest(source=source_path, image=image.get("src")):
+                    self.assertIn("alt", image)
+                    self.assertTrue(image.get("src"))
+                    split = urlsplit(image["src"])
+                    self.assertFalse(split.scheme)
+                    self.assertFalse(split.netloc)
+                    self.assertTrue(split.path.startswith("/static/"))
+                    self.assertGreater(int(image.get("width", 0)), 0)
+                    self.assertGreater(int(image.get("height", 0)), 0)
+                    response = self.client.get(split.path)
+                    self.assertEqual(response.status_code, 200)
+                    self.assertTrue(response.content_type.startswith("image/"))
+                    response.close()
+
+    def test_shared_visual_instruments_follow_content_types(self):
+        home = self.client.get("/").get_data(as_text=True)
+        projects = self.client.get("/projects").get_data(as_text=True)
+        programs = self.client.get("/programs").get_data(as_text=True)
+        topics = self.client.get("/topics").get_data(as_text=True)
+        blog = self.client.get("/blog").get_data(as_text=True)
+
+        self.assertEqual(home.count("robot-avatar-96.png"), 2)
+        self.assertIn("hero-status-line", home)
+        self.assertIn("lab-transition-mascot", home)
+        for program in ("scratch", "robotics", "roblox", "ai"):
+            with self.subTest(program=program):
+                self.assertIn(f"project-card-{program}", projects)
+                self.assertIn(f"program-card-{program}", programs)
+        self.assertEqual(
+            projects.count('class="project-instrument"'), len(PROJECTS)
+        )
+        self.assertEqual(
+            programs.count('class="program-instrument"'), len(PROGRAMS)
+        )
+        rendered_blog_cards = len(
+            re.findall(r'<article class="blog-card\b', blog)
+        )
+        self.assertEqual(
+            blog.count('class="blog-card-instrument"'),
+            rendered_blog_cards,
+        )
+        self.assertGreaterEqual(rendered_blog_cards, len(BLOG_POSTS))
+        self.assertIn("connection-list", topics)
+        self.assertIn("page-hero-library", topics)
+
+    def test_visual_instruments_have_tablet_and_mobile_contracts(self):
+        css = (SITE_ROOT / "static" / "css" / "styles.css").read_text(
+            encoding="utf-8"
+        )
+        tablet = re.search(
+            r"@media \(max-width: 820px\)(.*?)@media \(max-width: 640px\)",
+            css,
+            re.DOTALL,
+        )
+        mobile = re.search(
+            r"@media \(max-width: 640px\)(.*?)"
+            r"@media \(prefers-reduced-motion: reduce\)",
+            css,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(tablet)
+        self.assertIsNotNone(mobile)
+        self.assertIn(".lab-transition", tablet.group(1))
+        for selector in (
+            ".board-mascot",
+            ".project-instrument",
+            ".filter-links",
+            ".category-nav",
+        ):
+            with self.subTest(selector=selector):
+                self.assertIn(selector, mobile.group(1))
 
     def test_every_content_page_has_an_internal_inbound_link(self):
         inbound = defaultdict(set)

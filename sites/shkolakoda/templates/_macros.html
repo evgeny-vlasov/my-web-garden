@@ -9,12 +9,23 @@
 {%- endmacro %}
 
 {% macro program_card(program) -%}
-  <article class="program-card program-card-{{ program.status_class }}">
+  <article class="program-card program-card-{{ program.status_class }} program-card-{{ program.endpoint }}">
     <div class="card-topline">
       {{ status_badge(program.status, program.status_class) }}
       <span class="program-index">{{ program.short_name }}</span>
     </div>
     <h3>{{ program.name }}</h3>
+    <div class="program-instrument" aria-hidden="true">
+      {% if program.endpoint == 'scratch' %}
+        <span>EVENT</span><b>X / Y</b><i></i><em>MOVE</em>
+      {% elif program.endpoint == 'robotics' %}
+        <span>INPUT</span><b>SENSE</b><i></i><em>ACT</em>
+      {% elif program.endpoint == 'roblox' %}
+        <span>OBJECT</span><b>.PROPERTY</b><i></i><em>EVENT</em>
+      {% else %}
+        <span>INPUT</span><b>TEST</b><i></i><em>VERIFY</em>
+      {% endif %}
+    </div>
     <p>{{ program.summary }}</p>
     <dl class="program-facts">
       <div><dt>Students build</dt><dd>{{ program.builds }}</dd></div>
@@ -26,12 +37,35 @@
 {%- endmacro %}
 
 {% macro project_card(project, compact=false) -%}
-  <article class="project-card project-card-linked{% if project.status_class == 'later' %} project-card-later{% endif %}">
+  <article class="project-card project-card-linked project-card-{{ project.program_key }} project-card-mode-{{ project.mode }}{% if compact %} project-card-compact{% endif %}{% if project.status_class == 'later' %} project-card-later{% endif %}">
     <div class="card-topline">
       <span class="project-program">{{ project.program }}</span>
       {{ status_badge(project.status, project.status_class) }}
     </div>
     <h3><a href="{{ project.url }}">{{ project.name }}</a></h3>
+    <div class="project-instrument" aria-hidden="true">
+      {% if project.program_key == 'scratch' %}
+        <span class="instrument-label">STAGE / X:Y</span>
+        <span class="instrument-reading">X / Y</span>
+        <i class="instrument-node instrument-node-a"></i><i class="instrument-node instrument-node-b"></i>
+        <b>BUILD -&gt; TEST -&gt; CHANGE</b>
+      {% elif project.program_key == 'robotics' %}
+        <span class="instrument-label">CONTROL LOOP</span>
+        <span class="instrument-reading">01 / SIGNAL</span>
+        <i class="instrument-node instrument-node-a"></i><i class="instrument-node instrument-node-b"></i>
+        <b>INPUT -&gt; RULE -&gt; OUTPUT</b>
+      {% elif project.program_key == 'roblox' %}
+        <span class="instrument-label">WORLD OBJECT</span>
+        <span class="instrument-reading">X / Y / Z</span>
+        <i class="instrument-node instrument-node-a"></i><i class="instrument-node instrument-node-b"></i>
+        <b>OBJECT.PROPERTY / EVENT</b>
+      {% else %}
+        <span class="instrument-label">MODEL CHECK</span>
+        <span class="instrument-reading">PASS ?</span>
+        <i class="instrument-node instrument-node-a"></i><i class="instrument-node instrument-node-b"></i>
+        <b>INPUT / TEST / VERIFY</b>
+      {% endif %}
+    </div>
     <p>{{ project.card_summary }}</p>
     {{ topic_tags(project.topics[:4]) }}
     {% if not compact %}
@@ -48,7 +82,7 @@
 {%- endmacro %}
 
 {% macro topic_card(topic) -%}
-  <article class="library-card topic-library-card">
+  <article class="library-card topic-library-card topic-library-card-{{ topic.programs[0] if topic.programs else 'general' }}">
     <div class="card-topline">
       <span class="library-kind">Topic</span>
       {{ status_badge(topic.status, topic.status_class) }}
@@ -76,12 +110,40 @@
 {%- endmacro %}
 
 {% macro blog_card(post) -%}
-  <article class="blog-card">
+  {% set category_class = post.category | lower | replace(' ', '-') | replace('&', 'and') -%}
+  <article class="blog-card blog-card-{{ category_class }}">
     <span>{{ post.category }}</span>
     <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+    <div class="blog-card-instrument" aria-hidden="true">
+      {% if post.category == 'Coding for Kids' %}
+        <span>CODE</span><i></i><b>BUILD / TEST</b>
+      {% elif post.category == 'Robotics for Kids' %}
+        <span>SENSE</span><i></i><b>DECIDE / ACT</b>
+      {% elif post.category == 'Parent Guides' %}
+        <span>ASK</span><i></i><b>CHECK / EXPLAIN</b>
+      {% elif post.category == 'Project-Based Learning' %}
+        <span>MAKE</span><i></i><b>TEST / REFLECT</b>
+      {% elif post.category == 'AI for Kids' %}
+        <span>INPUT</span><i></i><b>OUTPUT / VERIFY</b>
+      {% else %}
+        <span>MISSION</span><i></i><b>CONSTRAINT / DEMO</b>
+      {% endif %}
+    </div>
     <p>{{ post.description }}</p>
     <a class="text-link" href="{{ post.url }}">Read article <span aria-hidden="true">-&gt;</span></a>
   </article>
+{%- endmacro %}
+
+{% macro lab_transition(code, headline, note, mascot=false) -%}
+  <aside class="lab-transition{% if mascot %} lab-transition-mascot{% endif %}" aria-label="{{ headline }}">
+    {% if mascot %}
+      <img src="{{ url_for('static', filename='brand/mascot/robot-avatar-96.png') }}" alt="" width="96" height="96">
+    {% endif %}
+    <span class="lab-transition-code">{{ code }}</span>
+    <span class="lab-transition-line" aria-hidden="true"></span>
+    <p><strong>{{ headline }}</strong><small>{{ note }}</small></p>
+    <span class="lab-transition-arrow" aria-hidden="true">-&gt;</span>
+  </aside>
 {%- endmacro %}
 
 {% macro breadcrumbs(items, current) -%}
