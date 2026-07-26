@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import program_card, project_card, blog_card %}
+{% from "_macros.html" import program_card, project_card, blog_card, lab_transition %}
 
 {% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}
 {% block meta_description %}School of Code is a small independent Calgary school where kids build games, robot logic, circuits, simulations, and smart-machine projects.{% endblock %}
@@ -9,6 +9,9 @@
     <div class="container hero-grid">
       <div>
         <p class="eyebrow">School of Code / Calgary</p>
+        <div class="hero-status-line" aria-hidden="true">
+          <span>LAB / 01</span><span>INPUT: IDEA</span><span>OUTPUT: WORKING VERSION</span>
+        </div>
         <h1>Programming and Robotics for Kids Who Want to Build Things</h1>
         <p class="hero-copy">
           A small independent school in Calgary where students build games, robot logic,
@@ -24,6 +27,8 @@
       <div class="build-board" role="img" aria-label="A playful code and circuit planning board">
         <span class="board-label">PROJECT: PIGEON_ESCAPE</span>
         <span class="board-coordinates">x: 148 / y: -32</span>
+        <span class="board-state" aria-hidden="true">STATE: TESTING</span>
+        <img class="board-mascot" src="{{ url_for('static', filename='brand/mascot/robot-avatar-96.png') }}" alt="" width="96" height="96">
         <div class="code-stack" aria-hidden="true">
           <div class="code-block">when project starts</div>
           <div class="code-block">repeat until safe</div>
@@ -53,10 +58,11 @@
         <div class="verb"><strong>Explain</strong><span>show the logic</span></div>
         <div class="verb"><strong>Improve</strong><span>one more version</span></div>
       </div>
+      {{ lab_transition('TRACE / 01', 'Ideas become visible systems.', 'Build one rule. Run it. Read the result.') }}
     </div>
   </section>
 
-  <section class="section section-blue" aria-labelledby="active-programs">
+  <section class="section section-blue section-trace section-trace-input" aria-labelledby="active-programs">
     <div class="container">
       <div class="section-header">
         <div>
@@ -113,10 +119,11 @@
       <ol class="pathway" aria-label="School of Code teaching model">
         {% for step in learning_path %}<li>{{ step }}</li>{% endfor %}
       </ol>
+      {{ lab_transition('LAB NOTE / 02', 'Keep the question moving.', 'The guide points to the next useful test.', true) }}
     </div>
   </section>
 
-  <section class="section section-ink" aria-labelledby="strange-projects">
+  <section class="section section-ink section-trace section-trace-output" aria-labelledby="strange-projects">
     <div class="container">
       <div class="section-header">
         <div>
@@ -186,7 +193,7 @@
     </div>
   </section>
 
-  <section class="section section-blue" aria-labelledby="latest-guides">
+  <section class="section section-blue section-trace section-trace-notes" aria-labelledby="latest-guides">
     <div class="container">
       <div class="section-header">
         <div><p class="eyebrow">Parent guides and notes</p><h2 id="latest-guides">Read the reasoning behind the projects.</h2></div>

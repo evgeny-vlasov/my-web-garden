@@ -40,6 +40,7 @@ EXPECTED_SVGS = {
     LOGO_ROOT / "facebook-cover.svg": (0, 0, 1702, 630),
     TEMPLATE_ROOT / "social-post-1080-square.svg": (0, 0, 1080, 1080),
     TEMPLATE_ROOT / "social-post-1080x1350.svg": (0, 0, 1080, 1350),
+    TEMPLATE_ROOT / "social-story-1080x1920.svg": (0, 0, 1080, 1920),
     TEMPLATE_ROOT / "social-card-1200x630.svg": (0, 0, 1200, 630),
     TEMPLATE_ROOT / "project-illustration-frame.svg": (0, 0, 1200, 900),
     TEMPLATE_ROOT / "photo-plus-caption.svg": (0, 0, 1200, 1500),
@@ -177,6 +178,30 @@ class BrandAssetTests(unittest.TestCase):
                         self.assertNotRegex(href, r"^[a-z]+://")
                         self.assertTrue((path.parent / href).resolve().is_file())
 
+    def test_story_template_has_unique_editable_regions_and_safe_area(self):
+        path = TEMPLATE_ROOT / "social-story-1080x1920.svg"
+        root = ET.parse(path).getroot()
+        ids = [
+            element.attrib["id"]
+            for element in root.iter()
+            if "id" in element.attrib
+        ]
+        editable = [
+            element.attrib["data-edit"]
+            for element in root.iter()
+            if "data-edit" in element.attrib
+        ]
+
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertEqual(len(editable), len(set(editable)))
+        self.assertEqual(
+            set(editable),
+            {"eyebrow", "headline", "supporting-points", "callout", "url"},
+        )
+        source = path.read_text(encoding="utf-8")
+        self.assertIn("STORY SAFE AREA", source)
+        self.assertIn("INPUT → RULE → OUTPUT", source)
+
     def test_wordmark_assets_use_the_public_name(self):
         for path in LOGO_ROOT.glob("*.svg"):
             source = path.read_text(encoding="utf-8")
@@ -220,6 +245,14 @@ class BrandAssetTests(unittest.TestCase):
         self.assertGreaterEqual(
             contrast_ratio(EXPECTED_TOKENS["ink"], EXPECTED_TOKENS["yellow"]), 4.5
         )
+        for foreground, background in (
+            ("#6e5500", EXPECTED_TOKENS["yellow-soft"]),
+            ("#075b47", EXPECTED_TOKENS["green-soft"]),
+        ):
+            with self.subTest(pair=f"{foreground}/{background}"):
+                self.assertGreaterEqual(
+                    contrast_ratio(foreground, background), 4.5
+                )
         for token in ("green", "blue", "red", "violet"):
             with self.subTest(pair=f"white/{token}"):
                 self.assertGreaterEqual(

@@ -237,6 +237,10 @@ shape, letters, or line styles in addition to the palette.
 The reusable SVG templates contain editable groups marked with `data-edit`.
 Replace copy deliberately, maintain the safe areas, and export an sRGB PNG or
 WebP after validation. They are masters, not screenshots of finished posts.
+The template family covers 1080 × 1080 and 1080 × 1350 feed posts, a
+1080 × 1920 Story, a 1200 × 630 card, a project illustration frame, and the
+private-safe photograph-plus-caption treatment. Keep essential Story copy
+inside the labelled inset guide so interface controls do not cover it.
 
 ## Mascot system
 
