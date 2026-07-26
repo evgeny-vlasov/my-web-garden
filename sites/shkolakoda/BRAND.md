@@ -61,13 +61,18 @@ mascot, not a replacement for either source mark.
 | Browser favicon, 16–32 px | `logos/favicon.svg` | Use `</>` only. Never add letters. |
 | Mobile header | `logos/compact-badge.svg` | Use at the existing 44 × 38 CSS px. |
 | Desktop header | `logos/compact-badge.svg` | Use at the existing 50 × 42 CSS px. |
-| General horizontal use | `logos/wordmark-horizontal.svg` | Default public lockup at 240 px wide or larger. |
+| Complete horizontal use | `logos/wordmark-horizontal.svg` | Use at 540 px / 120 mm wide or larger so the descriptor remains readable. |
+| Reduced horizontal use | `logos/wordmark-horizontal-reduced.svg` | Descriptor-free responsive lockup for 240–539 px screen use or 45–119 mm print use. |
 | Narrow or centred use | `logos/wordmark-stacked.svg` | Use where a horizontal lockup would be cramped. |
 | One-colour production | `*-mono.svg` | One dark ink on a light substrate. |
 | Dark field | `*-reversed.svg` | Use the supplied reversed master; do not invert ad hoc. |
 | Institutional avatar fallback | `logos/social-avatar.svg` | Use when an account must be represented by a logo rather than the mascot. |
 | Social account avatar | `mascot/robot-avatar-500.png` | Preferred where the account name appears beside it; see mascot rules. |
 | Facebook Page cover | `logos/facebook-cover.svg` | Logo and mascot remain visibly separate. |
+
+The reduced horizontal variant is a responsive lockup, not a shortened public
+name. Use it only where the surrounding page, account name, or adjacent copy
+identifies School of Code Computer Lab in full.
 
 The Facebook cover uses a high-resolution 1702 × 630 composition based on
 Meta’s 851 × 315 export guidance. Facebook may crop or resize covers and may
@@ -80,11 +85,17 @@ before publishing.
 
 - Let `u` equal one quarter of the compact badge height. Keep at least `u` of
   clear space around a logo lockup.
-- Do not place the horizontal wordmark below 240 px wide. Switch to the compact
-  badge rather than shrinking the descriptor into illegibility.
+- Keep the complete horizontal wordmark at least 540 px wide on screen. At
+  that size its 16-unit descriptor is 12 CSS px.
+- Keep the complete horizontal wordmark at least 120 mm wide in print. At that
+  size its descriptor is approximately 7.6 pt.
+- From 240–539 px on screen or 45–119 mm in print, use the descriptor-free
+  reduced horizontal wordmark. Its name is approximately 21 px at the 240 px
+  screen minimum and 11 pt at the 45 mm print minimum.
+- Below 240 px on screen or 45 mm in print, switch to the compact badge rather
+  than shrinking either wordmark.
 - Keep the compact badge at 44 px wide or larger on screen.
 - Keep the favicon geometry unchanged at 16 px.
-- Keep the horizontal wordmark at least 45 mm wide in print.
 - The approved badge rotation is approximately −2°. Do not increase it or
   rotate every object in a composition.
 - Align a wordmark to a real layout edge, grid line, or text column. A small
@@ -97,6 +108,7 @@ before publishing.
 | Use `</>` when space is truly small. | Squeeze “School of Code” into a favicon. |
 | Use `<SC/>` in the site header and compact navigation. | Replace `<SC/>` with the robot. |
 | Use the full written name in public-facing lockups. | Publish “SHKOLA CODA” as the main wordmark. |
+| Use the reduced horizontal wordmark when the complete descriptor would be too small. | Delete the descriptor ad hoc or shrink the complete wordmark below its minimum. |
 | Use the supplied mono or reversed master. | Apply gradients, glows, bevels, or Matrix effects. |
 | Preserve clear space and proportions. | Stretch, skew, outline twice, or crop through the mark. |
 | Let one mark identify the composition. | Repeat the favicon, badge, wordmark, and mascot as four competing logos. |
@@ -306,12 +318,19 @@ confirm in writing that permission covers:
 Release documents, private correspondence, names, and crosswalks do not belong
 in Git. Record only a non-identifying status in the manifest.
 
+For the inspected archive, the owner confirms parental permission for
+publication, advertising, modification, and derivative work; the evidence is
+retained privately. Photographer, venue, withdrawal, expiry, and other
+third-party-rights questions are separate and remain open until independently
+confirmed.
+
 ### Archive facts and date warning
 
 The inspected archive contains 13 photographs. Every filename begins
 `20211119_`, and embedded capture timestamps report 19 November 2021. The
-remembered year is 2022. **Do not state a year publicly until this discrepancy
-is confirmed.**
+owner-reported remembered year is 2022. **Do not state a year publicly unless
+this discrepancy is resolved with evidence.** Public material does not need to
+state a year or location.
 
 The images are from an earlier robotics class taught by Evgeny in Krasnodar.
 They are not photographs of current Calgary students or a current Calgary
@@ -345,13 +364,13 @@ class. Do not publish student names.
 
 Good:
 
-> Archive photograph from a robotics class taught by Evgeny in Krasnodar;
-> date to be confirmed. This is not a current Calgary class.
+> Archive photograph from an earlier robotics class taught by Evgeny. This is
+> not a current Calgary class.
 
-Once the year is verified, “date to be confirmed” may be replaced with the
-accurate date. A shorter adjacent label such as `ARCHIVE / KRASNODAR` is
-acceptable only when the full context appears in the caption or surrounding
-copy.
+Neither year nor location is required in public copy. If either is useful,
+verify it first and keep the archive/current-class distinction explicit. A
+shorter adjacent label such as `ARCHIVE / EARLIER CLASS` is acceptable only
+when the full context appears in the caption or surrounding copy.
 
 Do not write:
 

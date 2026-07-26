@@ -7,12 +7,19 @@ from pathlib import Path
 
 
 SITE_ROOT = Path(__file__).resolve().parents[1]
+BRAND_GUIDE = SITE_ROOT / "BRAND.md"
 STATIC_ROOT = SITE_ROOT / "static"
 BRAND_ROOT = STATIC_ROOT / "brand"
 LOGO_ROOT = BRAND_ROOT / "logos"
 MASCOT_ROOT = BRAND_ROOT / "mascot"
 TEMPLATE_ROOT = BRAND_ROOT / "templates"
 SVG_NS = "{http://www.w3.org/2000/svg}"
+POINTS_PER_MM = 72 / 25.4
+
+COMPLETE_WORDMARK_MIN_SCREEN_PX = 540
+COMPLETE_WORDMARK_MIN_PRINT_MM = 120
+REDUCED_WORDMARK_MIN_SCREEN_PX = 240
+REDUCED_WORDMARK_MIN_PRINT_MM = 45
 
 
 EXPECTED_SVGS = {
@@ -23,6 +30,9 @@ EXPECTED_SVGS = {
     LOGO_ROOT / "wordmark-horizontal.svg": (0, 0, 720, 150),
     LOGO_ROOT / "wordmark-horizontal-mono.svg": (0, 0, 720, 150),
     LOGO_ROOT / "wordmark-horizontal-reversed.svg": (0, 0, 720, 150),
+    LOGO_ROOT / "wordmark-horizontal-reduced.svg": (0, 0, 580, 120),
+    LOGO_ROOT / "wordmark-horizontal-reduced-mono.svg": (0, 0, 580, 120),
+    LOGO_ROOT / "wordmark-horizontal-reduced-reversed.svg": (0, 0, 580, 120),
     LOGO_ROOT / "wordmark-stacked.svg": (0, 0, 520, 360),
     LOGO_ROOT / "wordmark-stacked-mono.svg": (0, 0, 520, 360),
     LOGO_ROOT / "wordmark-stacked-reversed.svg": (0, 0, 520, 360),
@@ -174,7 +184,10 @@ class BrandAssetTests(unittest.TestCase):
                 self.assertNotIn("SHKOLA CODA", source.upper())
                 if "wordmark" in path.name or path.name == "facebook-cover.svg":
                     self.assertIn("School of Code", source)
-                    self.assertIn("COMPUTER LAB / CALGARY", source)
+                    if "reduced" in path.name:
+                        self.assertNotIn("COMPUTER LAB / CALGARY", source)
+                    else:
+                        self.assertIn("COMPUTER LAB / CALGARY", source)
 
     def test_canonical_favicon_matches_the_live_favicon(self):
         self.assertEqual(
@@ -222,11 +235,80 @@ class BrandAssetTests(unittest.TestCase):
         self.assertGreaterEqual(27 * 44 / 112, 10.0)
         # Institutional avatar: transformed 5-unit mark stroke at a 36 px avatar.
         self.assertGreaterEqual((5 * 11) * 36 / 1080, 1.5)
-        # Horizontal print lockup at the documented 45 mm minimum.
-        self.assertGreaterEqual(4 * 45 / 720, 0.2)
-        self.assertGreaterEqual(52 * 45 / 720, 3.0)
         # The 96 px mascot is a native 2x source for the 48 px minimum.
         self.assertTrue((MASCOT_ROOT / "robot-avatar-96.png").is_file())
+
+    def test_horizontal_wordmarks_have_legible_final_output_sizes(self):
+        complete_path = LOGO_ROOT / "wordmark-horizontal.svg"
+        complete_root = ET.parse(complete_path).getroot()
+        complete_width = parse_view_box(complete_root.attrib["viewBox"])[2]
+        descriptor = next(
+            element
+            for element in complete_root.iter(f"{SVG_NS}text")
+            if "".join(element.itertext()).strip() == "COMPUTER LAB / CALGARY"
+        )
+        descriptor_size = float(descriptor.attrib["font-size"])
+
+        descriptor_screen_px = (
+            descriptor_size * COMPLETE_WORDMARK_MIN_SCREEN_PX / complete_width
+        )
+        descriptor_print_pt = (
+            descriptor_size
+            * COMPLETE_WORDMARK_MIN_PRINT_MM
+            / complete_width
+            * POINTS_PER_MM
+        )
+        self.assertGreaterEqual(descriptor_screen_px, 12)
+        self.assertGreaterEqual(descriptor_print_pt, 7.5)
+
+        for suffix in ("", "-mono", "-reversed"):
+            reduced_path = (
+                LOGO_ROOT / f"wordmark-horizontal-reduced{suffix}.svg"
+            )
+            reduced_root = ET.parse(reduced_path).getroot()
+            reduced_width = parse_view_box(reduced_root.attrib["viewBox"])[2]
+            texts = {
+                "".join(element.itertext()).strip(): element
+                for element in reduced_root.iter(f"{SVG_NS}text")
+            }
+            with self.subTest(asset=reduced_path.name):
+                self.assertNotIn("COMPUTER LAB / CALGARY", texts)
+                name = texts["School of Code"]
+                name_size = float(name.attrib["font-size"])
+                badge_size = float(texts["<SC/>"].attrib["font-size"])
+                # Reserve nine ems for the name so common system-serif
+                # fallbacks do not clip at the right edge.
+                self.assertGreaterEqual(
+                    (reduced_width - float(name.attrib["x"])) / name_size,
+                    9,
+                )
+                self.assertGreaterEqual(
+                    name_size * REDUCED_WORDMARK_MIN_SCREEN_PX / reduced_width,
+                    20,
+                )
+                self.assertGreaterEqual(
+                    badge_size * REDUCED_WORDMARK_MIN_SCREEN_PX / reduced_width,
+                    11,
+                )
+                self.assertGreaterEqual(
+                    name_size
+                    * REDUCED_WORDMARK_MIN_PRINT_MM
+                    / reduced_width
+                    * POINTS_PER_MM,
+                    10.5,
+                )
+                self.assertGreaterEqual(
+                    badge_size
+                    * REDUCED_WORDMARK_MIN_PRINT_MM
+                    / reduced_width
+                    * POINTS_PER_MM,
+                    5.5,
+                )
+
+        guide = BRAND_GUIDE.read_text(encoding="utf-8")
+        self.assertIn("at least 540 px wide on screen", guide)
+        self.assertIn("at least 120 mm wide in print", guide)
+        self.assertIn("From 240–539 px on screen or 45–119 mm in print", guide)
 
     def test_mascot_rasters_have_expected_dimensions_and_no_metadata(self):
         self.assertEqual(set(MASCOT_ROOT.iterdir()), set(EXPECTED_MASCOT_RASTERS))
