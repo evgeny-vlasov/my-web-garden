@@ -12,6 +12,7 @@ from curriculum import (
     TOPICS,
 )
 from project_library import PROJECT_ORDER, PROJECTS
+from publishing import CONTENT
 
 
 app = Flask(__name__)
@@ -74,11 +75,103 @@ LEARNING_PATH = [
 ]
 
 
+CONTENT.validate_route_compatibility(
+    legacy_projects=PROJECTS,
+    legacy_articles=BLOG_POSTS,
+    legacy_lessons=LESSONS,
+)
+
+
 def ordered(mapping, order):
     return [mapping[slug] for slug in order]
 
 
+def published_projects():
+    projects = []
+    for record in CONTENT.public("project"):
+        if record.get("scratch_pilot"):
+            continue
+        metadata = record["project"]
+        projects.append(
+            {
+                **CONTENT.present(record),
+                "name": record["title"],
+                "card_summary": record["summary"],
+                "program_key": metadata["program_key"],
+                "program": metadata["program"],
+                "project_type": metadata["project_type"],
+                "difficulty": metadata["difficulty"],
+                "estimated_time": metadata["estimated_time"],
+                "mode": "publication",
+                "status": "Published project",
+                "status_class": "active",
+            }
+        )
+    return projects
+
+
+def published_articles():
+    articles = []
+    for record in CONTENT.public("article"):
+        categories = record.get("categories") or ["Computer Lab Notes"]
+        articles.append(
+            {
+                **CONTENT.present(record),
+                "description": record["summary"],
+                "category": categories[0],
+                "categories": categories,
+                "meta_description": record["seo"]["description"],
+                "author": record["author"],
+            }
+        )
+    return articles
+
+
+def all_projects():
+    return [*ordered(PROJECTS, PROJECT_ORDER), *published_projects()]
+
+
+def all_articles():
+    return [*ordered(BLOG_POSTS, BLOG_ORDER), *published_articles()]
+
+
+def related_publications(record):
+    related = []
+    for slug in record.get("related", {}).get("lessons", []):
+        lesson = LESSONS.get(slug)
+        if lesson:
+            related.append({"title": lesson["title"], "label": "Lesson", "url": lesson["url"]})
+    dynamic_projects = {item["slug"]: item for item in CONTENT.public("project")}
+    for slug in record.get("related", {}).get("projects", []):
+        if slug in PROJECTS:
+            project = PROJECTS[slug]
+            related.append({"title": project["name"], "label": "Project", "url": project["url"]})
+        elif slug in dynamic_projects:
+            project = dynamic_projects[slug]
+            related.append({"title": project["title"], "label": "Project", "url": CONTENT.url_for(project)})
+    dynamic_articles = {item["slug"]: item for item in CONTENT.public("article")}
+    for slug in record.get("related", {}).get("articles", []):
+        if slug in BLOG_POSTS:
+            article = BLOG_POSTS[slug]
+            related.append({"title": article["title"], "label": "Article", "url": article["url"]})
+        elif slug in dynamic_articles:
+            article = dynamic_articles[slug]
+            related.append({"title": article["title"], "label": "Article", "url": CONTENT.url_for(article)})
+    return related
+
+
+def render_publication(record):
+    publication = CONTENT.present(record)
+    return render_page(
+        "publication.html",
+        publication=publication,
+        related_publications=related_publications(record),
+    )
+
+
 def render_page(template_name, **context):
+    project_list = all_projects()
+    blog_list = all_articles()
     return render_template(
         template_name,
         programs=PROGRAMS,
@@ -87,9 +180,9 @@ def render_page(template_name, **context):
         lessons=LESSONS,
         lesson_list=ordered(LESSONS, LESSON_ORDER),
         projects=PROJECTS,
-        project_list=ordered(PROJECTS, PROJECT_ORDER),
+        project_list=project_list,
         blog_posts=BLOG_POSTS,
-        blog_list=ordered(BLOG_POSTS, BLOG_ORDER),
+        blog_list=blog_list,
         blog_categories=BLOG_CATEGORIES,
         learning_path=LEARNING_PATH,
         site_url=SITE_URL,
@@ -226,11 +319,12 @@ def lesson_detail(slug):
 
 @app.get("/projects")
 def project_index():
+    projects = all_projects()
     return render_page(
         "projects.html",
-        scratch_projects=[project for project in ordered(PROJECTS, PROJECT_ORDER) if project["program_key"] == "scratch"],
-        robotics_projects=[project for project in ordered(PROJECTS, PROJECT_ORDER) if project["program_key"] == "robotics"],
-        later_projects=[project for project in ordered(PROJECTS, PROJECT_ORDER) if project["program_key"] in {"roblox", "ai"}],
+        scratch_projects=[project for project in projects if project["program_key"] == "scratch"],
+        robotics_projects=[project for project in projects if project["program_key"] == "robotics"],
+        later_projects=[project for project in projects if project["program_key"] in {"roblox", "ai"}],
     )
 
 
@@ -238,7 +332,10 @@ def project_index():
 def project_detail(slug):
     project = PROJECTS.get(slug)
     if project is None:
-        abort(404)
+        publication = CONTENT.public_by_slug("project", slug)
+        if publication is None:
+            abort(404)
+        return render_publication(publication)
     lesson = LESSONS.get(project.get("lesson_slug"))
     related_topics = [TOPICS[topic_slug] for topic_slug in project.get("related_topics", []) if topic_slug in TOPICS]
     related_projects = [
@@ -290,20 +387,45 @@ def method():
 
 @app.get("/blog")
 def blog_index():
+    posts = all_articles()
+    categories = list(BLOG_CATEGORIES)
+    categories.extend(
+        category
+        for post in posts
+        for category in post.get("categories", [post["category"]])
+        if category not in categories
+    )
     category_groups = [
-        (category, [post for post in ordered(BLOG_POSTS, BLOG_ORDER) if category in post.get("categories", [post["category"]])])
-        for category in BLOG_CATEGORIES
+        (category, [post for post in posts if category in post.get("categories", [post["category"]])])
+        for category in categories
     ]
-    return render_page("blog.html", category_groups=category_groups)
+    return render_page("blog.html", category_groups=category_groups, article_count=len(posts))
 
 
 @app.get("/blog/<slug>")
 def blog_post(slug):
     post = BLOG_POSTS.get(slug)
     if post is None:
-        abort(404)
+        publication = CONTENT.public_by_slug("article", slug)
+        if publication is None:
+            abort(404)
+        return render_publication(publication)
     related_posts = [candidate for candidate in ordered(BLOG_POSTS, BLOG_ORDER) if candidate["slug"] != slug and candidate["category"] == post["category"]][:3]
     return render_page("article.html", post=post, related_posts=related_posts)
+
+
+@app.get("/campaigns")
+def campaign_index():
+    campaigns = [CONTENT.present(record) for record in CONTENT.public("campaign")]
+    return render_page("campaigns.html", campaigns=campaigns)
+
+
+@app.get("/campaigns/<slug>")
+def campaign_detail(slug):
+    campaign = CONTENT.public_by_slug("campaign", slug)
+    if campaign is None:
+        abort(404)
+    return render_publication(campaign)
 
 
 @app.get("/gallery")
@@ -339,6 +461,7 @@ def public_paths():
         "/parents",
         "/method",
         "/blog",
+        "/campaigns",
         "/gallery",
         "/contact",
     ]
@@ -346,7 +469,8 @@ def public_paths():
     paths.extend(lesson["url"] for lesson in ordered(LESSONS, LESSON_ORDER))
     paths.extend(project["url"] for project in ordered(PROJECTS, PROJECT_ORDER))
     paths.extend(post["url"] for post in ordered(BLOG_POSTS, BLOG_ORDER))
-    return paths
+    paths.extend(CONTENT.url_for(record) for record in CONTENT.public() if record["kind"] != "media")
+    return list(dict.fromkeys(paths))
 
 
 @app.get("/sitemap.xml")

@@ -103,3 +103,9 @@ npm run check
 
 Production uses the existing `webgarden-shkolakoda.service` runtime on
 `127.0.0.1:8000`; nginx deployment is managed separately.
+
+## Git-backed publishing
+
+Campaigns, new articles, general project pages, and media manifests are discovered from checked-in JSON and validated before Flask starts. The existing structured Scratch project system, including Escape from the Giant Pigeon, is part of the same repository rather than a parallel CMS.
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the schema, authoring workflow, visibility rules, validation boundaries, automatic routes, and website-only GitHub Actions deployment contract.

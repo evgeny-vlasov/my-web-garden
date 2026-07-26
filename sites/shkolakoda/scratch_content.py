@@ -1,15 +1,14 @@
-"""Load rich Scratch project records without creating a second curriculum system."""
+"""Adapt rich Scratch records from the shared publishing repository."""
 
-import json
-from pathlib import Path
-
-
-CONTENT_ROOT = Path(__file__).with_name("scratch_projects")
+from publishing import CONTENT
 
 
 def load_scratch_project(filename):
     """Return one checked-in Scratch pilot record and its script lookup."""
-    record = json.loads((CONTENT_ROOT / filename).read_text(encoding="utf-8"))
+    record = CONTENT.source_record(filename)
+    record["publication_status"] = record.pop("status")
+    record["status"] = record.pop("project_status")
+    record["meta_description"] = record["seo"]["description"]
     scripts = record.pop("scripts")
     scripts_by_id = {script["id"]: script for script in scripts}
     if len(scripts_by_id) != len(scripts):
