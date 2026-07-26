@@ -15,3 +15,11 @@ build/
 dist/
 .cache/
 cache/
+
+# Private brand-photo sources and release records never belong in Git.
+Photos-*.zip
+shkola coda logos.zip
+brand/photos/private/
+brand/photos/raw/
+brand/photos/releases/
+static/brand/photos/source/

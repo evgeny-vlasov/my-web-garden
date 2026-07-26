@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 112 96" role="img" aria-labelledby="title desc">
+  <title id="title">School of Code compact badge, reversed</title>
+  <desc id="desc">A yellow SC code badge presented on an ink field.</desc>
+  <rect x="-6" y="-6" width="112" height="96" fill="#151515"/>
+  <g transform="rotate(-2 50 42)">
+    <rect x="4" y="4" width="92" height="76" fill="#f4c542" stroke="#fffef8" stroke-width="4"/>
+    <text x="50" y="51" fill="#151515" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" letter-spacing="-1.2" text-anchor="middle">&lt;<tspan font-weight="900">SC</tspan>/&gt;</text>
+  </g>
+</svg>

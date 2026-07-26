@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">School of Code project illustration frame</title>
+  <desc id="desc">A reusable editorial frame for vector project art, with graph paper, project metadata, and a caption area.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#d8d6ca" stroke-width="1.5"/>
+    </pattern>
+    <clipPath id="art-clip">
+      <rect x="76" y="94" width="766" height="626"/>
+    </clipPath>
+  </defs>
+  <rect width="1200" height="900" fill="#fffef8"/>
+  <rect x="92" y="110" width="766" height="626" fill="#f4c542"/>
+  <rect x="76" y="94" width="766" height="626" fill="#ffffff" stroke="#151515" stroke-width="4"/>
+  <rect x="76" y="94" width="766" height="626" fill="url(#grid)" clip-path="url(#art-clip)"/>
+  <g id="edit-artwork" data-edit="replace-with-project-art" clip-path="url(#art-clip)">
+    <path d="M178 590V414h162V288h178v174h182" fill="none" stroke="#147d64" stroke-width="14"/>
+    <circle cx="178" cy="590" r="30" fill="#f4c542" stroke="#151515" stroke-width="7"/>
+    <circle cx="340" cy="414" r="30" fill="#2257b5" stroke="#151515" stroke-width="7"/>
+    <circle cx="518" cy="288" r="30" fill="#c93d32" stroke="#151515" stroke-width="7"/>
+    <circle cx="700" cy="462" r="30" fill="#6946a4" stroke="#151515" stroke-width="7"/>
+    <text x="459" y="660" fill="#5c5c57" font-family="'Courier New', monospace" font-size="19" font-weight="800" text-anchor="middle">REPLACE THIS GROUP WITH PROJECT ART</text>
+  </g>
+  <g id="edit-metadata" data-edit="project-metadata">
+    <text x="902" y="120" fill="#147d64" font-family="'Courier New', monospace" font-size="18" font-weight="800" letter-spacing="2">PROJECT / 04</text>
+    <text x="902" y="187" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="43" font-weight="700">
+      <tspan x="902" dy="0">Sensor</tspan>
+      <tspan x="902" dy="49">rule</tspan>
+    </text>
+    <path d="M902 286h210" stroke="#151515" stroke-width="3"/>
+    <text x="902" y="330" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="20">
+      <tspan x="902" dy="0">INPUT</tspan>
+      <tspan x="902" dy="30">distance</tspan>
+      <tspan x="902" dy="56">RULE</tspan>
+      <tspan x="902" dy="30">if / then</tspan>
+      <tspan x="902" dy="56">OUTPUT</tspan>
+      <tspan x="902" dy="30">motor state</tspan>
+    </text>
+  </g>
+  <g id="edit-caption" data-edit="caption">
+    <text x="76" y="794" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="32" font-weight="700">Show the system, not a generic “coding” scene.</text>
+    <text x="76" y="838" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="21">Keep labels specific, preserve the ink border, and use one dominant accent.</text>
+  </g>
+  <g transform="translate(1028 760) rotate(-2 50 42)">
+    <rect x="4" y="4" width="92" height="76" fill="#f4c542" stroke="#151515" stroke-width="4"/>
+    <text x="50" y="51" fill="#151515" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" letter-spacing="-1.2" text-anchor="middle">&lt;<tspan font-weight="900">SC</tspan>/&gt;</text>
+  </g>
+</svg>

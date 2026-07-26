@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 150" role="img" aria-labelledby="title desc">
+  <title id="title">School of Code Computer Lab horizontal wordmark</title>
+  <desc id="desc">A yellow SC code badge beside the School of Code name and Computer Lab Calgary descriptor.</desc>
+  <g transform="translate(12 29) rotate(-2 50 42)">
+    <rect x="4" y="4" width="92" height="76" fill="#f4c542" stroke="#151515" stroke-width="4"/>
+    <text x="50" y="51" fill="#151515" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" letter-spacing="-1.2" text-anchor="middle">&lt;<tspan font-weight="900">SC</tspan>/&gt;</text>
+  </g>
+  <text x="142" y="76" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700">School of Code</text>
+  <text x="145" y="112" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="16" font-weight="800" letter-spacing="2.4">COMPUTER LAB / CALGARY</text>
+</svg>

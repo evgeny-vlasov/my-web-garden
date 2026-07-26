@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">School of Code website and social card template</title>
+  <desc id="desc">An editable 1200 by 630 paper card with an institutional wordmark, headline, project label, and build diagram.</desc>
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M30 0H0V30" fill="none" stroke="#d8d6ca" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#fffef8"/>
+  <rect x="820" width="380" height="630" fill="#e2f4ed"/>
+  <rect x="820" width="380" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="10" fill="#f4c542"/>
+  <g id="brand" transform="translate(58 45)">
+    <g transform="scale(.74) rotate(-2 50 42)">
+      <rect x="4" y="4" width="92" height="76" fill="#f4c542" stroke="#151515" stroke-width="4"/>
+      <text x="50" y="51" fill="#151515" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" letter-spacing="-1.2" text-anchor="middle">&lt;<tspan font-weight="900">SC</tspan>/&gt;</text>
+    </g>
+    <text x="92" y="35" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="31" font-weight="700">School of Code</text>
+    <text x="94" y="60" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1.8">COMPUTER LAB / CALGARY</text>
+  </g>
+  <g id="edit-copy" data-edit="headline">
+    <text x="58" y="218" fill="#147d64" font-family="'Courier New', monospace" font-size="19" font-weight="800" letter-spacing="2">GUIDED PROJECT / SCRATCH</text>
+    <text x="58" y="303" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="700">
+      <tspan x="58" dy="0">Build a game with</tspan>
+      <tspan x="58" dy="76">rules worth testing.</tspan>
+    </text>
+    <text x="58" y="495" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="24">
+      <tspan x="58" dy="0">Start with a working system. Change one rule.</tspan>
+      <tspan x="58" dy="36">Explain what the player can now do.</tspan>
+    </text>
+  </g>
+  <g id="edit-diagram" data-edit="illustration" transform="translate(864 118) rotate(1 145 195)">
+    <rect x="10" y="10" width="270" height="390" fill="#f4c542"/>
+    <rect width="270" height="390" fill="#ffffff" stroke="#151515" stroke-width="4"/>
+    <text x="22" y="36" fill="#151515" font-family="'Courier New', monospace" font-size="14" font-weight="800">STATE: TESTING</text>
+    <rect x="28" y="72" width="185" height="54" fill="#f4c542" stroke="#151515" stroke-width="3"/>
+    <rect x="56" y="145" width="185" height="54" fill="#e9effb" stroke="#151515" stroke-width="3"/>
+    <rect x="39" y="218" width="185" height="54" fill="#e2f4ed" stroke="#151515" stroke-width="3"/>
+    <path d="M63 318h145" stroke="#147d64" stroke-width="5"/>
+    <circle cx="63" cy="318" r="12" fill="#f4c542" stroke="#151515" stroke-width="3"/>
+    <circle cx="208" cy="318" r="12" fill="#f4c542" stroke="#151515" stroke-width="3"/>
+    <text x="135" y="358" fill="#2257b5" font-family="'Courier New', monospace" font-size="14" font-weight="800" text-anchor="middle">INPUT → RULE → OUTPUT</text>
+  </g>
+</svg>

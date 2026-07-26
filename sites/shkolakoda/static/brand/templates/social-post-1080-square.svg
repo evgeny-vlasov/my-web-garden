@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+  <title id="title">School of Code square social post template</title>
+  <desc id="desc">An editable paper-and-ink square post with a compact logo, graph grid, headline, and code-block labels.</desc>
+  <defs>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#ebe9de" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1080" height="1080" fill="#fffef8"/>
+  <rect x="700" width="380" height="380" fill="url(#grid)"/>
+  <rect width="1080" height="14" fill="#f4c542"/>
+  <g id="brand" transform="translate(72 66)">
+    <g transform="rotate(-2 50 42)">
+      <rect x="4" y="4" width="92" height="76" fill="#f4c542" stroke="#151515" stroke-width="4"/>
+      <text x="50" y="51" fill="#151515" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" letter-spacing="-1.2" text-anchor="middle">&lt;<tspan font-weight="900">SC</tspan>/&gt;</text>
+    </g>
+    <text x="124" y="40" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="35" font-weight="700">School of Code</text>
+    <text x="126" y="70" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="2">COMPUTER LAB / CALGARY</text>
+  </g>
+  <g id="edit-label" data-edit="eyebrow">
+    <path d="M76 238h34" stroke="#147d64" stroke-width="6"/>
+    <text x="126" y="246" fill="#147d64" font-family="'Courier New', monospace" font-size="22" font-weight="800" letter-spacing="2.5">PROJECT NOTE / 04</text>
+  </g>
+  <g id="edit-headline" data-edit="headline">
+    <text x="72" y="370" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="99" font-weight="700">
+      <tspan x="72" dy="0">Build it.</tspan>
+      <tspan x="72" dy="103">Test it.</tspan>
+      <tspan x="72" dy="103">Explain it.</tspan>
+    </text>
+  </g>
+  <g id="edit-code-blocks" data-edit="supporting-points" font-family="'Courier New', monospace" font-size="24" font-weight="800">
+    <g transform="translate(72 742)">
+      <rect x="8" y="8" width="560" height="66" fill="#151515" opacity=".12"/>
+      <rect width="560" height="66" fill="#f4c542" stroke="#151515" stroke-width="3"/>
+      <text x="24" y="42" fill="#151515">WHEN GREEN FLAG CLICKED</text>
+    </g>
+    <g transform="translate(124 828)">
+      <rect x="8" y="8" width="650" height="66" fill="#151515" opacity=".12"/>
+      <rect width="650" height="66" fill="#e9effb" stroke="#151515" stroke-width="3"/>
+      <text x="24" y="42" fill="#151515">REPEAT UNTIL THE RULE WORKS</text>
+    </g>
+    <g transform="translate(92 914)">
+      <rect x="8" y="8" width="598" height="66" fill="#151515" opacity=".12"/>
+      <rect width="598" height="66" fill="#e2f4ed" stroke="#151515" stroke-width="3"/>
+      <text x="24" y="42" fill="#151515">CHANGE ONE THING / TEST AGAIN</text>
+    </g>
+  </g>
+  <text id="edit-url" data-edit="url" x="1004" y="1014" fill="#2257b5" font-family="'Courier New', monospace" font-size="20" font-weight="800" text-anchor="end">SHKOLAKODA.COM</text>
+</svg>
