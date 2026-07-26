@@ -346,6 +346,7 @@ class BrandAssetTests(unittest.TestCase):
         self.assertIn("19 November 2021", manifest)
         self.assertIn("ground-truth capture date", manifest)
         self.assertIn("private visual references", manifest)
+        self.assertIn("separate documentary", manifest)
         self.assertIn("other student identities", manifest)
         self.assertIn("19 November 2021", guide)
         self.assertIn("separate documentary collection", guide)

@@ -19,6 +19,8 @@ release documents, contact details, or other personal data.
 - These photographs are private visual references. They are not a documentary
   collection of School of Code Calgary cohorts and must not be presented as
   one.
+- Any future Calgary classroom photographs belong in a separate documentary
+  collection with their own provenance, permissions, and manifest.
 - Do not publish their source location, former institution, student names, or
   other student identities. The capture date is internal provenance and need
   not appear in public materials.
