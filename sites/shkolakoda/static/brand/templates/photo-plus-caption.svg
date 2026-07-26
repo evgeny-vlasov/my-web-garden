@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
   <title id="title">School of Code photograph and caption template</title>
-  <desc id="desc">A permission-gated editorial photograph frame with an archive label, honest caption, and metadata fields.</desc>
+  <desc id="desc">A permission-gated editorial photograph frame with an activity label, privacy-safe caption, and metadata fields.</desc>
   <defs>
     <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
       <path d="M34 0H0V34" fill="none" stroke="#d8d6ca" stroke-width="1.5"/>
@@ -19,23 +19,23 @@
     <text x="600" y="516" fill="#151515" font-family="'Courier New', monospace" font-size="25" font-weight="800" text-anchor="middle">PHOTO PLACEHOLDER</text>
     <text x="600" y="558" fill="#5c5c57" font-family="'Courier New', monospace" font-size="17" font-weight="800" text-anchor="middle">REPLACE ONLY AFTER PERMISSION + BRANDING REVIEW</text>
   </g>
-  <g id="edit-archive-label" data-edit="archive-label">
-    <rect x="112" y="122" width="318" height="54" fill="#151515"/>
-    <text x="132" y="157" fill="#ffffff" font-family="'Courier New', monospace" font-size="18" font-weight="800" letter-spacing="1.7">ARCHIVE / KRASNODAR</text>
+  <g id="edit-activity-label" data-edit="activity-label">
+    <rect x="112" y="122" width="360" height="54" fill="#151515"/>
+    <text x="132" y="157" fill="#ffffff" font-family="'Courier New', monospace" font-size="18" font-weight="800" letter-spacing="1.7">ROBOTICS / ACTIVITY DETAIL</text>
   </g>
   <g id="edit-caption" data-edit="honest-caption">
     <path d="M82 1070h42" stroke="#147d64" stroke-width="6"/>
     <text x="146" y="1078" fill="#147d64" font-family="'Courier New', monospace" font-size="19" font-weight="800" letter-spacing="2">CAPTION / VERIFY BEFORE EXPORT</text>
     <text x="80" y="1152" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="39" font-weight="700">
-      <tspan x="80" dy="0">Archive photograph from a robotics class</tspan>
-      <tspan x="80" dy="48">taught by Evgeny in Krasnodar;</tspan>
-      <tspan x="80" dy="48">date to be confirmed.</tspan>
+      <tspan x="80" dy="0">Describe only the visible activity. Do not name</tspan>
+      <tspan x="80" dy="48">the source institution, location, cohort,</tspan>
+      <tspan x="80" dy="48">or students.</tspan>
     </text>
-    <text x="80" y="1325" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="25">This is not a current Calgary class. Do not add student names.</text>
+    <text x="80" y="1325" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="25">Keep private provenance and student identities out of public copy.</text>
   </g>
   <g id="edit-status" data-edit="status-fields" font-family="'Courier New', monospace" font-size="17" font-weight="800">
-    <text x="80" y="1400" fill="#151515">DATE: TO CONFIRM</text>
-    <text x="392" y="1400" fill="#151515">RIGHTS: HOLD UNTIL VERIFIED</text>
+    <text x="80" y="1400" fill="#151515">PROVENANCE: KEEP PRIVATE</text>
+    <text x="650" y="1400" fill="#151515">RIGHTS: VERIFY BEFORE EXPORT</text>
     <text x="80" y="1444" fill="#c93d32">EXIF / GPS: REMOVE + VERIFY</text>
   </g>
   <g transform="translate(1028 1384) rotate(-2 50 42)">
