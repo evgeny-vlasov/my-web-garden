@@ -108,6 +108,12 @@ Changing a slug changes its URL and should be treated as a redirect/migration ta
 
 ## Website deployment and recovery
 
+> This section records the application's GitHub workflow contract. The
+> canonical server-side deployment, activation, health-check, and rollback
+> procedure lives only in the central
+> [Webgarden deployment guide](../../docs/deployment.md#school-of-code). Live
+> production runs from `/var/www/soccl/current`, not this checkout.
+
 `.github/workflows/soccl-deploy.yml` runs only for pushes to `main` affecting `sites/shkolakoda` (or the workflow itself), and by manual `workflow_dispatch`. It validates the selected revision before entering the protected `soccl-production` environment. A repository-wide concurrency group allows only one SoCCL deployment at a time and does not cancel an in-progress deployment.
 
 The production environment must provide these secrets:

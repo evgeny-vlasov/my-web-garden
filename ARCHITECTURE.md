@@ -1,4 +1,17 @@
-# WebGarden Architecture Documentation
+# WebGarden Architecture Documentation (Historical)
+
+> **Historical record — not the current production architecture.** This file
+> describes an early two-site design centered on Therapist and Keystone. Its
+> paths, ports, users, service examples, deployment layout, and backup examples
+> are not a production runbook. Start with
+> [the canonical architecture](docs/architecture.md), then use
+> [deployment](docs/deployment.md) and [operations](docs/operations.md). Live
+> enabled nginx configuration, effective systemd configuration, protected
+> environment files, and active release symlinks remain runtime truth.
+
+The material below is retained because it explains the original shared-module
+design and some application decisions. Do not execute its operational examples
+without first reconciling them with the canonical documents and the live host.
 
 ## System Architecture Overview
 

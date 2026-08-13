@@ -1,5 +1,11 @@
 # Spam Management Implementation
 
+> **Historical implementation record, not a current runbook.** Counts, service
+> names, paths, status claims, and deployment or rollback commands below may be
+> stale. Treat submission data as private and do not run these commands against
+> production. Start with the current [Psyling README](README.md) and
+> [Webgarden deployment](../../docs/deployment.md).
+
 ## Date: 2026-03-01
 
 ## Overview

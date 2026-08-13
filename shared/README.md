@@ -1,10 +1,19 @@
 # Shared Modules Documentation
 
-The `shared/` directory contains common modules, utilities, and templates used across all WebGarden sites. This promotes code reuse, consistency, and maintainability.
+> **Application-module reference, not a deployment or site-creation runbook.**
+> Psyling and PoolEmergency are the current production consumers established by
+> the architecture audit; do not assume every site imports this package. The
+> migration and new-site examples below require isolated development data. Use
+> the canonical [site lifecycle](../docs/site-lifecycle.md) and
+> [deployment guide](../docs/deployment.md) for production decisions.
+
+The `shared/` directory contains common modules, utilities, and templates used
+by compatible Webgarden applications. This promotes code reuse, consistency,
+and maintainability where a site deliberately adopts the shared framework.
 
 ## Overview
 
-All WebGarden sites share:
+Shared-framework consumers can use:
 - Flask application factory
 - Database models
 - Form definitions

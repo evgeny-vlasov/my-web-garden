@@ -1,5 +1,12 @@
 # reCAPTCHA Setup Guide
 
+> **Historical setup guide, not a current production runbook.** Product limits,
+> service names, configuration paths, expected outcomes, and restart commands
+> below may be stale. Never expose keys or run these commands against production
+> without a newly reviewed plan. Start with the current
+> [Psyling README](README.md) and
+> [Webgarden operations](../../docs/operations.md).
+
 ## Quick Start (5 Minutes)
 
 Follow these steps to activate reCAPTCHA v3 spam protection on the contact form.
@@ -133,12 +140,9 @@ You should see: `Active: active (running)`
 
 ### Problem: Badge Doesn't Appear
 
-**Check 1:** Verify keys are set:
-```bash
-grep RECAPTCHA /var/www/webgarden/sites/psyling/.env
-```
-
-Should show two lines with your keys.
+**Check 1:** Verify the expected key names are present without printing values.
+Use the protected-configuration procedure in the central operations guide; do
+not grep complete assignments from an environment file.
 
 **Check 2:** Verify domain matches:
 - Go to https://www.google.com/recaptcha/admin
@@ -152,10 +156,8 @@ Should show two lines with your keys.
 
 ### Problem: Form Fails with "reCAPTCHA verification failed"
 
-**Check 1:** Verify Secret Key is correct:
-```bash
-grep RECAPTCHA_SECRET_KEY /var/www/webgarden/sites/psyling/.env
-```
+**Check 1:** Have an authorized operator verify the secret through its protected
+configuration source without displaying or copying it into diagnostic output.
 
 **Check 2:** Make sure Site Key and Secret Key are from the same registration
 

@@ -1,6 +1,13 @@
-# WebGarden Site Deployment - Quick Start
+# WebGarden Site Deployment Quick Start (Historical)
 
-Deploy a complete new site in **15 minutes** with just 2 commands!
+> **Unsupported on the current host. Do not run the commands below.** This guide
+> uses obsolete paths, users, ports, and provisioning assumptions. Port 8003 is
+> occupied, and the referenced scripts explicitly identify themselves as
+> deprecated. There is no current generic Webgarden deployment command. Start
+> with [the site lifecycle](../docs/site-lifecycle.md) and use
+> [the deployment decision guide](../docs/deployment.md) for existing sites.
+
+The remainder is preserved only as a record of the original 15-minute workflow.
 
 ## Prerequisites Check
 
@@ -10,7 +17,7 @@ which psql nginx systemctl certbot python3 pip3
 # All should return paths - if not, see deploy/README.md for installation
 ```
 
-## Deploy in 2 Steps
+## Historical Two-Step Workflow (Do Not Run)
 
 ### Step 1: Run Infrastructure Deployment (5 minutes)
 
@@ -97,6 +104,9 @@ sudo netstat -tuln | grep 8003
 ```
 
 **Need to start over?**
+
+> Historical destructive example: do not run this on the current host.
+
 ```bash
 # Delete everything and redeploy
 sudo systemctl stop dentist.service
@@ -109,7 +119,11 @@ sudo rm /etc/systemd/system/dentist.service
 sudo systemctl daemon-reload
 ```
 
-## Next Steps After Deployment
+## Historical Post-Deployment Checklist (Do Not Follow)
+
+> This checklist includes production forms, admin data, credentials, restarts,
+> and backup assumptions. It belongs to the retired workflow and is retained
+> only for context.
 
 1. ✓ Infrastructure deployed (Step 1)
 2. ✓ Site built with Claude Code (Step 2)
@@ -132,10 +146,12 @@ sudo systemctl daemon-reload
 
 ## Full Documentation
 
-- **Complete guide:** `deploy/README.md`
-- **Prompt template:** `deploy/SITE_CREATION_PROMPT.md`
-- **Troubleshooting:** See README.md "Troubleshooting" section
+- **Current site lifecycle:** [docs/site-lifecycle.md](../docs/site-lifecycle.md)
+- **Current deployment guide:** [docs/deployment.md](../docs/deployment.md)
+- **Current troubleshooting:** [docs/troubleshooting.md](../docs/troubleshooting.md)
+- **Historical design:** `deploy/README.md` and `deploy/SITE_CREATION_PROMPT.md`
 
 ---
 
-**Ready?** Run Step 1 now! 🚀
+Do not run the historical steps above. Start with the current
+[site lifecycle](../docs/site-lifecycle.md).

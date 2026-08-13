@@ -1,8 +1,16 @@
-# WebGarden Site Creation Prompt
+# WebGarden Site Creation Prompt (Historical)
 
-This is a standardized template for instructing Claude Code to build a complete Flask website on the WebGarden platform.
+> **Unsupported on the current host.** This prompt assumes deprecated
+> provisioning scripts, obsolete nested paths, a uniform shared architecture,
+> and stale port assignments. Do not give it to an agent as a current build or
+> deployment procedure. Plan a new site with
+> [the current lifecycle checklist](../docs/site-lifecycle.md), then define its
+> deployment and rollback path using [docs/deployment.md](../docs/deployment.md).
 
-## How to Use This Template
+The template below is retained as a historical example of the original site
+brief, not as an executable runbook.
+
+## Historical Usage (Do Not Follow on the Current Host)
 
 1. Fill in all the `[BRACKETED]` sections below with your specific requirements
 2. Copy the entire filled-in prompt
@@ -221,9 +229,12 @@ Please build this site following the exact patterns used in the Keystone site, b
 
 ---
 
-## AFTER SITE CREATION
+## Historical Post-Creation Workflow (Do Not Run)
 
 Once Claude Code has built your site:
+
+> The steps below belong to the deprecated workflow and must not be used on the
+> current host.
 
 1. **Run the deployment script** (if not already done):
    ```bash

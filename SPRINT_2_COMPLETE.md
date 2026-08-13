@@ -1,5 +1,11 @@
 # Sprint 2: Blog System & Admin Panel - COMPLETE ✅
 
+> **Historical implementation report, not a current production runbook.** Its
+> service names, paths, permissions, migration steps, deployment commands, and
+> status claims may be stale. Use [AGENTS.md](AGENTS.md) and the canonical
+> [operations](docs/operations.md) and [deployment](docs/deployment.md) guides;
+> do not run commands from this report against production.
+
 ## Overview
 Sprint 2 has been successfully completed! The WebGarden therapist site now includes a fully functional blog system and admin panel for content management.
 

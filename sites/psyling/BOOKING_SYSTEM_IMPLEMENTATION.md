@@ -1,5 +1,11 @@
 # Manual Booking System Implementation
 
+> **Historical implementation record, not a current runbook.** Service names,
+> paths, status claims, configuration, and restart instructions below may be
+> stale. Do not run them against production. Start with the current
+> [Psyling README](README.md) and
+> [Webgarden operations](../../docs/operations.md).
+
 ## Overview
 Implemented a manual booking request system with Google Calendar integration for the Psyling therapist website. This system displays Valery's availability via an embedded public Google Calendar while preventing automated booking to avoid vandalism and fake appointments.
 

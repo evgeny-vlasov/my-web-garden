@@ -1,6 +1,13 @@
 # Claude README - WebGarden Project
 
-> This document is specifically designed for AI assistants (like Claude Sonnet) to quickly understand the WebGarden project structure, architecture, and conventions.
+> **Historical Sprint 4 snapshot — not an AI entry point or current runbook.**
+> Its site count, architecture, paths, ports, users, service names, deployment
+> commands, and status claims are stale. Coding agents must begin with
+> [AGENTS.md](AGENTS.md) and the canonical [documentation index](docs/README.md).
+> Do not run operational commands from this file against the current host.
+
+This document is retained as a record of the early project structure and
+conventions.
 
 ## Project Quick Reference
 

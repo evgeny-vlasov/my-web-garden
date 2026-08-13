@@ -2,6 +2,13 @@
 
 Professional hardscaping and landscaping business website for Calgary, Alberta.
 
+> **Dormant source, not a deployed site.** The 2026-08-13 host audit found no
+> live Keystone venv, systemd unit, nginx mapping, environment file, or database.
+> Port `8002` and the setup/deployment notes below are development-era plans, not
+> current production assignments. Use the
+> [site lifecycle](../../docs/site-lifecycle.md) and
+> [deployment guide](../../docs/deployment.md) before any revival.
+
 ## Business Information
 
 - **Owner:** Andrew (lead craftsman)
@@ -25,7 +32,7 @@ Professional hardscaping and landscaping business website for Calgary, Alberta.
 - **Template Engine:** Jinja2
 - **Port:** 8002
 
-## Setup Instructions
+## Development-era setup instructions
 
 ### 1. Database Setup
 
@@ -34,7 +41,7 @@ Professional hardscaping and landscaping business website for Calgary, Alberta.
 createdb keystone_db
 
 # Initialize tables (from the webgarden root)
-cd /var/www/webgarden/webgarden
+cd /var/www/webgarden
 python -c "from sites.keystone.app import app, db; app.app_context().push(); db.create_all()"
 ```
 
@@ -242,9 +249,13 @@ data-primary-color="#10b981"
 - Portfolio showcases completed work
 - Service area clearly defined
 
-## Deployment
+## Historical deployment checklist
 
-For production deployment:
+This is a list of concerns from the original design, not an approved production
+procedure. Keystone needs a newly reviewed runtime, data, deployment, backup,
+and rollback plan before launch.
+
+For a future production plan:
 
 1. Set `FLASK_ENV=production` in environment
 2. Use Gunicorn or similar WSGI server
