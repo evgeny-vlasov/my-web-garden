@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block title %}School of Code Campaigns | Computer Lab Publishing{% endblock %}
-{% block meta_description %}Browse published School of Code Computer Lab campaigns connecting practical projects, lessons, articles, and original media.{% endblock %}
+{% block meta_description %}Browse School of Code campaigns that collect related projects, lessons, articles, and original media.{% endblock %}
 
 {% block content %}
-  <section class="page-hero"><div class="container"><p class="eyebrow">Git-backed campaigns / {{ campaigns | length }} published</p><h1>Focused paths through projects, lessons, and ideas.</h1><p class="lead">Campaigns collect related School of Code material around one useful build or question. Draft and scheduled work stays private until its publication state allows it.</p></div></section>
+  <section class="page-hero"><div class="container"><p class="eyebrow">Campaigns / {{ campaigns | length }} published</p><h1>Projects, lessons, and articles collected around one question.</h1><p class="lead">A campaign gives a larger build or subject one place to live.</p></div></section>
 
   <section class="section" aria-labelledby="published-campaigns"><div class="container"><div class="section-header"><div><p class="eyebrow">Published campaigns</p><h2 id="published-campaigns">Choose a focused build path.</h2></div></div>
-    {% if campaigns %}<div class="publication-grid">{% for campaign in campaigns %}<article class="publication-card">{% if campaign.image %}<img src="{{ campaign.image.url }}" alt="{{ campaign.image.alt }}">{% endif %}<p class="eyebrow">{{ campaign.categories | join(' / ') }}</p><h3><a href="{{ campaign.url }}">{{ campaign.title }}</a></h3><p>{{ campaign.summary }}</p><a class="text-link" href="{{ campaign.url }}">Open campaign <span aria-hidden="true">-&gt;</span></a></article>{% endfor %}</div>
-    {% else %}<div class="empty-state"><strong>No public campaigns yet</strong><p>Campaign records can be reviewed in Git while drafts and future schedules remain unavailable on the public site.</p></div>{% endif %}
+    {% if campaigns %}<div class="publication-grid">{% for campaign in campaigns %}<article class="publication-card">{% if campaign.image %}<img src="{{ campaign.image.url }}" alt="{{ campaign.image.alt }}" width="{{ campaign.image.width }}" height="{{ campaign.image.height }}">{% endif %}<p class="eyebrow">{{ campaign.categories | join(' / ') }}</p><h3><a href="{{ campaign.url }}">{{ campaign.title }}</a></h3><p>{{ campaign.summary }}</p><a class="text-link" href="{{ campaign.url }}">Open campaign <span aria-hidden="true">-&gt;</span></a></article>{% endfor %}</div>
+    {% else %}<div class="empty-state"><strong>No public campaigns yet</strong><p>Published campaigns will appear here.</p></div>{% endif %}
   </div></section>
 {% endblock %}

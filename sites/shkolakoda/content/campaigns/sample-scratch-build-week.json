@@ -4,14 +4,14 @@
   "id": "soccl.campaign.sample-scratch-week",
   "slug": "sample-scratch-build-week",
   "title": "Sample Scratch Build Week",
-  "summary": "An unpublished example campaign showing how a focused School of Code publishing package can connect a project, lesson, and original media.",
+  "summary": "A draft week built around one complete Scratch game, its coordinate lesson, and the artwork used to make it.",
   "status": "draft",
   "publish_at": null,
   "topics": ["Scratch", "Project-Based Learning", "Computer Lab"],
   "categories": ["Sample Campaign"],
   "seo": {
     "title": "Sample Scratch Build Week | School of Code",
-    "description": "An unpublished School of Code campaign example for a focused week of Scratch building, testing, debugging, and explanation.",
+    "description": "A draft School of Code campaign built around one complete Scratch game and its coordinate lesson.",
     "canonical_path": "/campaigns/sample-scratch-build-week",
     "noindex": true
   },
@@ -35,13 +35,13 @@
     {
       "heading": "Build one complete system",
       "paragraphs": [
-        "Students begin with a known starting state, add movement and pursuit one system at a time, and test each part before the next dependency arrives."
+        "Students begin with a known starting state. They add movement and pursuit one system at a time, testing each part before it has to work with the next."
       ]
     },
     {
       "heading": "Explain the evidence",
       "paragraphs": [
-        "The campaign ends with a demonstration of coordinates, collision priority, restart behaviour, and one bug repaired from observable evidence."
+        "The final demonstration covers coordinates, collision priority, restart behaviour, and one bug the student found and repaired."
       ]
     }
   ],

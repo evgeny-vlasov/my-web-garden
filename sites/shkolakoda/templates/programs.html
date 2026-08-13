@@ -8,15 +8,15 @@
   <section class="page-hero page-hero-library page-hero-programs" data-register="PROGRAM ROUTE / MAP">
     <div class="container">
       <p class="eyebrow">Programs</p>
-      <h1>One school. Several ways into code and machines.</h1>
-      <p class="lead">Scratch and Robotics are active first. Roblox Studio / Lua and AI &amp; Smart Machines belong to the larger educational direction and will be available later.</p>
+      <h1>Four subjects, with two open now.</h1>
+      <p class="lead">Scratch &amp; Game Design and Robotics are active. Roblox Studio / Lua and AI &amp; Smart Machines come later.</p>
       <div class="direction-path" aria-label="Educational direction">
         <div class="direction-step"><strong>Scratch</strong><span>visual logic and game systems</span></div>
         <div class="direction-step"><strong>Robotics</strong><span>sense, decide, act</span></div>
         <div class="direction-step"><strong>Roblox or text code</strong><span>scripts and larger systems</span></div>
         <div class="direction-step"><strong>AI and smart machines</strong><span>patterns, limits, and autonomy</span></div>
       </div>
-      <p class="mono-note">This is an educational direction, not a rigid mandatory sequence.</p>
+      <p class="mono-note">Students may enter at different points. Placement depends on experience and the work involved.</p>
     </div>
   </section>
 
@@ -25,9 +25,9 @@
       <div class="section-header">
         <div>
           <p class="eyebrow">Program map</p>
-          <h2>Build first. Name the theory. Use it again.</h2>
+          <h2>What students make and what they learn from it.</h2>
         </div>
-        <p class="section-intro">Each program connects a planned topic path to guided projects, Computer Lab extensions, parent explanations, and work worth sharing.</p>
+        <p class="section-intro">Each program has its own topic sequence, guided projects, and room for further work in the Computer Lab.</p>
       </div>
       <div class="program-grid">
         {% for program in programs.values() %}{{ program_card(program) }}{% endfor %}
@@ -38,7 +38,7 @@
   <section class="section section-blue">
     <div class="container">
       <p class="eyebrow">How a program moves</p>
-      <h2>Learning has a route, but projects have room to wander.</h2>
+      <h2>How a project moves through the school.</h2>
       <ol class="pathway" aria-label="School of Code teaching model">
         {% for step in learning_path %}<li>{{ step }}</li>{% endfor %}
       </ol>
@@ -49,11 +49,11 @@
     <div class="container two-column">
       <div>
         <p class="eyebrow">Choosing a starting point</p>
-        <h2>Experience is useful, not required.</h2>
+        <h2>Choose by interest, experience, and independence.</h2>
       </div>
       <div>
-        <p class="lead">Scratch is a clear starting point for students new to programming, and Robotics connects code to inputs, outputs, and physical behaviour. Previous experience can change the challenge level without skipping the underlying ideas.</p>
-        <p>Age ranges and group placement are not published yet. <a href="{{ url_for('contact') }}">Contact us to discuss fit</a> based on the student's experience, interests, and comfort with independent work.</p>
+        <p class="lead">Scratch gives new programmers quick access to working code. Robotics suits students who want to connect instructions to inputs, outputs, and physical behaviour.</p>
+        <p>Previous experience usually changes the challenge, not the need to understand the basics. <a href="{{ url_for('contact') }}">Contact us to discuss fit</a>; age ranges and group placement are still being finalized.</p>
       </div>
     </div>
   </section>

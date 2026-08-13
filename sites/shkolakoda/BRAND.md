@@ -239,8 +239,40 @@ Replace copy deliberately, maintain the safe areas, and export an sRGB PNG or
 WebP after validation. They are masters, not screenshots of finished posts.
 The template family covers 1080 × 1080 and 1080 × 1350 feed posts, a
 1080 × 1920 Story, a 1200 × 630 card, a project illustration frame, and the
-private-safe photograph-plus-caption treatment. Keep essential Story copy
-inside the labelled inset guide so interface controls do not cover it.
+private-safe photograph-plus-caption treatment.
+
+### Story safe area and export
+
+The Story master uses these named coordinates on its 1080 × 1920 canvas:
+
+| Constant | Coordinate |
+| --- | ---: |
+| `SAFE_LEFT` | 64 px |
+| `SAFE_TOP` | 280 px |
+| `SAFE_RIGHT` | 1016 px |
+| `SAFE_BOTTOM` | 1520 px |
+
+The live-content rectangle is therefore 952 × 1240 px. It reserves 280 px at
+the top and 400 px at the bottom for platform controls and CTA overlays. Keep
+the wordmark, headings, labels, CTA copy, and URL entirely within this
+rectangle. Background colour, grids, dots, and other non-essential decoration
+may extend to the full canvas. These bounds deliberately exceed the roughly
+14% top / 20% bottom text-and-logo exclusions in
+[Meta's Story guidance](https://www.facebook.com/help/instagram/192168966243613).
+
+The editable master keeps its dashed rectangle and instruction inside
+`id="editor-guide"`, marked `data-export="exclude"`. Never rasterize the
+editable master directly. First prepare a guide-free production SVG:
+
+```bash
+cd sites/shkolakoda
+venv/bin/python brand/export_story.py /tmp/social-story-production.svg
+```
+
+Rasterize `/tmp/social-story-production.svg` to an sRGB PNG or WebP with the
+approved design tool. The export helper fails unless it removes exactly the
+expected editor guide, preventing the border or instruction from entering the
+production asset.
 
 ## Mascot system
 

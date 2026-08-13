@@ -4,14 +4,14 @@
   "id": "soccl.media.escape-pigeon-cover",
   "slug": "escape-pigeon-cover",
   "title": "Escape from the Giant Pigeon stage cover",
-  "summary": "Original School of Code stage artwork used as the cover image for the Escape from the Giant Pigeon project.",
+  "summary": "The original stage backdrop for Escape from the Giant Pigeon.",
   "status": "published",
   "publish_at": "2026-07-01T00:00:00Z",
   "topics": ["Scratch", "Project Artwork"],
   "categories": ["Project Media"],
   "seo": {
     "title": "Escape from the Giant Pigeon Stage Artwork",
-    "description": "Original stage artwork for the School of Code Escape from the Giant Pigeon Scratch project production pilot."
+    "description": "Original stage artwork for the School of Code Scratch project Escape from the Giant Pigeon."
   },
   "internal_links": [],
   "image": null,
@@ -19,6 +19,8 @@
   "campaign_id": null,
   "path": "projects/escape-from-the-giant-pigeon/assets/stage-backdrop.svg",
   "media_type": "image/svg+xml",
+  "width": 480,
+  "height": 360,
   "alt": "Paper-textured chase stage with a start corner and striped shelter",
   "credit": "School of Code"
 }

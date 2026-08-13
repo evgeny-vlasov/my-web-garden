@@ -8,27 +8,27 @@ TOPICS = {
         "program": "Scratch & Game Design",
         "program_endpoint": "scratch",
         "intro": (
-            "Coordinates describe position. A screen is a map made from numbers, "
-            "and every object needs a way to answer: Where am I?"
+            "Coordinates give every place on the screen an address. Change x to move "
+            "left or right; change y to move down or up."
         ),
         "meta_description": (
-            "Learn how x and y coordinates describe position and movement in Scratch, "
-            "games, maps, animation, and later robotics work."
+            "How x and y coordinates control position and movement in Scratch, maps, "
+            "animation, robotics, and computer vision."
         ),
         "math_kernel": [
-            ("Number lines", "A coordinate uses a number line in each direction."),
-            ("Positive and negative", "The sign tells us which side of the origin a point occupies."),
-            ("Horizontal and vertical", "The x value controls left and right; y controls down and up."),
-            ("Change in position", "Distance moved can be described by comparing a before and after value."),
-            ("Centre and origin", "The point x: 0, y: 0 gives the screen a shared reference point."),
+            ("Two number lines", "One runs horizontally and the other vertically."),
+            ("Positive and negative", "The sign places a point on one side of the origin or the other."),
+            ("x and y", "x controls left and right; y controls down and up."),
+            ("Change in position", "Subtract the starting value from the finishing value to find the change."),
+            ("The origin", "x: 0, y: 0 is the shared reference point at the centre of the stage."),
         ],
         "common_mistakes": [
-            ("Changing x instead of y", "The character moves sideways when the intended movement was vertical."),
-            ("Using the wrong sign", "A positive change moves in the opposite direction from the one predicted."),
-            ("Starting from an unknown position", "A test gives different results because the sprite was never reset."),
-            ("Moving forever", "The code changes position repeatedly without checking stage boundaries."),
-            ("Confusing direction with position", "Where a sprite faces is not the same as where it is located."),
-            ("Fixing the symptom", "Extra movement blocks hide a problem instead of inspecting the current x and y values."),
+            ("Changing the wrong axis", "The character moves sideways when it was meant to move vertically."),
+            ("Using the wrong sign", "The sprite heads left when the student predicted right."),
+            ("Forgetting to reset", "The same test gives a different result because the sprite starts somewhere new."),
+            ("Ignoring the edge", "A loop keeps changing position after the sprite reaches the stage boundary."),
+            ("Mixing up direction and position", "Where a sprite faces and where it stands are separate properties."),
+            ("Adding blocks at random", "The useful clues are the sprite's current x and y values."),
         ],
         "returns_later": [
             ("Games", "Place players, targets, obstacles, projectiles, and safe zones."),
@@ -46,9 +46,8 @@ TOPICS = {
             ("AI and computer vision", "Available later", "later", "ai"),
         ],
         "parent_note": (
-            "A chase game may look like pure entertainment, but underneath it, "
-            "students are learning to represent position with numbers, predict "
-            "movement, test boundaries, and debug cause and effect."
+            "Ask your child to predict the player's next coordinates before pressing a key. "
+            "If the pigeon walks through a wall, ask which position or boundary rule needs checking."
         ),
     }
 }
@@ -63,22 +62,22 @@ LESSONS = {
         "topic": "Coordinates and Movement",
         "topic_endpoint": "coordinates_topic",
         "duration": "90 minutes",
-        "age_language": "Beginner-friendly; challenge depth can be adjusted for the group.",
+        "age_language": "No previous Scratch experience is needed. Challenges can be extended for experienced students.",
         "meta_description": (
-            "A public School of Code Scratch lesson on reading x and y coordinates, "
-            "predicting movement, checking boundaries, and debugging position."
+            "A 90-minute Scratch lesson on x and y coordinates, movement, boundaries, "
+            "and debugging position."
         ),
         "story": (
-            "A giant pigeon is chasing your character across Calgary. The computer "
-            "cannot see the chase the way a person does. How does it know where the "
-            "player is, where the pigeon is, or whether they have collided?"
+            "A giant pigeon is chasing your character across Calgary. Give both sprites "
+            "reliable positions, move the player with x and y, and decide exactly what "
+            "counts as being caught."
         ),
         "timeline": [
-            ("0-10 min", "Problem and story", "Turn a ridiculous chase into a precise position problem."),
-            ("10-30 min", "Coordinates and movement", "Read x and y, predict changes, and reset to the origin."),
-            ("30-65 min", "Guided build", "Build the core movement and chase systems together."),
-            ("65-80 min", "Modification challenge", "Change one rule and test the consequences."),
-            ("80-90 min", "Demonstration and explanation", "Show the system and explain its numbers."),
+            ("0-10 min", "The chase", "Work out how the stage records the player and pigeon positions."),
+            ("10-30 min", "Coordinates", "Read x and y, predict changes, and return to the origin."),
+            ("30-65 min", "Build the game", "Add movement, pursuit, collision, and a safe zone."),
+            ("65-80 min", "Change a rule", "Choose one modification, predict the result, and try it."),
+            ("80-90 min", "Show and explain", "Run the game and use coordinates to explain one part."),
         ],
         "learning_goals": [
             "Read x and y positions.",
@@ -97,11 +96,11 @@ LESSONS = {
             ("go to x: 0 y: 0", "return to the centre"),
         ],
         "checkpoints": [
-            "Student can identify the centre.",
-            "Student can predict four movements before running them.",
-            "Student can reset the player to a known position.",
-            "Student can explain one bug using x or y.",
-            "Student has changed at least one rule independently.",
+            "The student can identify the origin.",
+            "Four coordinate changes are predicted before they run.",
+            "Restarting returns the player to the chosen position.",
+            "The student explains one movement bug using x or y.",
+            "At least one rule has been changed independently.",
         ],
         "challenge_levels": [
             {
@@ -125,10 +124,9 @@ LESSONS = {
             "What did you change?",
         ],
         "parent_summary": (
-            "Today students practised reading x and y coordinates, predicting movement, "
-            "resetting a program to a known starting state, checking screen boundaries, "
-            "and using position values to explain and repair bugs. The chase-game story "
-            "made the work visible, but the underlying lesson was mathematical and logical."
+            "Students used x and y coordinates to move a player, set reliable starting positions, "
+            "and check the edge of the stage. They also used the coordinate display to explain "
+            "and repair a movement bug in the pigeon chase game."
         ),
     }
 }
@@ -149,12 +147,12 @@ PROJECT_DETAILS = {
         "estimated_time": "45-70 minutes",
         "topics": ["Coordinates", "Movement", "Conditions", "Collision", "Game State", "Debugging"],
         "meta_description": (
-            "Build Escape from the Giant Pigeon, a guided Scratch chase project "
-            "teaching coordinates, movement, collision, game state, and debugging."
+            "Build a Scratch chase game with coordinate movement, collision rules, "
+            "game state, complete resets, and a very large pigeon."
         ),
         "mission": (
-            "Reach a safe place while a huge, unreasonable pigeon chases you across the map. "
-            "The game should be funny to play and precise enough to explain."
+            "Reach the shelter before a huge pigeon catches you. Under the absurd premise "
+            "is a precise system of coordinates, collision checks, and two possible endings."
         ),
         "card_summary": (
             "Build a fast chase game with known positions, collision rules, "
@@ -186,78 +184,77 @@ PROJECT_DETAILS = {
             "A student-drawn character or ordinary built-in Scratch assets",
         ],
         "needs_note": (
-            "No installation is required where browser-based Scratch is available. "
-            "Saving and sharing options depend on account and classroom setup; account "
-            "creation is not assumed by this project."
+            "This project runs in the browser-based Scratch editor, so there is nothing to install. "
+            "An account is optional; available saving and sharing methods depend on the classroom setup."
         ),
         "build_steps": [
             {
                 "title": "Create the player",
                 "task": "Choose or draw a character that is easy to see against the map.",
-                "explanation": "The player is the object whose position the keyboard will change.",
+                "explanation": "The arrow keys will change this sprite's position.",
                 "checkpoint": "The player is visible and selected in the editor.",
                 "mistake": "Editing the stage or pigeon when you meant to edit the player.",
             },
             {
                 "title": "Set a known start",
-                "task": "Choose a starting x and y position and reset the player there when the project begins.",
-                "explanation": "A known start makes every test comparable.",
+                "task": "Choose a starting x and y position, then send the player there when the project begins.",
+                "explanation": "Every test should begin from the same position.",
                 "checkpoint": "Restarting always returns the player to the same place.",
                 "mistake": "Moving the sprite by hand but never putting the starting position in code.",
             },
             {
                 "title": "Add four-direction controls",
                 "task": "Use keys to change x for left/right and y for down/up.",
-                "explanation": "Movement is a controlled change in position.",
+                "explanation": "Right and left change x. Up and down change y.",
                 "checkpoint": "Each key changes only the intended axis.",
                 "mistake": "Changing y for a left/right key or using the wrong sign.",
             },
             {
                 "title": "Add the giant pigeon",
-                "task": "Draw or choose an ordinary bird-like sprite and give it a known starting point.",
-                "explanation": "The pigeon is another object with its own coordinates.",
+                "task": "Draw or choose a bird-like sprite and give it a fixed starting point.",
+                "explanation": "The pigeon needs coordinates of its own.",
                 "checkpoint": "The pigeon never starts directly on top of the player.",
                 "mistake": "Leaving its starting position wherever the previous test ended.",
             },
             {
                 "title": "Make the pigeon pursue",
-                "task": "Make the pigeon repeatedly move toward the player using a simple pursuit rule.",
-                "explanation": "The pursuer must check changing positions again and again.",
+                "task": "Use a simple pursuit rule to make the pigeon keep moving toward the player.",
+                "explanation": "The pigeon checks the player's latest position before each move.",
                 "checkpoint": "The pigeon follows after the player moves.",
                 "mistake": "Running the pursuit once instead of repeatedly.",
             },
             {
                 "title": "Create a safe zone",
                 "task": "Draw a clear destination and place it away from both starting positions.",
-                "explanation": "A safe zone turns movement into a goal rather than wandering.",
+                "explanation": "The destination gives the player somewhere specific to reach.",
                 "checkpoint": "The player can reach it with the keyboard controls.",
                 "mistake": "Placing it partly outside the stage or beneath another object.",
             },
             {
                 "title": "Detect being caught",
                 "task": "Repeatedly check whether the player touches the pigeon.",
-                "explanation": "A condition changes the game when two objects collide.",
+                "explanation": "Contact with the pigeon changes the game state to CAUGHT.",
                 "checkpoint": "Touching the pigeon produces a clear loss state.",
                 "mistake": "Checking collision before play begins but never checking again.",
             },
             {
                 "title": "Detect reaching safety",
                 "task": "Check whether the player touches the safe zone and switch to a win state.",
-                "explanation": "Win and loss are different states with different causes.",
+                "explanation": "Touching the safe zone produces the other ending.",
                 "checkpoint": "Reaching safety ends the chase visibly.",
                 "mistake": "Allowing win and loss to trigger during the same moment without deciding priority.",
             },
             {
                 "title": "Reset the whole game",
                 "task": "Return positions, messages, and game state to their initial values.",
-                "explanation": "Restart means restoring the system, not only moving the player.",
+                "explanation": "A restart restores both sprites, every variable, and the opening state.",
                 "checkpoint": "Three restarts in a row behave the same way.",
                 "mistake": "Resetting one sprite while the other keeps its old state.",
             },
             {
                 "title": "Test strange situations",
-                "task": "Try edges, rapid keys, simultaneous contact, and unusual starting arrangements.",
-                "explanation": "Deliberate tests find assumptions hidden in otherwise working code.",
+                "task": "Try the stage edges, rapid keys, simultaneous contact, and unusual starting arrangements.",
+                "explanation": "These tests reach cases that an ordinary successful run may miss.",
                 "checkpoint": "Record and repair at least one surprising behaviour.",
                 "mistake": "Only testing the easiest successful path.",
             },
@@ -297,9 +294,9 @@ PROJECT_DETAILS = {
             "One personal modification",
         ],
         "parent_explanation": (
-            "The funny chase game develops coordinate reasoning, movement systems, "
-            "conditions, game state, testing, and debugging. Students must represent "
-            "position with numbers and explain how a change in code creates a change on screen."
+            "Students move the player by changing x and y, then use contact checks and game state "
+            "to keep the two endings separate. A complete reset makes repeated testing possible. "
+            "The pigeon is absurd. The coordinate system is not."
         ),
     },
     "grandmas-intergalactic-taxi": {
@@ -316,20 +313,19 @@ PROJECT_DETAILS = {
         "estimated_time": "45-90 minutes",
         "topics": ["Coordinates", "Movement", "Distance", "Sequences", "Score", "Boundaries", "Debugging"],
         "meta_description": (
-            "Build Grandma's Intergalactic Taxi, a Scratch Computer Lab project "
-            "using coordinates, routes, destinations, score, boundaries, and debugging."
+            "Build Grandma's Intergalactic Taxi in Scratch with coordinate routes, "
+            "pickup and delivery states, boundaries, and a trip counter."
         ),
         "mission": (
-            "Grandma operates a taxi in space and has absolutely no intention of "
-            "missing another pickup. Move between planets or stations using coordinates."
+            "Grandma drives a taxi in space and has no intention of missing another pickup. "
+            "Read the map, collect passengers, and deliver them to the right coordinates."
         ),
         "card_summary": (
             "Navigate a space taxi between coordinate-based pickups and destinations."
         ),
         "lab_note": (
-            "This is not a complete teacher-led recipe. The required systems define "
-            "the project, but students may draw different maps, choose different controls, "
-            "and solve arrival and dispatch logic in more than one correct way."
+            "The required systems set the finish line. Students choose the map and controls, "
+            "then decide how the taxi detects arrivals and handles dispatches."
         ),
         "required_systems": [
             "A space map with three or more destinations",
@@ -340,19 +336,26 @@ PROJECT_DETAILS = {
             "A reset path after mistakes",
         ],
         "build_order": [
-            "Draw the map and record useful destination coordinates.",
-            "Place the taxi at a known start and build movement controls.",
-            "Detect arrival at one station before adding the others.",
-            "Create pickup and delivery states for one passenger.",
-            "Track completed trips and reset the current request.",
-            "Test boundaries, wrong destinations, and repeated arrivals.",
+            "Draw the map and write down the coordinates of each destination.",
+            "Give the taxi a fixed starting position and add movement controls.",
+            "Make arrival work at one station, then add the others.",
+            "Create separate pickup and delivery states for one passenger.",
+            "Count a completed trip once, then reset the current request.",
+            "Try the map boundaries, wrong destinations, and repeated arrivals.",
         ],
         "checkpoints": [
-            "The taxi starts from a known position.",
+            "The taxi always starts from the chosen coordinates.",
             "At least three destinations have distinct locations.",
             "Pickup and delivery are different states.",
-            "A trip cannot score repeatedly without a new request.",
+            "One delivery adds exactly one trip.",
             "The student can explain one route using x and y changes.",
+        ],
+        "test_questions": [
+            "Does the taxi always start at the chosen coordinates?",
+            "Can it arrive at all three destinations?",
+            "Can a passenger be delivered before being collected?",
+            "Does one delivery add exactly one trip?",
+            "What happens after a wrong destination or route?",
         ],
         "challenge_cards": [
             "Fuel decreases with movement.",
@@ -363,9 +366,8 @@ PROJECT_DETAILS = {
             "Create a shortest-route challenge.",
         ],
         "boss_level": (
-            "Add a dispatch system that gives destinations in coordinate form, such as "
-            "'Pickup requested near x: 140, y: -80.' The player must read the request "
-            "and navigate without a flashing destination marker."
+            "Make the dispatcher give coordinates instead of flashing the destination: "
+            "'Pickup requested near x: 140, y: -80.' The player must read the request and navigate there."
         ),
         "demonstrate": [
             "Three destinations on a coordinate map",
@@ -375,9 +377,9 @@ PROJECT_DETAILS = {
             "One independently chosen challenge card",
         ],
         "parent_explanation": (
-            "This project turns coordinate reading into map thinking and route planning. "
-            "Students track changing positions, represent destinations, distinguish pickup "
-            "from delivery state, test boundaries, and debug a system with several valid routes."
+            "Students use coordinates as places on a working map. The taxi must distinguish pickup "
+            "from delivery, count each trip once, and recover from wrong destinations or bad routes. "
+            "There may be several good routes, which makes comparison part of the project."
         ),
     },
     "astro-chicken-rescue": {
@@ -394,21 +396,19 @@ PROJECT_DETAILS = {
         "estimated_time": "45-90 minutes",
         "topics": ["Coordinates", "Movement", "Random Positions", "Sensing", "Collision", "Variables", "Debugging"],
         "meta_description": (
-            "Build Astro-Chicken Rescue, a Scratch Computer Lab project using "
-            "multiple object coordinates, random positions, sensing, variables, and debugging."
+            "Build Astro-Chicken Rescue in Scratch with several coordinate positions, "
+            "collision sensing, hazards, variables, and optional random targets."
         ),
         "mission": (
             "Several space chickens have drifted away from their station. Control the "
             "rescue ship, collect them, and avoid dangerous zones."
         ),
         "card_summary": (
-            "Collect drifting space chickens while tracking several positions "
-            "and avoiding danger zones."
+            "Track several drifting chickens, collect them once each, and stay out of the danger zones."
         ),
         "lab_note": (
-            "This project changes the coordinate lesson by making every rescue target a "
-            "position problem. Students choose how chickens appear, how collection works, "
-            "and how the ship receives useful information."
+            "Every chicken adds another position for the game to track. Students decide where the targets "
+            "appear, what counts as a rescue, and how much navigational help the ship provides."
         ),
         "required_systems": [
             "A controllable rescue ship",
@@ -419,19 +419,26 @@ PROJECT_DETAILS = {
             "A clear win condition",
         ],
         "build_order": [
-            "Build and test ship movement from a known starting position.",
-            "Place one chicken and make collection reliable.",
-            "Add more chickens at distinct coordinates.",
-            "Count rescues without counting the same chicken twice.",
-            "Add a danger zone with clear collision behaviour.",
-            "Create and test a win condition after all rescues are complete.",
+            "Give the ship a fixed starting position, then build and test its controls.",
+            "Place one chicken and make its collection rule reliable.",
+            "Add more chickens at different coordinates.",
+            "Make sure each chicken can increase the rescue count only once.",
+            "Add a danger zone and define what its collision does.",
+            "End the game when the rescue count matches the number of chickens.",
         ],
         "checkpoints": [
-            "The ship and every chicken have inspectable positions.",
-            "Collecting one chicken changes the count once.",
-            "Hazards and chickens cannot create contradictory outcomes.",
+            "The positions of the ship and every chicken can be inspected.",
+            "Collecting one chicken adds exactly one to the count.",
+            "Touching a hazard and a chicken cannot produce contradictory outcomes.",
             "The win condition matches the number of rescue targets.",
-            "The student can explain how an object's coordinates affected a test.",
+            "The student uses an object's coordinates to explain one test result.",
+        ],
+        "test_questions": [
+            "Can the ship and every chicken's position be inspected?",
+            "Does collecting one chicken add exactly one to the count?",
+            "What happens when the ship touches a hazard and a chicken together?",
+            "Does the win condition match the number of rescue targets?",
+            "Do all targets and counters reset for a new attempt?",
         ],
         "challenge_cards": [
             "Randomize chicken locations.",
@@ -443,9 +450,8 @@ PROJECT_DETAILS = {
             "Create a radar display using relative position.",
         ],
         "boss_level": (
-            "Create a rescue beacon that compares the ship and chicken positions and "
-            "reports clues such as 'target is left and above.' This introduces relative "
-            "position by comparing x values and y values without requiring formal vector mathematics."
+            "Create a beacon that compares the ship and chicken coordinates, then reports clues such as "
+            "'target is left and above.' Compare the two x values and the two y values separately."
         ),
         "demonstrate": [
             "Ship movement from a known start",
@@ -456,9 +462,9 @@ PROJECT_DETAILS = {
             "One independently chosen challenge card",
         ],
         "parent_explanation": (
-            "This project extends coordinates from one player into a system of multiple "
-            "moving or generated objects. Students work with random positions, sensing, "
-            "collision, variables, planning, and debugging while keeping object states consistent."
+            "The game tracks a ship, several chickens, and at least one hazard at the same time. "
+            "Students use collision sensing and a rescue counter, prevent the same target from scoring twice, "
+            "and keep the win and hazard rules from contradicting each other."
         ),
     },
 }
@@ -515,39 +521,38 @@ TOPICS.update(
     {
         "events-and-commands": topic_entry(
             "Events and Commands",
-            "Programs need a reason to begin and a precise instruction about what should happen next. Events provide the reason; commands provide the action.",
+            "An event tells a program when to respond. Commands say what to do, and their order matters.",
             "Project connection",
             ["scratch", "robotics", "roblox"],
             (
-                "Without events, a game cannot tell the difference between waiting and acting. "
-                "Without commands, a robot has no sequence to follow. This topic gives students "
-                "the basic grammar of interactive systems: when something happens, do something observable."
+                "The green flag, a key press, and a robot's button are all triggers. Students connect "
+                "each trigger to a short sequence, then change the order and watch the result change."
             ),
             [
-                ("Trigger", "An event that starts a response."),
-                ("Sequence", "Commands run in an intentional order."),
-                ("Cause and effect", "A visible action should have an identifiable cause."),
-                ("Specificity", "A useful command says exactly what changes."),
+                ("Trigger", "The event that starts a script."),
+                ("Sequence", "The order in which commands run."),
+                ("Cause and effect", "A key is pressed, so the sprite jumps."),
+                ("Specific commands", "The program needs an action it can actually carry out."),
             ],
             (
-                "An elevator button, a pedestrian crossing, and a game controller all wait for "
-                "an event. The systems differ, but each must connect an input to a dependable sequence."
+                "Press an elevator button and a sequence begins: record the request, move the car, "
+                "stop at the right floor, and open the door. Games and robots arrange their responses the same way."
             ),
             [
-                ("Green flag", "Start a Scratch scene from a known state."),
-                ("Key press", "Move or act only when a chosen key is pressed."),
-                ("Button input", "Make a simulated or physical output respond."),
-                ("Message received", "Start one part of a project when another part is ready."),
+                ("Green flag", "Put a Scratch scene into its starting state."),
+                ("Key press", "Run an action when the player chooses a key."),
+                ("Button input", "Connect a physical press to a light or sound."),
+                ("Message received", "Begin one script when another has finished its job."),
             ],
             [
-                ("Commands in the wrong order", "The output happens before the setup is complete."),
-                ("No clear trigger", "Code exists but nothing tells it to run."),
-                ("Too many jobs in one event", "A single script becomes difficult to test."),
-                ("Assuming instant completion", "The next command begins before an animation or movement has finished."),
+                ("Wrong order", "The character moves before its position has been reset."),
+                ("Missing trigger", "The blocks are correct, but nothing starts them."),
+                ("One event doing everything", "A long script makes it hard to find which response failed."),
+                ("Timing assumed", "The next command runs before a movement or animation has finished."),
             ],
             (
-                "A button-controlled animation looks simple, but it teaches children to connect "
-                "cause and effect, order instructions, and explain why a system acted at a particular moment."
+                "A student should be able to point to the event, name the first command, and predict what "
+                "will change if two commands swap places."
             ),
             "events-and-commands",
             ["robot-hamster-command-centre", "button-and-buzzer-alarm", "quiz-of-questionable-knowledge"],
@@ -555,39 +560,38 @@ TOPICS.update(
         ),
         "loops-and-repetition": topic_entry(
             "Loops and Repetition",
-            "A loop asks a program to repeat useful work without copying the same instruction again and again.",
+            "Loops repeat a group of commands. The programmer chooses what repeats, how often, and when it stops.",
             "Project connection",
             ["scratch", "robotics", "roblox"],
             (
-                "Games constantly redraw motion, check collisions, create waves, and update timers. "
-                "Robots repeatedly read sensors and correct movement. Loops make that repetition visible, "
-                "controllable, and easier to change."
+                "A game checks for collisions many times each second. A robot keeps reading its distance sensor. "
+                "Putting that work in a loop makes the repeated rule easy to see and change."
             ),
             [
-                ("Repeat count", "Do an action a known number of times."),
-                ("Forever", "Continue while the program is running."),
-                ("Repeat until", "Stop when a condition becomes true."),
-                ("Iteration", "One pass through the repeated instructions."),
+                ("Repeat count", "Run the commands a fixed number of times."),
+                ("Forever", "Keep running them while the project is active."),
+                ("Repeat until", "Check a condition and stop when it becomes true."),
+                ("Iteration", "One trip through the loop."),
             ],
             (
-                "A lighthouse repeats a pattern, a traffic signal cycles through states, and a patrol "
-                "checks the same route. Repetition becomes useful when the system also knows when to change or stop."
+                "A traffic signal repeats a cycle, but it cannot simply flash every light at once. "
+                "The sequence, timing, and stopping rule are part of the loop."
             ),
             [
-                ("Snowball wave", "Create repeated hazards with controlled timing."),
-                ("Animation cycle", "Repeat costume and position changes."),
-                ("Robot patrol", "Repeat movement while checking for an obstacle."),
-                ("Countdown", "Update a value once per timed interval."),
+                ("Snowball wave", "Launch each hazard after a controlled delay."),
+                ("Animation cycle", "Repeat costume changes at a readable speed."),
+                ("Robot patrol", "Move along the route and check for obstacles each time."),
+                ("Countdown", "Subtract one after each timed interval."),
             ],
             [
-                ("Accidental forever loop", "The program never reaches the instructions after the loop."),
-                ("No changing value", "A repeat-until condition can never become true."),
-                ("Copying instead of looping", "Many identical blocks make one change tedious and error-prone."),
-                ("Repeating too quickly", "The result is unreadable because timing was never considered."),
+                ("Accidental forever loop", "The program never reaches the blocks beneath it."),
+                ("A condition that never changes", "The repeat-until loop has no way to finish."),
+                ("Copied blocks", "One timing change has to be repaired in twenty places."),
+                ("No pause", "The loop runs so quickly that the result cannot be seen or controlled."),
             ],
             (
-                "Loops are not merely shortcuts. They help students describe patterns, reason about "
-                "how often something happens, and decide what condition should end repeated behaviour."
+                "The useful questions are simple: what belongs inside the loop, what happens only once, "
+                "and which count or condition brings the repetition to an end?"
             ),
             "loops-and-repetition",
             ["attack-of-the-angry-snowballs", "robot-patrol-challenge", "the-floor-is-definitely-lava"],
@@ -595,38 +599,38 @@ TOPICS.update(
         ),
         "conditions-and-decisions": topic_entry(
             "Conditions and Decisions",
-            "Conditions let a program choose between actions by asking a question that can be answered yes or no.",
+            "A condition is a question with a true or false answer. The answer decides which code runs.",
             "Project connection",
             ["scratch", "robotics", "roblox", "ai"],
             (
-                "A game needs to decide whether a player won, a quiz needs to check an answer, and a robot "
-                "needs to decide whether an obstacle is close enough to matter. Conditions turn information into behaviour."
+                "Has the player reached safety? Is the quiz answer correct? Is the wall closer than 15 centimetres? "
+                "Each question turns information into a decision the program can repeat reliably."
             ),
             [
-                ("Boolean question", "A test with a true or false result."),
-                ("If", "Run an action only when a condition is true."),
-                ("If / else", "Choose between two paths."),
-                ("Comparison", "Test whether values are equal, greater, or less."),
+                ("Boolean question", "A test whose answer is true or false."),
+                ("If", "Run these commands when the test is true."),
+                ("If / else", "Choose one of two paths."),
+                ("Comparison", "Check whether two values are equal or which one is larger."),
             ],
             (
-                "A thermostat asks whether a room is colder than its target. The important part is not "
-                "the appliance; it is the boundary between two decisions and what happens on each side."
+                "A thermostat compares the room temperature with a target. Below the target it heats; "
+                "above it, it waits. The chosen boundary controls the behaviour."
             ),
             [
-                ("Quiz answer", "Compare a response with the expected value."),
-                ("Safe zone", "Win if the player reaches a target."),
-                ("Obstacle check", "Turn if a sensor reports something close."),
-                ("Fuel warning", "Change behaviour below a chosen threshold."),
+                ("Quiz answer", "Compare the response with the stored answer."),
+                ("Safe zone", "Set the game to WON when the player reaches the target."),
+                ("Obstacle check", "Turn when the distance reading falls below a limit."),
+                ("Fuel warning", "Show a warning when fuel drops below the chosen threshold."),
             ],
             [
-                ("Checking once", "A changing game condition is tested only at startup."),
+                ("Checking once", "The program tests a changing condition only when the game starts."),
                 ("Reversed comparison", "The warning appears above the threshold instead of below it."),
                 ("Overlapping outcomes", "Win and loss can both become true without a priority rule."),
-                ("Hidden assumption", "The code assumes a value or state that was never initialized."),
+                ("Missing starting value", "The condition reads a variable that was never initialized."),
             ],
             (
-                "Conditions teach students to turn vague rules into testable questions. Parents can ask, "
-                "'What question is the program asking, and what happens for each answer?'"
+                "Ask your child to say the condition as a question, then show what happens for true and false. "
+                "That explanation usually reveals a reversed comparison faster than staring at the blocks."
             ),
             "conditions-and-decisions",
             ["quiz-of-questionable-knowledge", "escape-from-the-giant-pigeon", "robot-patrol-challenge"],
@@ -634,38 +638,38 @@ TOPICS.update(
         ),
         "variables-and-state": topic_entry(
             "Variables and State",
-            "Variables give names to information that can change. State describes which situation the whole system is currently in.",
+            "A variable stores a value that can change. State records which set of rules currently applies.",
             "Project connection",
             ["scratch", "robotics", "roblox", "ai"],
             (
-                "Scores, health, fuel, mood, timers, current questions, and robot modes all need memory. "
-                "A named value lets students inspect that memory instead of hiding it inside a complicated script."
+                "Scores, timers, fuel, pet moods, and robot modes all have to be remembered. Giving each value "
+                "a clear name lets a student inspect it while the project runs."
             ),
             [
-                ("Name", "A useful variable name describes the information stored."),
-                ("Initial value", "Every test should begin from a known value."),
-                ("Update", "An event changes a value for a reason."),
-                ("State", "A label such as PLAYING, CAUGHT, or DELIVERING controls the current rules."),
+                ("Name", "The variable name says what the value represents."),
+                ("Initial value", "The project sets a known value before the test begins."),
+                ("Update", "A particular event changes the value."),
+                ("State", "A label such as PLAYING, CAUGHT, or DELIVERING selects the current rules."),
             ],
             (
-                "A taxi meter remembers a fare while the vehicle moves. A game score and a robot patrol mode "
-                "do the same kind of work: they preserve information so later decisions can use it."
+                "A taxi meter keeps the current fare while the vehicle moves. A game score or robot mode "
+                "also stores information now so that another rule can use it later."
             ),
             [
-                ("Score", "Increase after a completed action, not every frame."),
-                ("Pet mood", "Store a changing need and show its effect."),
-                ("Game state", "Separate starting, playing, won, and lost behaviour."),
-                ("Robot mode", "Remember whether a machine is waiting, moving, or correcting."),
+                ("Score", "Add one when an action finishes, rather than on every frame."),
+                ("Pet mood", "Store a changing need and let it affect the pet's behaviour."),
+                ("Game state", "Use STARTING, PLAYING, WON, and LOST to control separate rules."),
+                ("Robot mode", "Record whether the machine is waiting, moving, or recovering."),
             ],
             [
-                ("Never resetting", "A new game begins with values from the previous run."),
-                ("Changing in two places", "A score jumps unexpectedly because several scripts update it."),
-                ("Vague names", "Variables called thing or number hide their purpose."),
-                ("Confusing value and display", "Hiding a variable monitor does not reset its stored value."),
+                ("No reset", "A new game inherits the score or mode from the previous run."),
+                ("Several scripts update one value", "The score jumps because more than one rule changes it."),
+                ("Vague names", "Variables called thing or number make the code harder to read."),
+                ("Hiding the display", "Removing a variable monitor from the stage does not erase its value."),
             ],
             (
-                "Variables make invisible memory visible. A child who can explain why a score changed, "
-                "where it resets, and which state is active is reasoning about a complete system."
+                "A variable is understood when a student can trace three places: where it receives its starting "
+                "value, what changes it, and which rules read it."
             ),
             "variables-and-score",
             ["the-suspiciously-emotional-space-pet", "grandmas-intergalactic-taxi", "microbit-reaction-timer"],
@@ -673,38 +677,38 @@ TOPICS.update(
         ),
         "sensing-and-collision": topic_entry(
             "Sensing and Collision",
-            "Sensing gives a program information about contact, distance, colour, input, or another changing part of the world.",
+            "Sensing blocks report contact, colour, distance, button presses, and other changes a program can use.",
             "Project connection",
             ["scratch", "robotics", "roblox"],
             (
-                "Movement alone does not create interaction. Games become systems when they notice walls, hazards, "
-                "targets, or players. Robots become responsive when they can measure something outside their command list."
+                "A moving sprite needs to notice walls, hazards, and targets. A robot needs a reading from outside "
+                "its command list before it can respond to a box placed in its path."
             ),
             [
-                ("Signal", "A piece of information the program can inspect."),
-                ("Collision", "Two regions overlap or touch."),
-                ("Boundary", "A position or region that changes the rules."),
-                ("Continuous checking", "Changing inputs must often be tested repeatedly."),
+                ("Signal", "Information the program can read."),
+                ("Collision", "Two defined areas touch or overlap."),
+                ("Boundary", "A position or region where the rules change."),
+                ("Continuous checking", "A loop reads changing input again and again."),
             ],
             (
-                "A door sensor, a phone screen, and a game hitbox all decide whether an interaction occurred. "
-                "The measurements differ, but each must define what counts as contact."
+                "A door sensor may use a physical switch; a game uses the shapes of two costumes. In both cases, "
+                "the designer has to define exactly what counts as contact."
             ),
             [
-                ("Touching colour", "Treat a map colour as a wall or hazard."),
-                ("Sprite collision", "Detect contact between player and target."),
-                ("Distance reading", "Respond when an object is nearer than a threshold."),
-                ("Button sensing", "Turn a physical action into a program signal."),
+                ("Touching colour", "Use a map colour to mark a wall or hazard."),
+                ("Sprite collision", "Check whether the player and target overlap."),
+                ("Distance reading", "Respond when an obstacle is nearer than a set limit."),
+                ("Button sensing", "Read whether a physical control is pressed."),
             ],
             [
-                ("Oversized collision area", "Transparent or hidden parts of a costume trigger contact."),
-                ("One-time check", "Fast movement passes through because collision is not checked continuously."),
-                ("No response state", "Contact is detected repeatedly and score increases many times."),
-                ("Visual guess", "The student assumes objects touch instead of inspecting the sensing result."),
+                ("Surprising collision area", "A costume is larger than it looks, so contact happens too early."),
+                ("One-time check", "The player moves after the collision test has already finished."),
+                ("Repeated scoring", "One long contact adds a point on every trip through the loop."),
+                ("Trusting the picture", "The sprites look close, but the sensing block reports something else."),
             ],
             (
-                "Collision projects teach children to define evidence. The question is not only 'Did it look close?' "
-                "but 'What signal did the program test, and what rule followed?'"
+                "If one collision adds ten points, the sensor may be working perfectly. The response runs on every "
+                "trip through the loop, so the student needs a state change or a reset before another point can score."
             ),
             "sensing-and-collision",
             ["the-floor-is-definitely-lava", "astro-chicken-rescue", "button-and-buzzer-alarm"],
@@ -712,38 +716,38 @@ TOPICS.update(
         ),
         "input-and-output": topic_entry(
             "Input and Output",
-            "Input is information entering a system. Output is the visible, audible, or physical action the system produces.",
+            "Input enters a system. The code handles it, and an output makes the result visible, audible, or physical.",
             "Project connection",
             ["scratch", "robotics", "roblox"],
             (
-                "Naming inputs and outputs helps students stop treating devices as magic. A key press is input; "
-                "a moving sprite is output. A button is input; an LED or buzzer is output. Code connects them."
+                "A key press can move a sprite. A button can light an LED or sound a buzzer. Students identify "
+                "the signal coming in, then write the rule that produces the response."
             ),
             [
-                ("Input", "A signal the program can read."),
-                ("Processing", "Rules that decide how the signal matters."),
-                ("Output", "An action people or other systems can observe."),
-                ("Mapping", "The deliberate connection between input and response."),
+                ("Input", "A signal or value the program can read."),
+                ("Processing", "The rule applied to that information."),
+                ("Output", "The resulting movement, light, sound, or display."),
+                ("Mapping", "The chosen connection between an input and its response."),
             ],
             (
-                "A doorbell maps a button press to sound. A keyboard-controlled game and a microcontroller circuit "
-                "use the same input-process-output structure with different materials."
+                "A doorbell turns a button press into sound. A keyboard game does the same sort of work "
+                "with keys and sprites; a microcontroller uses pins, LEDs, motors, and buzzers."
             ),
             [
-                ("Keyboard to movement", "Map four keys to coordinate changes."),
-                ("Button to buzzer", "Produce sound while or after a button is pressed."),
-                ("Timer to display", "Show a measured result."),
-                ("Sensor to motor", "Change movement after a measurement."),
+                ("Keyboard to movement", "Connect four keys to changes in x and y."),
+                ("Button to buzzer", "Play a sound when a button is pressed."),
+                ("Timer to display", "Show the measured time as a number."),
+                ("Sensor to motor", "Change the motor command after a reading crosses a threshold."),
             ],
             [
-                ("Input never read", "The program defines an output but does not check the signal."),
-                ("Output has no clear cause", "Several inputs control the same action without priority."),
-                ("Wrong pin or object", "Code listens to a different input than the build uses."),
-                ("No feedback", "The user cannot tell whether the input was recognized."),
+                ("Input never read", "The output code exists, but nothing checks the control."),
+                ("Competing inputs", "Two controls try to set the same output with no priority rule."),
+                ("Wrong pin or object", "The code listens somewhere other than where the component is connected."),
+                ("Silent response", "There is no visible sign that the input was received."),
             ],
             (
-                "Input and output give parents a plain way to discuss a project: What information entered, "
-                "what rule processed it, and what observable action came out?"
+                "A finished project should make three parts easy to demonstrate: the input, the rule that handles it, "
+                "and the output. The wiring may take a little longer to explain."
             ),
             "robot-commands-and-sequences",
             ["button-and-buzzer-alarm", "led-traffic-light", "robot-hamster-command-centre"],
@@ -751,38 +755,38 @@ TOPICS.update(
         ),
         "debugging": topic_entry(
             "Debugging",
-            "Debugging is the disciplined work of explaining the difference between what a system should do and what it actually does.",
+            "Debugging begins with a precise difference: what should have happened, and what happened instead?",
             "Project connection",
             ["scratch", "robotics", "roblox", "ai"],
             (
-                "Every substantial project contains surprises. Debugging teaches students to slow down, preserve evidence, "
-                "test one idea at a time, and treat a bug as a clue rather than a judgment about ability."
+                "Guessing becomes expensive as a project grows. Students reproduce the problem, inspect a relevant "
+                "value, choose one possible cause, and run a test that can prove them wrong."
             ),
             [
-                ("Expected result", "State what should happen before changing code."),
-                ("Observed result", "Describe what actually happened without guessing why."),
-                ("Hypothesis", "Choose one possible cause."),
-                ("Controlled test", "Change or inspect one relevant thing."),
+                ("Expected result", "Write down what should happen before editing."),
+                ("Observed result", "Describe what happened, without adding a guessed cause."),
+                ("Hypothesis", "Name one possible explanation."),
+                ("Controlled test", "Inspect or change one thing that bears on that explanation."),
             ],
             (
-                "Repairing a bicycle, tracing a circuit, and debugging a game all depend on separating symptoms "
-                "from causes. Random changes can hide information; a controlled test creates it."
+                "If a bicycle chain slips only in one gear, that detail matters. A useful game bug report works "
+                "the same way: it records the exact state and actions that produce the fault."
             ),
             [
-                ("Show coordinates", "Inspect position when movement seems wrong."),
-                ("Display state", "Reveal whether the game thinks it is playing or finished."),
-                ("Reduce the system", "Test one sprite, sensor, or rule alone."),
-                ("Reproduce the bug", "Find a repeatable sequence that causes the problem."),
+                ("Show coordinates", "Read x and y when movement goes wrong."),
+                ("Display state", "Check whether the game records PLAYING, WON, or LOST."),
+                ("Test a smaller part", "Run one sprite, sensor, or rule by itself."),
+                ("Reproduce the bug", "Find a sequence that makes the same problem happen again."),
             ],
             [
-                ("Changing many things", "The project works again but nobody knows which change mattered."),
-                ("Testing only success", "The easiest path works while boundaries remain broken."),
-                ("Blaming the tool", "A precise program rule is overlooked because the result feels unreasonable."),
-                ("Fixing the symptom", "Extra code covers the visible problem while the underlying state remains wrong."),
+                ("Editing several scripts", "The bug disappears, but the useful evidence disappears with it."),
+                ("Trying only the happy path", "The centre of the stage works while the edge remains broken."),
+                ("Blaming Scratch", "A mistaken sign or state rule is left unexamined."),
+                ("Covering the symptom", "Extra blocks hide the fault without correcting the underlying value."),
             ],
             (
-                "Debugging develops patience without asking children merely to endure frustration. They learn a method: "
-                "describe, inspect, predict, test, and explain."
+                "A useful bug report gives the shortest steps that reproduce the fault and records a relevant value. "
+                "Finding that evidence is good debugging, even before the repair is known."
             ),
             "debugging-clues",
             ["escape-from-the-giant-pigeon", "robot-maze-logic", "microbit-reaction-timer"],
@@ -790,38 +794,38 @@ TOPICS.update(
         ),
         "sensors": topic_entry(
             "Sensors",
-            "A sensor turns part of the physical world into information a program can inspect.",
+            "A sensor measures something in the physical world and gives the program a value to read.",
             "Project connection",
             ["robotics", "ai"],
             (
-                "Robots cannot respond intelligently without information. Sensors measure light, distance, motion, "
-                "temperature, touch, sound, or other signals, but every reading has limits and noise."
+                "A robot can measure distance, light, motion, temperature, touch, or sound. The readings vary, "
+                "so students collect several before choosing the threshold that controls a response."
             ),
             [
-                ("Measurement", "A value representing part of the world."),
-                ("Threshold", "A chosen boundary between responses."),
-                ("Noise", "Small changes or errors in readings."),
-                ("Sampling", "Reading a changing signal repeatedly over time."),
+                ("Measurement", "A number or state reported by the sensor."),
+                ("Threshold", "The chosen value where the program changes its response."),
+                ("Noise", "Small fluctuations and errors in the readings."),
+                ("Sampling", "Taking new readings as the signal changes over time."),
             ],
             (
-                "Automatic lights do not see darkness as a person does. They receive a number from a light sensor "
-                "and compare it with a threshold chosen by a designer."
+                "An automatic light receives a number from its sensor. The designer decides which readings count "
+                "as dark enough, and the code compares every new reading with that threshold."
             ),
             [
-                ("Button", "A simple two-state sensor: pressed or not pressed."),
-                ("Distance", "Estimate how near an obstacle is."),
-                ("Light level", "Change output when a space becomes darker."),
-                ("Accelerometer", "Measure movement or orientation on a microcontroller."),
+                ("Button", "Report one of two states: pressed or released."),
+                ("Distance", "Estimate how far away an obstacle is."),
+                ("Light level", "Return a changing value as a space becomes brighter or darker."),
+                ("Accelerometer", "Report acceleration values that can indicate movement or orientation."),
             ],
             [
-                ("Treating readings as perfect", "A system reacts badly to small fluctuations."),
-                ("Poor threshold", "The decision boundary does not match the actual environment."),
-                ("No calibration", "The program assumes every room or device produces the same values."),
-                ("Confusing sensor and decision", "The sensor measures; the code decides what the measurement means."),
+                ("Expecting a fixed reading", "Small fluctuations make the output flicker on and off."),
+                ("Unhelpful threshold", "The chosen boundary does not fit the room or task."),
+                ("Skipping calibration", "The program assumes every device and room gives the same values."),
+                ("Giving the sensor too much credit", "The component supplies a reading; the student's code decides what to do with it."),
             ],
             (
-                "Sensor work teaches that data does not explain itself. Students must ask what was measured, "
-                "how reliable it is, and what rule should follow."
+                "A clear explanation names what the sensor measures, gives several readings from testing, and shows "
+                "where the threshold is set. A lone number such as 347 needs rather more context."
             ),
             "sensors-as-questions",
             ["button-and-buzzer-alarm", "microbit-reaction-timer", "robot-patrol-challenge"],
@@ -829,38 +833,38 @@ TOPICS.update(
         ),
         "feedback": topic_entry(
             "Feedback",
-            "Feedback happens when a system checks the result of an action and uses that information to adjust what it does next.",
+            "In a feedback loop, a system checks the result of an action before deciding what to do next.",
             "Project connection",
             ["robotics", "scratch", "ai"],
             (
-                "A command can start movement, but feedback makes movement correctable. Games use score and collision signals; "
-                "robots use sensor readings; people use visible results to improve a design."
+                "A robot turns, reads the sensor again, and decides whether the correction helped. A game can "
+                "check position after movement and return a player who has crossed the boundary."
             ),
             [
-                ("Goal", "The result the system is trying to maintain or reach."),
-                ("Observation", "Information about the current result."),
-                ("Difference", "How current behaviour differs from the goal."),
-                ("Correction", "A change intended to reduce that difference."),
+                ("Goal", "The position or result the system is trying to reach."),
+                ("Observation", "A measurement of the current result."),
+                ("Difference", "The gap between the measurement and the goal."),
+                ("Correction", "An action chosen to reduce the gap."),
             ],
             (
-                "A person steering a bicycle makes many small corrections after seeing where the bicycle goes. "
-                "A robot patrol can do something similar with repeated sensing and turning."
+                "A cyclist looks ahead and makes many small steering corrections. A robot patrol uses sensor "
+                "readings instead of eyesight, but it also has to check what happened after each turn."
             ),
             [
-                ("Boundary correction", "Move a sprite back when it leaves a region."),
-                ("Line following", "Adjust direction after reading a surface."),
-                ("Speed tuning", "Change movement after measuring timing."),
-                ("Player feedback", "Use sound or display to make a system state visible."),
+                ("Boundary correction", "Return a sprite after its coordinates leave the allowed area."),
+                ("Line following", "Adjust the steering after each surface reading."),
+                ("Speed control", "Compare the measured speed with a target and change the motor command."),
+                ("Visible game state", "Use sound or text to show whether a rule has fired."),
             ],
             [
-                ("Correction without measurement", "The system changes repeatedly without checking whether it helped."),
-                ("Correction too large", "The result swings past the goal."),
-                ("Feedback too late", "The system reacts after the useful moment has passed."),
-                ("Hidden goal", "Students cannot explain what the system is trying to maintain."),
+                ("No second measurement", "The system keeps correcting without checking whether the first change helped."),
+                ("Correction too large", "The result overshoots the goal and swings back the other way."),
+                ("Slow feedback", "The new reading arrives too late to guide the next action."),
+                ("Unclear goal", "There is no target value against which to judge the result."),
             ],
             (
-                "Feedback connects action with evidence. A student learns that improvement is not a guess: "
-                "observe the result, compare it with the goal, and make a measured correction."
+                "Look for the whole loop: a goal, an action, a new measurement, and a correction based on that "
+                "measurement. One blind correction is only a command."
             ),
             "robot-patrol-logic",
             ["robot-patrol-challenge", "microbit-reaction-timer", "the-floor-is-definitely-lava"],
@@ -868,38 +872,38 @@ TOPICS.update(
         ),
         "autonomy": topic_entry(
             "Autonomy",
-            "An autonomous system uses information and rules to act without a person choosing every individual command.",
+            "An autonomous system selects actions from its inputs, rules, current state, and goal.",
             "Available later connection",
             ["robotics", "ai"],
             (
-                "Autonomy combines earlier ideas: sensing, conditions, loops, state, feedback, goals, and careful testing. "
-                "It is not a single magic feature and it does not mean a machine understands the world like a person."
+                "This later topic brings together sensing, conditions, loops, state, feedback, and testing. "
+                "Students examine exactly which decisions the machine makes and which remain with its designer or user."
             ),
             [
-                ("Goal", "A defined result the system attempts to reach."),
-                ("Policy", "Rules connecting observations to actions."),
-                ("State", "Information retained between decisions."),
-                ("Human boundary", "Limits and decisions that remain a person's responsibility."),
+                ("Goal", "The result the system is meant to reach or maintain."),
+                ("Policy", "Rules that connect observations with actions."),
+                ("State", "Information kept from one decision to the next."),
+                ("Human boundary", "The choices and limits set by a person."),
             ],
             (
-                "A basic robot vacuum can choose movement from sensor readings, yet it still has limited goals, "
-                "limited knowledge, and rules designed by people. Autonomy should always be described with those limits."
+                "A robot vacuum chooses movements from sensor readings, but people still set its goal, rules, "
+                "working area, and stop controls. Its autonomy is real and quite narrow."
             ),
             [
-                ("Patrol rule", "Choose a turn after detecting an obstacle."),
-                ("Game opponent", "Select a simple action from player distance and current state."),
-                ("Recovery behaviour", "Return to a safe state after an error."),
-                ("Stop condition", "End autonomous action when a boundary is reached."),
+                ("Patrol rule", "Choose a turn after an obstacle reading."),
+                ("Game opponent", "Select an action from the player's distance and current game state."),
+                ("Recovery behaviour", "Return to a safe mode after an error."),
+                ("Stop condition", "End the action when a boundary or goal is reached."),
             ],
             [
-                ("Calling any movement autonomous", "A fixed sequence does not respond to changing information."),
-                ("No stop rule", "The system continues when a person expects it to stop."),
-                ("Overstating intelligence", "Successful rules are described as understanding."),
-                ("Ignoring edge cases", "The system works only in the exact test arrangement."),
+                ("Mistaking a sequence for autonomy", "A fixed route never changes when new information arrives."),
+                ("No stop rule", "The system continues after its goal or safe boundary has been reached."),
+                ("Claiming understanding", "A successful rule is described as if the machine knows why it works."),
+                ("One perfect test", "The system fails as soon as an obstacle moves or a reading changes."),
             ],
             (
-                "Autonomy is a later synthesis topic. Students first need dependable experience with commands, "
-                "sensors, decisions, state, and feedback before combining them into more independent behaviour."
+                "This topic comes later, after separate work with commands, sensors, decisions, state, and feedback. "
+                "The important distinction is which choices the machine makes and which limits a person has set."
             ),
             "robot-patrol-logic",
             ["robot-patrol-challenge", "ai-guessing-game"],
@@ -916,13 +920,13 @@ TOPICS["coordinates"].update(
         "status_class": "active",
         "programs": ["scratch", "robotics", "roblox", "ai"],
         "why_it_matters": (
-            "Coordinates connect number lines to visible movement. They let students predict where an object will go, "
-            "define boundaries, compare positions, and debug a map instead of moving sprites by guesswork."
+            "A coordinate change has a visible result. Students can predict where a sprite will land, define the edge "
+            "of a map, and read the x and y displays when the movement goes wrong."
         ),
         "logic_kernel": TOPICS["coordinates"]["math_kernel"],
         "real_world_story": (
-            "Maps, screen layouts, robot navigation, drones, and computer vision all need a representation of position. "
-            "This first topic does not teach those advanced systems; it establishes the idea that returns inside them."
+            "Maps, screen layouts, robot navigation, drones, and computer vision all represent position with numbers. "
+            "The dimensions and coordinate systems change, but the need for a shared reference point remains."
         ),
         "examples": [
             ("Known start", "Place a player at x: -180, y: -100 for every test."),
@@ -958,7 +962,7 @@ def lesson_entry(
         "topic_slug": topic_slug,
         "topic": TOPICS[topic_slug]["title"],
         "duration": "90 minutes",
-        "age_language": "Beginner-friendly; challenge depth can be adjusted for the group.",
+        "age_language": "No previous experience is required. The final challenge can stretch students who have done this before.",
         "story": story,
         "learning_goals": learning_goals,
         "theory_examples": theory_examples,
@@ -972,11 +976,11 @@ def lesson_entry(
 
 
 STANDARD_TIMELINE = [
-    ("0-10 min", "Story, problem, or provocation", "Name the problem before opening the build."),
-    ("10-30 min", "Theory and concept", "Make the hidden rule visible with small tests."),
-    ("30-65 min", "Guided build", "Use the idea inside a working project system."),
-    ("65-80 min", "Modification challenge", "Change one rule and predict the effect."),
-    ("80-90 min", "Demonstration and cleanup", "Explain the result, save safely, and leave a known state."),
+    ("0-10 min", "Set up the problem", "Agree on what the finished system needs to do."),
+    ("10-30 min", "Try the idea", "Use short examples to see the rule on its own."),
+    ("30-65 min", "Build together", "Put the rule to work in the guided project."),
+    ("65-80 min", "Change one thing", "Predict what a modification will do, then test it."),
+    ("80-90 min", "Demonstrate and save", "Show the result, explain one decision, and save the project."),
 ]
 
 
@@ -986,130 +990,212 @@ LESSONS.update(
             "What Makes a Program Start?",
             "scratch",
             "events-and-commands",
-            "A robot hamster receives five commands, but nobody tells it when to begin. Is the command list broken, or is the missing event the real problem?",
-            ["Identify an event and its response.", "Order commands intentionally.", "Predict a short sequence before running it.", "Separate setup from repeated behaviour.", "Explain one cause-and-effect link."],
-            [("when green flag clicked", "begin from a known state"), ("when space key pressed", "respond to one input"), ("broadcast START", "signal another script"), ("move / turn / wait", "create an ordered sequence")],
+            "The robot hamster has five perfectly good commands and no idea when to begin. Give it a trigger, arrange the commands, and see how one change in order alters the route.",
+            ["Match an event with its response.", "Put commands in a deliberate order.", "Predict a short sequence before running it.", "Keep setup separate from repeated actions.", "Explain one cause-and-effect link in the program."],
+            [("when green flag clicked", "set the starting state"), ("when space key pressed", "respond to one chosen input"), ("broadcast START", "tell another script to begin"), ("move / turn / wait", "make an ordered route")],
             "robot-hamster-command-centre",
-            ["Student names the trigger.", "Student predicts a three-command sequence.", "Restart produces the same setup.", "One event has one clear responsibility.", "Student changes the order and explains the result."],
-            ["Code has no trigger.", "Setup runs after movement.", "Two events fight over the same output.", "The student changes timing without testing sequence order."],
+            ["The student can point to the trigger.", "A three-command sequence is predicted before it runs.", "Restarting produces the same setup.", "Each event has a clear job.", "The student changes the order and explains the result."],
+            ["The commands are present, but no event starts them.", "The hamster moves before its position is reset.", "Two scripts try to control the same action.", "Timing is changed before the command order is checked."],
             [{"name": "Builder", "ideas": ["Add a second command key."]}, {"name": "Inventor", "ideas": ["Broadcast a mission-complete event."]}, {"name": "Boss Level", "ideas": ["Build a queue of commands before execution."]}],
             ["What event starts the program?", "Which command runs first?", "What changed when the order changed?", "Which part is setup?", "What did you debug?"],
-            "Students practised the grammar of interactive programs: an event starts a response, commands run in an intentional order, and changing that order changes the visible result.",
+            "The class connected events to short command sequences. Students predicted an order, ran it, and then moved one command to see exactly how the hamster's route changed.",
         ),
         "loops-and-repetition": lesson_entry(
             "How Many Times Should the Snowballs Attack?",
             "scratch",
             "loops-and-repetition",
-            "A snowball attack works once. Copying it fifty times works too, but nobody wants to repair fifty copies when the timing changes. What should repeat, and what should stop it?",
-            ["Recognize repeated instructions.", "Choose repeat, forever, or repeat-until.", "Count iterations.", "Change timing inside a loop.", "Explain a stop condition."],
-            [("repeat 10", "run a known number of waves"), ("forever", "keep checking while the game runs"), ("repeat until score = 8", "stop after a goal"), ("wait 0.5 seconds", "make repetition observable")],
+            "One snowball is an inconvenience. Fifty copied snowball scripts are a maintenance problem. Put the attack in a loop, control its timing, and give it a reason to stop.",
+            ["Spot instructions that repeat.", "Choose between repeat, forever, and repeat-until.", "Count iterations.", "Control the pace of a loop.", "Point to the rule that stops it."],
+            [("repeat 10", "run ten waves"), ("forever", "keep checking for the life of the game"), ("repeat until score = 8", "stop when the goal is reached"), ("wait 0.5 seconds", "leave time between iterations")],
             "attack-of-the-angry-snowballs",
-            ["Student replaces copied blocks with a loop.", "Student predicts the repeat count.", "The loop contains a changing action.", "The game has a stop or state rule.", "Student tunes timing independently."],
-            ["A forever loop blocks later code.", "Repeat-until never changes its condition.", "The loop creates objects too quickly.", "Setup accidentally repeats with every wave."],
+            ["Copied blocks have been replaced by a loop.", "The student predicts how many times it will run.", "Something inside the loop changes each time.", "The game has a clear stop or state rule.", "The student adjusts the timing independently."],
+            ["Blocks beneath a forever loop never run.", "Nothing inside repeat-until can make its condition true.", "Hazards appear too quickly to play or inspect.", "Starting values are reset during every wave."],
             [{"name": "Builder", "ideas": ["Add a fixed second wave."]}, {"name": "Inventor", "ideas": ["Shorten the delay as score rises."]}, {"name": "Boss Level", "ideas": ["Create wave states with different patterns."]}],
             ["What repeats?", "How many times?", "What changes each time?", "What stops the loop?", "Which repeated copy did you remove?"],
-            "Students used loops to describe repeated game behaviour, selected a stopping rule, and tested how timing and changing values affect each iteration.",
+            "The snowball game now uses loops instead of copied code. The class compared fixed repetition with continuous checking, then adjusted the delay and stopping condition to keep it playable.",
         ),
         "conditions-and-decisions": lesson_entry(
             "How Does a Game Decide?",
             "scratch",
             "conditions-and-decisions",
-            "The Quiz of Questionable Knowledge accepts 'moon cheese' as an answer. Should it celebrate, object politely, or ask another question? The program needs rules it can actually test.",
-            ["Turn a rule into a true/false question.", "Use if and if/else.", "Compare values.", "Order overlapping decisions.", "Explain why one branch ran."],
-            [("if answer = 'Ottawa'", "test equality"), ("if score > 5", "test a threshold"), ("if touching danger", "use sensing in a decision"), ("else", "define the other path")],
+            "The Quiz of Questionable Knowledge has received the answer 'moon cheese.' Its code must decide whether that is correct, give useful feedback, and move on without awarding seventeen points.",
+            ["Write a rule as a true-or-false question.", "Use if and if/else.", "Compare text and numbers.", "Resolve decisions that can overlap.", "Explain why a particular branch ran."],
+            [("if answer = 'Ottawa'", "compare text for equality"), ("if score > 5", "compare a number with a threshold"), ("if touching danger", "use a sensing result"), ("else", "handle the other answer")],
             "quiz-of-questionable-knowledge",
-            ["Student states the question in words.", "Both true and false paths can be demonstrated.", "The comparison uses the intended value.", "Only one answer scores each question.", "Student adds one independent decision."],
+            ["The student states the condition as a question.", "Both the true and false paths can be shown.", "The comparison uses the intended value and type.", "Each question can score only once.", "The student adds one decision independently."],
             ["Using assignment language instead of comparison.", "Checking a changing condition only once.", "Two branches score the same answer.", "An else belongs to the wrong if."],
             [{"name": "Builder", "ideas": ["Add feedback for a wrong answer."]}, {"name": "Inventor", "ideas": ["Accept two equivalent spellings."]}, {"name": "Boss Level", "ideas": ["Choose question difficulty from score."]}],
             ["What question does the code ask?", "What makes it true?", "What happens otherwise?", "Can two outcomes happen together?", "What rule did you add?"],
-            "Students turned game rules into testable conditions, compared values, and explained why the program selected one branch rather than another.",
+            "The quiz gave students several kinds of decisions to write and test. They compared answers, handled the alternative path, and traced the condition responsible when the wrong branch ran.",
         ),
         "variables-and-score": lesson_entry(
             "Where Does the Score Live?",
             "scratch",
             "variables-and-state",
-            "A space pet insists it was fed, but the program has forgotten. What information must the game remember, when should it change, and when should a new run reset it?",
-            ["Create a meaningfully named variable.", "Set an initial value.", "Update a value from an event.", "Use a value in a condition.", "Separate score, state, and visual display."],
-            [("set mood to 5", "initialize memory"), ("change mood by -1", "update over time"), ("if mood < 2", "make a decision from memory"), ("set game_state to PLAYING", "name the current mode")],
+            "The space pet insists it was fed, but the program has forgotten. Give its needs names, decide what changes them, and make every new game start with a clean memory.",
+            ["Give a variable a useful name.", "Set its starting value.", "Update it when a particular event occurs.", "Read it in a condition.", "Distinguish the stored value from its on-screen display."],
+            [("set mood to 5", "give mood a starting value"), ("change mood by -1", "update mood over time"), ("if mood < 2", "make a decision from the stored value"), ("set game_state to PLAYING", "record the current mode")],
             "the-suspiciously-emotional-space-pet",
-            ["Variable name describes its purpose.", "Restart restores the initial value.", "One event changes the value once.", "A condition reads the value.", "Student explains the current state."],
+            ["The variable name describes what it stores.", "Restarting restores the initial value.", "One event changes the value once.", "At least one condition reads the value.", "The student can explain the current state."],
             ["Variable never resets.", "Several scripts change the score unexpectedly.", "A display is hidden but the value remains.", "Text and number values are compared accidentally."],
             [{"name": "Builder", "ideas": ["Add a second need such as energy."]}, {"name": "Inventor", "ideas": ["Make needs affect each other."]}, {"name": "Boss Level", "ideas": ["Create named pet states from several variables."]}],
             ["What does the variable remember?", "Where is it initialized?", "Which event changes it?", "Which decision reads it?", "What state is active now?"],
-            "Students used variables as visible memory, initialized values, updated them for specific reasons, and connected changing values to decisions and game state.",
+            "The space pet's changing needs are stored in named variables. Each value has a starting point, a reason to change, and at least one rule that reads it; restarting clears the old state.",
         ),
         "sensing-and-collision": lesson_entry(
             "How Does the Game Know You Touched the Lava?",
             "scratch",
             "sensing-and-collision",
-            "The floor looks extremely lava-like, but the computer does not care about appearances. What exactly counts as touching danger, and how often should the game check?",
-            ["Identify a sensing signal.", "Define a collision or boundary.", "Check a changing signal repeatedly.", "Prevent repeated scoring from one contact.", "Inspect collision evidence while debugging."],
-            [("touching Lava?", "test sprite contact"), ("touching colour red?", "test a map region"), ("distance to hazard < 40", "test nearness"), ("if touching then set state", "turn sensing into behaviour")],
+            "The floor is convincingly lava-coloured. The computer remains unmoved. Define what counts as danger, check it while the player moves, and make one collision cause one result.",
+            ["Identify the signal used for sensing.", "Define a collision or boundary.", "Check a changing signal inside a loop.", "Prevent one contact from scoring repeatedly.", "Inspect the sensing result while debugging."],
+            [("touching Lava?", "check contact with a sprite"), ("touching colour red?", "check a coloured region of the map"), ("distance to hazard < 40", "compare distance with a limit"), ("if touching then set state", "change the game after contact")],
             "the-floor-is-definitely-lava",
-            ["Student can show the collision area.", "Sensing is checked while movement occurs.", "One contact causes one state change.", "Restart clears the collision state.", "Student tests a fast boundary crossing."],
+            ["The student can show the collision area.", "Sensing continues while the player moves.", "One contact causes one state change.", "Restarting clears the collision state.", "A fast crossing of the boundary has been tested."],
             ["Costume transparency makes the hitbox surprising.", "Contact is checked only at startup.", "Score rises every frame during one collision.", "A visual overlap is assumed without reading the sensing result."],
             [{"name": "Builder", "ideas": ["Add one safe platform."]}, {"name": "Inventor", "ideas": ["Make platforms move while preserving collision."]}, {"name": "Boss Level", "ideas": ["Create one-way or temporary safe surfaces."]}],
             ["What signal counts as contact?", "How often is it checked?", "What state changes?", "How did you test the boundary?", "What collision bug did you fix?"],
-            "Students defined collision evidence, repeatedly checked changing inputs, and used conditions and state to turn contact into reliable game behaviour.",
+            "The lava game checks a defined contact signal while the player moves, then changes state after a collision. Students also tested the awkward cases: costume edges and fast boundary crossings.",
         ),
         "debugging-clues": lesson_entry(
             "What Is the Bug Trying to Tell You?",
             "scratch",
             "debugging",
-            "The game works unless the player wins while being caught near the right edge. Random repairs make it stranger. Can we reproduce the bug and make one useful test?",
-            ["Separate expected and observed results.", "Reproduce a bug.", "Inspect visible values or state.", "Form one hypothesis.", "Run a controlled test and explain the evidence."],
-            [("show x position", "inspect movement evidence"), ("say game_state", "reveal hidden mode"), ("disable one script", "reduce the system"), ("repeat the same inputs", "test reproducibility")],
+            "The game fails only when the player reaches safety while being caught near the right edge. Random edits have made it stranger. Reproduce the fault, inspect the game state, and test one possible cause.",
+            ["Describe the expected and observed results separately.", "Reproduce a bug with a short sequence of actions.", "Inspect a relevant value or state.", "Choose one possible cause.", "Run a controlled test and explain the evidence."],
+            [("show x position", "read the movement value"), ("say game_state", "make the hidden mode visible"), ("disable one script", "test a smaller system"), ("repeat the same inputs", "check that the fault is reproducible")],
             "escape-from-the-giant-pigeon",
-            ["Student describes the bug without guessing.", "A repeatable sequence triggers it.", "One relevant value is inspected.", "One hypothesis is tested at a time.", "The repair is explained with evidence."],
-            ["Changing several scripts at once.", "Testing only the successful path.", "Adding delays to hide a state problem.", "Stopping after the symptom disappears once."],
+            ["The student describes the fault without guessing at its cause.", "A repeatable sequence triggers it.", "At least one relevant value is inspected.", "Only one hypothesis is tested at a time.", "The repair is explained from the evidence."],
+            ["Several scripts are changed before the next test.", "Only the easiest successful path is tried.", "A delay hides a state problem for a moment.", "Testing stops after the symptom disappears once."],
             [{"name": "Builder", "ideas": ["Create a bug report with exact steps."]}, {"name": "Inventor", "ideas": ["Add temporary on-screen state monitors."]}, {"name": "Boss Level", "ideas": ["Design an automated edge-case test sequence."]}],
             ["What should happen?", "What actually happens?", "How can you reproduce it?", "What evidence did you inspect?", "Why did the fix work?"],
-            "Students treated a bug as information: they reproduced it, inspected relevant state, tested one possible cause, and explained the repair using evidence.",
+            "The class worked from a repeatable bug rather than a clean project. Students recorded what happened, displayed the relevant position and state, and changed one thing at a time until the evidence supported a repair.",
         ),
         "robot-commands-and-sequences": lesson_entry(
             "Can a Robot Follow Your Instructions?",
             "robotics",
             "input-and-output",
-            "A delivery robot receives 'go around the chair' as one command. A person understands; the robot does not. How can we replace vague intent with a sequence that can be tested on paper or in simulation?",
-            ["Break a goal into commands.", "Order movement and turn instructions.", "Predict final position and direction.", "Test a sequence in simulation or on paper.", "Revise one incorrect command."],
-            [("forward 2", "move a measured amount"), ("turn right", "change direction, not position"), ("pause", "separate actions visibly"), ("repeat route", "reuse a reliable sequence")],
+            "A delivery robot has been told to 'go around the chair.' That instruction works on people and fails on robots. Replace it with measured moves and turns that can be checked on a grid.",
+            ["Break a route into commands the robot can execute.", "Order moves and turns.", "Predict the final position and direction.", "Test the route on paper or in simulation.", "Revise one faulty command."],
+            [("forward 2", "move two grid units"), ("turn right", "change direction without changing position"), ("pause", "separate actions so they can be observed"), ("repeat route", "reuse a tested sequence")],
             "robot-maze-logic",
-            ["Each command has one meaning.", "Student predicts before running.", "Direction is tracked after each turn.", "The route reaches the target.", "One revision is justified."],
-            ["Using human phrases the system cannot execute.", "Losing track of direction after turns.", "Changing several route steps after one failure.", "Assuming the robot occupies no space."],
+            ["Each command has one clear meaning.", "The student predicts before running the route.", "Direction is recorded after every turn.", "The route reaches the target.", "One revision is justified from the failed test."],
+            ["The route contains phrases the robot cannot execute.", "Direction is lost after a turn.", "Several route steps are changed after one failure.", "The plan treats the robot as a point with no width."],
             [{"name": "Builder", "ideas": ["Add one obstacle and reroute."]}, {"name": "Inventor", "ideas": ["Create reusable route segments."]}, {"name": "Boss Level", "ideas": ["Write a route checker for a grid map."]}],
             ["What is the goal?", "Which command runs first?", "Where does the robot face now?", "Which command failed?", "How did the revision change the route?"],
-            "Students translated a human goal into precise commands, tracked movement and direction, predicted a sequence, and revised one instruction from test evidence. Hardware was not required for the reasoning.",
+            "The route turns 'go around the chair' into measured moves and turns. Students tracked position and direction on a grid, predicted the destination, and revised the first command that failed. This lesson can be done on paper or in simulation.",
         ),
         "sensors-as-questions": lesson_entry(
             "What Question Is the Sensor Answering?",
             "robotics",
             "sensors",
-            "A machine reports 347. Is that bright, close, tilted, pressed, or meaningless? A sensor reading becomes useful only when we know what was measured and how the program interprets it.",
-            ["Identify what a sensor measures.", "Read a changing value.", "Choose and test a threshold.", "Distinguish measurement from decision.", "Explain noise or variation."],
-            [("button = pressed", "read a two-state input"), ("distance < 15", "compare a measurement with a threshold"), ("light level", "inspect a changing value"), ("read repeatedly", "sample over time")],
+            "The display says 347. That might mean bright, close, tilted, or nothing useful at all. Find out what the sensor measures, collect readings, and decide where the program should change its response.",
+            ["Name the quantity a sensor measures.", "Record a changing value.", "Choose and test a threshold.", "Separate the measurement from the program's decision.", "Explain variation in the readings."],
+            [("button = pressed", "read one of two states"), ("distance < 15", "compare a reading with a threshold"), ("light level", "inspect a value that changes"), ("read repeatedly", "take several samples over time")],
             "microbit-reaction-timer",
-            ["Student names the measured quantity.", "Several readings are observed.", "A threshold is stated and tested.", "Output changes for a clear reason.", "Student identifies one limitation."],
-            ["Treating readings as perfect.", "Choosing a threshold from one test only.", "Calling the sensor intelligent.", "Changing output without recording the input value."],
+            ["The student names the measured quantity.", "Several readings have been recorded.", "A threshold is stated and tested.", "The output changes for a traceable reason.", "The student identifies one limitation of the reading."],
+            ["Every reading is expected to be identical.", "A threshold is chosen from one test.", "The sensor is credited with making the decision.", "The output changes before the input values are recorded."],
             [{"name": "Builder", "ideas": ["Display raw readings before deciding."]}, {"name": "Inventor", "ideas": ["Compare two candidate thresholds."]}, {"name": "Boss Level", "ideas": ["Smooth several readings before acting."]}],
             ["What does the sensor measure?", "What values did you observe?", "Where is the threshold?", "What does the code decide?", "When could the reading be wrong?"],
-            "Students treated sensors as measurement tools rather than magic. They observed changing values, selected a threshold, separated sensing from decision-making, and discussed limits in the data.",
+            "Several sensor readings were recorded before the class chose a threshold. Students kept the measurement separate from the code's decision and noted why repeated tests may produce slightly different numbers.",
         ),
         "robot-patrol-logic": lesson_entry(
             "How Can a Robot Patrol Without Getting Stuck?",
             "robotics",
             "feedback",
-            "A patrol robot follows its route perfectly until somebody moves a box. Should it continue, stop forever, or use a sensor reading to choose a recovery action?",
-            ["Combine a repeated patrol with sensing.", "Use a condition to choose a correction.", "Represent patrol state.", "Test an obstacle edge case.", "Explain the feedback loop."],
-            [("repeat patrol", "continue the route"), ("if obstacle near", "detect a reason to change"), ("turn and check again", "correct from new information"), ("state = RECOVERING", "remember the current mode")],
+            "The patrol route works until somebody moves a box into it. Add a distance check, choose a recovery action, and make the robot test the route again instead of turning forever.",
+            ["Combine a repeated patrol with sensor readings.", "Use a condition to choose a correction.", "Record the patrol's current state.", "Test an obstacle at an awkward point in the route.", "Trace the sense-decide-act loop."],
+            [("repeat patrol", "continue along the route"), ("if obstacle near", "decide when the plan must change"), ("turn and check again", "measure after the correction"), ("state = RECOVERING", "record the current mode")],
             "robot-patrol-challenge",
-            ["A normal patrol can be demonstrated.", "An obstacle changes behaviour.", "The system checks again after correcting.", "Recovery does not become an endless turn.", "Student explains Sense-Decide-Act."],
-            ["Patrol never reads the sensor.", "One obstacle causes permanent recovery mode.", "Turning occurs without checking the result.", "The stop condition is missing."],
+            ["The normal patrol route works.", "An obstacle causes a different action.", "The robot reads the sensor again after correcting.", "Recovery cannot become an endless turn.", "The student traces the sense-decide-act cycle."],
+            ["The patrol loop never reads the sensor.", "One obstacle leaves the robot permanently in recovery mode.", "The robot keeps turning without a new reading.", "There is no rule for ending the patrol."],
             [{"name": "Builder", "ideas": ["Stop and signal at an obstacle."]}, {"name": "Inventor", "ideas": ["Try a second route after turning."]}, {"name": "Boss Level", "ideas": ["Track failed directions and choose a recovery state."]}],
             ["What repeats during patrol?", "What does the system sense?", "Which condition changes the plan?", "How does it check the correction?", "What limit remains?"],
-            "Students combined loops, sensing, conditions, and state into a simple feedback system. They tested how a patrol responds when the world differs from its original plan.",
+            "The patrol can respond when a box appears on its route. It reads a sensor, chooses a correction, records that it is recovering, and checks again before returning to patrol mode.",
         ),
     }
 )
+
+
+LESSON_TIMELINES = {
+    "events-and-commands": [
+        ("0-10 min", "A route with no start", "Run the command list without an event and identify what is missing."),
+        ("10-25 min", "Triggers and order", "Connect short command sequences to the flag, a key, and a message."),
+        ("25-65 min", "Build the hamster route", "Set a known start, add controls, and run an ordered patrol."),
+        ("65-80 min", "Move one command", "Change the order, predict the new route, and check the result."),
+        ("80-90 min", "Show the cause", "Demonstrate which event starts the route and which command changed it."),
+    ],
+    "loops-and-repetition": [
+        ("0-10 min", "Find the repeated work", "Mark the snowball actions that would otherwise be copied."),
+        ("10-25 min", "Compare three loops", "Try repeat, forever, and repeat-until with short visible examples."),
+        ("25-65 min", "Build the attack", "Create the fall-and-reset cycle, then add catches, misses, and waves."),
+        ("65-80 min", "Tune the repetition", "Change the delay or stopping condition and test whether the game remains playable."),
+        ("80-90 min", "Explain the loop", "Show what repeats, what changes each time, and what makes it stop."),
+    ],
+    "conditions-and-decisions": [
+        ("0-10 min", "Write the question", "Turn one quiz rule into a question with a true or false answer."),
+        ("10-25 min", "Test both branches", "Compare text and numbers, then run the true and false cases."),
+        ("25-65 min", "Build the quiz", "Add questions, feedback, score, and question state."),
+        ("65-80 min", "Try awkward answers", "Test capitals, wrong answers, and inputs that should not score twice."),
+        ("80-90 min", "Trace one decision", "Demonstrate the condition and explain why its branch ran."),
+    ],
+    "variables-and-score": [
+        ("0-10 min", "What must the pet remember?", "Choose two changing needs and give each one a useful name."),
+        ("10-25 min", "Start, change, read", "Set a value, update it from an event, and use it in a condition."),
+        ("25-65 min", "Build the pet", "Add care actions, time-based change, and a visible state."),
+        ("65-80 min", "Break the reset", "Create a stale value deliberately, then repair the initialization."),
+        ("80-90 min", "Follow one value", "Show where a variable starts, what changes it, and which rule reads it."),
+    ],
+    "sensing-and-collision": [
+        ("0-10 min", "Define contact", "Decide exactly which sprite or colour counts as safe and dangerous."),
+        ("10-25 min", "Read the sensor", "Compare visible overlap with the value reported by a sensing block."),
+        ("25-65 min", "Build the lava room", "Add movement, jumping, platforms, collision, and game state."),
+        ("65-80 min", "Test the edges", "Try costume boundaries, fast crossings, and contact that lasts several frames."),
+        ("80-90 min", "Show one collision", "Demonstrate the signal, the state change, and a repaired boundary case."),
+    ],
+    "debugging-clues": [
+        ("0-15 min", "Reproduce the fault", "Record the shortest sequence that produces the wrong ending."),
+        ("15-30 min", "Expose the state", "Display a relevant coordinate or game-state value."),
+        ("30-55 min", "Test one explanation", "Choose one possible cause and make a controlled test."),
+        ("55-75 min", "Repair and retest", "Make the smallest useful change, then repeat the original sequence."),
+        ("75-90 min", "Give the bug report", "Show the fault, the evidence, the repair, and a regression test."),
+    ],
+    "robot-commands-and-sequences": [
+        ("0-10 min", "Replace vague directions", "Turn 'go around the chair' into commands the robot can execute."),
+        ("10-25 min", "Predict on the grid", "Track position and direction through a short route."),
+        ("25-60 min", "Build the maze route", "Define a command set, start state, target, and complete sequence."),
+        ("60-80 min", "Repair the first mismatch", "Trace the route and change the earliest command that fails."),
+        ("80-90 min", "Hand over the instructions", "Have another student follow the route and explain the revision."),
+    ],
+    "sensors-as-questions": [
+        ("0-10 min", "Name the measurement", "Identify what the input reports and the units or states it uses."),
+        ("10-30 min", "Collect readings", "Record several values under different known conditions."),
+        ("30-45 min", "Choose a boundary", "Compare readings and test a threshold or timing rule."),
+        ("45-75 min", "Build the reaction timer", "Add waiting, a random start, button input, and an elapsed-time result."),
+        ("75-90 min", "Explain the limits", "Demonstrate the reading, the program's decision, and one source of variation."),
+    ],
+    "robot-patrol-logic": [
+        ("0-15 min", "Make the normal route work", "Define a short patrol with a known start and stop rule."),
+        ("15-30 min", "Add the obstacle question", "Choose the signal and condition that interrupt the patrol."),
+        ("30-60 min", "Build recovery", "Record the new state, act, and read the sensor again."),
+        ("60-80 min", "Set traps", "Test a corner, repeated obstacle, and recovery that might loop forever."),
+        ("80-90 min", "Trace the feedback", "Show the sense-decide-act cycle and state one limit."),
+    ],
+}
+
+
+TOPIC_QUESTIONS = {
+    "events-and-commands": "What starts the program, and which command runs next?",
+    "coordinates": "Where am I, and how does a number move me?",
+    "loops-and-repetition": "What repeats, and what makes it stop?",
+    "conditions-and-decisions": "Which true-or-false question chooses the next branch?",
+    "variables-and-state": "What must the project remember, and when does it change?",
+    "sensing-and-collision": "What exactly counts as contact?",
+    "input-and-output": "What enters the system, and what response comes out?",
+    "debugging": "What evidence explains the difference?",
+    "sensors": "What exactly is the machine measuring?",
+    "feedback": "Did the action move the result towards the goal?",
+    "autonomy": "Which choices does the machine make, and which limits did a person set?",
+}
 
 
 LESSONS["coordinates-and-movement"].update(
@@ -1128,19 +1214,22 @@ LESSONS["coordinates-and-movement"].update(
 
 
 for lesson_slug, lesson in LESSONS.items():
+    if lesson_slug in LESSON_TIMELINES:
+        lesson["timeline"] = LESSON_TIMELINES[lesson_slug]
     lesson.setdefault("timeline", STANDARD_TIMELINE)
     lesson["slug"] = lesson_slug
     lesson["url"] = f"/lessons/{lesson_slug}"
     punctuation = "" if lesson["title"].endswith((".", "?", "!")) else "."
     lesson.setdefault(
         "meta_description",
-        f"School of Code lesson: {lesson['title']}{punctuation} A practical 90-minute public lesson for {lesson['program']}.",
+        f"{lesson['title']}{punctuation} A 90-minute School of Code lesson for {lesson['program']}, with examples, a guided build, checkpoints, and challenges.",
     )
 
 for topic_slug, topic in TOPICS.items():
+    topic["central_question"] = TOPIC_QUESTIONS[topic_slug]
     topic["slug"] = topic_slug
     topic["url"] = f"/topics/{topic_slug}"
-    topic.setdefault("meta_description", f"School of Code topic guide: {topic['title']}, with plain explanations, examples, mistakes, projects, and parent notes.")
+    topic.setdefault("meta_description", f"A School of Code guide to {topic['title'].lower()}, with examples, common bugs, and related projects and lessons.")
 
 
 TOPIC_ORDER = [

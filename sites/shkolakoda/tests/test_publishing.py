@@ -1,4 +1,5 @@
 import json
+import re
 import sys
 import tempfile
 import unittest
@@ -100,6 +101,22 @@ def campaign_record(stable_id="test.campaign.alpha", slug="alpha-campaign", **ov
     return record
 
 
+def media_record(stable_id="test.media.cover", slug="cover", **overrides):
+    record = common_record("media", stable_id, slug)
+    record.update(
+        {
+            "path": "projects/escape-from-the-giant-pigeon/assets/stage-backdrop.svg",
+            "media_type": "image/svg+xml",
+            "width": 480,
+            "height": 360,
+            "alt": "Paper-textured chase stage used by the publication fixture",
+            "credit": "School of Code",
+        }
+    )
+    record.update(overrides)
+    return record
+
+
 class RepositoryFixture:
     def __init__(self):
         self.temporary = tempfile.TemporaryDirectory()
@@ -118,12 +135,12 @@ class RepositoryFixture:
         path.write_text(json.dumps(record), encoding="utf-8")
         return path
 
-    def load(self):
+    def load(self, static_root=None):
         return ContentRepository.load(
             content_root=self.content,
             scratch_root=None,
             schema_path=DEFAULT_SCHEMA_PATH,
-            static_root=self.static,
+            static_root=self.static if static_root is None else static_root,
         )
 
 
@@ -165,17 +182,47 @@ class ContentValidationTest(unittest.TestCase):
 
         self.fixture.close()
         self.fixture = RepositoryFixture()
-        media = common_record("media", "test.media.missing-file", "missing-file")
-        media.update(
-            {
-                "path": "publishing/missing.svg",
-                "media_type": "image/svg+xml",
-                "alt": "Missing example artwork",
-                "credit": None,
-            }
+        media = media_record(
+            "test.media.missing-file",
+            "missing-file",
+            path="publishing/missing.svg",
+            alt="Missing example artwork",
+            credit=None,
         )
         self.fixture.write("media", "media.json", media)
         with self.assertRaisesRegex(ContentValidationError, "missing media file"):
+            self.fixture.load()
+
+    def test_image_media_requires_positive_dimensions(self):
+        media = media_record(path="publishing/cover.svg")
+        (self.fixture.static / "publishing").mkdir()
+        (self.fixture.static / "publishing" / "cover.svg").write_text(
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360"></svg>',
+            encoding="utf-8",
+        )
+        del media["width"]
+        self.fixture.write("media", "media.json", media)
+        with self.assertRaises(ContentValidationError):
+            self.fixture.load()
+
+        media["width"] = 0
+        self.fixture.write("media", "media.json", media)
+        with self.assertRaises(ContentValidationError):
+            self.fixture.load()
+
+    def test_publication_images_must_reference_image_media(self):
+        media = media_record(
+            media_type="audio/wav",
+            path="publishing/example.wav",
+        )
+        (self.fixture.static / "publishing").mkdir()
+        (self.fixture.static / "publishing" / "example.wav").write_bytes(b"RIFF")
+        record = project_record(
+            image={"media_id": media["id"], "alt": "Audio cannot be rendered as project artwork"}
+        )
+        self.fixture.write("media", "media.json", media)
+        self.fixture.write("projects", "project.json", record)
+        with self.assertRaisesRegex(ContentValidationError, "must reference an image media type"):
             self.fixture.load()
 
     def test_invalid_internal_links_and_related_records_are_rejected(self):
@@ -195,14 +242,12 @@ class ContentValidationTest(unittest.TestCase):
             repository.validate_route_compatibility()
 
     def test_unsafe_media_and_canonical_paths_are_rejected(self):
-        media = common_record("media", "test.media.unsafe", "unsafe-media")
-        media.update(
-            {
-                "path": "../outside.svg",
-                "media_type": "image/svg+xml",
-                "alt": "Unsafe example artwork",
-                "credit": None,
-            }
+        media = media_record(
+            "test.media.unsafe",
+            "unsafe-media",
+            path="../outside.svg",
+            alt="Unsafe example artwork",
+            credit=None,
         )
         self.fixture.write("media", "media.json", media)
         with self.assertRaisesRegex(ContentValidationError, "unsafe media path"):
@@ -281,6 +326,76 @@ class PublishingRouteTest(unittest.TestCase):
                         self.assertIn(path, app_module.public_paths())
             finally:
                 app_module.CONTENT = original
+        finally:
+            fixture.close()
+
+    def test_status_only_publish_renders_sized_image_on_index_and_detail(self):
+        fixture = RepositoryFixture()
+        try:
+            media = media_record()
+            campaign = campaign_record(
+                status="draft",
+                publish_at=None,
+                image={
+                    "media_id": media["id"],
+                    "alt": "Paper-textured Scratch chase stage for a public campaign",
+                },
+            )
+            fixture.write("media", "cover.json", media)
+            campaign_path = fixture.write("campaigns", "image-campaign.json", campaign)
+            static_root = SITE_ROOT / "static"
+            draft_repository = fixture.load(static_root=static_root)
+            self.assertIsNone(draft_repository.public_by_slug("campaign", campaign["slug"]))
+
+            original_campaign = json.loads(campaign_path.read_text(encoding="utf-8"))
+            campaign["status"] = "published"
+            fixture.write("campaigns", "image-campaign.json", campaign)
+            changed_fields = {
+                key for key in campaign if campaign[key] != original_campaign[key]
+            }
+            self.assertEqual(changed_fields, {"status"})
+
+            repository = fixture.load(static_root=static_root)
+            presented = repository.present(
+                repository.public_by_slug("campaign", campaign["slug"])
+            )
+            self.assertEqual(
+                (presented["image"]["width"], presented["image"]["height"]),
+                (480, 360),
+            )
+
+            original_repository = app_module.CONTENT
+            app_module.CONTENT = repository
+            try:
+                client = app_module.app.test_client()
+                detail_path = f"/campaigns/{campaign['slug']}"
+                self.assertIn(detail_path, app_module.public_paths())
+                expected_image_paths = {"/campaigns", detail_path}
+                rendered_image_paths = set()
+                for path in app_module.public_paths():
+                    response = client.get(path)
+                    self.assertEqual(response.status_code, 200)
+                    html = response.get_data(as_text=True)
+                    for rendered_image in re.findall(r"<img\b[^>]*>", html):
+                        self.assertRegex(rendered_image, r'\bwidth="[1-9][0-9]*"')
+                        self.assertRegex(rendered_image, r'\bheight="[1-9][0-9]*"')
+                    image_tag = re.search(
+                        r'<img\b[^>]*alt="Paper-textured Scratch chase stage for a public campaign"[^>]*>',
+                        html,
+                    )
+                    if image_tag:
+                        rendered_image_paths.add(path)
+                        self.assertIn('width="480"', image_tag.group(0))
+                        self.assertIn('height="360"', image_tag.group(0))
+                    response.close()
+                self.assertEqual(rendered_image_paths, expected_image_paths)
+
+                image_response = client.get(presented["image"]["url"])
+                self.assertEqual(image_response.status_code, 200)
+                self.assertTrue(image_response.content_type.startswith("image/"))
+                image_response.close()
+            finally:
+                app_module.CONTENT = original_repository
         finally:
             fixture.close()
 

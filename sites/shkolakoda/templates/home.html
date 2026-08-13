@@ -2,7 +2,7 @@
 {% from "_macros.html" import program_card, project_card, blog_card, lab_transition %}
 
 {% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}
-{% block meta_description %}School of Code is a small independent Calgary school where kids build games, robot logic, circuits, simulations, and smart-machine projects.{% endblock %}
+{% block meta_description %}School of Code is a Calgary programming and robotics school where children make games, circuits, simulations, and robot systems.{% endblock %}
 
 {% block content %}
   <section class="hero">
@@ -12,10 +12,10 @@
         <div class="hero-status-line" aria-hidden="true">
           <span>LAB / 01</span><span>INPUT: IDEA</span><span>OUTPUT: WORKING VERSION</span>
         </div>
-        <h1>Programming and Robotics for Kids Who Want to Build Things</h1>
+        <h1>Programming and robotics for children who want to build things.</h1>
         <p class="hero-copy">
-          A small independent school in Calgary where students build games, robot logic,
-          simulations, circuits, and smart-machine projects while learning the ideas underneath them.
+          Students make games, circuits, simulations, and robot systems while learning the code,
+          logic, and mathematics that make them work.
         </p>
         <div class="button-row">
           <a class="button" href="{{ url_for('programs') }}">Explore Programs</a>
@@ -46,9 +46,9 @@
       <div class="section-header">
         <div>
           <p class="eyebrow">What students do</p>
-          <h2 id="student-actions">Work like a builder, not a spectator.</h2>
+          <h2 id="student-actions">Make something. Find out how it works.</h2>
         </div>
-        <p class="section-intro">Every useful idea gets attached to something visible that a student can run, demonstrate, question, and improve.</p>
+        <p class="section-intro">Each lesson puts an idea into a project a student can run, inspect, change, and explain.</p>
       </div>
       <div class="verb-grid">
         <div class="verb"><strong>Build</strong><span>make it exist</span></div>
@@ -67,7 +67,7 @@
       <div class="section-header">
         <div>
           <p class="eyebrow">Active programs</p>
-          <h2 id="active-programs">Start with games. Build toward machines.</h2>
+          <h2 id="active-programs">Scratch &amp; Game Design and Robotics.</h2>
         </div>
         <a class="text-link" href="{{ url_for('programs') }}">See the full program direction <span aria-hidden="true">-&gt;</span></a>
       </div>
@@ -83,9 +83,9 @@
       <div class="section-header">
         <div>
           <p class="eyebrow">Available later</p>
-          <h2 id="later-programs">Future branches, described without pretending they are open.</h2>
+          <h2 id="later-programs">Roblox and AI come later.</h2>
         </div>
-        <p class="section-intro">Roblox Studio / Lua and AI &amp; Smart Machines belong to the curriculum direction. They are not current classes or published schedules.</p>
+        <p class="section-intro">These program pages show where the curriculum is heading. Registration is not open for them.</p>
       </div>
       <div class="program-grid program-grid-later">
         {{ program_card(programs.roblox) }}
@@ -99,21 +99,19 @@
       <div class="section-header">
         <div>
           <p class="eyebrow">School and Computer Lab</p>
-          <h2 id="school-and-lab">The school sets the path. The lab creates room to explore.</h2>
+          <h2 id="school-and-lab">Classes teach the sequence. Lab time opens up the project.</h2>
         </div>
       </div>
       <div class="school-lab-grid">
         <article class="comparison-panel">
           <span class="panel-number">01 / SCHOOL</span>
           <h3>Classes</h3>
-          <p>Planned lessons introduce ideas in a deliberate order. Students learn a concept, see it work, and use it in a guided project.</p>
-          <p><strong>The class gives the idea.</strong></p>
+          <p>Planned lessons introduce ideas in order. Students study a concept, try a small example, and use it in a guided project.</p>
         </article>
         <article class="comparison-panel">
           <span class="panel-number">02 / COMPUTER LAB</span>
           <h3>Guided project time</h3>
-          <p>Students modify, test, rebuild, repair, and invent with an instructor nearby. It is structured freedom, not random device time.</p>
-          <p><strong>The lab gives the idea a life.</strong></p>
+          <p>Students finish a stubborn section, add a feature, investigate a bug, or rebuild the project with an instructor nearby.</p>
         </article>
       </div>
       <ol class="pathway" aria-label="School of Code teaching model">
@@ -128,8 +126,8 @@
       <div class="section-header">
         <div>
           <p class="eyebrow">Strange and serious projects</p>
-          <h2 id="strange-projects">Funny on the surface. Real ideas underneath.</h2>
-          <p class="section-intro">Coordinates, loops, conditions, variables, collision detection, sensors, state, and debugging can survive a little nonsense.</p>
+          <h2 id="strange-projects">The pigeon is absurd. The coordinate system is not.</h2>
+          <p class="section-intro">A strange premise gives students a reason to care whether the loop stops, the sensor changes, or the taxi reaches Mars.</p>
         </div>
         <a class="button button-light" href="{{ url_for('project_index') }}">Browse Project Library</a>
       </div>
@@ -144,7 +142,7 @@
       <div class="section-header">
         <div>
           <p class="eyebrow">Hidden ideas</p>
-          <h2 id="hidden-ideas">The title invites the student in. The system gives the work weight.</h2>
+          <h2 id="hidden-ideas">What the projects are really about.</h2>
         </div>
       </div>
       <div class="idea-translation-grid">
@@ -159,9 +157,9 @@
   <section class="section" aria-labelledby="parents-home">
     <div class="container">
       <div class="parent-callout">
-        <blockquote id="parents-home">Active creative computer use, not passive screen time.</blockquote>
+        <blockquote id="parents-home">The screen contains a problem the student has to solve.</blockquote>
         <div>
-          <p>Students make decisions, predict what code will do, run tests, find mistakes, explain systems, and leave with something visible. A game project can teach logic, mathematics, writing, design, patience, and how to recover when the first plan fails.</p>
+          <p>A student predicts what the code will do, runs it, and deals with the result. The finished game or robot system makes that work visible to parents too.</p>
           <a class="text-link" href="{{ url_for('parents') }}">Read practical answers for parents <span aria-hidden="true">-&gt;</span></a>
         </div>
       </div>
@@ -173,8 +171,8 @@
       <div class="map-pin" aria-hidden="true"><span>YYC</span></div>
       <div>
         <p class="eyebrow">Calgary / Small groups</p>
-        <h2 id="calgary-groups">A local school where the instructor can see the actual project.</h2>
-        <p class="section-intro">School of Code is based in Calgary and works with small groups. Exact ages, schedules, venue details, and registration dates are still being finalized; contact us to discuss fit.</p>
+        <h2 id="calgary-groups">Small groups in Calgary.</h2>
+        <p class="section-intro">The instructor can follow the actual code instead of judging progress by how busy the screen looks. Contact us for current ages, schedules, venue details, and registration plans.</p>
       </div>
       <a class="button" href="{{ url_for('contact') }}">Contact Eugene</a>
     </div>
@@ -184,10 +182,10 @@
     <div class="container two-column">
       <div>
         <p class="eyebrow">Teaching method</p>
-        <h2 id="method-preview">A bug is a clue. A demonstration is evidence.</h2>
+        <h2 id="method-preview">Students should understand enough to change the system on purpose.</h2>
       </div>
       <div>
-        <p class="lead">Students meet an idea, predict what it will do, build a visible system, test its edges, change one rule, and explain the result. Theory is the skeleton that lets the project survive revision.</p>
+        <p class="lead">Lessons move from a clear idea to a working project. Students predict, test, revise, and finish by showing which rules control the result.</p>
         <a class="text-link" href="{{ url_for('method') }}">Read our method <span aria-hidden="true">-&gt;</span></a>
       </div>
     </div>
@@ -196,7 +194,7 @@
   <section class="section section-blue section-trace section-trace-notes" aria-labelledby="latest-guides">
     <div class="container">
       <div class="section-header">
-        <div><p class="eyebrow">Parent guides and notes</p><h2 id="latest-guides">Read the reasoning behind the projects.</h2></div>
+        <div><p class="eyebrow">Parent guides and notes</p><h2 id="latest-guides">Questions worth answering properly.</h2></div>
         <a class="text-link" href="{{ url_for('blog_index') }}">All articles <span aria-hidden="true">-&gt;</span></a>
       </div>
       <div class="blog-grid">
@@ -208,8 +206,8 @@
   <section class="cta-band">
     <div class="container cta-grid">
       <div>
-        <h2>Have a future builder at home?</h2>
-        <p>Ask about classes, schedules, age fit, or future registration. A short conversation is the best first step.</p>
+        <h2>Ask about classes.</h2>
+        <p>Tell us what your child likes to make and any previous experience. We can discuss a sensible starting point.</p>
       </div>
       <a class="button button-light" href="mailto:hello@shkolakoda.com">Ask About Classes</a>
     </div>

@@ -262,10 +262,21 @@
             "kind": { "const": "media" },
             "path": { "type": "string", "minLength": 3, "maxLength": 240 },
             "media_type": { "type": "string", "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$" },
+            "width": { "type": "integer", "minimum": 1 },
+            "height": { "type": "integer", "minimum": 1 },
             "alt": { "type": "string", "minLength": 5, "maxLength": 250 },
             "credit": { "type": ["string", "null"], "maxLength": 250 }
           },
-          "required": ["path", "media_type", "alt", "credit"]
+          "required": ["path", "media_type", "alt", "credit"],
+          "allOf": [
+            {
+              "if": {
+                "properties": { "media_type": { "pattern": "^image/" } },
+                "required": ["media_type"]
+              },
+              "then": { "required": ["width", "height"] }
+            }
+          ]
         }
       ],
       "unevaluatedProperties": false
