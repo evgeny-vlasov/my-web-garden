@@ -15,10 +15,6 @@
             <a href="{{ url_for('admin_contacts_list') }}" class="btn btn-outline-primary">
                 <i class="bi bi-arrow-left me-1"></i>Back to contacts
             </a>
-            <a class="btn btn-success"
-               href="mailto:{{ contact.email }}?subject={{ reply_subject|urlencode }}&body={{ reply_body|urlencode }}">
-                <i class="bi bi-envelope-reply me-1"></i>Reply by email
-            </a>
         </div>
     </div>
     <div class="d-flex flex-wrap gap-2 align-items-center mb-4" aria-label="Inquiry status">
@@ -46,10 +42,102 @@
                 </div>
             </div>
 
-            <div class="card border-0 shadow-sm">
+            <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-white"><h2 class="h5 mb-0">Original message</h2></div>
                 <div class="card-body">
                     <div class="crm-message">{{ contact.message }}</div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4" id="email-reply">
+                <div class="card-header bg-white">
+                    <h2 class="h5 mb-0"><i class="bi bi-envelope-reply me-2"></i>Email reply</h2>
+                </div>
+                <div class="card-body">
+                    {% if reply_blocked %}
+                        <div class="alert alert-warning mb-0" role="alert">
+                            <strong>Replying is blocked.</strong>
+                            {% if contact.is_spam or contact.status == 'spam' %}
+                                Mark this inquiry as not spam first.
+                            {% endif %}
+                            {% if contact.archived_at %}
+                                Restore it from the archive first.
+                            {% endif %}
+                            This safeguard prevents email from being sent from a record that is not active.
+                        </div>
+                    {% else %}
+                        <form method="POST"
+                              action="{{ url_for('admin_contact_reply', contact_id=contact.id) }}"
+                              data-prevent-double-submit
+                              data-confirm-submit="Send this email to {{ contact.email }} now?">
+                            {{ reply_form.hidden_tag() }}
+                            <div class="mb-3">
+                                <label class="form-label" for="reply-recipient">Recipient</label>
+                                <input class="form-control" id="reply-recipient" type="email"
+                                       value="{{ contact.email }}" readonly aria-readonly="true">
+                                <div class="form-text">The recipient comes from the stored inquiry and cannot be changed here.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="reply-subject">Subject</label>
+                                {{ reply_form.subject(class='form-control', id='reply-subject', maxlength=200) }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="reply-body">Message</label>
+                                {{ reply_form.body(class='form-control', id='reply-body', rows=9, maxlength=10000) }}
+                            </div>
+                            <div class="alert alert-danger py-2" role="alert">
+                                <strong>Send emails immediately.</strong> Pressing Send will email this client now.
+                            </div>
+                            <div class="d-grid d-sm-flex gap-2">
+                                <button class="btn btn-success" type="submit" data-submitting-text="Sending…">
+                                    <i class="bi bi-send me-1"></i>Send email now
+                                </button>
+                                <a class="btn btn-outline-secondary"
+                                   href="mailto:{{ contact.email }}?subject={{ reply_subject|urlencode }}&body={{ reply_body|urlencode }}">
+                                    <i class="bi bi-envelope me-1"></i>Reply by email app instead
+                                </a>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white"><h2 class="h5 mb-0">Email reply history</h2></div>
+                <div class="card-body">
+                    {% if email_replies %}
+                        <div class="list-group list-group-flush">
+                            {% for reply in email_replies %}
+                                <article class="list-group-item px-0 email-reply-history-item">
+                                    <div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
+                                        <div>
+                                            {% if reply.status == 'sent' %}
+                                                <span class="badge bg-success">Sent — accepted by SMTP</span>
+                                            {% elif reply.status == 'failed' %}
+                                                <span class="badge bg-danger">Failed — no email sent</span>
+                                            {% else %}
+                                                <span class="badge bg-warning text-dark">Pending — check before retrying</span>
+                                            {% endif %}
+                                        </div>
+                                        <small class="text-muted">{{ reply.created_at.strftime('%b %d, %Y %I:%M %p') }}</small>
+                                    </div>
+                                    <dl class="row small mb-2">
+                                        <dt class="col-sm-3">To</dt><dd class="col-sm-9">{{ reply.recipient }}</dd>
+                                        <dt class="col-sm-3">Subject</dt><dd class="col-sm-9">{{ reply.subject }}</dd>
+                                        <dt class="col-sm-3">Admin</dt>
+                                        <dd class="col-sm-9">{{ reply.sender_user.username if reply.sender_user else 'Former admin user' }}</dd>
+                                        {% if reply.sent_at %}
+                                            <dt class="col-sm-3">SMTP accepted</dt>
+                                            <dd class="col-sm-9">{{ reply.sent_at.strftime('%b %d, %Y %I:%M %p') }}</dd>
+                                        {% endif %}
+                                    </dl>
+                                    <div class="crm-message email-reply-body">{{ reply.body }}</div>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted mb-0">No replies have been sent from Psyling for this inquiry.</p>
+                    {% endif %}
                 </div>
             </div>
             {% set activity_action = url_for('admin_contact_activity_create', contact_id=contact.id) %}

@@ -154,6 +154,10 @@ class ContactSubmission(db.Model):
         'CRMActivity', back_populates='contact_submission', lazy='dynamic',
         cascade='all, delete-orphan',
     )
+    email_replies = db.relationship(
+        'ContactEmailReply', back_populates='contact_submission', lazy='dynamic',
+        cascade='all, delete-orphan',
+    )
 
     def mark_as_read(self):
         """Mark submission as read."""
@@ -176,6 +180,68 @@ class ContactSubmission(db.Model):
 
     def __repr__(self):
         return f'<ContactSubmission id={self.id}>'
+
+
+class ContactEmailReply(db.Model):
+    """One admin email attempt made in response to a contact submission."""
+    __tablename__ = 'contact_email_replies'
+    __table_args__ = (
+        db.CheckConstraint(
+            "status IN ('pending', 'sent', 'failed')",
+            name='ck_contact_email_replies_status',
+        ),
+        db.CheckConstraint(
+            "length(trim(subject)) > 0",
+            name='ck_contact_email_replies_subject_not_blank',
+        ),
+        db.CheckConstraint(
+            "length(trim(body)) > 0",
+            name='ck_contact_email_replies_body_not_blank',
+        ),
+        db.CheckConstraint(
+            "(status = 'sent' AND sent_at IS NOT NULL) OR "
+            "(status <> 'sent' AND sent_at IS NULL)",
+            name='ck_contact_email_replies_sent_timestamp',
+        ),
+    )
+
+    id = db.Column(db.Integer, primary_key=True)
+    contact_submission_id = db.Column(
+        db.Integer,
+        db.ForeignKey('contact_submissions.id', ondelete='CASCADE'),
+        nullable=False,
+        index=True,
+    )
+    sender_user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete='SET NULL'),
+        nullable=True,
+        index=True,
+    )
+    subject = db.Column(db.String(200), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    recipient = db.Column(db.String(120), nullable=False)
+    status = db.Column(
+        db.String(20), default='pending', server_default='pending', nullable=False,
+        index=True,
+    )
+    idempotency_key = db.Column(db.String(64), nullable=False, unique=True)
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow,
+        server_default=db.func.now(),
+        nullable=False,
+        index=True,
+    )
+    sent_at = db.Column(db.DateTime)
+
+    contact_submission = db.relationship(
+        'ContactSubmission', back_populates='email_replies'
+    )
+    sender_user = db.relationship('User', foreign_keys=[sender_user_id])
+
+    def __repr__(self):
+        return f'<ContactEmailReply id={self.id} status={self.status}>'
 
 
 class CRMActivity(db.Model):

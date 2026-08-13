@@ -13,6 +13,7 @@
         initAutoSave();
         initTableSorting();
         initSearchFilters();
+        initSingleSubmitForms();
     });
 
     /**
@@ -37,6 +38,38 @@
                     e.preventDefault();
                     return false;
                 }
+            });
+        });
+    }
+
+    /**
+     * Confirm immediate actions and lock submit buttons after one submission.
+     * Server-side idempotency remains authoritative if JavaScript is bypassed.
+     */
+    function initSingleSubmitForms() {
+        const forms = document.querySelectorAll('[data-prevent-double-submit]');
+
+        forms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                if (form.dataset.submitting === 'true') {
+                    event.preventDefault();
+                    return;
+                }
+
+                const confirmation = form.getAttribute('data-confirm-submit');
+                if (confirmation && !confirm(confirmation)) {
+                    event.preventDefault();
+                    return;
+                }
+
+                form.dataset.submitting = 'true';
+                form.querySelectorAll('button[type="submit"]').forEach(button => {
+                    button.disabled = true;
+                    const submittingText = button.getAttribute('data-submitting-text');
+                    if (submittingText) {
+                        button.textContent = submittingText;
+                    }
+                });
             });
         });
     }

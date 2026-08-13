@@ -14,6 +14,7 @@ from slugify import slugify
 import markdown
 import requests
 from sqlalchemy import or_
+from sqlalchemy.exc import IntegrityError
 
 # Add parent directories to Python path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -31,8 +32,8 @@ load_dotenv()
 # Import shared modules
 from shared.base_app import create_base_app, db, limiter, login_manager, mail
 from shared.models import (
-    BlogPost, ChatMessage, ChatRoom, Client, ContactSubmission, CRMActivity,
-    SpamBlocklist, UploadedFile, User,
+    BlogPost, ChatMessage, ChatRoom, Client, ContactEmailReply,
+    ContactSubmission, CRMActivity, SpamBlocklist, UploadedFile, User,
 )
 from shared.forms import ContactForm, LoginForm, BlogPostForm, BookingRequestForm
 from shared.email import send_contact_notification, send_contact_confirmation
@@ -48,7 +49,9 @@ from sites.psyling.crm_forms import (
     ClientForm,
     ContactActionForm,
     ContactCRMForm,
+    ContactReplyForm,
 )
+from sites.psyling.email_replies import send_contact_reply_email
 from sites.psyling.chat_forms import (
     ChatMessageForm,
     ChatRoomActionForm,
@@ -699,21 +702,43 @@ def admin_contacts_list():
 def admin_contact_view(contact_id):
     """Show one contact on a normal, JavaScript-independent HTML page."""
     contact = ContactSubmission.query.get_or_404(contact_id)
-    crm_form = ContactCRMForm(obj=contact)
-    action_form = ContactActionForm()
+    return render_template(
+        'admin/contact_detail.html',
+        **_contact_detail_context(contact),
+    )
+
+
+def _contact_detail_context(contact, crm_form=None, reply_form=None):
+    """Build the complete private contact view without duplicating query logic."""
+    if crm_form is None:
+        crm_form = ContactCRMForm(obj=contact)
+    if reply_form is None:
+        reply_form = ContactReplyForm(
+            subject='Re: Your inquiry to Psyling',
+            idempotency_key=secrets.token_urlsafe(32),
+        )
     activities = contact.activities.order_by(
         CRMActivity.created_at.desc(), CRMActivity.id.desc()
     ).all()
-    return render_template(
-        'admin/contact_detail.html',
-        contact=contact,
-        crm_form=crm_form,
-        action_form=action_form,
-        activity_form=ActivityForm(),
-        complete_form=ActivityCompleteForm(),
-        activities=activities,
-        now=datetime.utcnow(),
-    )
+    email_replies = contact.email_replies.order_by(
+        ContactEmailReply.created_at.asc(), ContactEmailReply.id.asc()
+    ).all()
+    return {
+        'contact': contact,
+        'crm_form': crm_form,
+        'action_form': ContactActionForm(),
+        'reply_form': reply_form,
+        'activity_form': ActivityForm(),
+        'complete_form': ActivityCompleteForm(),
+        'activities': activities,
+        'email_replies': email_replies,
+        'reply_blocked': (
+            contact.is_spam
+            or contact.status == 'spam'
+            or contact.archived_at is not None
+        ),
+        'now': datetime.utcnow(),
+    }
 
 
 @app.route('/admin/contacts/<int:contact_id>')
@@ -730,18 +755,9 @@ def admin_contact_update_crm(contact_id):
     form = ContactCRMForm()
     if not form.validate_on_submit():
         flash('Please correct the CRM form fields.', 'error')
-        activities = contact.activities.order_by(
-            CRMActivity.created_at.desc(), CRMActivity.id.desc()
-        ).all()
         return render_template(
             'admin/contact_detail.html',
-            contact=contact,
-            crm_form=form,
-            action_form=ContactActionForm(),
-            activity_form=ActivityForm(),
-            complete_form=ActivityCompleteForm(),
-            activities=activities,
-            now=datetime.utcnow(),
+            **_contact_detail_context(contact, crm_form=form),
         ), 400
 
     try:
@@ -791,6 +807,120 @@ def admin_contact_mark_contacted(contact_id):
         contact.status = 'contacted'
     db.session.commit()
     app.logger.info('CRM contact %s marked contacted by admin user %s', contact.id, current_user.id)
+    return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+
+@app.route('/admin/contacts/<int:contact_id>/reply', methods=['POST'])
+@admin_required
+def admin_contact_reply(contact_id):
+    """Send and record one idempotent email reply to a stored contact address."""
+    contact = ContactSubmission.query.get_or_404(contact_id)
+    form = ContactReplyForm()
+
+    if contact.is_spam or contact.status == 'spam' or contact.archived_at:
+        flash(
+            'Restore this inquiry and mark it as not spam before sending a reply.',
+            'warning',
+        )
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+    if not form.validate_on_submit():
+        if form.idempotency_key.errors:
+            flash(
+                'The reply form expired. Reload the inquiry and try again. '
+                'No email was sent.',
+                'error',
+            )
+        else:
+            flash(
+                'Subject and message are required and must fit the displayed limits. '
+                'No email was sent.',
+                'error',
+            )
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+    idempotency_key = form.idempotency_key.data
+    if ContactEmailReply.query.filter_by(idempotency_key=idempotency_key).first():
+        flash('This reply was already submitted. No second email was sent.', 'info')
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+    reply = ContactEmailReply(
+        contact_submission=contact,
+        sender_user_id=current_user.id,
+        subject=form.subject.data.strip(),
+        body=form.body.data.strip(),
+        recipient=contact.email,
+        idempotency_key=idempotency_key,
+        status='pending',
+    )
+    try:
+        db.session.add(reply)
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        flash('This reply was already submitted. No second email was sent.', 'info')
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+    except Exception:
+        db.session.rollback()
+        app.logger.error(
+            'Contact email reply record creation failed for contact %s', contact.id
+        )
+        flash('The reply could not be prepared. No email was sent.', 'error')
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+    try:
+        send_contact_reply_email(
+            recipient=reply.recipient,
+            subject=reply.subject,
+            body=reply.body,
+        )
+    except Exception as error:
+        reply.status = 'failed'
+        try:
+            db.session.commit()
+        except Exception:
+            db.session.rollback()
+        app.logger.error(
+            'Contact email reply %s failed for contact %s (%s)',
+            reply.id,
+            contact.id,
+            type(error).__name__,
+        )
+        flash(
+            'The email could not be sent. The inquiry was not marked contacted.',
+            'error',
+        )
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+    sent_at = datetime.utcnow()
+    reply.status = 'sent'
+    reply.sent_at = sent_at
+    contact.last_contacted_at = sent_at
+    contact.is_read = True
+    if contact.status == 'new':
+        contact.status = 'contacted'
+    try:
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        app.logger.error(
+            'Contact email reply %s was accepted by SMTP but history finalization failed',
+            reply.id,
+        )
+        flash(
+            'SMTP accepted the email, but Psyling could not finalize its history. '
+            'Do not resend until the record is checked.',
+            'warning',
+        )
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+
+    app.logger.info(
+        'Contact email reply %s sent for contact %s by admin user %s',
+        reply.id,
+        contact.id,
+        current_user.id,
+    )
+    flash('Reply sent and saved in Psyling.', 'success')
     return redirect(url_for('admin_contact_view', contact_id=contact.id))
 
 
