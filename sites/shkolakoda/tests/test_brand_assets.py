@@ -1,12 +1,16 @@
 import base64
 import re
 import struct
+import sys
+import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
 SITE_ROOT = Path(__file__).resolve().parents[1]
+if str(SITE_ROOT) not in sys.path:
+    sys.path.insert(0, str(SITE_ROOT))
 BRAND_GUIDE = SITE_ROOT / "BRAND.md"
 STATIC_ROOT = SITE_ROOT / "static"
 BRAND_ROOT = STATIC_ROOT / "brand"
@@ -15,6 +19,8 @@ MASCOT_ROOT = BRAND_ROOT / "mascot"
 TEMPLATE_ROOT = BRAND_ROOT / "templates"
 SVG_NS = "{http://www.w3.org/2000/svg}"
 POINTS_PER_MM = 72 / 25.4
+
+from brand.export_story import export_story
 
 COMPLETE_WORDMARK_MIN_SCREEN_PX = 540
 COMPLETE_WORDMARK_MIN_PRINT_MM = 120
@@ -198,9 +204,105 @@ class BrandAssetTests(unittest.TestCase):
             set(editable),
             {"eyebrow", "headline", "supporting-points", "callout", "url"},
         )
+        constants = root.find(f"{SVG_NS}metadata[@id='story-safe-area-constants']")
+        guide = root.find(f"{SVG_NS}g[@id='editor-guide']")
+        live_content = root.find(f"{SVG_NS}g[@id='story-live-content']")
+        expected_bounds = {
+            "data-safe-left": "64",
+            "data-safe-top": "280",
+            "data-safe-right": "1016",
+            "data-safe-bottom": "1520",
+        }
+        self.assertIsNotNone(constants)
+        self.assertIsNotNone(guide)
+        self.assertIsNotNone(live_content)
+        self.assertEqual(guide.attrib["data-export"], "exclude")
+        for name, value in expected_bounds.items():
+            with self.subTest(constant=name):
+                self.assertEqual(constants.attrib[name], value)
+                self.assertEqual(guide.attrib[name], value)
         source = path.read_text(encoding="utf-8")
-        self.assertIn("STORY SAFE AREA", source)
+        self.assertIn("EDITOR GUIDE / LIVE AREA", source)
         self.assertIn("INPUT → RULE → OUTPUT", source)
+        for required_position in (
+            'transform="translate(74 296)"',
+            'transform="translate(76 420)"',
+            'x="72" y="560"',
+            'transform="translate(72 840)"',
+            'transform="translate(120 1340) rotate(-1)"',
+            'x="1006" y="1500"',
+        ):
+            with self.subTest(position=required_position):
+                self.assertIn(required_position, source)
+
+        brand = root.find(f".//{SVG_NS}g[@id='story-brand']")
+        eyebrow = root.find(f".//{SVG_NS}g[@id='story-edit-eyebrow']")
+        headline = root.find(f".//{SVG_NS}g[@id='story-edit-headline']/{SVG_NS}text")
+        control_loop = root.find(f".//{SVG_NS}g[@id='story-control-loop']")
+        callout = root.find(f".//{SVG_NS}g[@id='story-edit-callout']")
+        url = root.find(f".//{SVG_NS}text[@id='story-edit-url']")
+        self.assertIsNotNone(brand)
+        self.assertIsNotNone(eyebrow)
+        self.assertIsNotNone(headline)
+        self.assertIsNotNone(control_loop)
+        self.assertIsNotNone(callout)
+        self.assertIsNotNone(url)
+
+        safe_left = float(constants.attrib["data-safe-left"])
+        safe_top = float(constants.attrib["data-safe-top"])
+        safe_right = float(constants.attrib["data-safe-right"])
+        safe_bottom = float(constants.attrib["data-safe-bottom"])
+
+        def translate(element):
+            match = re.match(
+                r"translate\(([0-9.]+) ([0-9.]+)\)", element.attrib["transform"]
+            )
+            self.assertIsNotNone(match)
+            return float(match.group(1)), float(match.group(2))
+
+        brand_x, brand_y = translate(brand)
+        eyebrow_x, eyebrow_y = translate(eyebrow)
+        board_x, board_y = translate(control_loop)
+        callout_x, callout_y = translate(callout)
+        headline_x = float(headline.attrib["x"])
+        headline_y = float(headline.attrib["y"])
+        url_x = float(url.attrib["x"])
+        url_y = float(url.attrib["y"])
+
+        self.assertGreaterEqual(min(brand_x, eyebrow_x, headline_x, board_x, callout_x), safe_left)
+        self.assertGreaterEqual(min(brand_y, eyebrow_y, headline_y - 116, board_y, callout_y), safe_top)
+        self.assertLessEqual(board_x + 936, safe_right)
+        self.assertLessEqual(callout_x + 752, safe_right)
+        self.assertLessEqual(url_x, safe_right)
+        self.assertLessEqual(board_y + 480, safe_bottom)
+        self.assertLessEqual(callout_y + 126, safe_bottom)
+        self.assertLessEqual(headline_y + 240 + 29, safe_bottom)
+        self.assertLessEqual(url_y + 6, safe_bottom)
+
+    def test_story_production_export_strips_editor_only_material(self):
+        source_path = TEMPLATE_ROOT / "social-story-1080x1920.svg"
+        with tempfile.TemporaryDirectory() as temporary:
+            output_path = Path(temporary) / "story-production.svg"
+            export_story(source_path, output_path)
+            output = output_path.read_text(encoding="utf-8")
+            root = ET.parse(output_path).getroot()
+
+        self.assertEqual(parse_view_box(root.attrib["viewBox"]), (0, 0, 1080, 1920))
+        self.assertIsNone(root.find(f".//{SVG_NS}g[@id='editor-guide']"))
+        self.assertFalse(
+            [element for element in root.iter() if element.get("data-export") == "exclude"]
+        )
+        self.assertNotIn("EDITOR GUIDE", output)
+        self.assertNotIn("REMOVE BEFORE EXPORT", output)
+        self.assertNotIn("story-safe-area-guide", output)
+        self.assertEqual(
+            {
+                element.attrib["data-edit"]
+                for element in root.iter()
+                if "data-edit" in element.attrib
+            },
+            {"eyebrow", "headline", "supporting-points", "callout", "url"},
+        )
 
     def test_wordmark_assets_use_the_public_name(self):
         for path in LOGO_ROOT.glob("*.svg"):
