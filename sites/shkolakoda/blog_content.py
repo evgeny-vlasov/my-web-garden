@@ -14,39 +14,45 @@ BLOG_POSTS = {
     "is-coding-class-just-more-screen-time": article(
         "Is Coding Class Just More Screen Time?",
         "Parent Guides",
-        "The useful distinction is not screen versus no screen. It is passive consumption versus active construction, testing, and explanation.",
+        "The useful question is what a child does at the screen: watch, or make something that can be tested and changed.",
         (
-            "Parents are right to ask what another hour at a computer actually contains. A child can spend an hour "
-            "watching an endless feed, or spend an hour building a game, predicting a movement, finding a collision bug, "
-            "and explaining why a score changed twice. Both activities use a screen. They are not the same kind of work."
+            "An hour with a computer can mean an endless feed. It can also mean building a game, predicting where a sprite will land, "
+            "finding a collision bug, and showing someone else how the score works. The clock sees two hours of screen time. The child is doing very different work."
         ),
         [
             (
-                "Look at the verbs",
+                "Watch the work",
                 [
-                    "A useful coding class can be described with observable verbs: build, test, debug, change, explain, and improve. The student makes decisions that alter a system. When Escape from the Giant Pigeon starts in the wrong corner, the student inspects x and y values. When win and loss happen together, the student decides which state has priority. The screen is showing the material under construction.",
-                    "Passive screen time usually asks very little of the viewer between one item and the next. Project work creates resistance. The program does not care that the student meant to move upward; it changes the axis specified in code. That resistance is educational because it requires a prediction, evidence, and revision."
+                    "In a coding class, students make decisions that alter a system. If the player starts in the wrong corner, they inspect the x and y values. If winning and losing happen at once, they find the rules that are competing. The program follows the instructions it has, including the mistaken ones, and gives the student something definite to investigate.",
+                    "That resistance matters. A video continues whether the viewer understands it or not. A game with broken movement does not. To fix it, the student has to compare intention with evidence and revise the rule."
                 ],
             ),
             (
-                "What a parent should be able to observe",
+                "Ask for a tour",
                 [
-                    "After class, a student should have something specific to show. It may be a small game, a robot route, a reaction timer, or a state diagram. More important, the student should be able to answer concrete questions: What starts the program? What number controls left and right? What went wrong? Which rule did you change?",
-                    "A finished project is not evidence that every line was written independently or that every concept is mastered. It is evidence that the class had a visible object around which understanding can be discussed. The demonstration makes vague claims about creativity unnecessary."
+                    "After class, ask the student to open the project and show how it works. A small game, robot route, reaction timer, or state diagram is enough. Then ask a concrete question: What starts the program? Which number controls left and right? What went wrong today? What did you change?",
+                    "A finished project does not prove that every line was written alone or that every idea is mastered. It does give the conversation an object. The student can point to a rule, run a test, and explain a choice instead of reporting that class was simply ‘good.’"
                 ],
             ),
             (
-                "Screens still need boundaries",
+                "Try one small change",
                 [
-                    "Calling an activity creative does not make unlimited device use harmless. Classes should have a beginning, a task, checkpoints, and an ending. Students should take visual breaks, talk with people, draw plans on paper when useful, and leave the project in a known saved state. A Computer Lab should not become an excuse for random gaming or unstructured browsing.",
-                    "The School of Code distinction is simple: classes follow a planned learning path, while Computer Lab time provides guided project work. In both cases, the device serves the project. The project does not serve the device."
+                    "Change the player speed, move a safe zone, or make the score begin at five. If the student can predict the result and find the relevant part of the program, the project has become something they can work on rather than something they merely operated.",
+                    "Ask about a failure too. Real projects accumulate wrong turns: x changes instead of y, a loop runs forever, or restart keeps an old value. Describing the repair is often more revealing than showing the polished final run."
                 ],
             ),
             (
-                "Ask a better question",
+                "Boundaries still matter",
                 [
-                    "Instead of asking only how many minutes involved a screen, ask what the child was doing during those minutes. Did the student make choices, encounter difficulty, inspect evidence, explain a system, and finish a version that can be demonstrated? If the answer is no, the activity may indeed be only more screen time.",
-                    "If the answer is yes, the computer is functioning more like a workshop bench, notebook, stage, and test instrument at once. That does not eliminate the need for limits. It does explain why active programming can belong in a balanced education."
+                    "Useful work at a computer does not make unlimited device use a good idea. A class needs a beginning, a task, checkpoints, and an ending. Students should talk to people, sketch on paper when it helps, take visual breaks, and save their work properly.",
+                    "School of Code classes follow a planned sequence. Computer Lab time is for guided work on projects that already have a purpose. Neither is a licence for random gaming or browsing."
+                ],
+            ),
+            (
+                "A better measure",
+                [
+                    "Minutes are still worth counting, but they do not describe the whole activity. Ask whether the child made choices, encountered a real difficulty, inspected evidence, and left with a version that can be demonstrated. Those are visible differences between making and consuming.",
+                    "A computer can be a television, but it can also be a workshop bench, notebook, stage, and test instrument. The useful question is which one it was today."
                 ],
             ),
         ],
@@ -55,80 +61,92 @@ BLOG_POSTS = {
     "what-age-should-kids-start-programming": article(
         "What Age Should Kids Start Programming?",
         "Coding for Kids",
-        "Readiness depends less on a birthday than on the task, the support, and whether the child can work through a small problem.",
+        "A suitable starting point depends on the child, the task, and the support available—not one universal birthday.",
         (
-            "There is no single correct age at which programming suddenly becomes appropriate. A young child may enjoy "
-            "sequencing commands with strong support, while an older beginner may prefer to understand the purpose before "
-            "touching the editor. The practical question is not 'Is my child old enough for coding?' but 'What kind of coding work fits this child now?'"
+            "There is no birthday on which programming suddenly becomes appropriate. One young child may happily arrange commands with help; an older beginner may want to understand the whole point before touching the editor. A more useful question is: what kind of programming work fits this child now?"
         ),
         [
             (
-                "Readiness is visible in behaviour",
+                "Signs of readiness",
                 [
-                    "A beginner does not need to type quickly, know algebra, or arrive with technical vocabulary. Useful signs are more ordinary: willingness to follow a short sequence, interest in making something happen, ability to compare an expected result with an actual one, and enough patience to try a second version.",
-                    "These abilities are not fixed traits. A good class supports them with small steps and visible outcomes. The first project should be narrow enough that the student can reach a working version before attention is exhausted."
+                    "Beginners do not need fast typing, algebra, or a supply of technical words. Look for ordinary habits: following a short sequence, wanting to make something happen, noticing when the result differs from the plan, and being willing to try a second version.",
+                    "These habits are not admission requirements carved in stone. A well-sized project helps develop them. The first working version should arrive before the child has spent the entire session wrestling with setup."
                 ],
             ),
             (
-                "Choose the representation carefully",
+                "Choose the right material",
                 [
-                    "Scratch reduces the burden of spelling and punctuation while preserving events, loops, conditions, variables, messages, and state. That makes it useful for beginners who are ready to reason about systems but would be slowed down by typing every symbol correctly. It is not a toy version of programming; it is a visual representation of real programming structures.",
-                    "Robotics can begin without an advanced robot. Paper routes, grid simulations, buttons, LEDs, and small microcontroller activities can make commands and input-output relationships concrete. The representation should reveal the idea rather than bury it beneath setup."
+                    "Scratch removes much of the spelling and punctuation burden while keeping events, loops, conditions, variables, messages, and state. Students can think about why a character moves the wrong way without first hunting for a missing bracket. Logical errors remain, which is fortunate: they are where much of the programming lives.",
+                    "Robotics can begin with a paper grid, a simulated route, buttons, or LEDs. Hardware is useful when it helps answer the question. It need not arrive on the first day carrying seventeen loose wires."
                 ],
             ),
             (
-                "Challenge depth can change",
+                "Start with something finishable",
                 [
-                    "Two students can work on the same project at different depths. One may build reliable four-direction movement. Another may add boundary handling, a second stage, or a distance-based pursuer. The common topic remains coordinates; the challenge changes.",
-                    "This is why narrow age labels can be misleading before a program's operating details are finalized. Group fit also depends on reading comfort, independence, previous experience, and whether the student enjoys explaining a problem aloud."
+                    "Four-direction movement, a two-state traffic light, or a short robot route can be a complete first task. The child meets one meaningful problem without also managing accounts, original artwork, hardware faults, and plans for a twelve-level epic.",
+                    "Completion gives everyone something stable to discuss. Can the student explain one command? Follow a checkpoint? Ask a specific question? Try again after a mismatch? Those observations tell us more than a broad age chart."
                 ],
             ),
             (
-                "How to decide",
+                "The same project can have more depth",
                 [
-                    "Ask what the child likes to make, not only what software the child recognizes. A student interested in stories may enjoy interactive scenes. A child who likes systems may prefer a traffic light or robot maze. A game enthusiast may become engaged when asked to change the rules instead of merely playing them.",
-                    "The sensible next step is a conversation about fit. School of Code does not publish a universal starting age because exact groups and schedules are still being prepared. The goal is a starting task with meaningful difficulty: neither automatic nor overwhelming."
+                    "One student may make reliable movement. Another can add boundary handling, a second stage, or a pursuer that changes speed with distance. Both are working with coordinates, but the difficulty is different.",
+                    "Group fit also depends on reading comfort, independence, previous experience, and whether the student will explain a problem aloud. Age is useful information; it is simply not the only information."
+                ],
+            ),
+            (
+                "How to choose a starting point",
+                [
+                    "Ask what the child wants to make. Stories can become interactive scenes. A fascination with systems can lead to traffic lights or robot mazes. A child who loves games may become interested when given control of the rules.",
+                    "School of Code has not published a universal starting age while exact groups and schedules are still being prepared. A conversation about fit can use the child's interests and working habits to find a task that is neither automatic nor overwhelming.",
+                    "A trial task should leave room for surprise. Some children who are impatient with step-by-step instructions will spend half an hour repairing a game they chose to make. Others love the idea but need shorter checkpoints or more time away from the screen. The first project is useful evidence, not a permanent label."
                 ],
             ),
         ],
         [("Scratch program", "/programs/scratch"), ("Robotics program", "/programs/robotics"), ("Contact", "/contact")],
     ),
     "why-scratch-is-a-great-first-programming-language": article(
-        "Why Scratch Is a Great First Programming Language",
+        "Why Scratch Is a Good First Programming Language",
         "Coding for Kids",
-        "Scratch makes program structure visible so beginners can spend more attention on events, rules, state, and debugging.",
+        "Scratch makes program structure visible and lets beginners work on logic before punctuation takes over the afternoon.",
         (
-            "Scratch is often described as easy because its blocks fit together. That description misses its real value. "
-            "Scratch is useful because it makes the structure of a program inspectable. Students can see which event starts a script, "
-            "which blocks repeat, where a condition branches, and which variable changes."
+            "Scratch is often praised because its blocks fit together. That helps, but the more important feature is visibility. A beginner can see which event starts a script, what repeats, where a condition branches, and when a variable changes."
         ),
         [
             (
-                "It removes the wrong difficulty first",
+                "It postpones one kind of difficulty",
                 [
-                    "Text syntax matters, but it is not the first idea most beginners need. A missing bracket can stop a typed program before a student has a chance to think about movement or game state. Scratch reduces syntax errors while keeping logical errors alive. A sprite can still move in the wrong direction, score twice, or remain stuck in CAUGHT state.",
-                    "Those logical errors are valuable. They concern the system the student intended to build. The editor lets the class discuss coordinates, loops, collision, and state before typing accuracy dominates the lesson."
+                    "Typed syntax matters eventually. It is rarely the first idea a beginner needs. A missing quote or bracket can stop a program before the student has thought seriously about movement, collision, or state. Scratch removes many syntax errors while leaving the interesting logical ones intact.",
+                    "A sprite can still walk backwards, score twice, or remain stuck after the game ends. Those failures concern the system the student meant to build, so the class can discuss the idea rather than spend the whole session policing punctuation."
                 ],
             ),
             (
-                "It supports complete projects",
+                "A small project can be complete",
                 [
-                    "Scratch combines code, simple drawing, sound, input, and animation. A student can finish a small game within a lesson and still encounter authentic design decisions. In Escape from the Giant Pigeon, the player needs a known start, movement controls, a pursuer, safe zones, collision checks, win and loss states, and restart logic.",
-                    "A finished project gives the student a reason to explain each concept. Coordinates are no longer an isolated worksheet; they determine whether the player can escape. Conditions decide whether contact means safety or disaster."
+                    "Code, drawing, sound, keyboard input, and animation live in the same editor. That makes it possible to finish a modest game and still face real design decisions. Escape from the Giant Pigeon needs a known start, controls, a pursuer, safe areas, collision rules, win and loss states, and a reliable restart.",
+                    "Coordinates now determine whether the player escapes. Conditions settle whether contact means safety or disaster. The project gives each concept a job."
                 ],
             ),
             (
-                "It scales by changing the system",
+                "Simple blocks can hold deep systems",
                 [
-                    "A beginner can move a sprite with four keys. A more experienced student can add acceleration, screen wrapping, state-based controls, or multiple maps. The visual language remains familiar while the relationships become deeper.",
-                    "Scratch also makes modification inviting. Students can draw original characters, change rules, and test strange premises. Authorship matters: a program is a text, and the student should make consequential choices rather than only reproduce the instructor's version."
+                    "A beginner can move a sprite with four keys. Later versions might add acceleration, screen wrapping, several maps, or controls that depend on game state. The blocks remain familiar while the relationships become more demanding.",
+                    "Students can also replace the artwork and alter the rules. If pigeon, taxi, and chicken can change while events, movement, state, and tests remain recognizable, they are learning to separate a program's structure from its surface."
                 ],
             ),
             (
-                "It is a beginning, not a cage",
+                "What good Scratch teaching requires",
                 [
-                    "Visual programming should connect forward. Events become event handlers in other environments. Variables remain variables. Conditions, functions, messages, and state return in Lua, Python, web programming, robotics, and game engines.",
-                    "The transition works best when students know the concepts under the blocks. If they can explain why a loop stops and how a state resets, text-based syntax becomes a new way to express known ideas rather than a completely new universe."
+                    "Dragging blocks is not automatically a programming lesson. Copying a finished stack without predicting, testing, or changing it teaches very little. A short script that a student can explain is more useful than a magnificent tower of mystery blocks.",
+                    "The sprite library is not the curriculum either. Art and sound can support authorship, but the project needs a system that starts, changes, checks, remembers, or communicates. Students should be able to identify that system and make a deliberate modification."
+                ],
+            ),
+            (
+                "The blocks connect forward",
+                [
+                    "Events return as event handlers in other environments. Variables remain variables. Conditions, functions, messages, and state appear in Lua, Python, robotics, web programming, and game engines.",
+                    "When students understand what the blocks express—why a loop stops or how state resets—text syntax becomes a new notation for familiar ideas. Scratch is a strong beginning because it makes those ideas available early, before typing accuracy has had a chance to ruin the afternoon.",
+                    "This transition does not require students to abandon Scratch on a schedule. It remains useful for testing an animation, explaining an algorithm, or building a game quickly. Languages are tools, and a student who can choose a clear tool for the work is further ahead than one who has merely collected difficult-looking syntax."
                 ],
             ),
         ],
@@ -137,38 +155,51 @@ BLOG_POSTS = {
     "why-debugging-is-good-for-kids": article(
         "Why Debugging Is Good for Kids",
         "Project-Based Learning",
-        "Debugging replaces vague frustration with a method: describe, inspect, predict, test, and explain.",
+        "Debugging turns ‘it doesn't work’ into a sequence of questions that can actually be answered.",
         (
-            "A bug creates a useful disagreement. The student believes one thing should happen; the system does something else. "
-            "That difference can lead to random clicking, or it can become evidence. Teaching debugging means teaching children how to turn surprise into a testable question."
+            "A bug begins with a disagreement: the student expects one thing, and the program does another. Random clicking can blur that disagreement. Debugging makes it useful by asking what happened, what should have happened, and what evidence could separate the possible causes."
         ),
         [
             (
-                "A bug is not a verdict",
+                "First, remove the verdict",
                 [
-                    "When a game fails, children often read the result personally: I am bad at this, or the computer hates me. A debugging routine changes the language. What did we expect? What did we observe? Can we make it happen again? Which value or state would tell us more?",
-                    "The bug becomes a clue about the program, not a judgment about the programmer. This does not make difficulty disappear. It gives difficulty a structure."
+                    "Children sometimes read a broken project as a judgment: I am bad at this, or the computer hates me. The computer is less dramatic. It has followed a rule, read a value, or entered a state. The task is to find which one.",
+                    "A routine helps: describe the expected result, reproduce the actual one, and make the relevant state visible. Difficulty remains, but it has edges now."
                 ],
             ),
             (
-                "Controlled tests beat random repairs",
+                "Change one useful thing",
                 [
-                    "Suppose a player sometimes wins and loses at once. Adding waits in three scripts may hide the symptom, but it does not explain the cause. A better test displays the game state, reproduces simultaneous contact, and identifies which condition runs first.",
-                    "Changing one relevant thing preserves information. If the test result changes, the student has evidence. If it does not, the failed hypothesis is still useful because it removes one possible cause."
+                    "Suppose a player can win and lose at the same moment. Adding waits to three scripts may hide the symptom. A cleaner test displays the game state, reproduces simultaneous contact, and shows which condition runs first.",
+                    "One controlled change preserves information. If the result changes, there is evidence. If it does not, the failed guess has still ruled out a cause."
                 ],
             ),
             (
-                "Debugging grows transferable habits",
+                "Keep a tiny record",
                 [
-                    "The same habits appear outside programming. A circuit does not light: first verify the power and output, then inspect one connection. A robot turns too far: measure the result, compare it with the goal, and adjust. A written argument seems weak: identify the claim that does not follow from the evidence.",
-                    "Programming gives immediate feedback, which makes these habits visible. The system runs the student's actual instructions, including the assumptions the student did not notice."
+                    "Four lines are often enough: expected result, observed result, test, conclusion. A robot should face east after two turns; it faces north; tracing the commands reveals a left where a right belonged. No ceremonial paperwork is required.",
+                    "The conclusion may be that the first theory was wrong. That is useful. Over time, students also recognize familiar patterns: unknown start, wrong sign, repeated event, stale state, loose connection, or noisy reading. Names make the search faster without replacing the current evidence."
                 ],
             ),
             (
-                "What adults should do",
+                "The habit travels",
                 [
-                    "Helping is not the same as taking the keyboard. An adult can ask for the expected result, narrow the test, point toward a relevant value, or suggest temporarily disabling one script. The student should still make the consequential change and explain why it worked.",
-                    "The strongest demonstration is not a flawless project. It is a student who can show one bug, reproduce it, describe the evidence, and explain the repair. That is intellectual independence in a small, practical form."
+                    "A circuit stays dark: verify power and output, then inspect one connection. A robot turns too far: measure, compare, change one value, test again. A written argument has a gap: find the claim that the evidence does not support.",
+                    "Programming offers unusually quick feedback. It runs the instructions the student actually gave, including assumptions that were never noticed."
+                ],
+            ),
+            (
+                "How adults can help",
+                [
+                    "Ask what was supposed to happen, what did happen, and which test would provide useful evidence. Point to a relevant value or suggest disabling one script if needed. Then leave the consequential change to the student.",
+                    "The best demonstration is not always a spotless project. A student who can reproduce one bug and explain the repair has shown careful, independent thought in a practical form.",
+                ],
+            ),
+            (
+                "Keep the repair small",
+                [
+                    "Adults can model the same tone. Instead of asking who broke the project, ask when the behaviour changed and whether the old version still works. Save before a risky experiment. Give a strange result a name. Calm attention is more useful than rescue, and considerably more useful than announcing that the machine is stupid.",
+                    "Debugging also teaches restraint. Once a student has evidence for one fault, the repair can stay small. Rebuilding the entire script may remove the symptom, but it makes the cause harder to understand and can create three fresh bugs for the price of one."
                 ],
             ),
         ],
@@ -177,38 +208,51 @@ BLOG_POSTS = {
     "robotics-for-kids-where-to-start": article(
         "Robotics for Kids: Where to Start",
         "Robotics for Kids",
-        "Robotics begins with commands, inputs, outputs, and feedback—not with buying the most advanced robot.",
+        "Begin with a clear question about input, decisions, and output. The impressive robot can wait.",
         (
-            "The word robotics can create an expensive picture: autonomous machines, complex kits, and a table covered in parts. "
-            "Those tools can be useful later, but the educational starting point is simpler. A robot is a system that can receive information, make a rule-based decision, and produce an action."
+            "Robotics can conjure an expensive picture: autonomous machines, complex kits, and a table covered in parts no one quite remembers buying. The useful starting point is smaller. What can the system sense, what rule will it follow, and what will it do?"
         ),
         [
             (
-                "Start with Sense, Decide, Act",
+                "Sense, decide, act",
                 [
-                    "The model gives students three questions. What information enters the system? What rule decides what that information means? What visible or physical action follows? A button-buzzer alarm fits the model. So does a simulated robot avoiding a wall.",
-                    "Separating the three parts prevents magical explanations. A sensor does not decide; it measures. A motor does not know the goal; it produces output. The program connects measurement, decision, and action."
+                    "A button-and-buzzer alarm fits this model. So does a simulated robot avoiding a wall. The input might be a button state or a distance reading; the program compares it with a rule; the buzzer or motor produces the output.",
+                    "Keeping the parts separate prevents muddled explanations. A sensor measures. A motor acts. The program connects the measurement to a decision."
                 ],
             ),
             (
-                "Use paper and simulation when they reveal the idea",
+                "Choose one question",
                 [
-                    "Robot Maze Logic can begin on a grid. Students define forward and turn commands, record a starting direction, predict a route, and trace one command at a time. This teaches decomposition, state, and debugging without loose wires competing for attention.",
-                    "Simulation is not a lesser activity when the learning goal is logic. Physical hardware should enter when its friction matters: connections fail, motors drift, sensors vary, and the real floor refuses to match the perfect diagram."
+                    "Can the robot follow an exact route? Can a button control a buzzer? Can an LED sequence move through safe states? Can a timer distinguish waiting from reacting? Each project exposes a different relationship.",
+                    "Choosing the kit before the question often buries the lesson under assembly. A small system that students can explain is a better first project than a sophisticated machine whose behaviour stays opaque."
                 ],
             ),
             (
-                "Add simple electronics deliberately",
+                "Paper and simulation have jobs",
                 [
-                    "LEDs, buttons, buzzers, and microcontrollers can make input and output tangible. A traffic light teaches named states and safe sequence order. A reaction timer teaches measurement, random delay, state, and fair testing.",
-                    "Hardware requirements should be honest. Some projects are simulation-friendly; some have optional physical versions; a physical micro:bit timer requires a micro:bit. A public project page should not imply equipment is included before group arrangements are confirmed."
+                    "Robot Maze Logic can begin on a grid. Students record a starting direction, define forward and turn commands, predict a route, and trace it one command at a time. That is real work on decomposition, state, and debugging.",
+                    "A traffic-light sequence can run on screen before it controls LEDs. A sensor rule can begin with sample values. Logic comes first; later, the loose wire or drifting motor becomes a particular problem instead of one large cloud of failure."
                 ],
             ),
             (
-                "Build toward autonomy slowly",
+                "Bring in the physical world deliberately",
                 [
-                    "Autonomy combines commands, loops, sensing, conditions, state, and feedback. A machine that follows a fixed route is not autonomous merely because nobody is touching it. A responsive patrol must inspect changing information and choose from defined responses.",
-                    "Students should understand each layer before combining them. The long-term direction may include richer robots, but the first goal is more durable: a child who can explain what the system senses, decides, and does."
+                    "Hardware earns its place when its behaviour matters. Connections fail, motors slip, sensors vary, and the floor refuses to match the perfect diagram. Students must decide whether to inspect code, wiring, measurement, or assumptions about the room.",
+                    "Project descriptions should also be accurate about materials. Some activities work in simulation, some have optional physical versions, and a physical micro:bit timer requires a micro:bit. Equipment arrangements depend on the group."
+                ],
+            ),
+            (
+                "Autonomy comes later",
+                [
+                    "A machine following a fixed route is executing commands. A responsive patrol repeatedly checks changing information and chooses among defined actions. That adds sensing, conditions, state, and feedback.",
+                    "Build the layers in view. A strong first demonstration ends with the student naming the input, the decision rule, the output, and one limit. The materials can become more elaborate after that model is clear.",
+                ],
+            ),
+            (
+                "Add one layer at a time",
+                [
+                    "Sequence matters more than spectacle. A route project can lead to repeat loops, then to a sensor stop, then to a recovery turn. Each addition answers a question raised by the earlier version. Students can see why the new idea is needed instead of meeting a finished robot whose inner life is concealed inside a large starter program.",
+                    "Safety belongs in that sequence as well. Motors, power, tools, and loose components need rules suited to the actual equipment. Paper and simulation are sensible places for logic that does not yet need a moving machine."
                 ],
             ),
         ],
@@ -217,38 +261,52 @@ BLOG_POSTS = {
     "how-robots-sense-the-world": article(
         "How Robots Sense the World",
         "Robotics for Kids",
-        "Sensors do not give robots human understanding. They turn selected physical signals into values a program can inspect.",
+        "A sensor turns one physical signal into values. The program and its author decide what those values mean.",
         (
-            "A robot does not see a chair, feel danger, or notice darkness in the broad human sense. A sensor measures a limited signal: "
-            "distance, reflected light, pressure, motion, temperature, orientation, or another quantity. Code then decides what a reading should mean for the current task."
+            "A robot does not see a chair or notice darkness in the broad human sense. Its sensor measures something narrower: distance, reflected light, pressure, motion, temperature, or orientation. Code gives that reading a job in the current task."
         ),
         [
             (
-                "Measurement comes before meaning",
+                "Begin with the raw reading",
                 [
-                    "A value such as 347 is useless without context. Which sensor produced it? What unit or scale does it use? What range appears in this room? A light sensor may report a different number near a window than under a desk, but neither value contains the word dark.",
-                    "Students should inspect raw readings before building decisions. That step makes the measurement visible and exposes variation that a polished final behaviour might hide."
+                    "The number 347 is not yet useful. Which sensor produced it? What scale does it use? What values appear near a window, under a desk, or with an object at arm's length? The reading does not arrive labelled ‘dark’ or ‘too close.’",
+                    "Students should watch the values before programming a response. This exposes variation that a polished final behaviour might conceal."
                 ],
             ),
             (
-                "Thresholds are design decisions",
+                "Make a small table",
                 [
-                    "A simple robot may turn when distance is less than 15. The sensor supplies a measurement; the programmer chooses 15 as a threshold. If the robot reacts too late, the threshold or movement may need revision. If readings jump around 15, the system may need several samples or a wider boundary.",
-                    "This distinction matters because data never explains itself. Human choices determine which signal to collect, which values matter, and what action is acceptable."
+                    "Move an object to three distances, press and release a button several times, or compare light readings in two parts of a room. Record what stays stable, what changes, and where the ranges overlap.",
+                    "Now the class has evidence about a limited measuring device. It can ask whether a single sample is reliable, whether the environment matters, and what the sensor cannot detect."
                 ],
             ),
             (
-                "Noise and limits are part of the lesson",
+                "Choose a threshold",
                 [
-                    "Real readings change. A distance sensor can be affected by angle or material. A button can bounce between states. A light sensor responds to the environment. Students should not expect one perfect number every time.",
-                    "Instead, they can repeat measurements, compare ranges, calibrate in the actual setting, and design behaviour that remains stable near a boundary. These are early forms of data literacy."
+                    "A robot might turn when distance is less than 15. The sensor supplies the measurement; the programmer chooses 15. If the robot reacts too late, the threshold or speed may need changing. If readings jump around the boundary, the code may need several samples or a wider margin.",
+                    "Test cases just above and below the threshold. A wobbling result is worth showing because it reveals whether the limitation belongs to the sensor, sampling, environment, or decision rule."
                 ],
             ),
             (
-                "From sensing to feedback",
+                "Expect noise",
                 [
-                    "Sensing becomes powerful when the system acts, checks the result, and adjusts. A patrol robot sees an obstacle, turns, then checks again rather than assuming the turn solved the problem. That repeated loop is feedback.",
-                    "The child should be able to narrate it: the robot measured this, the condition compared it with that threshold, the output changed, and the next measurement told us whether the correction helped."
+                    "Distance readings change with angle and material. Buttons can bounce between states. Light sensors respond to the actual room, including the window someone just opened the blind beside. One perfect number every time would be convenient and suspicious.",
+                    "Repeating measurements, comparing ranges, and calibrating in the working environment are early forms of data literacy."
+                ],
+            ),
+            (
+                "Close the feedback loop",
+                [
+                    "A patrol robot measures an obstacle, turns, and checks again. The new reading tells it whether the action helped. That cycle—measure, decide, act, measure again—is feedback.",
+                    "This method prepares students for later discussions of computer vision and AI. More advanced sensing still involves measurements, uncertainty, models or thresholds, and human decisions about success.",
+                    "A student can narrate the whole loop: the sensor produced this range, the code compared it with that threshold, the motor changed, and the next reading showed whether the turn was enough. If the explanation skips from sensor to intelligent robot, there is probably a decision rule still waiting to be found.",
+                ],
+            ),
+            (
+                "Choose the sensor for the question",
+                [
+                    "Sensor choice also follows the task. A button answers a different question from a light or distance sensor. Adding more sensors does not automatically improve the system; it adds readings, wiring, and cases the program must handle. One well-understood input is a respectable place to begin.",
+                    "Those choices should remain visible in the final explanation and test record."
                 ],
             ),
         ],
@@ -257,78 +315,104 @@ BLOG_POSTS = {
     "what-is-a-microcontroller": article(
         "What Is a Microcontroller?",
         "Robotics for Kids",
-        "A microcontroller is a small programmable computer built to read inputs and control outputs inside a larger system.",
+        "A microcontroller is a small computer that reads inputs and controls outputs inside a device.",
         (
-            "A laptop is a general-purpose computer with a screen, storage, and an operating system. A microcontroller is smaller and narrower. "
-            "It runs a program that reads pins or built-in sensors, keeps a little state, and controls outputs such as lights, sound, displays, or motors."
+            "A laptop is built to do many kinds of work. A microcontroller is smaller and more focused. It runs a program that reads pins or built-in sensors, remembers a little state, and controls lights, sounds, displays, or motors."
         ),
         [
             (
-                "A computer inside the project",
+                "One part of the machine",
                 [
-                    "The microcontroller is usually not the whole robot or device. It is one component inside the system. The button, sensor, battery, LED, and motor each have separate roles. Code running on the controller coordinates them.",
-                    "This is why microcontroller projects are good for input-process-output thinking. A button provides input, a condition interprets it, and an LED provides output. Nothing needs to be described as magic."
+                    "The controller is usually not the whole project. The battery supplies power, a button or sensor provides input, and an LED or motor produces output. Code on the controller coordinates those pieces.",
+                    "This makes input-process-output easy to inspect. Press a button, evaluate a condition, light an LED. Each part has a clear responsibility."
                 ],
             ),
             (
-                "The micro:bit example",
+                "A micro:bit reaction timer",
                 [
-                    "A micro:bit includes buttons, an LED display, motion sensing, radio capability, and connection pins. A reaction timer can wait for a random delay, show a signal, read a button press, calculate elapsed time, and display the result.",
-                    "The interesting lesson is not the brand of board. It is state and measurement: waiting, ready, pressed too soon, measured, and reset. A simulator can support the logic, while a physical board adds the behaviour of real input."
+                    "A micro:bit includes buttons, an LED display, motion sensing, radio, and connection pins. For a reaction timer, it can wait for a random delay, show a signal, read a button press, calculate elapsed time, and display the result.",
+                    "The board is the material; state and measurement are the lesson. The program moves through waiting, ready, pressed too soon, measured, and reset. A simulator can establish the logic. A physical board adds real input and timing."
                 ],
             ),
             (
-                "Why wiring changes the work",
+                "Pins, polarity, and other facts of life",
                 [
-                    "In screen projects, an object reference is usually reliable. In physical projects, a loose connection, reversed component, wrong pin, or unsuitable power source can prevent output. Students must distinguish code problems from circuit problems.",
-                    "That friction is educational when introduced safely and at the right time. It teaches systematic checking: verify the output alone, inspect connections, confirm the selected pin, then test the complete rule."
+                    "In a screen project, an object reference is usually dependable. Physical work adds loose connections, reversed components, wrong pins, unsuitable power, and parts that simply do not behave as expected.",
+                    "Students learn to test in layers. Can the output work by itself? Is the chosen pin correct? Is the component connected in the right direction? Does the complete input rule then work? This separates circuit faults from code faults."
                 ],
             ),
             (
-                "Keep the hardware claim honest",
+                "What it does well",
                 [
-                    "A project page can explain a microcontroller activity without promising that hardware is currently included. Some classes may use simulation, some may require a micro:bit, and some components may be arranged by the teacher for a specific group.",
-                    "The educational pathway remains stable: learn commands, input, output, conditions, state, timing, and debugging. Hardware is a material for those ideas, not a substitute for them."
+                    "A microcontroller can repeat a defined cycle very quickly: read an input, update a value, choose an output, and begin again. It can time a reaction, control a signal sequence, or sound an alarm when a threshold is crossed.",
+                    "It does not understand whether the alarm rule is sensible or why one reaction time looks unusual. Those judgments belong to the people designing and testing the system."
+                ],
+            ),
+            (
+                "Keep the hardware promise accurate",
+                [
+                    "A public project page can explain a microcontroller activity without promising that a board is included. Some groups may use simulation; some physical projects require a micro:bit; components may be arranged for a particular class. Those details need to be confirmed for the actual group.",
+                    "The curriculum underneath remains stable: commands, input, output, conditions, state, timing, and debugging. A microcontroller gives those ideas pins, lights, and the occasional loose wire.",
+                ],
+            ),
+            (
+                "Starting state matters",
+                [
+                    "Students should also know that programs on many microcontrollers begin running as soon as the board powers up. That makes the starting state important. An output left on, a timer carrying the wrong value, or a motor moving before the system is ready can turn a small oversight into very visible behaviour.",
+                    "A useful demonstration separates the layers. Show the raw button input, then the state change, then the LED output. If the finished timer misbehaves, those smaller checks give the student somewhere sensible to begin instead of replacing the entire project."
                 ],
             ),
         ],
         [("micro:bit Reaction Timer", "/projects/microbit-reaction-timer"), ("Input and Output", "/topics/input-and-output"), ("Robotics program", "/programs/robotics")],
     ),
     "why-robot-projects-teach-real-problem-solving": article(
-        "Why Robot Projects Teach Real Problem-Solving",
+        "Why Robot Projects Make Good Problems",
         "Robotics for Kids",
-        "Robot projects force students to separate goals, commands, measurements, physical limits, and evidence.",
+        "Robots make students separate code, measurements, physical parts, and assumptions about the world.",
         (
-            "A screen program can be perfectly logical and still produce the wrong visible result. A robot adds another layer: the code may be correct, "
-            "but a sensor may vary, a wheel may slip, or a connection may fail. That makes robotics difficult. It also makes the problem-solving unusually concrete."
+            "A perfectly reasonable program can still drive a robot into a chair. The sensor may vary, a wheel may slip, a connection may fail, or the carefully measured turn may have been tested on a different floor. Robotics gives a problem several layers, all visible in the result."
         ),
         [
             (
-                "The goal must become testable",
+                "Turn the mission into tests",
                 [
-                    "'Patrol the room' is not yet a program. Students must define a route, a starting state, what counts as an obstacle, which response is allowed, and when the patrol should stop. Vague intention becomes a collection of testable systems.",
-                    "This decomposition is real engineering work at an accessible scale. The student learns to ask what information is missing before adding code."
+                    "‘Patrol the room’ is a wish, not yet a specification. Students need a starting state, a route, a definition of obstacle, an allowed response, and a stopping rule. Each vague word becomes a question the system can answer.",
+                    "That decomposition is engineering at a manageable scale. Before writing more code, the student learns to ask which information is missing."
                 ],
             ),
             (
-                "Several kinds of failure can look the same",
+                "One symptom, several causes",
                 [
-                    "If an LED stays dark, the cause may be output code, state logic, a pin choice, component direction, connection, or power. If a simulated patrol turns forever, the cause may be a sensor condition, recovery state, or loop exit.",
-                    "Students need a test order. Can the output work alone? Can the input be read? Is the current state visible? Does the complete rule connect them? The sequence prevents random replacement of parts and code."
+                    "An LED that stays dark may point to output code, state logic, pin choice, component direction, connection, or power. A patrol that turns forever may have a sensor condition, recovery state, or loop exit problem.",
+                    "A useful test order narrows the field. Check the output alone. Display the input. Show the current state. Then connect the complete rule. Replacing code and parts at random destroys the evidence."
                 ],
             ),
             (
-                "Reality creates feedback",
+                "Split the system",
                 [
-                    "A robot that turns too little provides evidence. Students can measure the result, compare it with the target, change one value, and test again. The physical world makes assumptions visible because it refuses to behave like a perfect diagram.",
-                    "Feedback also teaches humility. A system may work on one floor and fail on another. A threshold may work in one lighting condition and fail near a window. The correct response is not to overstate success but to describe the operating limits."
+                    "If a robot misses an obstacle, display the sensor reading while the motors are off. Test motor movement with known values and no sensor rule. Run the decision logic in simulation with a short list of samples. Each test isolates one relationship.",
+                    "Sometimes the decision works and the reading is noisy; sometimes the circuit works and the timing is wrong. Finding the boundary between layers is often the most sophisticated part of the project."
                 ],
             ),
             (
-                "The demonstration completes the cycle",
+                "Reality supplies feedback",
                 [
-                    "A finished robot project should be demonstrated under a known test. The student states the goal, shows the input, explains the decision, observes the output, and discusses one limitation or bug.",
-                    "That explanation distinguishes building from assembling. The educational value does not depend on the machine looking advanced. A simple button-buzzer system understood deeply can teach more than an impressive kit whose behaviour remains opaque."
+                    "A short turn gives a measurable result. Compare it with the target, change one value, and run the same test again. If the machine works on one surface and fails on another, record that operating limit instead of quietly moving the demonstration.",
+                    "The physical world is helpful in this respect. It refuses to behave like a diagram and requires students to say where their rule applies."
+                ],
+            ),
+            (
+                "Finish with an honest demonstration",
+                [
+                    "The student states the goal, shows the input, explains the decision, and observes the output under a known test. One limitation or repaired bug belongs in the account.",
+                    "A button-and-buzzer system understood from end to end can teach more than an advanced kit assembled by following pictures. The machine need not look futuristic. It needs to be explainable.",
+                ],
+            ),
+            (
+                "Measure before changing",
+                [
+                    "This kind of work also changes the student's relationship with measurement. ‘It turned too far’ becomes an angle, duration, or distance that can be recorded. ‘The sensor is bad’ becomes a range of readings under named conditions. Better descriptions lead to better tests, and better tests lead to repairs that can be repeated.",
+                    "There is room for invention after the core is dependable. Students can choose a patrol route, design the warning signal, or decide how the robot recovers. The constraints give those choices weight because every new behaviour must coexist with the system already working."
                 ],
             ),
         ],
@@ -342,38 +426,57 @@ BLOG_POSTS.update(
         "what-kids-learn-from-making-games": article(
             "What Kids Learn From Making Games",
             "Coding for Kids",
-            "A game project can make mathematics, logic, writing, testing, and explanation visible inside one playable system.",
+            "Even a small game brings rules, mathematics, testing, writing, and explanation into one working system.",
             (
-                "A finished game is easy to underestimate because the result looks like entertainment. Underneath a small chase, quiz, or platform game, "
-                "the student may be coordinating position, input, timing, state, collision, score, feedback, and restart behaviour. The visible fun gives the hidden ideas somewhere to work together."
+                "A chase game looks like entertainment because, with luck, it is entertaining. Under the running and ridiculous noises, the student is coordinating position, input, timing, collision, score, feedback, and restart behaviour. The visible game gives those ideas somewhere to meet."
             ),
             [
                 (
-                    "Games make rules unavoidable",
+                    "Rules have to be exact",
                     [
-                        "A student can say that the player wins by reaching safety, but the program needs a precise rule. Which object or region counts as safety? How often is contact checked? What if the player touches the pursuer at the same moment? Designing a game turns casual rules into conditions and state transitions.",
-                        "This precision is not separate from creativity. It is how an imagined world becomes playable by another person. The author must decide what the system allows and communicate those decisions through behaviour."
+                        "A student may say that the player wins by reaching safety. The program needs details. Which object counts as safety? How often is contact checked? What happens if the pursuer arrives at the same moment?",
+                        "This precision supports the invention. An imagined world becomes playable only when its author decides what the system allows."
                     ],
                 ),
                 (
-                    "Mathematics becomes movement",
+                    "Numbers acquire consequences",
                     [
-                        "Coordinates describe where characters, targets, and hazards are. Variables hold score, time, health, fuel, or mood. Random values create variation within chosen boundaries. Distance can affect speed or route decisions.",
-                        "The mathematics remains accessible because students can see the result. Changing x by the wrong sign sends a taxi away from its passenger. A score that updates every frame becomes obviously unreasonable. The project gives numbers consequences."
+                        "Coordinates place characters, destinations, and hazards. Variables hold score, time, health, fuel, or mood. Random values create variation inside chosen bounds. Distance can change an enemy's speed.",
+                        "The mathematics is visible. The wrong sign sends Grandma's Intergalactic Taxi away from its passenger. A score updated every frame becomes absurd very quickly."
                     ],
                 ),
                 (
-                    "Testing becomes part of authorship",
+                    "The player is part of the design",
                     [
-                        "Playing a game while building it is not the same as casual play. The student tests controls, edges, collisions, restart, and strange combinations. A useful test tries to break an assumption: Can win and loss happen together? Can a falling object appear outside the stage? Can one coin score twice?",
-                        "Students also learn that their own successful run is not enough. Another player may press keys in a different order or misunderstand a visual clue. Demonstration and peer testing reveal whether the rules are actually communicated."
+                        "Controls, goals, feedback, and consequences communicate with the player. A hidden hazard may be coded correctly and still feel unfair. A coin that scores twice gives false information. Technical choices determine whether another person can understand the game.",
+                        "A second player will press keys in an unexpected order, approach the goal from the wrong side, or restart during a message. The author decides whether the result is a bug, an acceptable rule, or a promising accident."
+                    ],
+                ),
+                (
+                    "Testing is a different kind of playing",
+                    [
+                        "While building, students test controls, edges, collisions, and restart. A good test looks for trouble: Can win and loss happen together? Can an object spawn outside the stage? Can one event score twice?",
+                        "Their own successful run is not enough. Peer testing shows whether the rules and visual clues communicate without an explanation whispered over the tester's shoulder."
                     ],
                 ),
                 (
                     "Finishing teaches scope",
                     [
-                        "Children often imagine a huge game. The educational task is to find a small complete version: one level, reliable controls, a goal, a loss rule, and restart. That version can be shown, explained, and improved.",
-                        "A finished small project beats a perfect unfinished one because completion creates evidence. The student can identify which systems work, which compromise was chosen, and which feature belongs in a later version."
+                        "Children are excellent at imagining enormous games. The useful editorial work is finding a small complete version: one level, reliable movement, a goal, a loss rule, and restart. Extra worlds can wait until this one works.",
+                        "Once a version can be shown, the student can compare revisions and explain why a clearer warning, fairer risk, or better reset changed the experience. Authorship becomes visible in those choices, not just in the title screen.",
+                    ],
+                ),
+                (
+                    "Words are part of the system",
+                    [
+                        "Games also make writing matter. Titles, instructions, dialogue, labels, and feedback have to be brief enough to read while playing and clear enough to guide action. A clever message that leaves the player confused is still unclear writing. The student edits words and rules for the same audience.",
+                    ],
+                ),
+                (
+                    "Serious systems, strange premises",
+                    [
+                        "The resulting project may feature a giant pigeon or a lost space chicken. That is fine. The comedy supplies a reason to care whether the collision works; it does not lower the standard for the coordinate system underneath.",
+                        "A single playable game can require arithmetic, rules, writing, and attention to another person's choices."
                     ],
                 ),
             ],
@@ -382,38 +485,51 @@ BLOG_POSTS.update(
         "roblox-as-a-creative-coding-platform": article(
             "Roblox as a Creative Coding Platform",
             "Coding for Kids",
-            "Roblox Studio can provide a meaningful bridge to Lua and 3D systems, but familiarity with the platform is not the same as learning to program.",
+            "Roblox Studio can connect familiar game ideas to Lua and 3D systems when the curriculum and account safeguards are ready.",
             (
-                "Many children arrive already knowing Roblox as players. That familiarity can become motivation, but a coding class must change the relationship. "
-                "The student should move from consuming worlds to defining objects, properties, events, rules, score, and behaviour in an original small project."
+                "Many children know Roblox as players. Studio can change that relationship: instead of entering someone else's world, the student defines objects, properties, events, rules, and behaviour in a small world of their own. Familiarity helps, but it is not the same as knowing how to build."
             ),
             [
                 (
-                    "The useful bridge to text code",
+                    "The bridge to Lua",
                     [
-                        "A student who understands events, variables, conditions, and state in Scratch can meet those ideas again in Lua. The syntax is different, but the questions remain recognizable: What starts this function? Which object changes? Where is score stored? What prevents one coin from scoring twice?",
-                        "This continuity matters. Roblox should not be presented as an unrelated reward after visual programming. It is one environment where known ideas can grow into typed scripts and larger object systems."
+                        "A student who has used events, variables, conditions, and state in Scratch will meet them again in Lua. The punctuation changes; the questions do not. What starts this function? Which object changes? Where is the score stored? What prevents one coin scoring twice?",
+                        "Roblox belongs in a curriculum when it extends those ideas into typed scripts, functions, objects, and 3D coordinates—not as a prize for surviving visual programming."
                     ],
                 ),
                 (
-                    "World-building needs system design",
+                    "A map needs systems",
                     [
-                        "A detailed 3D map is not automatically a programming project. An Obby Basics project becomes educational when checkpoints preserve state, hazards use clear collision rules, and difficulty is tested for fairness. A Coin Collector World needs reusable collection logic, score rules, and a clear distinction between display and stored state.",
-                        "The environment also raises responsibility questions. Students should understand scripts inside models before using them, prefer original work, and avoid treating a large library of copied assets as authorship."
+                        "A detailed landscape can be an impressive piece of modelling without containing much programming. An obby becomes a coding project when checkpoints preserve state, hazards follow clear collision rules, and the difficulty is tested. A coin world needs reusable collection logic and dependable score rules.",
+                        "The student should be able to point past the scenery and explain what the world remembers, checks, and changes."
                     ],
                 ),
                 (
-                    "Multiplayer changes assumptions",
+                    "Shared worlds add new questions",
                     [
-                        "In a single-player Scratch game, one score variable may be enough. In a shared world, students must begin asking which information belongs to one player, which belongs to the server, and what other players can affect. These concepts should be introduced gradually and honestly.",
-                        "The goal is not to promise a commercial-quality game. It is to make one small system dependable and explainable before adding scale."
+                        "One variable may be enough for a single-player Scratch score. A multiplayer world raises harder questions: which information belongs to one player, which belongs to the server, and what can another player change? These ideas need a careful sequence.",
+                        "The first goal is a dependable small system, not a commercial-scale game. Servers are not impressed by ambition."
                     ],
                 ),
                 (
-                    "Why School of Code marks it later",
+                    "Assets have a history",
                     [
-                        "Roblox Studio / Lua belongs in the School of Code direction, but it is marked Available later. A responsible program needs account and privacy decisions, a clear curriculum bridge, tested project scope, and current scheduling before it is offered.",
-                        "The preview pages explain future learning value without pretending instructions or classes are ready now. Scratch and Robotics remain the active first programs."
+                        "Studio makes it easy to import models and scripts. Students need to know what they created, what the platform supplied, and what arrived from elsewhere. An attractive free model can also contain code the student has never read.",
+                        "Original work, attribution, and inspection of imported behaviour are part of programming responsibility on a platform built for sharing."
+                    ],
+                ),
+                (
+                    "Why the program is listed for later",
+                    [
+                        "School of Code needs clear decisions about accounts, privacy, publishing, external models, collaboration, and device performance before Roblox classes open. The curriculum must also teach Lua and system design rather than drift into decoration or copied scripts.",
+                        "For now, Roblox Studio / Lua is marked Available later. Scratch and Robotics are active first and teach ideas that will transfer when the operating details and course sequence are ready.",
+                    ],
+                ),
+                (
+                    "Publishing is a separate decision",
+                    [
+                        "When the program opens, publishing cannot be treated as an automatic final step. A project can be built and reviewed without making it public. Names, chat, collaboration permissions, and any material borrowed from elsewhere need rules that parents and students can understand before accounts are used.",
+                        "The eventual course should therefore be judged by what students can explain and change, not by whether the world resembles a popular Roblox genre. A modest obby with sound state logic is a stronger beginning than a vast copied map with an unknown collection of scripts running underneath it."
                     ],
                 ),
             ],
@@ -422,78 +538,105 @@ BLOG_POSTS.update(
         "what-is-project-based-learning": article(
             "What Is Project-Based Learning?",
             "Project-Based Learning",
-            "A project is not decoration after a lesson. It is a system where the lesson's ideas become testable, revisable, and explainable.",
+            "A useful project makes an idea testable, gives students consequential choices, and ends with something they can explain.",
             (
-                "Project-based learning is sometimes reduced to making something at the end of a unit. That is not enough. A useful project changes the learning process: "
-                "students must apply an idea, encounter consequences, make decisions, inspect errors, and produce a version they can demonstrate."
+                "Putting a craft at the end of a lesson does not automatically make the learning project-based. The project has to change the work. Students apply an idea, meet its consequences, make decisions, inspect errors, and produce a version that can be demonstrated."
             ),
             [
                 (
-                    "The project needs a conceptual skeleton",
+                    "Start with an idea",
                     [
-                        "Theory is the skeleton. Without it, a project can become a collection of copied tricks. A student may assemble movement blocks without understanding coordinates, or connect a sensor without distinguishing measurement from decision.",
-                        "The class should name the idea first, test it in a small form, and then place it inside a guided build. The project gives the concept a body, but the concept keeps the project understandable."
+                        "Coordinates, state, feedback, or input and output give the build a structure. Without that structure, a project can become a collection of copied tricks: movement blocks with no understanding of position, or a sensor connected without any distinction between measurement and decision.",
+                        "A class can name the idea, test it in a small example, and then place it inside a guided build. The project makes the consequences visible."
                     ],
                 ),
                 (
-                    "Guidance and authorship must coexist",
+                    "Guide the core",
                     [
-                        "A guided project can establish a reliable core: known start, movement, collision, state, and restart. If every visual choice and rule is prescribed, however, the student has assembled the teacher's text rather than authored a program.",
-                        "Meaningful choices can be small. Change the movement rule, add a second safe zone, redesign the map, choose a challenge card, or explain a different implementation. The student should make at least one decision with visible consequences."
+                        "A guided project establishes a reliable beginning: a known start, working movement, collision, state, and restart. Checkpoints keep the student from balancing five new systems at once.",
+                        "Guidance should leave room for authorship. Change the movement rule, redraw the map, add another safe area, choose a challenge card, or solve the same requirement differently. At least one decision should have a visible consequence."
                     ],
                 ),
                 (
-                    "Failure produces curriculum",
+                    "Let failures teach",
                     [
-                        "Projects expose misconceptions that an explanation alone may not reveal. A loop never stops because its condition never changes. A game score increases repeatedly because collision is checked every frame. A patrol enters recovery mode and never leaves.",
-                        "These are not interruptions to learning. They are where loops, state, and feedback become real. The instructor helps preserve the evidence rather than immediately replacing the student's code."
+                        "Projects reveal misunderstandings that a correct worksheet answer may hide. A loop never stops because its condition never changes. A score rises repeatedly because collision is checked every frame. A robot enters recovery state and cannot leave.",
+                        "The instructor helps the student preserve the evidence and find the relevant idea. Replacing the code immediately may finish the object, but it removes the lesson."
                     ],
                 ),
                 (
-                    "Demonstration matters",
+                    "Define a finish",
                     [
-                        "A project ends with explanation, not merely with a file. The student shows the mission, names the important systems, demonstrates success and failure, describes one bug, and identifies a personal modification.",
-                        "That final account makes learning visible to the student, instructor, and parent. It also creates the beginning of a gallery or blog entry without requiring public sharing or personal information."
+                        "Polished artwork is not the finish line. The project needs a working core, a known start, tests for success and failure, and an explanation of one decision. A game might need one level, one goal, one hazard, and reliable restart before it needs a soundtrack.",
+                        "Reducing scope can protect authorship. Keep one sensor, postpone the second character, or save the bonus level for later. A small complete version produces evidence for the next revision."
+                    ],
+                ),
+                (
+                    "Show the work",
+                    [
+                        "At the end, the student demonstrates the mission, identifies the important systems, shows success and failure, describes a bug, and explains a personal change. One unresolved limit may belong in the account too.",
+                        "That conversation tells an instructor or parent more than a screenshot. It also provides the substance for a gallery note or blog entry without requiring public sharing or personal information.",
+                    ],
+                ),
+                (
+                    "Projects belong in a sequence",
+                    [
+                        "Projects also make sequence visible across a course. The first version may establish movement; the next uses conditions for boundaries; a later one introduces state for win and loss. Students meet an idea more than once, under slightly different pressure, rather than completing a single grand assignment and leaving the concept behind.",
+                        "This is why the surrounding lessons still matter. A project can motivate a question, but the class gives the question a name, a model, and examples beyond the current theme. Build and explanation take turns."
                     ],
                 ),
             ],
             [("Our Method", "/method"), ("Computer Lab", "/computer-lab"), ("Lesson library", "/lessons")],
         ),
         "why-small-groups-work-better-for-coding": article(
-            "Why Small Groups Work Better for Coding",
+            "Why Small Groups Matter in Coding Class",
             "Parent Guides",
-            "The important advantage is not quietness. It is the instructor's ability to understand each student's actual system and ask the next useful question.",
+            "Small groups let an instructor understand the project in front of each student and give useful help at the right moment.",
             (
-                "Two projects can look equally unfinished while failing for completely different reasons. One student has confused x and y. Another has a collision rule running only once. "
-                "A third understands both but is attempting a feature too large for the remaining time. Coding support depends on seeing the difference."
+                "Three unfinished games can be stuck for three unrelated reasons. One student has confused x and y. Another checks collision only once. The third understands both but has planned six levels with twelve minutes left. Useful help begins by seeing the difference."
             ),
             [
                 (
-                    "Projects are not identical worksheets",
+                    "Projects diverge quickly",
                     [
-                        "Once students make choices, projects diverge. Sprites have different sizes, maps have different boundaries, and students organize scripts differently. A generic instruction such as 'check your movement' may be too broad to help.",
-                        "In a small group, the instructor can ask the student to predict one key, inspect the relevant coordinate, and compare the result. The help stays attached to the student's actual work."
+                        "Once students choose characters, map sizes, and rules, their code no longer matches a single answer sheet. ‘Check your movement’ may be too broad to help anyone.",
+                        "An instructor who can inspect the actual project might ask the student to predict one key press, display the coordinate, and compare the result. The question stays attached to the system on screen."
                     ],
                 ),
                 (
-                    "Waiting time matters",
+                    "Waiting has a limit",
                     [
-                        "Getting stuck is valuable when the student has time to think and a path toward evidence. It becomes unproductive when a student waits too long without knowing what to inspect. Small groups reduce the delay between a precise question and useful guidance.",
-                        "They also let the instructor notice students who do not ask. A quiet student may be carefully testing, or may have stopped making progress ten minutes ago. Those situations need different responses."
+                        "Being stuck can be productive while a student thinks, tests, and gathers evidence. It becomes dead time when the student has no idea what to inspect and waits too long to ask.",
+                        "Small groups shorten the distance between a precise problem and useful guidance. They also make quiet students visible. Silence may mean careful work, or it may mean nothing has changed for ten minutes."
                     ],
                 ),
                 (
-                    "Advanced students need attention too",
+                    "Fast finishers need thought too",
                     [
-                        "A student who finishes the core quickly should not receive a random pile of extra features. The next challenge should deepen the same idea: handle a boundary, make state explicit, compare two algorithms, or explain why one implementation is more reliable.",
-                        "Small-group teaching makes it easier to select meaningful difficulty without turning the class into separate private lessons. Students can share a topic while working at different project depths."
+                        "A student who finishes the core early does not need a random heap of extra features. The next task can deepen the same idea: handle an edge, make state visible, compare two routes, or explain why one rule is more reliable.",
+                        "Students can share a topic while working at different depths. The group stays together even when the projects are not identical."
                     ],
                 ),
                 (
-                    "Collaboration stays accountable",
+                    "Collaboration needs watching",
                     [
-                        "Students can help one another after trying independently. Explaining a condition or reading a test aloud can strengthen both students. The instructor can also see when collaboration becomes one student taking over another's keyboard.",
-                        "School of Code is designed around small groups, but a final published maximum has not been set. The principle comes first: the instructor should be able to understand the actual project, not only deliver the front-of-room explanation."
+                        "Students can read a test aloud, compare two conditions, and help after trying independently. Explaining a rule often strengthens both people.",
+                        "The instructor also has to notice when help turns into taking over the keyboard. Collaboration works when the author remains responsible for the consequential changes."
+                    ],
+                ),
+                (
+                    "Timely, then independent",
+                    [
+                        "The aim is not an adult hovering over every click. A well-timed question can prevent twenty minutes of random edits; a patient pause can let the student discover that the variable never reset. Both choices require attention to the learner and the program.",
+                        "School of Code is designed around small groups, though a final published maximum has not been set. The operating principle is clear: the instructor should be able to understand each student's real project, not only deliver the explanation at the front.",
+                    ],
+                ),
+                (
+                    "What the group makes possible",
+                    [
+                        "Small groups also support short demonstrations during class. One student can show a useful test; another can compare a different solution. These moments let students see several ways to express the same idea without requiring every project to return to a common template.",
+                        "None of this guarantees that every minute will be quiet or effortless. Programming produces stubborn bugs, lively explanations, and occasional negotiations about whether the pigeon really needs lasers. The advantage is that the teacher can keep those moments connected to the work.",
+                        "The result is a teacher who knows when to step in and when to leave the keyboard alone."
                     ],
                 ),
             ],
@@ -502,78 +645,111 @@ BLOG_POSTS.update(
         "can-kids-learn-ai-safely": article(
             "Can Kids Learn AI Safely?",
             "AI for Kids",
-            "Yes, if the learning emphasizes limits, privacy, testing, and human responsibility rather than treating generated output as authority.",
+            "A safe AI activity has a narrow purpose, non-personal inputs, adult-reviewed tools, and a serious plan for checking errors.",
             (
-                "Children already encounter systems described as AI in search, recommendations, games, cameras, and writing tools. Avoiding every conversation does not make those systems disappear. "
-                "A safe educational approach gives students practical questions: What information went in? What pattern produced the output? How could we test it? What should a person still decide?"
+                "Children meet systems labelled AI in search, recommendations, games, cameras, and writing tools. A useful lesson gives them questions to ask: What information went in? What did the system produce? How could we test it? What decision still belongs to a person?"
             ),
             [
                 (
-                    "Start with transparent patterns",
+                    "Begin with a visible pattern",
                     [
-                        "Before using a complex model, students can build simple guessing rules and test them with new examples. This separates pattern matching from understanding. A system can produce a plausible guess and still be wrong for an explainable reason.",
-                        "The AI Guessing Game preview is built around evaluation: record correct and incorrect results, classify errors, and compare confidence with evidence. The point is not to marvel at accuracy."
+                        "Students can build simple guessing rules before using a complex model. They choose a pattern, test new examples, and record where the rule fails. This establishes an important fact early: a plausible guess can be wrong for reasons we can investigate.",
+                        "The AI Guessing Game preview uses that approach. Correct and incorrect results matter equally because the work is evaluation, not applause."
                     ],
                 ),
                 (
-                    "Privacy is part of the technical lesson",
+                    "Give the activity a boundary",
                     [
-                        "Students should not place personal details, private conversations, school records, or identifiable information into external tools. Account setup, tool choice, retention, and permission need adult review before a class uses any service.",
-                        "A public project can explain these principles without pretending that a particular AI tool or account is currently approved. School of Code marks AI & Smart Machines Available later for exactly this reason: the curriculum and operating setup both matter."
+                        "A first investigation needs one question, a defined tool, and a way to record mistakes. Students might test whether a fictional chatbot follows three character rules or compare how a classifier handles new examples.",
+                        "Open-ended use makes both evaluation and safety harder. A narrow task lets the group decide what evidence counts and when to stop."
                     ],
                 ),
                 (
-                    "Fluent language is not evidence",
+                    "Treat privacy as part of the lesson",
                     [
-                        "A chatbot can state an incorrect claim in a polished voice. An image system can reproduce stereotypes. A prediction can reflect missing or unbalanced examples. Students need to see failures, not only impressive demonstrations.",
-                        "Safe learning asks children to verify claims with appropriate sources, identify uncertainty, and record when a tool invents details. Human judgment remains responsible for what is believed, published, or acted upon."
+                        "Personal details, private conversations, school records, and identifiable images do not belong in external tools used for a class exercise. Tool choice, accounts, retention, permission, and what is sent to a service require adult review in advance.",
+                        "Families should hear the actual activity—not simply the word AI. A guessing experiment, image classifier, and chatbot test have different inputs and risks. Clear names support useful questions and meaningful consent."
                     ],
                 ),
                 (
-                    "Set a narrow purpose",
+                    "Polish proves very little",
                     [
-                        "An AI activity should have a bounded educational question: compare prompts, test consistency, classify errors, inspect a pattern, or connect a prediction to a robot simulation. Open-ended use without a purpose makes evaluation and safety difficult.",
-                        "The goal is not early adoption for its own sake. It is literacy: students should be less easily impressed, more able to ask what a system can and cannot support, and more careful about their own responsibility."
+                        "A chatbot can write a confident falsehood. An image system can reproduce stereotypes. A prediction can fail because important examples were absent. Students need to collect these cases, verify claims with suitable sources, and record uncertainty.",
+                        "Human judgment remains responsible for what is believed, published, or acted upon. Fluency is a style of output, not a certificate of truth."
+                    ],
+                ),
+                (
+                    "Why AI is listed for later",
+                    [
+                        "School of Code marks AI & Smart Machines Available later. Tool selection, privacy arrangements, classroom boundaries, and the curriculum itself have to be settled before an activity becomes an active offer.",
+                        "The aim is careful literacy: students who can state what a system did usefully, show where it failed, protect information, and keep responsibility with people.",
+                    ],
+                ),
+                (
+                    "A stop rule belongs in the plan",
+                    [
+                        "A written activity plan should name the input students will use, the output they will inspect, and the checks they will perform. It should also say what happens if the tool changes, requires an unexpected login, or starts requesting information outside the task. Stopping is a valid technical decision.",
+                        "No classroom rule can make an external system perfectly predictable. The practical safeguard is layered: choose a limited service, avoid personal data, supervise use, keep the task narrow, and discuss problematic output rather than quietly discarding it. That gives students a procedure they can understand.",
+                        "The same procedure needs review whenever a service changes its terms, retention policy, or classroom access."
                     ],
                 ),
             ],
             [("AI program", "/programs/ai"), ("AI Guessing Game", "/projects/ai-guessing-game"), ("For Parents", "/parents")],
         ),
         "ai-is-not-magic-teaching-kids-to-question-it": article(
-            "AI Is Not Magic: Teaching Kids to Question It",
+            "Teaching Kids to Question AI",
             "AI for Kids",
-            "The strongest AI lesson is not how to get an impressive answer. It is how to investigate where the answer came from and when it fails.",
+            "A good AI lesson examines what a system produced, what evidence supports it, and which failures repeat.",
             (
-                "AI demonstrations often hide the difficult parts. A tool produces text, an image, or a prediction, and the result appears instantly. "
-                "Children may reasonably conclude that the system knows. Education should reopen the box enough to replace magic language with testable ideas."
+                "An AI demonstration is designed to look effortless: enter a prompt, receive text, an image, or a prediction. The missing work is evaluation. A classroom should put that work back on the table and give students a way to investigate the output."
             ),
             [
                 (
-                    "Use precise verbs",
+                    "Use verbs we can test",
                     [
-                        "A model predicts, classifies, generates, ranks, or matches patterns. Those verbs describe observable operations better than thinks, understands, or wants. Human-like language can be convenient, but it should not become the explanation.",
-                        "Precision does not make the technology less interesting. It gives students a way to ask what evidence would distinguish one explanation from another."
+                        "A model predicts, classifies, generates, ranks, or matches patterns. These verbs describe operations we can observe. ‘Thinks,’ ‘understands,’ and ‘wants’ may be convenient figures of speech, but they are poor technical explanations.",
+                        "Precise language opens useful questions. What was predicted? From which input? Under what conditions did the classification change?"
                     ],
                 ),
                 (
-                    "Collect failures deliberately",
+                    "Keep the failures",
                     [
-                        "If a class shows only successful outputs, students learn performance rather than evaluation. A better activity asks related questions, changes one prompt condition, records inconsistencies, and groups the errors.",
-                        "The Confidently Wrong Machine idea is useful because confidence becomes a variable to question. Does a polished answer include a source? Can the claim be verified? What kind of mistake appears repeatedly?"
+                        "A class that shows only successful outputs teaches stagecraft. Better tests ask related questions, change one condition at a time, and save inconsistent or invented answers alongside the useful ones.",
+                        "The Confidently Wrong Machine idea makes certainty itself worth examining. Does the answer name a source? Can the claim be checked? Does the same kind of error appear again?"
                     ],
                 ),
                 (
-                    "Bias is a system question",
+                    "Make an evidence table",
                     [
-                        "Patterns depend on examples and choices. If some cases are missing or labels are weak, results can be uneven. Children do not need advanced statistics to understand that an unrepresentative collection can produce a poor rule.",
-                        "The conversation should stay concrete: Which examples did we test? Which group of cases failed? What information was absent? Avoid turning bias into a vague warning detached from evidence."
+                        "Record the input, the output, what was checked, the result, and a failure category. Categories might include invented fact, missing context, inconsistent rule, biased example, or claim that cannot be verified.",
+                        "This is firmer than saying an answer sounded intelligent. It also shows that a longer prompt does not repair every problem. Sometimes the tool is unsuitable; sometimes the question lacks information; sometimes another source must settle the matter."
+                    ],
+                ),
+                (
+                    "Talk about bias through examples",
+                    [
+                        "Patterns depend on the examples and labels used to produce them. If important cases are missing or poorly labelled, results can be uneven. Students do not need advanced statistics to compare which examples were tested and which group of cases failed.",
+                        "Concrete questions keep bias from becoming a vague warning. What information was absent? Who might be affected by this mistake? Would a different test set expose it?"
                     ],
                 ),
                 (
                     "Keep a human decision boundary",
                     [
-                        "A useful classroom protocol states what the tool may support and what a person must verify. Generated possibilities may help brainstorming; factual claims need checking. A robot prediction may suggest an action; safety limits remain human-defined.",
-                        "AI literacy is not obedience to a tool and not automatic rejection. It is the ability to use a system for a narrow purpose, inspect its limits, protect information, and retain responsibility for the result."
+                        "A classroom protocol should say what the tool may support and what a person must verify. Generated possibilities may help with brainstorming. Factual claims require checking. Safety limits for a robot remain human-defined.",
+                        "Students should leave able to make a modest, supported claim about what the system did and where it failed. That position takes more work than either awe or blanket rejection, which is precisely why it is worth teaching.",
+                    ],
+                ),
+                (
+                    "Test the artifact",
+                    [
+                        "The same discipline applies to generated images and code. An image can contain odd or stereotyped details; a code suggestion can be insecure, irrelevant, or simply fail to run. Students should inspect the actual artifact, test it in a controlled setting, and avoid publishing material whose origin or accuracy they cannot explain.",
+                        "Questioning a system does not require knowing every detail of model training. Children can compare outputs, seek independent evidence, and notice which prompts or examples change the result. Those are honest experiments at an appropriate scale.",
+                    ],
+                ),
+                (
+                    "Keep the conclusion narrow",
+                    [
+                        "A narrow experiment supports a narrow conclusion. Everything beyond it remains a question."
                     ],
                 ),
             ],
@@ -582,78 +758,110 @@ BLOG_POSTS.update(
         "from-scratch-to-robots-to-ai": article(
             "From Scratch to Robots to AI",
             "Computer Lab Notes",
-            "The pathway is not a race through tools. It is a growing web of events, state, sensing, feedback, and judgment.",
+            "Different tools can deepen the same ideas: events, state, sensing, feedback, testing, and judgment.",
             (
-                "Scratch, robotics, Roblox, and AI can look like separate subjects. A coherent curriculum treats them as different materials for recurring ideas. "
-                "Events start behaviour. Variables preserve information. Conditions turn information into choices. Feedback connects action with evidence."
+                "Scratch, robotics, Roblox, and AI look like separate subjects on a program list. In a coherent curriculum, ideas travel between them. An event starts behaviour. A variable preserves information. A condition turns that information into a choice. Feedback connects an action to what happened next."
             ),
             [
                 (
-                    "Scratch makes the structure visible",
+                    "Scratch puts the structure on screen",
                     [
-                        "A Scratch game gives beginners direct access to complete systems. The student can see event blocks, loops, conditions, variables, and messages. A coordinate change creates motion immediately; a state bug creates a visible contradiction.",
-                        "This stage develops authorship. Students make a playable object, change rules, and explain the program as a text with sequence and intention."
+                        "Students can see event blocks, loops, conditions, variables, and messages. A coordinate change produces motion immediately, and a state bug produces a visible contradiction.",
+                        "The result is a complete object that can be changed. Students write rules for a game or story, test those rules, and explain how the pieces work together."
                     ],
                 ),
                 (
-                    "Robotics adds the physical world",
+                    "Robotics adds an unruly world",
                     [
-                        "The same program structures meet inputs, outputs, sensors, timing, circuits, and imperfect movement. A robot route depends on commands and direction. A patrol adds repeated sensing, decisions, state, and feedback.",
-                        "Physical systems also make limitations unavoidable. Sensors vary, connections fail, and the environment changes. Students learn to separate code, hardware, and measurement questions."
+                        "The same structures meet buttons, sensors, circuits, motors, and timing. A route uses commands and direction; a patrol adds repeated sensing, decisions, state, and feedback.",
+                        "Connections fail and readings vary. Students learn to distinguish a program problem from a hardware problem or a poor assumption about the environment."
                     ],
                 ),
                 (
-                    "Text code expands expression",
+                    "Lua changes the notation",
                     [
-                        "Roblox Studio / Lua can later connect visual programming concepts to functions, objects, 3D coordinates, and larger game systems. The blocks disappear, but events and variables do not.",
-                        "The transition should happen because text code supports a new kind of project, not because visual programming has become embarrassing. A strong Scratch foundation makes the new syntax meaningful."
+                        "Roblox Studio can later connect these concepts to typed functions, objects, 3D coordinates, and larger game systems. The blocks disappear, but events and variables survive the journey.",
+                        "Text code is useful when it supports a new kind of project. A solid Scratch foundation means the student already has ideas worth expressing in the new syntax."
                     ],
                 ),
                 (
-                    "AI adds uncertainty and judgment",
+                    "AI adds uncertain output",
                     [
-                        "AI systems return patterns, predictions, images, or language that may be useful and may be wrong. Earlier habits become essential: inspect inputs, reveal state where possible, test new cases, classify failures, and describe limits.",
-                        "The sequence is an educational direction, not a mandatory ladder. Students may enter at different points and revisit ideas. Scratch and Robotics are active first; Roblox and AI are available later."
+                        "AI systems may return useful language, images, classifications, or predictions, and they may be wrong. Earlier habits become more important: inspect inputs, test unfamiliar cases, classify failures, and state limits.",
+                        "This area also needs explicit privacy rules and human decision boundaries. A fluent result does not remove the need for evidence."
+                    ],
+                ),
+                (
+                    "The route can bend",
+                    [
+                        "This is a web of recurring ideas, not a ladder every student must climb in order. A circuit may clarify events first met in a game. A coordinate game may make a robot map easier to discuss. Someone drawn to hardware may first understand variables through reaction time.",
+                        "Scratch and Robotics are active now. Roblox and AI remain later directions until their curriculum and operating arrangements are ready. The point of the map is to show connections, not to hand out badges for reaching the far end.",
+                    ],
+                ),
+                (
+                    "Students can stay with one medium",
+                    [
+                        "Teachers can make the links explicit. Compare a Scratch touching check with a physical distance threshold. Ask where state lives in a pet game and in a traffic light. Contrast a fixed robot rule with a future prediction system. The nouns change, so the recurring logic is easy to miss unless someone points to it.",
+                        "Students may also stay with one medium for a long time. A richer Scratch game can require functions, messaging, lists, and careful state. A simple circuit can reward several rounds of measurement and redesign. Progress means better reasoning and stronger projects, not faster movement through the program menu.",
+                    ],
+                ),
+                (
+                    "Long visits matter",
+                    [
+                        "A curriculum map should allow those long visits; fluency grows through revision, not tourism."
                     ],
                 ),
             ],
             [("Programs", "/programs"), ("Topic library", "/topics"), ("Computer Lab", "/computer-lab")],
         ),
         "the-future-computer-lab-games-robots-and-smart-machines": article(
-            "The Future Computer Lab: Games, Robots, and Smart Machines",
+            "A Computer Lab for Games, Robots, and Smart Machines",
             "Computer Lab Notes",
-            "A useful Computer Lab is not a room full of devices. It is structured time for ideas to be rebuilt across different materials.",
+            "The Lab gives students time and guidance to change, test, repair, and finish projects across different materials.",
             (
-                "The phrase computer lab can suggest either an old row of identical desktops or an unstructured room where children use whatever software they like. "
-                "School of Code uses the term differently. The school provides the planned learning path. The Computer Lab provides guided project time in which a learned idea can change form."
+                "A computer lab can mean a row of identical desktops, or a room full of fashionable equipment waiting to be admired. School of Code uses the name for working time. The school teaches a planned sequence; the Lab gives students room to take those ideas further in projects."
             ),
             [
                 (
-                    "The class gives the idea",
+                    "One idea, several projects",
                     [
-                        "A coordinate lesson introduces x and y, known starting positions, prediction, and boundaries. The guided project develops those ideas inside Escape from the Giant Pigeon. Students share a conceptual foundation and clear checkpoints.",
-                        "The class matters because freedom without vocabulary can become trial and error without learning. Theory is the skeleton that keeps later experiments understandable."
+                        "A lesson on coordinates introduces x and y, starting positions, prediction, and boundaries. Escape from the Giant Pigeon uses those ideas in a guided game. Grandma's Intergalactic Taxi turns them into destinations and routes. Astro-Chicken Rescue tracks several moving objects.",
+                        "The themes change. The position model remains available for the student to recognize and reuse."
                     ],
                 ),
                 (
-                    "The Lab gives the idea a life",
+                    "Choices need useful limits",
                     [
-                        "Grandma's Intergalactic Taxi turns coordinates into destinations and routes. Astro-Chicken Rescue gives coordinates to several moving objects and a radar-like comparison. The projects differ, but the student can recognize the same position model underneath.",
-                        "Structured freedom means the student can choose an implementation, challenge card, theme, or improvement while an instructor protects scope and asks for evidence."
+                        "Lab students might select a challenge card, theme, implementation, or improvement. The instructor helps keep the project small enough to finish and asks for evidence when a fix is proposed.",
+                        "There is room for strange ideas. There is also a deadline, a test plan, and a saved version that still works."
                     ],
                 ),
                 (
-                    "Different materials, connected concepts",
+                    "Tools should earn shelf space",
                     [
-                        "A condition can control quiz feedback, a traffic-light transition, or a robot obstacle response. A variable can hold game score, reaction time, or patrol state. A bug can appear in code, a circuit, or the relationship between them.",
-                        "A future Lab may include games, microcontrollers, simulations, simple electronics, robots, and carefully bounded AI experiments. The value comes from the conceptual connections, not the quantity of equipment."
+                        "A condition can control quiz feedback, a traffic-light transition, or a robot's obstacle response. A variable can hold score, reaction time, or patrol state. A microcontroller makes timing physical; a sensor exposes measurement; a robot reveals the limits of feedback.",
+                        "The value comes from these connections, not the number of devices in the room. Equipment belongs when it gives an idea a useful form and students can explain what it changed."
                     ],
                 ),
                 (
-                    "What the Lab must not become",
+                    "Arrange the room around work",
                     [
-                        "It is not random gaming, passive video watching, uncontrolled browsing, or an excuse to collect fashionable tools. Students arrive with a project system, challenge, test, repair, or demonstration target.",
-                        "The human scale matters. Small groups let the instructor understand the actual project, preserve student authorship, and help when a strange idea becomes too large to finish. The future Lab should remain a workshop, not a showroom."
+                        "Some tasks need a screen. Others need a paper grid, a safe circuit surface, components, or enough floor to test movement. There should be places to plan, build, demonstrate, and store unfinished work without losing half of it.",
+                        "Clear handling rules, privacy boundaries, and time to reset the workspace make experimentation sustainable. Small groups let the instructor understand the actual project when a peculiar idea begins expanding in every direction."
+                    ],
+                ),
+                (
+                    "What progress looks like",
+                    [
+                        "The Lab has a project, checkpoint, test, repair, or demonstration in view. It is not a drop-in gaming room or an excuse for uncontrolled browsing. Students should leave knowing what changed and what they will try next.",
+                        "Growth should show up in finished versions, better tests, clearer explanations, and connections across materials. New machines are welcome when they strengthen that work. Otherwise, they can remain perfectly respectable objects on someone else's shelf.",
+                    ],
+                ),
+                (
+                    "Continuity matters",
+                    [
+                        "A Lab session can therefore look quieter than a product showcase. One student may be tracing a route on paper, another checking a variable on screen, and another testing an LED before reconnecting the sensor. The common feature is a question each student can state and a result that moves the project forward.",
+                        "Projects also need continuity. File names, parts trays, brief notes, and a known next step save the beginning of the following session from becoming an archaeological dig. Finishing includes leaving the work in a condition that can be resumed."
                     ],
                 ),
             ],
@@ -692,172 +900,6 @@ BLOG_CATEGORIES = [
     "Computer Lab Notes",
     "Calgary STEM Activities",
 ]
-
-
-def add_section(slug, heading, *paragraphs):
-    BLOG_POSTS[slug]["sections"].append((heading, list(paragraphs)))
-
-
-add_section(
-    "is-coding-class-just-more-screen-time",
-    "A simple after-class check",
-    "Ask the student to open the project and make one small change in front of you. Change the player speed, move a safe zone, or explain why the score begins at zero. Active work leaves a structure the student can revisit. If the project cannot be changed without starting over, that is useful information about how much was understood.",
-    "Also ask what failed. A real build usually contains a wrong turn: x changed instead of y, a loop ran forever, or restart preserved an old value. A student who can describe the failure and the repair has done more than operate an app. The child has compared intention with evidence and revised a system. That is the educational distinction School of Code is trying to protect.",
-)
-add_section(
-    "what-age-should-kids-start-programming",
-    "The first task should be finishable",
-    "A suitable first task has a visible result within reach. Four-direction movement, a two-state traffic light, or a paper robot route can be enough. The child should encounter one meaningful problem without carrying the full complexity of art, accounts, hardware, and a giant game at the same time. Completion creates a stable object to discuss and improve.",
-    "Adults can watch how support is used. Does the student follow a checkpoint, ask a specific question, and try again after a mismatch? Can the student explain one command even if the whole project required help? Those observations are more useful than comparing the child with a universal age chart. A conversation about fit can then use actual working habits rather than a birthday alone.",
-)
-add_section(
-    "why-scratch-is-a-great-first-programming-language",
-    "What good Scratch teaching avoids",
-    "Dragging blocks is not automatically programming education. A lesson can still become mechanical if every student copies an instructor's finished script without predicting, testing, or changing anything. The useful question is whether the child understands the relationship among the blocks and the visible behaviour. A short script explained well has more educational value than a large unexplained stack.",
-    "Good teaching also avoids treating the library of sprites and sounds as the main achievement. Artwork can support authorship, but a project needs a system: a rule that starts, changes, checks, remembers, or communicates. Students should leave able to identify that system, demonstrate one edge case, and make a deliberate modification. Scratch makes those conversations easier; it does not replace them.",
-)
-add_section(
-    "why-debugging-is-good-for-kids",
-    "Keep a small debugging record",
-    "A useful record can be four lines: expected result, observed result, test, and conclusion. For a robot route, the student might write that the robot should face east after two turns, observed north, traced each command, and found that one left turn had been used instead of right. The format slows down random repair without turning the project into paperwork.",
-    "The conclusion can also be that the first guess was wrong. That is not wasted effort. It narrows the search and teaches that evidence has authority over confidence. Over time, students build a vocabulary for recurring failures: unknown start, wrong sign, repeated event, stale state, loose connection, noisy reading. Naming patterns makes future debugging faster while preserving the habit of checking the current case.",
-)
-add_section(
-    "robotics-for-kids-where-to-start",
-    "Choose a first project by its question",
-    "A useful first robotics project asks one question clearly. Can the robot follow an exact route? Can a button control a buzzer? Can an LED sequence move through safe states? Can a timer distinguish waiting from reacting? Each project exposes a different relationship among input, decision, and output. Buying a kit before choosing the question often leaves the learning goal buried under assembly.",
-    "The project should also have a non-hardware fallback when the central idea permits it. A maze can be traced on paper; traffic-light state can be simulated on screen; a sensor rule can begin with recorded sample values. This is not pretending that hardware does not matter. It lets students understand the logic first, so a loose wire or drifting motor later becomes a specific system problem rather than undifferentiated failure.",
-)
-add_section(
-    "how-robots-sense-the-world",
-    "Run a classroom sensor investigation",
-    "Before programming a response, students can make a small table of readings. Move an object to three distances, press and release a button several times, or compare light values in two parts of a room. Record what stayed stable, what varied, and which values overlap. The table turns a mysterious number into evidence about a limited measuring device.",
-    "Only then choose a rule. If an alarm should sound when something is near, students can propose a threshold and test cases just above and below it. A good demonstration includes a case that fails or wobbles. The student can explain whether the limitation belongs to the sensor, the environment, the sampling method, or the decision rule. That explanation is more important than making the machine appear perfectly certain.",
-)
-add_section(
-    "what-is-a-microcontroller",
-    "What a microcontroller can and cannot do",
-    "A microcontroller is good at repeating a defined cycle: read an input, update a value, choose an output, and do it again. It can time a reaction, control a traffic-light sequence, read a button, or signal when a threshold is crossed. Its small scale makes the relationship between code and physical pins easier to inspect than in a general-purpose computer.",
-    "It does not understand why a reaction time is unusual or whether an alarm rule is fair. It follows the program with the available readings. Students therefore need to separate the board, the program, the circuit, and the human goal. When an LED stays dark, they can check output state, pin choice, polarity, connection, and component condition in an order. That layered diagnosis is part of the educational value.",
-)
-add_section(
-    "why-robot-projects-teach-real-problem-solving",
-    "Failure crosses system boundaries",
-    "In a screen-only project, the visible result usually comes from code and stored state. A robot or circuit adds power, connections, components, measurement, timing, physical dimensions, and the environment. The same symptom can have several causes. A patrol that misses an obstacle may read the wrong sensor, use a poor threshold, move too quickly, or point the sensor in the wrong direction.",
-    "Students learn to divide the system before repairing it. Can the sensor value be displayed without movement? Can the motor output be tested without the sensor rule? Does the simulated decision work with known sample values? Each test isolates a relationship. This is real problem-solving because the student cannot rely on one category of answer; the evidence determines whether to inspect logic, hardware, measurement, or assumptions about the world.",
-)
-add_section(
-    "what-kids-learn-from-making-games",
-    "Rules create an audience relationship",
-    "A game communicates with a player through controls, goals, feedback, and consequences. If a hazard cannot be seen before contact, the rule may be technically correct and still feel unfair. If score changes twice for one event, the player receives false information. Students learn that code does not exist separately from the person trying to understand the system.",
-    "Testing with another student can reveal assumptions the author no longer notices. The tester may use two keys at once, approach the goal from the wrong side, or restart during a message. The author then decides whether the behaviour is a bug, an acceptable rule, or a new design opportunity. That process joins programming with communication: the student must make the intended experience legible through the system itself.",
-)
-add_section(
-    "roblox-as-a-creative-coding-platform",
-    "Why waiting can be responsible",
-    "A Roblox program needs more than student interest. The school must decide how accounts, privacy, publishing, external models, collaboration, and device performance will be handled. The instructor also needs a sequence that teaches Lua and game systems instead of letting Studio become a decoration tool or a collection of copied scripts. Marking the program Available Later keeps those requirements visible.",
-    "In the meantime, Scratch and robotics can establish events, variables, conditions, functions, coordinates, state, and debugging. Those ideas transfer. A future Roblox student who already asks where state lives, what triggers an event, and whether an imported asset contains unknown behaviour will enter Studio with stronger habits. Delay is useful when it protects the educational purpose rather than chasing platform familiarity.",
-)
-add_section(
-    "what-is-project-based-learning",
-    "Completion is not decoration",
-    "A project is not complete because the title screen looks polished. It needs a working core, a known start, a way to test success and failure, and an explanation of at least one design decision. For a traffic light, that means a safe state sequence and reset. For a game, it may mean movement, one goal, one hazard, and reliable restart before extra art or sound.",
-    "This definition protects students from projects that grow faster than understanding. The instructor can reduce scope without removing authorship: keep one level, choose one sensor, or postpone the second character. Once a small version is demonstrable, improvements have evidence behind them. Students can compare versions and say what changed. Project-based learning works when the project carries the ideas, not when construction merely fills the timetable.",
-)
-add_section(
-    "why-small-groups-work-better-for-coding",
-    "What the instructor is watching",
-    "The important signals are often quiet. A student may repeatedly press run without reading the result, avoid testing a loss state, change three scripts at once, or understand the concept but struggle to name it. In a small group, the instructor can notice the pattern and ask one relevant question instead of delivering the same rescue to everyone.",
-    "Small groups also make demonstrations possible. Students can show a checkpoint, compare two solutions, and help a peer after first trying independently. The instructor can distinguish useful collaboration from one student taking over another's keyboard. This does not guarantee a fixed published group size; that operating detail is still being finalized. It explains why the school is designed around a human-sized group rather than maximum seat count.",
-)
-add_section(
-    "can-kids-learn-ai-safely",
-    "Design a bounded AI activity",
-    "A safe first investigation has a narrow question, non-personal input, a defined tool, and a way to record errors. Students might compare how a guessing system handles new examples or test whether a fictional chatbot follows three written character rules. The task should not require private stories, personal photos, school records, or open-ended disclosure to an external service.",
-    "Before use, the group needs to know what is being sent, whether an account is involved, what outputs may be unreliable, and who checks the result. Afterward, students should be able to show incorrect cases, not only impressive ones. School of Code marks AI Available Later because tool selection, privacy arrangements, and classroom boundaries must be settled before such an activity becomes an active offer.",
-)
-add_section(
-    "ai-is-not-magic-teaching-kids-to-question-it",
-    "Use an evidence table",
-    "Students can record a prompt or input, the output, what was checked, the result of the check, and a failure category. Categories might include invented fact, missing context, inconsistent rule, biased example, or answer that cannot be verified. A table gives the class something firmer than saying an output felt good or sounded intelligent.",
-    "The table also reveals that errors are not all repaired by a longer prompt. Sometimes the question lacks enough information. Sometimes the tool is inappropriate. Sometimes the source must be checked elsewhere, and sometimes a person should make the decision without the model. Treating these outcomes as normal teaches a more accurate picture: AI can produce useful patterns and fluent material, but responsibility does not transfer to the machine when the output appears polished.",
-)
-add_section(
-    "from-scratch-to-robots-to-ai",
-    "The path is a web, not a ladder",
-    "Students do not need to complete every Scratch topic before touching a circuit, and robotics does not automatically graduate into AI. The direction describes recurring ideas, not ranks. A button-and-buzzer alarm may clarify events for a student who first met them in a game. A coordinate game may make a later robot map easier to discuss. Movement between programs can strengthen the shared concepts.",
-    "Teachers should make those returns explicit. Ask where state lives in the pet game and the traffic light. Compare a Scratch touching check with a physical sensor threshold. Contrast a rule-based patrol with a future prediction system. The tools differ, but students can reuse habits: define input, name state, predict output, test edge cases, and explain limits.",
-    "This is also why future programs should not be rushed. Text code and AI deserve a place when they support a project and when the student has enough conceptual language to question them. Scratch and Robotics are active first because they provide visible, testable systems now. Roblox and AI remain later branches, not badges that every child must collect.",
-)
-add_section(
-    "the-future-computer-lab-games-robots-and-smart-machines",
-    "Design the room around work, not equipment",
-    "A useful Lab needs places to plan, build, test, explain, and safely store work. Some tasks belong on a screen; others need a paper grid, a circuit surface, spare components, or enough floor to trace movement. The room should make it easy to shift between code and evidence instead of keeping every student fixed in front of one device.",
-    "The project system matters more than a catalogue of tools. Each activity needs a mission, required systems, checkpoints, challenge cards, and a demonstration target. Equipment enters when it gives an idea a useful physical form. A microcontroller can make timing tangible; a sensor can expose measurement; a robot can reveal feedback limits. None of them should exist only to make the Lab look advanced.",
-    "Human organization completes the design. Small groups, clear component handling, privacy rules, and time to reset the workspace keep experimentation responsible. The School sets the conceptual path and the Lab offers structured freedom inside it. That relationship should remain true even as the range of machines grows.",
-)
-
-
-def extend_last_section(slug, paragraph):
-    BLOG_POSTS[slug]["sections"][-1][1].append(paragraph)
-
-
-extend_last_section(
-    "why-scratch-is-a-great-first-programming-language",
-    "A useful final question is whether the student could rebuild the core with a different theme. If pigeon, taxi, and chicken artwork can change while events, movement, state, and tests remain recognizable, the child is beginning to separate a program's structure from its surface. That separation supports later languages.",
-)
-extend_last_section(
-    "why-debugging-is-good-for-kids",
-    "Families can reinforce the method without demanding a technical explanation. Ask what was supposed to happen, what actually happened, and which single test produced useful evidence. Those questions reward reasoning instead of speed and make it normal for a finished demonstration to include the story of one repaired failure.",
-)
-extend_last_section(
-    "robotics-for-kids-where-to-start",
-    "A strong first sequence ends with explanation: the student names the input, the decision rule, the output, and one limit. That demonstration works whether the system used paper arrows, a simulation, LEDs, or a physical robot. The materials can grow after the model is understood.",
-)
-extend_last_section(
-    "how-robots-sense-the-world",
-    "The same method prepares students for later computer vision and AI discussions without claiming those systems are already being taught. More advanced sensing still begins with measurements, selected features, thresholds or models, uncertainty, and human decisions about what counts as success.",
-)
-extend_last_section(
-    "what-is-a-microcontroller",
-    "This is why the board should not be presented as a tiny magical brain. It is a constrained computer connected to physical inputs and outputs. Its constraints are useful: memory, timing, pins, and power force the project to state clearly what information matters and what action is actually possible.",
-)
-extend_last_section(
-    "why-robot-projects-teach-real-problem-solving",
-    "A demonstration should include the boundary between layers. The student might show that the decision works with known values but the sensor varies near the threshold, or that the circuit works while the timing rule is wrong. Locating the boundary is often the most sophisticated part of the project.",
-)
-extend_last_section(
-    "what-kids-learn-from-making-games",
-    "Authorship becomes visible in those revisions. Choosing a fairer warning, clearer restart, or more interesting risk is not decoration; it changes the rules another person experiences. Students learn that technical choices communicate values such as clarity, challenge, patience, and respect for the player.",
-)
-extend_last_section(
-    "roblox-as-a-creative-coding-platform",
-    "When the program does open, project pages should remain honest about what students create themselves, what built-in tools provide, and what comes from external assets. Understanding provenance and hidden scripts is part of programming responsibility, especially inside a platform built for sharing.",
-)
-extend_last_section(
-    "what-is-project-based-learning",
-    "The final explanation prevents a polished object from hiding shallow participation. Students should identify the concept, demonstrate the core, describe a decision, and name one unresolved limit. That conversation tells the instructor and family more than a screenshot of the finished stage.",
-)
-extend_last_section(
-    "why-small-groups-work-better-for-coding",
-    "The aim is not constant adult attention. It is timely attention that helps students return to independent work. A well-placed checkpoint can prevent twenty minutes of random changes; a patient pause can let the student discover that the variable never reset. Both decisions require seeing the learner and the system together.",
-)
-extend_last_section(
-    "can-kids-learn-ai-safely",
-    "Families should be told which activity is planned before a tool is used, not asked to infer it from the word AI. A guessing experiment, image classifier, and chatbot test have different inputs, risks, and learning goals. Clear naming makes meaningful consent and useful questioning possible.",
-)
-extend_last_section(
-    "ai-is-not-magic-teaching-kids-to-question-it",
-    "The student should leave able to say both what the system did usefully and where it failed. Praise without evidence becomes hype; rejection without investigation becomes fear. A tested, limited claim is the more demanding and more practical position.",
-)
-extend_last_section(
-    "from-scratch-to-robots-to-ai",
-    "A student's route can therefore bend. Someone drawn to circuits may meet variables through reaction time; a game designer may discover feedback through enemy movement. The program map provides direction while topic links preserve those alternate entrances. Knowledge grows by returning with a new material and a sharper question.",
-)
-extend_last_section(
-    "the-future-computer-lab-games-robots-and-smart-machines",
-    "Growth should be measured by the quality of projects and explanations, not the number of devices on shelves. If students can finish versions, test edge cases, connect ideas across materials, and demonstrate what changed, the Lab is doing its job. New equipment should earn its place by making one of those actions stronger.",
-)
 
 
 for post_slug, post in BLOG_POSTS.items():

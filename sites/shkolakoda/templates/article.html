@@ -7,14 +7,14 @@
 
 {% block content %}
   <article class="article-page">
-    <header class="article-header"><div class="container narrow">{{ breadcrumbs([('Home', '/'), ('Blog', '/blog')], post.title) }}<p class="eyebrow">{{ post.category }}</p><h1>{{ post.title }}</h1><p class="lead">{{ post.description }}</p><p class="article-byline">By {{ post.author }} <span aria-hidden="true">/</span> Evergreen parent and curriculum guide</p></div></header>
+    <header class="article-header"><div class="container narrow">{{ breadcrumbs([('Home', '/'), ('Blog', '/blog')], post.title) }}<p class="eyebrow">{{ post.category }}</p><h1>{{ post.title }}</h1><p class="lead">{{ post.description }}</p><p class="article-byline">By {{ post.author }}</p></div></header>
     <div class="container article-layout">
-      <aside class="article-aside" aria-label="Article contents"><strong>On this page</strong><ol>{% for heading, paragraphs in post.sections %}<li><a href="#section-{{ loop.index }}">{{ heading }}</a></li>{% endfor %}</ol><a class="text-link" href="{{ url_for('contact') }}">Ask a practical question <span aria-hidden="true">-&gt;</span></a></aside>
+      <aside class="article-aside" aria-label="Article contents"><strong>On this page</strong><ol>{% for heading, paragraphs in post.sections %}<li><a href="#section-{{ loop.index }}">{{ heading }}</a></li>{% endfor %}</ol><a class="text-link" href="{{ url_for('contact') }}">Ask Eugene <span aria-hidden="true">-&gt;</span></a></aside>
       <div class="article-body"><p class="article-intro">{{ post.introduction }}</p>{% for heading, paragraphs in post.sections %}<section id="section-{{ loop.index }}"><h2>{{ heading }}</h2>{% for paragraph in paragraphs %}<p>{{ paragraph }}</p>{% endfor %}</section>{% endfor %}
-        <section class="article-related-links" aria-labelledby="article-related"><h2 id="article-related">Use the idea elsewhere</h2><div class="related-grid">{% for label, href in post.related %}{{ related_card(label, 'Related page', href) }}{% endfor %}</div></section>
+        <section class="article-related-links" aria-labelledby="article-related"><h2 id="article-related">Related pages</h2><div class="related-grid">{% for label, href in post.related %}{{ related_card(label, 'Related page', href) }}{% endfor %}</div></section>
       </div>
     </div>
   </article>
 
-  {% if related_posts %}<section class="section section-blue"><div class="container"><div class="section-header"><div><p class="eyebrow">More in {{ post.category }}</p><h2>Continue with a nearby question.</h2></div><a class="text-link" href="{{ url_for('blog_index') }}">All articles <span aria-hidden="true">-&gt;</span></a></div><div class="blog-grid">{% for related in related_posts %}{{ blog_card(related) }}{% endfor %}</div></div></section>{% endif %}
+  {% if related_posts %}<section class="section section-blue"><div class="container"><div class="section-header"><div><p class="eyebrow">More in {{ post.category }}</p><h2>Read next</h2></div><a class="text-link" href="{{ url_for('blog_index') }}">All articles <span aria-hidden="true">-&gt;</span></a></div><div class="blog-grid">{% for related in related_posts %}{{ blog_card(related) }}{% endfor %}</div></div></section>{% endif %}
 {% endblock %}
