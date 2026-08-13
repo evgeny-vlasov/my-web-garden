@@ -190,6 +190,8 @@ class ContentRepository:
                 media = self._by_id.get(image["media_id"])
                 if media is None or media["kind"] != "media":
                     errors.append(f"{source}: missing media id {image['media_id']!r}")
+                elif not media["media_type"].startswith("image/"):
+                    errors.append(f"{source}: image media id {image['media_id']!r} must reference an image media type")
 
             campaign_id = record.get("campaign_id")
             if campaign_id:
@@ -299,6 +301,8 @@ class ContentRepository:
         if image:
             media = self._by_id[image["media_id"]]
             image["url"] = self.url_for(media)
+            image["width"] = media["width"]
+            image["height"] = media["height"]
         for link in presented.get("internal_links", []):
             target = self._by_id[link["target_id"]]
             link["url"] = self.url_for(target)

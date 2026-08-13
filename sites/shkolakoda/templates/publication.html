@@ -15,7 +15,7 @@
       <p class="eyebrow">{{ publication.categories | join(' / ') }}</p><h1>{{ publication.title }}</h1><p class="lead">{{ publication.summary }}</p>{{ topic_tags(publication.topics) }}
     </div></header>
 
-    {% if publication.image %}<figure class="publication-hero-image container narrow"><img src="{{ publication.image.url }}" alt="{{ publication.image.alt }}"></figure>{% endif %}
+    {% if publication.image %}<figure class="publication-hero-image container narrow"><img src="{{ publication.image.url }}" alt="{{ publication.image.alt }}" width="{{ publication.image.width }}" height="{{ publication.image.height }}"></figure>{% endif %}
 
     <div class="container narrow publication-body">
       {% for section in publication.body %}<section id="section-{{ loop.index }}"><h2>{{ section.heading }}</h2>{% for paragraph in section.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}</section>{% endfor %}

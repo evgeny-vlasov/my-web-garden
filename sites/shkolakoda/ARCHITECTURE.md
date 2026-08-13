@@ -45,7 +45,7 @@ Every record carries these fields:
 - `related.lessons`, `related.projects`, and `related.articles`;
 - `campaign_id`: a stable campaign ID or `null`.
 
-Articles add `author` and `body`. General projects add `project` display metadata and `body`. Campaigns add `body` and may add a `call_to_action`. Media records add `path`, `media_type`, `alt`, and `credit`. The JSON Schema is the authoritative field and length contract.
+Articles add `author` and `body`. General projects add `project` display metadata and `body`. Campaigns add `body` and may add a `call_to_action`. Media records add `path`, `media_type`, `alt`, and `credit`; image media also requires its intrinsic `width` and `height` in pixels. The JSON Schema is the authoritative field and length contract.
 
 The Scratch pilot has the same common envelope plus its existing downloads, art slots, code sections, and script model. `scratch_content.py` adapts that validated record back into the established project template shape.
 

@@ -19,6 +19,8 @@
   "campaign_id": null,
   "path": "projects/escape-from-the-giant-pigeon/assets/stage-backdrop.svg",
   "media_type": "image/svg+xml",
+  "width": 480,
+  "height": 360,
   "alt": "Paper-textured chase stage with a start corner and striped shelter",
   "credit": "School of Code"
 }
