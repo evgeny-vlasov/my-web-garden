@@ -4,14 +4,14 @@
   "id": "soccl.project.escape-pigeon",
   "slug": "escape-from-the-giant-pigeon",
   "title": "Escape from the Giant Pigeon",
-  "summary": "A production Scratch project pilot with structured teaching guidance, original media, downloadable projects, and a complete build-and-debug path.",
+  "summary": "Build a complete Scratch chase game, from the first reset to the last awkward collision test.",
   "status": "published",
   "publish_at": "2026-07-01T00:00:00Z",
   "topics": ["Scratch", "Coordinates", "Movement", "Collision", "Game State", "Debugging"],
   "categories": ["Scratch Projects", "Computer Lab"],
   "seo": {
     "title": "Escape from the Giant Pigeon | School of Code",
-    "description": "Build a complete Scratch chase game while learning coordinates, collision, state, reset logic, testing, and evidence-based debugging.",
+    "description": "Build Escape from the Giant Pigeon in Scratch using coordinates, collision rules, game state, complete resets, and deliberate testing.",
     "canonical_path": "/projects/escape-from-the-giant-pigeon"
   },
   "internal_links": [],
@@ -27,7 +27,7 @@
   "campaign_id": null,
   "scratch_pilot": true,
   "project_status": "Complete downloadable pilot",
-  "finished_summary": "Guide the Player from the lower-left corner to the striped Safe Zone while a comically oversized pigeon closes in. The arrow keys change x and y, the explicit game state prevents conflicting endings, and R performs the same complete reset as the green flag.",
+  "finished_summary": "Guide the Player from the lower-left corner to the striped Safe Zone while an oversized pigeon closes in. The arrow keys change x and y, Game State keeps the two endings from colliding, and R runs the same complete reset as the green flag.",
   "game_controls": [
     "Arrow keys — move the Player on the x and y axes",
     "Green flag — stop the old run and start from known state",
@@ -46,61 +46,61 @@
       "filename": "escape-from-the-giant-pigeon-starter.sb3",
       "label": "Download Starter Project",
       "file_type": "Scratch 3 project (.sb3)",
-      "purpose": "Original art, sounds, variables, known positions, and setup scripts—without the completed game systems."
+      "purpose": "Original art and sounds, named variables, known positions, and setup scripts. The game systems are yours to build."
     },
     {
       "filename": "escape-from-the-giant-pigeon-finished.sb3",
       "label": "Download Finished Reference",
       "file_type": "Scratch 3 project (.sb3)",
-      "purpose": "The complete playable reference used by every code section on this page."
+      "purpose": "The complete playable game shown in the code sections below."
     },
     {
       "filename": "escape-from-the-giant-pigeon-assets.zip",
       "label": "Download Art and Sound Pack",
       "file_type": "ZIP archive (.zip)",
-      "purpose": "Human-readable original SVG costumes, backdrop, WAV effects, sketch, README, and licence notes."
+      "purpose": "Editable SVG costumes and backdrop, WAV effects, the project sketch, README, and licence notes."
     }
   ],
   "art_slots": {
     "cover": {
       "src": "projects/escape-from-the-giant-pigeon/assets/stage-backdrop.svg",
       "alt": "Paper-textured chase stage with a start corner and striped shelter",
-      "caption": "Cover/stage artwork — provisional School of Code project artwork."
+      "caption": "Stage artwork: Player at lower left, Safe Zone at lower right."
     },
     "project_sketch": {
       "src": "projects/escape-from-the-giant-pigeon/project-sketch.svg",
       "alt": "Inventor notebook diagram of the chase game systems",
-      "caption": "Technical project sketch — provisional School of Code project artwork."
+      "caption": "Project artwork mapping the movement, pursuit, collision, Panic, and game-state systems."
     },
     "build": {
       "src": "projects/escape-from-the-giant-pigeon/assets/player.svg",
       "alt": "Original player sprite wearing a bright scarf",
-      "caption": "Build image slot — original editable Player SVG."
+      "caption": "Build image slot: the original editable Player artwork."
     },
     "debug": {
       "src": "projects/escape-from-the-giant-pigeon/assets/safe-zone.svg",
       "alt": "Original striped safe-zone shelter sprite",
-      "caption": "Debug image slot — collision silhouette for checking costume edges."
+      "caption": "Debug image slot: the Safe Zone collision silhouette and costume edges."
     },
     "boss_level": {
       "src": "projects/escape-from-the-giant-pigeon/assets/giant-pigeon.svg",
       "alt": "Original funny giant pigeon sprite with dramatic wings",
-      "caption": "Boss-level image slot — original editable Giant Pigeon SVG."
+      "caption": "Boss-level image slot: the original editable Giant Pigeon artwork."
     }
   },
   "system_flow": [
-    "READY resets every actor and gives the player a fair one-second look at the stage.",
-    "PLAYING enables movement, pursuit, the timer, panic, and collision checks.",
-    "Pigeon contact wins collision priority and changes the state to CAUGHT.",
-    "Safe Zone contact is accepted only when the Player is not touching the pigeon, then changes the state to SAFE.",
-    "R or a new green-flag click returns the whole project to READY."
+    "READY restores every actor, then leaves the stage visible for one second.",
+    "PLAYING turns on movement, pursuit, the timer, Panic, and collision checks.",
+    "Pigeon contact has priority and changes Game State to CAUGHT.",
+    "Safe Zone contact changes Game State to SAFE only when the Player is not touching the pigeon.",
+    "R and the green flag both run the same reset and return the project to READY."
   ],
   "teacher_checkpoints": [
-    "After reset: ask the student to name every value and visual state restored by Reset Game.",
-    "After movement: ask which keys change x and which change y, then test all four edges.",
-    "After pursuit: confirm the pigeon begins far away and does not move during READY.",
-    "After collision: place the Player where both contacts look possible and confirm CAUGHT has priority.",
-    "Before demonstration: run green flag, SAFE → R, CAUGHT → R, and three rapid green-flag restarts."
+    "After reset, ask the student to name every value and visual detail restored by Reset Game.",
+    "After movement, ask which keys change x and which change y. Then test all four edges.",
+    "After pursuit, confirm that the pigeon begins far away and stays still during READY.",
+    "After collision, arrange a possible double contact and confirm that CAUGHT has priority.",
+    "Before the demonstration, test a green-flag start, SAFE → R, CAUGHT → R, and three quick green-flag restarts."
   ],
   "test_checklist": [
     "Click the green flag three times; each run starts at the same positions with READY before PLAYING.",
@@ -116,140 +116,140 @@
   "debugging_guide": [
     {
       "symptom": "The Player travels off screen",
-      "clue": "Check all four boundary comparisons and confirm x rules set x while y rules set y."
+      "clue": "Check all four boundary comparisons. The x rules must set x, and the y rules must set y."
     },
     {
       "symptom": "The pigeon catches the Player immediately",
-      "clue": "Inspect both reset positions and make sure pursuit only runs while Game State equals PLAYING."
+      "clue": "Check both reset positions, then confirm that pursuit runs only while Game State equals PLAYING."
     },
     {
       "symptom": "SAFE and CAUGHT seem to happen together",
-      "clue": "Keep the not-touching-pigeon guard around the Safe Zone check and set state before broadcasting the ending."
+      "clue": "Keep the Safe Zone check inside the not-touching-pigeon condition. Set Game State before broadcasting the ending."
     },
     {
       "symptom": "R leaves an old message or costume",
-      "clue": "Every sprite needs a Reset Actors receiver that restores costume, visibility, and speech as well as position."
+      "clue": "Check every Reset Actors receiver. It must restore costume, visibility, speech, and position."
     },
     {
       "symptom": "Panic rises in the wrong direction",
-      "clue": "The formula subtracts scaled distance from 100; then two checks clamp the result to 0–100."
+      "clue": "The formula subtracts scaled distance from 100. Two later checks keep the result between 0 and 100."
     }
   ],
-  "builder_challenge": "Change Pigeon Speed to 3, test three routes, and adjust one starting coordinate until the game remains fair.",
+  "builder_challenge": "Change Pigeon Speed to 3 and test three routes. Adjust one starting coordinate until a careful player can still win.",
   "inventor_challenge": "Add sandwich crumbs that reduce Panic without changing Game State. Explain how each crumb can trigger only once.",
-  "boss_level_challenge": "Create a second original backdrop with a new Safe Zone location. Reset the stage number, actor positions, and collision rules without duplicating the whole game.",
-  "provisional_note": "The sketch-style vectors, layout slots, and palette are production-ready placeholders for this pilot. A human illustrator can refine them later without changing sprite names, costume centres, scripts, downloads, or the reusable curriculum model.",
+  "boss_level_challenge": "Create a second original backdrop with a new Safe Zone. Reset the stage number, actor positions, and collision rules without copying the whole game.",
+  "provisional_note": "The project uses original, editable sketch-style artwork. It can be redrawn later without changing sprite names, costume centres, scripts, or downloads.",
   "trademark_note": "Scratch is a project of the Scratch Foundation. School of Code is an independent educational project and is not affiliated with or endorsed by the Scratch Foundation.",
   "code_sections": [
     {
       "title": "Reset the game",
       "anchor": "reset-the-game",
-      "does": "Creates one reliable starting state for every run.",
-      "logic": "The flag asks for Reset Game. That receiver sets READY first, restores every variable, resets the timer, waits for every actor to reset, then begins PLAYING after a fair pause.",
+      "does": "Gives every run the same starting state.",
+      "logic": "The flag broadcasts Reset Game. Its receiver sets READY, restores the variables and timer, waits for each actor to reset, then switches to PLAYING after a one-second pause.",
       "pseudocode": "ON green flag:\n    ask the whole project to reset\nON Reset Game:\n    set READY and restore every value\n    reset every actor\n    wait for a fair start\n    set PLAYING",
       "script_ids": ["stage-green-flag", "stage-reset-game", "player-reset", "safe-zone-reset"],
-      "test": "Click the green flag three times from different endings. The same positions and values must return each time.",
-      "mistake": "Setting PLAYING before the sprites have moved back lets collision code read stale positions.",
-      "teacher_checkpoint": "Ask the student why Reset Actors uses broadcast and wait instead of an ordinary broadcast."
+      "test": "Click the green flag after a win, after a loss, and during play. Check that the same positions and values return each time.",
+      "mistake": "Setting PLAYING before the sprites move back lets the collision scripts read old positions.",
+      "teacher_checkpoint": "Why does Reset Actors use broadcast and wait rather than an ordinary broadcast?"
     },
     {
       "title": "Move the player",
       "anchor": "move-the-player",
-      "does": "Reads all four arrow keys and changes one coordinate at a time.",
-      "logic": "Movement runs only in PLAYING. Right and left change x; up and down change y. Separate checks allow diagonal movement when two keys are held.",
+      "does": "Reads the arrow keys and changes x or y.",
+      "logic": "Movement runs only during PLAYING. Right and left change x; up and down change y. Because each key has its own check, holding two keys moves the Player diagonally.",
       "pseudocode": "WHILE the game is playing:\n    read the arrow keys\n    change x for left or right\n    change y for up or down",
       "script_ids": ["player-movement"],
-      "test": "Hold one key at a time, then hold two together. Each axis should change in the expected direction.",
+      "test": "Hold each key separately, then hold two together. Watch which coordinate changes.",
       "mistake": "Using change y for left/right or reversing the negative signs.",
-      "teacher_checkpoint": "Have the student predict the new coordinate before pressing each arrow once."
+      "teacher_checkpoint": "Ask the student to predict the new coordinate before pressing each arrow once."
     },
     {
       "title": "Keep the player on stage",
       "anchor": "keep-player-on-stage",
-      "does": "Clamps the Player to a readable rectangle inside the Scratch stage.",
-      "logic": "Four comparisons inspect the live x and y positions. If an edge is exceeded, the matching coordinate is set exactly to that edge.",
+      "does": "Keeps the whole Player visible inside the stage.",
+      "logic": "Four comparisons watch the current x and y positions. When the Player passes a limit, the script puts the matching coordinate back on the edge.",
       "pseudocode": "FOREVER during PLAYING:\n    if x passes either side, put x on the edge\n    if y passes top or bottom, put y on the edge",
       "script_ids": ["player-boundaries"],
       "test": "Hold every arrow key against every boundary, including two diagonal corners.",
       "mistake": "Checking an x boundary and accidentally setting y.",
-      "teacher_checkpoint": "Ask why the limits are smaller than the stage coordinates -240/240 and -180/180."
+      "teacher_checkpoint": "Why are the limits smaller than the stage edges at x -240/240 and y -180/180?"
     },
     {
       "title": "Start the pigeon",
       "anchor": "start-the-pigeon",
-      "does": "Restores the dramatic pigeon to a known, distant starting zone.",
-      "logic": "Reset Actors restores position, direction, costume, and visibility. The Stage remains in READY for one second before pursuit can run.",
+      "does": "Returns the pigeon to its known starting position and appearance.",
+      "logic": "Reset Actors restores the pigeon's position, direction, costume, and visibility. The Stage stays in READY for one second, so the pigeon cannot begin chasing early.",
       "pseudocode": "ON Reset Actors:\n    stop any old chase appearance\n    move far from the Player\n    face left, show wings up, and show",
       "script_ids": ["pigeon-reset"],
-      "test": "Move and repaint the pigeon during a run, restart, and confirm all its starting properties return.",
+      "test": "Move the pigeon and change its costume during a run. Restart and check that every starting property returns.",
       "mistake": "Resetting only the position while an ending costume or hidden state remains.",
-      "teacher_checkpoint": "Measure the visual distance between the two known starts before PLAYING begins."
+      "teacher_checkpoint": "Before PLAYING begins, compare the two starting positions and explain why the distance is fair."
     },
     {
       "title": "Chase the player",
       "anchor": "chase-the-player",
-      "does": "Uses one transparent pursuit rule: point toward the Player and move by Pigeon Speed.",
-      "logic": "The forever loop re-aims because the Player keeps moving. A short wait controls speed and makes the two wing costumes readable.",
+      "does": "Points towards the Player and moves by Pigeon Speed.",
+      "logic": "The loop aims again after every move because the Player's position keeps changing. A short wait controls the chase speed and leaves enough time to see the wing costumes alternate.",
       "pseudocode": "WHILE the game is PLAYING:\n    point toward the Player's current position\n    move by Pigeon Speed\n    flap once and pause briefly",
       "script_ids": ["pigeon-chase"],
       "test": "Move in a large rectangle and confirm the pigeon continually corrects its direction.",
       "mistake": "Pointing toward the Player once before the loop instead of during every chase step.",
-      "teacher_checkpoint": "Ask which single variable can make the chase easier or harder without rewriting it."
+      "teacher_checkpoint": "Which variable changes the difficulty without changing the chase script?"
     },
     {
       "title": "Detect being caught",
       "anchor": "detect-caught",
-      "does": "Changes the state to CAUGHT exactly once when the Player touches the Giant Pigeon.",
-      "logic": "The outer state check prevents repeated endings. State changes before the broadcast, so every other PLAYING system stops on its next check.",
+      "does": "Sets CAUGHT once when the Player touches the pigeon.",
+      "logic": "The outer Game State check prevents a repeated ending. The script sets CAUGHT before broadcasting, so every other PLAYING system stops at its next check.",
       "pseudocode": "WHILE PLAYING:\n    if touching the Giant Pigeon:\n        set CAUGHT first\n        announce Caught",
       "script_ids": ["player-detect-caught"],
       "test": "Let the pigeon touch the Player from several directions and confirm CAUGHT appears once.",
       "mistake": "Broadcasting the ending before changing state allows another detector to run as if play continues.",
-      "teacher_checkpoint": "Pause on the contact frame and ask which command prevents a second ending."
+      "teacher_checkpoint": "On the contact frame, which command prevents the second ending from running?"
     },
     {
       "title": "Detect reaching safety",
       "anchor": "detect-safety",
-      "does": "Awards SAFE only when the Player reaches the shelter without pigeon contact.",
-      "logic": "The not-touching-pigeon guard gives CAUGHT priority in an overlap that looks simultaneous. Only then does the script inspect the Safe Zone.",
+      "does": "Sets SAFE only when the Player reaches the shelter without touching the pigeon.",
+      "logic": "The outer not-touching-pigeon check gives CAUGHT priority when both contacts appear to happen together. Only after that check does the script test the Safe Zone.",
       "pseudocode": "WHILE PLAYING:\n    if NOT touching the pigeon:\n        if touching the Safe Zone:\n            set SAFE first\n            announce Reached Safety",
       "script_ids": ["player-detect-safe"],
       "test": "Reach the shelter cleanly, then drag the pigeon over it and test the overlap priority.",
       "mistake": "Testing safety without excluding pigeon contact makes the ending depend on script timing.",
-      "teacher_checkpoint": "Ask the student to explain the nested condition in one sentence."
+      "teacher_checkpoint": "Ask the student to explain why the Safe Zone condition sits inside the pigeon condition."
     },
     {
       "title": "Update the panic meter",
       "anchor": "update-panic",
-      "does": "Turns distance into a 0–100 Panic value and records survival time.",
-      "logic": "Nearby pigeons create higher Panic. Two boundary checks keep the meter sensible. A separate Stage script rounds the timer to tenths while PLAYING.",
+      "does": "Calculates Panic from distance and records survival time.",
+      "logic": "Panic rises as the pigeon gets closer. Two checks keep it between 0 and 100. A separate Stage script records the timer to the nearest tenth while the game is PLAYING.",
       "pseudocode": "WHILE PLAYING:\n    Panic = 100 - rounded(distance / 4)\n    clamp Panic between 0 and 100\n    Survival Time = timer rounded to tenths",
       "script_ids": ["player-panic", "stage-survival-time"],
-      "test": "Watch Panic at the far start, during approach, and on contact; restart and verify both values return to zero.",
+      "test": "Watch Panic at the starting distance, during the chase, and on contact. Restart and check that Panic and Survival Time return to zero.",
       "mistake": "Dividing 100 by distance instead of subtracting scaled distance makes the meter jump unpredictably.",
-      "teacher_checkpoint": "Ask why a game can display an approximate meter even though collision still uses direct touching."
+      "teacher_checkpoint": "Why can Panic be approximate while the ending still uses direct touching?"
     },
     {
       "title": "End the game cleanly",
       "anchor": "end-game-cleanly",
-      "does": "Shows one clear result using costume, sound, speech, and Safe Zone feedback.",
-      "logic": "Ending receivers do presentation work after the detector has committed the game state. Chase and movement stop because they are gated by PLAYING.",
+      "does": "Shows the result with a costume, sound, message, and Safe Zone change.",
+      "logic": "The detector commits the Game State before the ending receivers change the presentation. Movement and pursuit stop because their scripts only run during PLAYING.",
       "pseudocode": "ON Caught:\n    show caught costume and sound\n    explain how to restart\nON Reached Safety:\n    activate the shelter and play its sound\n    explain how to restart",
       "script_ids": ["player-caught-response", "player-safe-response", "safe-zone-active-response"],
-      "test": "Trigger each ending and verify the other sound, costume, and state never appears.",
+      "test": "Trigger each ending and check that no sound, costume, message, or state from the other ending appears.",
       "mistake": "Using stop all before displaying the result prevents ending feedback and restart scripts.",
-      "teacher_checkpoint": "Ask which scripts stop because of state, even though no stop block is used."
+      "teacher_checkpoint": "Which scripts stop because Game State changed, even though they contain no stop block?"
     },
     {
       "title": "Restart and test",
       "anchor": "restart-and-test",
-      "does": "Routes the R key through the same complete Reset Game system as the flag.",
-      "logic": "There is one reset definition, so fixes apply to both start paths. R works after a win, after a loss, or during play.",
+      "does": "Sends the R key and green flag through the same reset.",
+      "logic": "There is one Reset Game receiver, so a repair applies to both ways of restarting. R works after a win, after a loss, and during play.",
       "pseudocode": "ON R key:\n    ask for Reset Game and wait\nTHEN test green flag, win-restart, caught-restart, edges, overlap, and variables",
       "script_ids": ["stage-r-restart"],
-      "test": "Run every item in the page checklist, including three repeated flag clicks and both ending-to-R paths.",
-      "mistake": "Duplicating the reset commands under R eventually makes the two restart paths disagree.",
-      "teacher_checkpoint": "Student demonstrates one repaired bug and identifies the test that now catches it."
+      "test": "Run the full checklist, including three flag clicks and an R restart after each ending.",
+      "mistake": "Copying the reset commands under R gives the project two reset scripts that can drift apart.",
+      "teacher_checkpoint": "Ask the student to demonstrate one repaired bug and the test that would catch it again."
     }
   ],
   "scripts": [
