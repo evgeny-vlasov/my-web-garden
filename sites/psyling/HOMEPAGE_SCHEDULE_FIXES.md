@@ -1,5 +1,10 @@
 # Homepage Redirect & Schedule Links Fix - Summary
 
+> **Historical implementation record, not a current runbook.** Service names,
+> ports, paths, status claims, and deployment commands below may be stale. Do
+> not run them against production. Start with the current [Psyling README](README.md)
+> and [Webgarden operations](../../docs/operations.md).
+
 ## Date: 2026-03-01
 
 ## Issues Addressed

@@ -1,5 +1,15 @@
 # Psyling Site Documentation
 
+Production runs directly from `/var/www/webgarden/sites/psyling` through
+`webgarden-psyling.service` on `127.0.0.1:5001`. Psyling has no canonical
+versioned deployer, deployed-SHA marker, or code-version rollback tool. It uses
+`shared/`, as does PoolEmergency, so shared changes can affect both sites.
+
+`sites/therapist` is a historical compatibility symlink, but Psyling's current
+virtual-environment shebangs still refer to it. Do not remove it casually. See
+[Webgarden deployment](../../docs/deployment.md) and
+[operations](../../docs/operations.md) for production discovery and safety.
+
 Professional psychotherapy website built on the WebGarden platform.
 
 ## Site Overview
@@ -328,41 +338,32 @@ class ProductionConfig(Config):
 
 ### Environment Variables
 
-Required variables in `/etc/webgarden/psyling.env`:
+The application recognizes these configuration names:
 
-```bash
-# Flask
-SECRET_KEY=<generated-secret-key>
-FLASK_ENV=production
+- `SECRET_KEY`, `FLASK_ENV`
+- `DATABASE_URL`
+- `MAIL_SERVER`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`
+- `MAIL_DEFAULT_SENDER`, `ADMIN_EMAIL`
+- `SITE_NAME`, `SITE_DOMAIN`, `UPLOAD_FOLDER`, `MAX_UPLOAD_SIZE`
 
-# Database
-DATABASE_URL=postgresql://webgarden:password@localhost/therapist_db
-
-# Mail
-MAIL_SERVER=smtp.mailgun.org
-MAIL_PORT=587
-MAIL_USERNAME=postmaster@psyling.com
-MAIL_PASSWORD=<mailgun-api-key>
-MAIL_DEFAULT_SENDER=info@psyling.com
-ADMIN_EMAIL=admin@psyling.com
-
-# Site
-SITE_NAME=Professional Psychotherapy
-SITE_DOMAIN=psyling.com
-UPLOAD_FOLDER=/var/www/webgarden/uploads/psyling
-MAX_UPLOAD_SIZE=5242880
-```
+Do not infer their production values from this README. The protected
+`/etc/webgarden/psyling.env` file was not read during the architecture audit,
+and Psyling's effective upload path remains configuration-dependent. Inspect
+key names only when necessary; never print complete assignments.
 
 ## CLI Commands
 
 Located in `sites/psyling/cli.py`
 
+The commands in this section create accounts, send mail, or change database
+state. Use them in an isolated development environment. Production use requires
+a separately reviewed data/configuration plan and explicit authorization; do
+not source the protected environment merely to try a command.
+
 ### `flask init-db`
 Initialize the database (create all tables).
 
 ```bash
-cd /var/www/webgarden/sites/psyling
-source venv/bin/activate
 flask init-db
 ```
 
@@ -407,6 +408,10 @@ The Psyling site uses these tables from shared models:
    - See shared/README.md for schema
 
 ### Migrations
+
+The sequence below is a development reference, not a production migration or
+rollback runbook. Test and review generated migrations before requesting any
+production database change.
 
 ```bash
 # Create migration after model changes
@@ -599,48 +604,29 @@ data-primary-color="#7c3aed"
 
 ### Production Deployment
 
-The site runs with:
-- **Web Server:** Nginx (reverse proxy)
-- **Application Server:** Gunicorn (4 workers)
-- **Process Manager:** systemd
-- **Database:** PostgreSQL
-- **SSL:** Let's Encrypt (auto-renewal)
+Nginx proxies to the systemd-managed Gunicorn service, which loads PostgreSQL
+configuration from the protected `/etc/webgarden/psyling.env` file. Do not
+print that file's values.
 
-### Service Management
-
-```bash
-# Start service
-sudo systemctl start webgarden-psyling
-
-# Stop service
-sudo systemctl stop webgarden-psyling
-
-# Restart service
-sudo systemctl restart webgarden-psyling
-
-# Check status
-sudo systemctl status webgarden-psyling
-
-# View logs
-sudo journalctl -u webgarden-psyling -f
-```
-
-### Using Control Script
-
-```bash
-# Convenient wrapper around systemctl
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh start psyling
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh restart psyling
-sudo /var/www/webgarden/deploy/webgarden-ctl.sh logs psyling -f
-```
+There is no generic Webgarden command that deploys Psyling. Source changes,
+deployment, database migration, and service restart are distinct actions. A
+clean checkout does not prove what a long-running worker loaded. Discover the
+effective runtime and obtain separate authorization before any restart or
+migration. The deprecated `deploy/webgarden-ctl.sh` wrapper is not a canonical
+deployment tool. Use the central [deployment guide](../../docs/deployment.md)
+and [read-only operations runbook](../../docs/operations.md).
 
 ## Development
+
+Use a separate development checkout. `/var/www/webgarden/sites/psyling` is the
+production runtime, so creating a venv, changing configuration, or running
+migrations there is a production change.
 
 ### Local Setup
 
 1. **Create virtual environment:**
 ```bash
-cd /var/www/webgarden/sites/psyling
+cd /path/to/development-checkout/sites/psyling
 python3 -m venv venv
 source venv/bin/activate
 ```
@@ -675,8 +661,9 @@ Visit: http://localhost:5000
 2. Test locally with `flask run --debug`
 3. Run tests (when implemented)
 4. Commit changes to git
-5. Deploy to staging (when set up)
-6. Deploy to production
+5. Review the exact change and its database/data effects
+6. Follow the central deployment guide; no canonical Psyling staging or
+   versioned deployment tool currently exists
 
 ### Adding New Routes
 
@@ -755,7 +742,8 @@ def test_contact_form(client):
 **Issue: 500 Error on Contact Form**
 - Check MAIL_* environment variables
 - Verify Mailgun credentials
-- Check application logs: `sudo journalctl -u webgarden-psyling -n 50`
+- Inspect a narrow, redaction-aware journal window using the central operations
+  runbook
 
 **Issue: Blog Images Not Displaying**
 - Check UPLOAD_FOLDER exists and has correct permissions
@@ -763,14 +751,16 @@ def test_contact_form(client):
 - Check file was actually uploaded: `ls /var/www/webgarden/uploads/psyling/blog/inline/`
 
 **Issue: Can't Login to Admin**
-- Verify user exists: `flask shell` then `User.query.all()`
-- Reset password: `flask create-admin` with same username
+- Verify account state without printing user rows or private fields
+- Treat account creation or password reset as a separately authorized admin-data
+  change
 - Check session configuration in config.py
 
 **Issue: Database Connection Errors**
-- Verify DATABASE_URL is correct
+- Verify that `DATABASE_URL` is configured without displaying its value
 - Check PostgreSQL is running: `sudo systemctl status postgresql`
-- Test connection: `sudo -u postgres psql therapist_db`
+- Follow the central operations runbook; do not open an interactive production
+  database session as a generic diagnostic step
 
 ### Debug Mode
 
@@ -780,7 +770,7 @@ Enable debug mode for development only:
 # In .env
 FLASK_ENV=development
 
-# Then restart
+# Then start the development server
 flask run --debug
 ```
 
@@ -788,10 +778,9 @@ flask run --debug
 
 ### Log Locations
 
-- Application logs: `sudo journalctl -u webgarden-psyling`
-- Nginx access: `/var/log/nginx/psyling-access.log`
-- Nginx errors: `/var/log/nginx/psyling-error.log`
-- Gunicorn logs: `/var/log/webgarden/psyling-access.log`
+Use the narrow, redaction-aware journal and nginx inspection procedures in
+[the central operations runbook](../../docs/operations.md). Do not dump complete
+access logs; paths and application output may contain private information.
 
 ## Future Enhancements
 
@@ -834,7 +823,8 @@ flask run --debug
 - **Weekly:** Publish new blog posts
 - **Monthly:** Review and update services page
 - **Monthly:** Check for security updates
-- **Quarterly:** Backup database
+- **Regularly:** Review backup job evidence and restoration testing; a successful
+  timer run alone does not prove completeness or recoverability
 - **Quarterly:** Review user accounts
 
 ### Getting Help

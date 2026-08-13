@@ -10,9 +10,17 @@ identity.
 
 School of Code belongs at `https://shkolakoda.com`.
 
-## Intended Deployment
+## Production
 
-This app is intended for `science.shkolakoda.com`.
+This app is live at `science.shkolakoda.com`. It runs directly from
+`/var/www/webgarden/sites/science` through `webgarden-science.service` on
+`127.0.0.1:8005`.
+
+Happy Science has no canonical versioned deployer, deployed-SHA marker, or
+version rollback tool. Python changes require a separately authorized restart
+of this service; nginx-served static files may change immediately. See
+[Webgarden deployment](../../docs/deployment.md) and
+[operations](../../docs/operations.md) before making a production change.
 
 ## URL Plan
 
@@ -22,9 +30,10 @@ This app is intended for `science.shkolakoda.com`.
 - `/contact` shows contact details and the interest list call to action.
 - School of Code Calgary lives separately at `https://shkolakoda.com`.
 
-## Debian VPS Deployment Notes
+## Local runtime
 
-In production, this app will run on `127.0.0.1:8005`.
+The commands below are for an isolated development environment. Do not bind to
+the production port on the live host while the service is running.
 
 Create and activate a virtual environment:
 
@@ -42,9 +51,5 @@ pip install -r requirements.txt
 Test the production WSGI entry with Gunicorn:
 
 ```bash
-gunicorn --bind 127.0.0.1:8005 wsgi:app
+venv/bin/python -m gunicorn --bind 127.0.0.1:8005 wsgi:app
 ```
-
-Nginx reverse proxy configuration will be handled separately.
-
-Systemd service configuration will be handled separately.

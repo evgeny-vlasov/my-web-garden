@@ -1,5 +1,11 @@
 # Psyling Email System - Implementation Summary
 
+> **Historical implementation record, not a current deployment plan.** Service
+> names, paths, status, risk, timing, and rollback claims below may be stale.
+> Never expose mail or database configuration, and do not run the commands
+> against production. Use the current [Psyling README](README.md) and
+> [Webgarden deployment](../../docs/deployment.md).
+
 **Date:** 2026-02-04
 **Implemented by:** Claude Code
 **Status:** ✅ Code implementation COMPLETE - Ready for DNS setup and deployment

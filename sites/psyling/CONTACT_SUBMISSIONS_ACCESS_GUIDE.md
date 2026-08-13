@@ -1,5 +1,12 @@
 # Contact Submissions Access Guide
 
+> **Historical guide containing production-sensitive subject matter.** Counts,
+> routes, service names, paths, and recovery instructions below may be stale.
+> Treat all contact records and admin access as private; do not run commands or
+> share output until they have been checked against the current
+> [Psyling README](README.md) and
+> [Webgarden operations](../../docs/operations.md).
+
 ## Summary
 
 ✅ **Good News!** All 113 contact form submissions are safely stored in the database and **fully accessible** through your admin panel.

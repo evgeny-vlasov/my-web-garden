@@ -1,7 +1,14 @@
 # Web Garden Backups
 
-The local backup job archives site source, selected uploads, PostgreSQL or SQLite
-data, nginx/systemd configuration, and `/etc/webgarden`.
+> **Checked-in implementation, not proof of installed coverage.** A daily
+> backup timer was active and its last observed run succeeded on 2026-08-13,
+> but the protected installed tooling and archives could not be compared with
+> this repository copy. A successful job does not prove archive completeness or
+> restoration. Science coverage appears inconsistent with the checked-in site
+> profiles. See [operations](../docs/operations.md#check-backup-job-status).
+
+This checked-in backup job is designed to archive site source, selected uploads,
+PostgreSQL or SQLite data, nginx/systemd configuration, and `/etc/webgarden`.
 
 The global system config archive is expected to include the active nginx
 available/enabled files for Psyling, Shkolakoda, Tom Umber, LAIC,
@@ -33,7 +40,15 @@ backups leave `latest` unchanged. `restore-test-webgarden.sh` scans timestamped
 backup directories newest-first and validates only the newest backup whose
 manifest says `status=success`.
 
-## Install
+The restore-test script validates archive structure; it does not perform or
+prove a working restoration.
+
+## Installation record
+
+The commands below mutate protected production paths and services. They are not
+a routine operations procedure and require a separately reviewed infrastructure
+change with explicit authorization. Compare the protected installed version
+with this repository copy before replacing anything.
 
 ```bash
 sudo install -d -m 700 -o root -g root /home/fluffy/webgarden-backup

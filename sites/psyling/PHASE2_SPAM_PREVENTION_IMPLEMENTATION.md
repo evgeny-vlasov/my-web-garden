@@ -1,5 +1,11 @@
 # Phase 2 Spam Prevention Implementation
 
+> **Historical implementation record, not a current runbook.** Service names,
+> configuration steps, status claims, and deployment commands below may be
+> stale. Do not expose protected values or run these commands against
+> production. Start with the current [Psyling README](README.md) and
+> [Webgarden deployment](../../docs/deployment.md).
+
 ## Date: 2026-03-10
 
 ## Overview
@@ -435,10 +441,9 @@ sudo journalctl -u psyling -f | grep -E "(Honeypot|reCAPTCHA)"
 - Console error: "ReCAPTCHA placeholder element must be empty"
 
 **Solutions:**
-1. Check if RECAPTCHA_SITE_KEY is set:
-   ```bash
-   grep RECAPTCHA_SITE_KEY /var/www/webgarden/sites/psyling/.env
-   ```
+1. Check whether the `RECAPTCHA_SITE_KEY` name is present using the
+   key-name-only procedure in the central operations guide. Do not print its
+   assignment.
 2. Verify key is correct (check Google reCAPTCHA admin)
 3. Check domain matches registration
 4. Clear browser cache

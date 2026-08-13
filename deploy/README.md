@@ -1,8 +1,17 @@
-# WebGarden Deployment System
+# WebGarden Deployment System (Historical)
 
-Complete automation for deploying new Flask sites on the WebGarden multi-site hosting platform.
+> **Unsupported on the current host. Do not run this workflow.** The scripts,
+> paths, users, port assignments, templates, and service assumptions documented
+> below predate the present VPS. In particular, `new_site.sh`, `setup_site.sh`,
+> and `webgarden-ctl.sh` are not a supported way to create or deploy a site;
+> port 8003 is already in use. Webgarden currently has no general “deploy any
+> site” command. Use [the current site lifecycle](../docs/site-lifecycle.md) and
+> [site-specific deployment guidance](../docs/deployment.md).
 
-## Quick Start
+This document is retained to explain the original provisioning design. Commands
+below are historical examples, not a runbook.
+
+## Historical Quick Start (Do Not Run)
 
 Deploy a new site in 15 minutes with just two steps:
 
@@ -212,7 +221,10 @@ sudo ./new_site.sh dentist dentist.mywebgarden.com 8003 "DentPass2024!" "Smile D
 
 5. **Wait for completion** (~10 minutes for a complete site)
 
-### Step 4: Restart and Test
+### Historical Step 4: Restart and Test (Do Not Run)
+
+> The service and commands below are examples from the retired workflow. They
+> are not approved current-host operations.
 
 ```bash
 # Restart the service to load new code
@@ -525,7 +537,12 @@ Environment="FLASK_ENV=development"
 
 ---
 
-## Maintenance
+## Historical Maintenance Examples (Do Not Run)
+
+> These examples can expose private logs or mutate source, databases, services,
+> and nginx. They are retained to describe the old design, not as maintenance
+> guidance. Use [operations](../docs/operations.md) for safe inspection and the
+> current [deployment guide](../docs/deployment.md) before proposing a change.
 
 ### Backup Site
 
@@ -564,7 +581,11 @@ sudo tail -f /var/log/webgarden/mysite-access.log
 sudo tail -f /var/log/webgarden/mysite-error.log
 ```
 
-### Delete Site
+### Historical destructive teardown (do not run)
+
+> These commands permanently remove application files, configuration, and a
+> database. They are retained as historical context only and are not an
+> approved current-host procedure.
 
 ```bash
 # Stop and disable service
@@ -592,7 +613,10 @@ sudo systemctl reload nginx
 
 ## Getting Help
 
-### Useful Commands
+### Historical Command Reference (Do Not Run)
+
+> This block mixes inspection with service, migration, admin-data, and nginx
+> mutations. It is not a current runbook. Use the canonical documents above.
 
 ```bash
 # Service management
@@ -627,20 +651,27 @@ sudo systemctl restart nginx            # Restart nginx
 
 ### Common Questions
 
+> Historical answers below describe the retired provisioning model. They do not
+> authorize edits, restarts, certificate work, or environment-file access on
+> the current host. Use the current [site lifecycle](../docs/site-lifecycle.md)
+> and [deployment guide](../docs/deployment.md).
+
 **Q: Can I run the deployment script multiple times?**
-A: No, the script will exit if the site already exists. Delete the site first or use a different site_id.
+A: This deprecated script must not be run on the current host. Do not delete a
+live site to retry it.
 
 **Q: How do I change the port after deployment?**
-A: Edit these files, then restart:
-- `/etc/webgarden/mysite.env` (not needed for port)
-- `/etc/nginx/sites-available/mysite` (proxy_pass line)
-- `/etc/systemd/system/mysite.service` (ExecStart line)
+A: The historical model edited nginx and systemd directly. On the current host,
+inspect the live listener, enabled nginx route, and effective unit first; a port
+change requires a newly reviewed infrastructure plan.
 
 **Q: Can I use a subdomain?**
-A: Yes, just use the full subdomain as the domain parameter: `mysite.example.com`
+A: The retired script accepted a full subdomain. Current DNS, certificate,
+nginx, and application ownership must be assigned through the lifecycle plan.
 
 **Q: How do I add HTTPS after initial deployment?**
-A: Run `sudo certbot --nginx -d your-domain.com`
+A: Certificate changes are infrastructure work and require an approved plan;
+this historical guide is not sufficient authority.
 
 **Q: Where are passwords stored?**
 A: In `/etc/webgarden/mysite.env` with 600 permissions (owner read/write only)
@@ -664,4 +695,5 @@ Part of the WebGarden multi-site hosting platform.
 
 ---
 
-**Ready to deploy?** Start with the Quick Start guide at the top of this document!
+For current work, leave this historical guide and start with
+[the site lifecycle](../docs/site-lifecycle.md).

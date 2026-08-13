@@ -10,6 +10,14 @@ Public Flask site for `poolemergency.ca` inside Web Garden.
 - Local bind: `127.0.0.1:8003`
 - Domains: `poolemergency.ca`, `www.poolemergency.ca`
 
+Production runs directly from this shared checkout. PoolEmergency has no
+canonical versioned deployer, deployed-SHA marker, or code-version rollback
+tool. It also imports `shared/`, so changes there may affect Psyling. Python
+changes require a separately authorized restart of this service; nginx-served
+static files may change immediately. See
+[Webgarden deployment](../../docs/deployment.md) and
+[operations](../../docs/operations.md) before a production change.
+
 The public routes render static templates:
 
 - `/`
@@ -26,6 +34,12 @@ Recommended PostgreSQL names:
 
 - Database: `poolemergency_db`
 - Role: `poolemergency_user`
+
+> The database and protected environment already exist in production. The
+> commands below document initial provisioning; they are not routine setup or
+> deployment steps. Database, secret, environment-file, and permission changes
+> require a separately reviewed infrastructure change. Do not run them against
+> production to diagnose an application problem.
 
 Create the role and database without printing the password:
 
@@ -91,31 +105,42 @@ set +a
 venv/bin/flask db upgrade
 ```
 
-## Local Runtime
+## Development runtime
+
+Use an isolated development checkout and development configuration. Do not
+create or replace a venv in the live checkout, read the protected production
+environment file, weaken its permissions, or bind the production port while the
+service is running.
 
 ```bash
-cd /var/www/webgarden/sites/poolemergency
+cd /path/to/development-checkout/sites/poolemergency
 python3 -m venv venv
 venv/bin/pip install -r requirements.txt
 set -a
-source /etc/webgarden/poolemergency.env
+source /path/to/development.env
 set +a
-venv/bin/gunicorn --workers 2 --bind 127.0.0.1:8003 app:app
+venv/bin/python -m gunicorn --workers 2 --bind 127.0.0.1:18003 app:app
 ```
 
 Smoke test:
 
 ```bash
 for path in / /services /about /contact /blog; do
-  curl --max-time 10 -sS -o /dev/null -w "poolemergency_local ${path} %{http_code}\n" "http://127.0.0.1:8003${path}"
+  curl --max-time 10 -sS -o /dev/null -w "poolemergency_local ${path} %{http_code}\n" "http://127.0.0.1:18003${path}"
 done
 ```
 
-## Deployment Artifacts
+## Historical initial provisioning
 
-- Systemd template: `deploy/systemd/webgarden-poolemergency.service`
-- nginx config: `deploy/nginx/poolemergency.ca`
-- Backup profile: `webgarden-backup/sites.d/poolemergency.conf`
+> The following records how the service and nginx site were initially
+> installed. It is not a current deployment or rollback procedure. Do not copy
+> these files over live configuration or reload services without a separately
+> reviewed infrastructure change. Effective systemd and enabled live nginx
+> configuration are runtime authority.
+
+- Systemd repository copy: `../../deploy/systemd/webgarden-poolemergency.service`
+- nginx repository copy: `../../deploy/nginx/poolemergency.ca`
+- Checked-in backup profile: `../../webgarden-backup/sites.d/poolemergency.conf`
 
 Install the systemd unit only after local boot succeeds:
 
@@ -143,7 +168,13 @@ After DNS is fixed and both names resolve to this server, issue the certificate:
 sudo certbot --nginx -d poolemergency.ca -d www.poolemergency.ca
 ```
 
-## Rollback
+## Historical teardown (not rollback)
+
+> **Do not run these commands to roll back code.** They disable the application
+> and remove its live systemd and nginx configuration. PoolEmergency currently
+> has no documented version rollback mechanism; plan one before an approved
+> production change. The commands are retained only as an initial-provisioning
+> removal record.
 
 ```bash
 sudo systemctl disable --now webgarden-poolemergency.service

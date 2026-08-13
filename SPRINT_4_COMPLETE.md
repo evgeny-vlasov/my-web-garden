@@ -1,5 +1,12 @@
 # Sprint 4: AI Chatbot Integration - COMPLETE ✅
 
+> **Historical implementation report, not a current production runbook.** Its
+> claim that Keystone was deployed, along with its service names, ports, paths,
+> commands, and status statements, does not describe the current host. Use
+> [AGENTS.md](AGENTS.md) and the canonical
+> [architecture](docs/architecture.md) and [operations](docs/operations.md);
+> do not run commands from this report against production.
+
 ## Overview
 Sprint 4 has been successfully completed! WebGarden sites now feature fully functional AI chatbot widgets that provide interactive assistance to visitors. The implementation is production-ready, mobile-responsive, and deployed on both the psyling (therapist) and keystone (hardscapes) sites.
 

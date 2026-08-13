@@ -83,7 +83,7 @@ flask --app app run
 Test the production WSGI entry:
 
 ```bash
-gunicorn --bind 127.0.0.1:8000 wsgi:app
+venv/bin/python -m gunicorn --bind 127.0.0.1:8000 wsgi:app
 ```
 
 Run the public-site integrity tests:
@@ -101,8 +101,19 @@ npm ci
 npm run check
 ```
 
-Production uses the existing `webgarden-shkolakoda.service` runtime on
-`127.0.0.1:8000`; nginx deployment is managed separately.
+## Production and deployment
+
+Production runs as `soccl-app` through `webgarden-shkolakoda.service` on
+`127.0.0.1:8000`. The runtime is `/var/www/soccl/current/app`, an immutable
+release selected by a symlink. It is not this source directory.
+
+Changing `/var/www/webgarden/sites/shkolakoda` and restarting systemd does not
+deploy new School of Code code. The canonical exact-SHA deployment procedure,
+validation, atomic activation, health checks, and automatic rollback are
+documented once in [the Webgarden deployment guide](../../docs/deployment.md).
+When inspecting a release manually, invoke Gunicorn through
+`venv/bin/python -m gunicorn`; console-script shebangs may retain staging paths
+after a release is moved.
 
 ## Git-backed publishing
 

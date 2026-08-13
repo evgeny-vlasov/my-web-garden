@@ -2,6 +2,18 @@
 
 Public-facing Flask site for Local AI Collective inside Web Garden.
 
+## Production status
+
+LAIC is live from this shared checkout through `webgarden-laic.service` on
+`127.0.0.1:8004`. The service runs as `fluffy:www-data` and may load the
+protected `/etc/webgarden/laic.env` file.
+
+LAIC has no canonical versioned deployer, deployed-SHA marker, or code-version
+rollback tool. Python changes require a separately authorized restart of this
+service; nginx-served static files may change immediately. See
+[Webgarden deployment](../../docs/deployment.md) and
+[operations](../../docs/operations.md) before a production change.
+
 ## Purpose
 
 This site presents Local AI Collective as a practical initiative that helps nonprofits and local community organizations use AI in careful, affordable ways.
@@ -45,6 +57,11 @@ Suggested variable names:
 Do not commit environment files or secrets.
 
 ## PostgreSQL Setup
+
+> Production already uses PostgreSQL. The commands below describe initial
+> provisioning; they are not routine setup, deployment, or repair steps.
+> Database, environment-file, secret, schema, and permission changes require a
+> separate review and explicit authorization.
 
 Recommended names:
 
@@ -111,17 +128,25 @@ sudo -u postgres psql -d laic_db -XAt -c "SELECT current_database(); SELECT tabl
 curl --max-time 10 -sS -o /dev/null -w 'laic_local=%{http_code}\n' http://127.0.0.1:8004/contact
 ```
 
-## Local Run
+## Development runtime
+
+Use an isolated development checkout and development configuration. Do not
+replace the venv in the live checkout, source the protected production
+environment, or bind the production port while its service is running.
 
 ```bash
-cd /var/www/webgarden/sites/laic
+cd /path/to/development-checkout/sites/laic
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-gunicorn --bind 127.0.0.1:8004 app:app
+venv/bin/python -m gunicorn --bind 127.0.0.1:18004 app:app
 ```
 
-## Deployment Artifacts
+## Repository infrastructure artifacts
 
-- Systemd template: `deploy/systemd/webgarden-laic.service`
-- nginx config: `deploy/nginx/laic.conf`
+These files are installation/reference inputs, not proof of the effective live
+configuration and not a deployment procedure. Compare them with enabled nginx
+and effective systemd state using the central operations guide.
+
+- Systemd repository copy: `../../deploy/systemd/webgarden-laic.service`
+- nginx repository copy: `../../deploy/nginx/laic.conf`

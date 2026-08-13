@@ -1,5 +1,12 @@
 # Psyling Email System - Post-Implementation Checklist
 
+> **Historical checklist — do not follow it as a current production runbook.**
+> Its paths, service names, configuration steps, test actions, and rollback
+> claims may be stale. Never print protected values or submit production forms
+> while diagnosing. Use the current [Psyling README](README.md),
+> [deployment guide](../../docs/deployment.md), and
+> [operations runbook](../../docs/operations.md).
+
 **Status:** Code implementation complete, awaiting Mailgun DNS setup
 **Date:** 2026-02-04
 **Completed by:** Claude Code

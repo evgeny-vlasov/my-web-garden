@@ -1,5 +1,11 @@
 # Spam Management Features Audit
 
+> **Historical point-in-time audit, not a current runbook or statement of live
+> data.** Counts, code locations, feature status, and recommendations below may
+> be stale. Treat all submission data as private and do not run commands or
+> share output without checking the current [Psyling README](README.md) and
+> [Webgarden operations](../../docs/operations.md).
+
 ## Date: 2026-03-01
 
 ## Executive Summary
