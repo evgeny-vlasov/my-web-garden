@@ -20,11 +20,11 @@
     <div class="container narrow publication-body">
       {% for section in publication.body %}<section id="section-{{ loop.index }}"><h2>{{ section.heading }}</h2>{% for paragraph in section.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}</section>{% endfor %}
 
-      {% if publication.internal_links %}<section aria-labelledby="publication-links"><h2 id="publication-links">Continue with School of Code</h2><ul class="publication-link-list">{% for link in publication.internal_links %}<li><a href="{{ link.url }}">{{ link.label }} <span aria-hidden="true">-&gt;</span></a></li>{% endfor %}</ul></section>{% endif %}
+      {% if publication.internal_links %}<section aria-labelledby="publication-links"><h2 id="publication-links">Related pages</h2><ul class="publication-link-list">{% for link in publication.internal_links %}<li><a href="{{ link.url }}">{{ link.label }} <span aria-hidden="true">-&gt;</span></a></li>{% endfor %}</ul></section>{% endif %}
 
       {% if publication.call_to_action %}<p class="publication-cta"><a class="button" href="{{ publication.call_to_action.url }}">{{ publication.call_to_action.label }}</a></p>{% endif %}
     </div>
   </article>
 
-  {% if related_publications %}<section class="section section-blue"><div class="container"><p class="eyebrow">Related curriculum</p><h2>Follow the idea into another useful page.</h2><div class="related-grid">{% for related in related_publications %}{{ related_card(related.title, related.label, related.url) }}{% endfor %}</div></div></section>{% endif %}
+  {% if related_publications %}<section class="section section-blue"><div class="container"><p class="eyebrow">Related curriculum</p><h2>Continue with the same idea.</h2><div class="related-grid">{% for related in related_publications %}{{ related_card(related.title, related.label, related.url) }}{% endfor %}</div></div></section>{% endif %}
 {% endblock %}
