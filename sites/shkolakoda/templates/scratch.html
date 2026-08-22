@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import project_card, status_badge, topic_card, lesson_card with context %}
+{% from "_macros.html" import project_card, status_badge, topic_card, lesson_card, responsive_photo with context %}
 
 {% block title %}Scratch &amp; Game Design | School of Code Calgary{% endblock %}
 {% block meta_description %}Active Scratch and game design learning in Calgary through original games, animation, simulation, coordinates, loops, conditions, variables, and debugging.{% endblock %}
@@ -16,13 +16,15 @@
           <a class="button button-secondary" href="{{ url_for('project_index') }}#scratch-projects">See Scratch Projects</a>
         </div>
       </div>
+      <div class="page-hero-side">
+      {{ responsive_photo('scratch-banner', 'Three children working closely together on a colourful block-based coding project.', 1600, 900, class_name='campaign-photo') }}
       <aside class="status-panel">
         {{ status_badge('Active now', 'active') }}
         <h2>What students build</h2>
         <p>Games, animations, quizzes, simulations, and interactive stories with rules students can inspect and change.</p>
         <h2>Starting point</h2>
         <p>Beginners can start here. Students with experience can work with harder rules, edge cases, and larger systems.</p>
-      </aside>
+      </aside></div>
     </div>
   </section>
 

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
   <title id="title">School of Code vertical Story template</title>
   <desc id="desc">An editable paper-and-ink vertical Story with a compact institutional mark, large headline, graph-paper control loop, and protected edge spacing.</desc>
-  <metadata id="story-safe-area-constants" data-canvas-width="1080" data-canvas-height="1920" data-safe-left="64" data-safe-top="280" data-safe-right="1016" data-safe-bottom="1520" data-safe-width="952" data-safe-height="1240"/>
+  <metadata id="story-safe-area-constants" data-canvas-width="1080" data-canvas-height="1920" data-safe-left="65" data-safe-top="269" data-safe-right="1015" data-safe-bottom="1248" data-safe-width="950" data-safe-height="979" data-checked-date="2026-08-17"/>
   <defs>
     <pattern id="story-grid" width="36" height="36" patternUnits="userSpaceOnUse">
       <path d="M36 0H0V36" fill="none" stroke="#ebe9de" stroke-width="2"/>
@@ -16,12 +16,12 @@
   <path d="M720 0h360v760H720z" fill="url(#story-grid)"/>
   <path d="M0 1420h420v500H0z" fill="url(#story-dots)"/>
 
-  <g id="editor-guide" data-export="exclude" data-safe-left="64" data-safe-top="280" data-safe-right="1016" data-safe-bottom="1520" aria-hidden="true">
-    <rect id="story-safe-area-guide" x="64" y="280" width="952" height="1240" fill="none" stroke="#d8d6ca" stroke-width="2" stroke-dasharray="12 12"/>
-    <text x="76" y="262" fill="#5c5c57" font-family="'Courier New', monospace" font-size="17" font-weight="700" letter-spacing="2">EDITOR GUIDE / LIVE AREA: X 64–1016 / Y 280–1520 / REMOVE BEFORE EXPORT</text>
+  <g id="editor-guide" data-export="exclude" data-safe-left="65" data-safe-top="269" data-safe-right="1015" data-safe-bottom="1248" aria-hidden="true">
+    <rect id="story-safe-area-guide" x="65" y="269" width="950" height="979" fill="none" stroke="#d8d6ca" stroke-width="2" stroke-dasharray="12 12"/>
+    <text x="76" y="251" fill="#5c5c57" font-family="'Courier New', monospace" font-size="17" font-weight="700" letter-spacing="2">EDITOR GUIDE / LIVE AREA: 6% SIDES / 14% TOP / 35% BOTTOM / REMOVE BEFORE EXPORT</text>
   </g>
 
-  <g id="story-live-content">
+  <g id="story-live-content" transform="translate(0 33) scale(1 .8)">
   <g id="story-brand" transform="translate(74 296)">
     <g transform="rotate(-2 50 42)">
       <rect x="5" y="5" width="96" height="80" fill="#f4c542" stroke="#151515" stroke-width="5"/>

@@ -4712,6 +4712,67 @@ pre.scratchblocks {
   width: 22px;
 }
 
+.responsive-photo,
+.responsive-photo img {
+  height: auto;
+  width: 100%;
+}
+
+.responsive-photo img {
+  background: var(--soft-line);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow);
+  object-fit: cover;
+}
+
+.campaign-photo {
+  margin: 0;
+}
+
+.campaign-photo figcaption,
+.photo-note-strip figcaption,
+.photo-gallery-grid figcaption {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  margin-top: 0.65rem;
+}
+
+.campaign-photo-hero {
+  transform: rotate(0.4deg);
+}
+
+.page-hero-side {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.page-hero-side .status-panel {
+  box-shadow: 4px 4px 0 rgba(21, 21, 21, 0.1);
+}
+
+.photo-gallery-grid,
+.photo-note-strip {
+  display: grid;
+  gap: 1.4rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.photo-gallery-grid figure,
+.photo-note-strip figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.photo-gallery-grid .gallery-label {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+}
+
+.photo-note-strip figure:nth-child(2) {
+  transform: translateY(1.25rem);
+}
+
 @media (max-width: 1180px) {
   .desktop-nav {
     display: none;
@@ -4796,6 +4857,11 @@ pre.scratchblocks {
   .two-column,
   .contact-grid {
     grid-template-columns: 1fr;
+  }
+
+  .photo-gallery-grid,
+  .photo-note-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .curriculum-hero-grid {
@@ -4943,6 +5009,14 @@ pre.scratchblocks {
 }
 
 @media (max-width: 640px) {
+  .photo-gallery-grid,
+  .photo-note-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-note-strip figure:nth-child(2) {
+    transform: none;
+  }
   .project-contents {
     align-items: start;
     flex-direction: column;

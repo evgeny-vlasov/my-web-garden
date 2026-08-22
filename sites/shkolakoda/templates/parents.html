@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% from "_macros.html" import responsive_photo %}
 
 {% block title %}For Parents | School of Code Calgary{% endblock %}
 {% block meta_description %}Plain answers for Calgary parents about School of Code classes, projects, Scratch, introductory robotics, devices, small groups, privacy, and Computer Lab time.{% endblock %}
 
 {% block content %}
-  <section class="page-hero"><div class="container"><p class="eyebrow">For Parents</p><h1>What happens in class, and what your child is learning.</h1><p class="lead">These are the questions parents usually need answered before choosing a programming or robotics class.</p><a class="button" href="{{ url_for('contact') }}">Discuss Fit With Eugene</a></div></section>
+  <section class="page-hero"><div class="container page-hero-grid"><div><p class="eyebrow">For Parents</p><h1>What happens in class, and what your child is learning.</h1><p class="lead">These are the questions parents usually need answered before choosing a programming or robotics class.</p><a class="button" href="{{ url_for('contact') }}">Discuss Fit With Eugene</a></div>{{ responsive_photo('teacher-parents', 'Eugene demonstrates how an improvised electronic machine works.', 1600, 900, class_name='campaign-photo') }}</div></section>
 
   <section class="section section-blue" aria-labelledby="parent-questions"><div class="container"><h2 class="visually-hidden" id="parent-questions">Frequently asked questions</h2><div class="faq-grid">
     <details open><summary>Is this just more screen time?</summary><div class="faq-answer">The student is making something and has to account for what it does. Classes have a defined task, conversation, breaks, tests, and a clear ending.</div></details>

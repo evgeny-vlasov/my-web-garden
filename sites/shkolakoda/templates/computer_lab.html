@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% from "_macros.html" import related_card, project_card %}
+{% from "_macros.html" import related_card, project_card, responsive_photo %}
 
 {% block title %}Computer Lab | School of Code Calgary{% endblock %}
 {% block meta_description %}The School of Code Computer Lab gives students guided time to finish, change, repair, and extend projects from class.{% endblock %}
 
 {% block content %}
-  <section class="page-hero"><div class="container"><p class="eyebrow">School of Code / Computer Lab</p><h1>More room for a project to become the student's own.</h1><p class="lead">Classes teach ideas in a planned sequence. The Computer Lab is guided project time for finishing a difficult section, changing a rule, repairing a bug, or building a more ambitious version.</p><div class="button-row"><a class="button" href="{{ url_for('programs') }}">Start With Programs</a><a class="button button-secondary" href="#lab-examples">See Lab Examples</a></div></div></section>
+  <section class="page-hero"><div class="container page-hero-grid"><div><p class="eyebrow">School of Code / Computer Lab</p><h1>More room for a project to become the student's own.</h1><p class="lead">Classes teach ideas in a planned sequence. The Computer Lab is guided project time for finishing a difficult section, changing a rule, repairing a bug, or building a more ambitious version.</p><div class="button-row"><a class="button" href="{{ url_for('programs') }}">Start With Programs</a><a class="button button-secondary" href="#lab-examples">See Lab Examples</a></div></div>{{ responsive_photo('computer-lab-banner', 'Children comparing a block-based program together at a small computer station.', 1600, 1067, class_name='campaign-photo') }}</div></section>
 
   <section class="section section-yellow" aria-labelledby="structured-freedom"><div class="container"><div class="section-header"><div><p class="eyebrow">Two kinds of work</p><h2 id="structured-freedom">Class first. Lab when the project needs more room.</h2></div></div><div class="school-lab-grid"><article class="comparison-panel"><span class="panel-number">CLASSES = PLANNED LEARNING PATH</span><h3>Learn the idea</h3><p>A class has a topic, a clear example, a guided build, and checkpoints. Lessons connect so the same ideas return in larger systems.</p></article><article class="comparison-panel"><span class="panel-number">COMPUTER LAB = GUIDED PROJECT TIME</span><h3>Follow the problem</h3><p>The student chooses a useful next move and works with an instructor nearby: add a feature, investigate a failure, rebuild a weak section, or prepare a demonstration.</p></article></div></div></section>
 

@@ -1,11 +1,13 @@
 {% extends "base.html" %}
-{% from "_macros.html" import blog_card %}
+{% from "_macros.html" import blog_card, responsive_photo %}
 
 {% block title %}School of Code Blog | Parent Guides and Curriculum Notes{% endblock %}
 {% block meta_description %}Read practical School of Code guides about coding for kids, robotics, AI limits, project-based learning, small groups, and active computer use.{% endblock %}
 
 {% block content %}
   <section class="page-hero page-hero-library page-hero-blog" data-register="NOTE INDEX / READ"><div class="container"><p class="eyebrow">School of Code blog / {{ article_count }} guides</p><h1>Questions from parents. Notes from the curriculum.</h1><p class="lead">Articles about Scratch, robotics, AI, project work, screen time, debugging, and what children are actually doing in class.</p><nav class="category-nav" aria-label="Article categories">{% for category, posts in category_groups %}<a href="#{{ category | lower | replace(' ', '-') }}">{{ category }} <span>{{ posts | length }}</span></a>{% endfor %}</nav></div></section>
+
+  <section class="section section-tight" aria-label="Workshop photography"><div class="container photo-note-strip"><figure>{{ responsive_photo('historical-workbench-apparatus', 'A real relay, test-lead and container apparatus on a historical workbench.', 960, 720, 'card') }}<figcaption>Historical workshop photograph</figcaption></figure><figure>{{ responsive_photo('historical-coding-together', 'Children comparing a block-based program during a historical workshop.', 960, 720, 'card') }}<figcaption>Historical workshop photograph</figcaption></figure><figure>{{ responsive_photo('projects-workbench', 'Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.', 1600, 900) }}<figcaption>Reconstructed campaign image</figcaption></figure></div></section>
 
   {% for category, posts in category_groups %}
     <section class="section{% if loop.index is even %} section-blue{% endif %}" id="{{ category | lower | replace(' ', '-') }}" aria-labelledby="category-{{ loop.index }}">
