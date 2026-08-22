@@ -11,6 +11,10 @@
     <meta property="og:title" content="{% block og_title %}School of Code | Programming and Robotics in Calgary{% endblock %}">
     <meta property="og:description" content="Programming and robotics for children who want to build things. Based in Calgary, Alberta.">
     <meta property="og:url" content="{{ site_url }}{{ request.path }}">
+    <meta property="og:image" content="{{ site_url }}{{ url_for('static', filename='brand/photos/open-graph-branded-1200x630.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Four children testing a handmade robot together in a compact maker room.">
     <title>{% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}</title>
     <link rel="icon" href="{{ url_for('favicon_svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">

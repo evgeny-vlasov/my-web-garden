@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% from "_macros.html" import responsive_photo %}
 
 {% block title %}Our Teaching Method | School of Code Calgary{% endblock %}
 {% block meta_description %}The School of Code teaching method: children build with technology, theory supports projects, students act as authors, mistakes become data, and demonstrations make learning visible.{% endblock %}
 
 {% block content %}
-  <section class="page-hero"><div class="container narrow"><p class="eyebrow">Our Method</p><h1>Build something small enough to finish and rich enough to think about.</h1><p class="lead">Students learn an idea, put it into a working system, and find out whether their explanation survives contact with the computer.</p></div></section>
+  <section class="page-hero"><div class="container page-hero-grid"><div><p class="eyebrow">Our Method</p><h1>Build something small enough to finish and rich enough to think about.</h1><p class="lead">Students learn an idea, put it into a working system, and find out whether their explanation survives contact with the computer.</p></div>{{ responsive_photo('teacher-about', 'Eugene explains a relay-and-sensor apparatus at a workbench.', 1600, 1067, class_name='campaign-photo') }}</div></section>
 
   <section class="section"><div class="container"><div class="principle-grid">
     <article class="principle-card"><h2>Children should build with technology.</h2><p>Games, circuits, simulations, and robot logic turn the computer into material for construction.</p></article>

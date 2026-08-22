@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import project_card, status_badge %}
+{% from "_macros.html" import project_card, status_badge, responsive_photo %}
 
 {% block title %}Robotics for Kids | School of Code Calgary{% endblock %}
 {% block meta_description %}Active introductory robotics learning in Calgary through commands, simulations, simple electronics, sensors, micro:bit work, feedback, and small physical systems.{% endblock %}
@@ -13,13 +13,15 @@
         <p class="lead">Students begin with exact commands, simple circuits, sensor readings, simulations, and small physical systems. A robot follows the rule it has, including the bad one.</p>
         <div class="button-row"><a class="button" href="{{ url_for('contact') }}">Ask About Robotics</a><a class="button button-secondary" href="#robotics-projects">See Projects</a></div>
       </div>
+      <div class="page-hero-side">
+      {{ responsive_photo('robotics-banner', 'Four children adjusting wires, wheels and sensors on a handmade robot.', 1600, 1067, class_name='campaign-photo') }}
       <aside class="status-panel">
         {{ status_badge('Active now', 'active') }}
         <h2>What students build</h2>
         <p>Routes, circuits, alarms, timers, sensor rules, feedback loops, and small systems that can be tested piece by piece.</p>
         <h2>Hardware honesty</h2>
         <p>Each project page states whether hardware is required. Advanced autonomous platforms are planned for later work.</p>
-      </aside>
+      </aside></div>
     </div>
   </section>
 

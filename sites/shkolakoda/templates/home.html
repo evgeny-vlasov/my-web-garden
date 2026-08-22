@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import program_card, project_card, blog_card, lab_transition %}
+{% from "_macros.html" import program_card, project_card, blog_card, lab_transition, responsive_photo %}
 
 {% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}
 {% block meta_description %}School of Code is a Calgary programming and robotics school where children make games, circuits, simulations, and robot systems.{% endblock %}
@@ -24,20 +24,10 @@
         </div>
         <p class="hero-note">Scratch and Robotics are the active first programs.</p>
       </div>
-      <div class="build-board" role="img" aria-label="A playful code and circuit planning board">
-        <span class="board-label">PROJECT: PIGEON_ESCAPE</span>
-        <span class="board-coordinates">x: 148 / y: -32</span>
-        <span class="board-state" aria-hidden="true">STATE: TESTING</span>
-        <img class="board-mascot" src="{{ url_for('static', filename='brand/mascot/robot-avatar-96.png') }}" alt="" width="96" height="96">
-        <div class="code-stack" aria-hidden="true">
-          <div class="code-block">when project starts</div>
-          <div class="code-block">repeat until safe</div>
-          <div class="code-block">if pigeon_near: turn 30</div>
-          <div class="code-block">change score by 1</div>
-          <div class="code-block">test / debug / rebuild</div>
-        </div>
-        <span class="circuit-line" aria-hidden="true"></span>
-      </div>
+      <figure class="campaign-photo campaign-photo-hero">
+        {{ responsive_photo('home-hero', 'Four children testing a handmade robot together in a compact maker room.', 1600, 900, loading='eager', fetchpriority='high') }}
+        <figcaption>Campaign image built from authorized School of Code workshop references.</figcaption>
+      </figure>
     </div>
   </section>
 

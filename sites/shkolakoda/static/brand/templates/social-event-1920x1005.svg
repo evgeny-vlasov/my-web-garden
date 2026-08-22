@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1005" role="img" aria-labelledby="title desc">
+  <title id="title">School of Code event announcement template</title>
+  <desc id="desc">An editable event cover with a photo region, canonical wordmark, event details, and central crop-safe content.</desc>
+  <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#d8d6ca" stroke-width="2"/></pattern><clipPath id="photo"><rect x="0" y="0" width="1010" height="1005"/></clipPath></defs>
+  <rect width="1920" height="1005" fill="#fffef8"/>
+  <rect x="1010" width="910" height="1005" fill="url(#grid)"/>
+  <g id="edit-photo" data-edit="replace-with-photo" clip-path="url(#photo)"><rect width="1010" height="1005" fill="#e9effb"/><path d="M0 0 1010 1005M1010 0 0 1005" stroke="#2257b5" stroke-opacity=".25" stroke-width="10"/></g>
+  <image id="canonical-logo" href="../logos/wordmark-horizontal.svg" x="1090" y="76" width="648" height="135"/>
+  <g id="event-edit-eyebrow" data-edit="eyebrow"><text x="1090" y="330" fill="#147d64" font-family="'Courier New', monospace" font-size="28" font-weight="800" letter-spacing="3">EVENT / REGISTRATION NOTE</text></g>
+  <text id="event-edit-headline" data-edit="headline" x="1090" y="460" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="700"><tspan x="1090">Editable event</tspan><tspan x="1090" dy="86">headline</tspan></text>
+  <g id="event-edit-details" data-edit="details" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="31" fill="#151515"><text x="1090" y="690">DATE / TIME / FORMAT</text><text x="1090" y="744">Replace with confirmed details.</text></g>
+  <text id="event-edit-url" data-edit="url" x="1740" y="914" text-anchor="end" fill="#2257b5" font-family="'Courier New', monospace" font-size="27" font-weight="800">SHKOLAKODA.COM</text>
+</svg>

@@ -271,7 +271,8 @@ class PublicSiteTest(unittest.TestCase):
         topics = self.client.get("/topics").get_data(as_text=True)
         blog = self.client.get("/blog").get_data(as_text=True)
 
-        self.assertEqual(home.count("robot-avatar-96.png"), 2)
+        self.assertEqual(home.count("robot-avatar-96.png"), 1)
+        self.assertIn("home-hero-1600.jpg", home)
         self.assertIn("hero-status-line", home)
         self.assertIn("lab-transition-mascot", home)
         for program in ("scratch", "robotics", "roblox", "ai"):

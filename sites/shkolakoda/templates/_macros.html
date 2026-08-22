@@ -176,3 +176,11 @@
     <p>{{ text }}</p>
   </aside>
 {%- endmacro %}
+{% macro responsive_photo(name, alt, width, height, kind='hero', class_name='', loading='lazy', fetchpriority='auto') -%}
+  {% if kind == 'card' %}{% set widths = [400, 640, 960] %}{% else %}{% set widths = [480, 768, 1200, 1600] %}{% endif %}
+  <picture class="responsive-photo {{ class_name }}">
+    <source type="image/avif" srcset="{% for item_width in widths %}{{ url_for('static', filename='brand/photos/' ~ name ~ '-' ~ item_width ~ '.avif') }} {{ item_width }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="{% if kind == 'card' %}(max-width: 700px) 100vw, 33vw{% else %}(max-width: 760px) 100vw, 52vw{% endif %}">
+    <source type="image/webp" srcset="{% for item_width in widths %}{{ url_for('static', filename='brand/photos/' ~ name ~ '-' ~ item_width ~ '.webp') }} {{ item_width }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="{% if kind == 'card' %}(max-width: 700px) 100vw, 33vw{% else %}(max-width: 760px) 100vw, 52vw{% endif %}">
+    <img src="{{ url_for('static', filename='brand/photos/' ~ name ~ '-' ~ widths[-1] ~ '.jpg') }}" srcset="{% for item_width in widths %}{{ url_for('static', filename='brand/photos/' ~ name ~ '-' ~ item_width ~ '.jpg') }} {{ item_width }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="{% if kind == 'card' %}(max-width: 700px) 100vw, 33vw{% else %}(max-width: 760px) 100vw, 52vw{% endif %}" alt="{{ alt }}" width="{{ width }}" height="{{ height }}" loading="{{ loading }}" fetchpriority="{{ fetchpriority }}" decoding="async">
+  </picture>
+{%- endmacro %}

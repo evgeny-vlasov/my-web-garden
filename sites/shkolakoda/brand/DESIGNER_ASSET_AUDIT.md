@@ -8,6 +8,12 @@
 This audit records technical facts without reproducing the unused source
 exports or their embedded creator/account identifiers.
 
+## Photo and social production update — 2026-08-17
+
+The canonical identity assets audited below are now used in a complete photo-production package. Four tracked campaign masters, six historical workshop masters, responsive AVIF/WebP/JPEG exports, exact-dimension social deliverables, eight editable SVG templates and preview PNGs are registered by `brand/photo-asset-manifest.json` and documented in `brand/social/README.md`.
+
+All photographic exports are metadata-clean and sRGB. Branded covers, profile and Story delivery files are rendered from the canonical SVG masters; no AI-redrawn logo is used. The private 81-photo intake, review contact sheets and uploaded archive remain uncommitted.
+
 ## Source inventory
 
 | Source | Dimensions / mode | Metadata | Decision |

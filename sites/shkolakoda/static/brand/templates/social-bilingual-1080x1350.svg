@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">School of Code bilingual English and Russian post template</title>
+  <desc id="desc">An editable bilingual post with separate English and Russian text groups and the canonical wordmark.</desc>
+  <defs><pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#d8d6ca" stroke-width="2"/></pattern></defs>
+  <rect width="1080" height="1350" fill="#fffef8"/>
+  <rect x="700" width="380" height="1350" fill="#e2f4ed"/>
+  <rect x="700" width="380" height="1350" fill="url(#grid)"/>
+  <image id="canonical-logo" href="../logos/wordmark-horizontal.svg" x="64" y="58" width="620" height="129"/>
+  <g id="bilingual-edit-label" data-edit="eyebrow"><text x="68" y="286" fill="#147d64" font-family="'Courier New', monospace" font-size="22" font-weight="800" letter-spacing="2.5">BILINGUAL NOTE / EN + RU</text></g>
+  <g id="bilingual-edit-english" data-edit="english-copy"><text x="68" y="410" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700"><tspan x="68">English</tspan><tspan x="68" dy="79">headline</tspan></text><text x="68" y="620" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="27"><tspan x="68">Editable supporting copy.</tspan><tspan x="68" dy="38">Keep the meaning concrete.</tspan></text></g>
+  <path d="M68 750H640" stroke="#151515" stroke-width="4"/>
+  <g id="bilingual-edit-russian" data-edit="russian-copy"><text x="68" y="875" fill="#151515" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="700"><tspan x="68">Русский</tspan><tspan x="68" dy="77">заголовок</tspan></text><text x="68" y="1072" fill="#5c5c57" font-family="Aptos, 'Segoe UI', Arial, sans-serif" font-size="27"><tspan x="68">Редактируемый текст.</tspan><tspan x="68" dy="38">Сохраните точный смысл.</tspan></text></g>
+  <text id="bilingual-edit-url" data-edit="url" x="1008" y="1290" text-anchor="end" fill="#2257b5" font-family="'Courier New', monospace" font-size="22" font-weight="800">SHKOLAKODA.COM</text>
+</svg>

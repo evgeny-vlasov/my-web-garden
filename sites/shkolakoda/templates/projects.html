@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% from "_macros.html" import project_card %}
+{% from "_macros.html" import project_card, responsive_photo %}
 
 {% block title %}Project Library | School of Code Calgary{% endblock %}
 {% block meta_description %}Browse 18 School of Code project pages across Scratch game design, robotics, simple electronics, future Roblox Studio, and practical AI previews.{% endblock %}
 
 {% block content %}
-  <section class="page-hero page-hero-library page-hero-projects" data-register="PROJECT INDEX / FILTER"><div class="container"><p class="eyebrow">Project library / {{ project_list | length }} projects</p><h1>Games, circuits, robots, and several questionable situations.</h1><p class="lead">Open a project for its mission, required systems, build order, tests, common mistakes, and extension ideas. Roblox and AI entries are marked as later previews.</p><nav class="filter-links" aria-label="Project groups"><a href="#scratch-projects">Scratch</a><a href="#robotics-projects">Robotics and Electronics</a><a href="#guided-projects">Guided Class Projects</a><a href="#lab-projects">Computer Lab Projects</a><a href="#available-later">Available Later</a></nav></div></section>
+  <section class="page-hero page-hero-library page-hero-projects" data-register="PROJECT INDEX / FILTER"><div class="container page-hero-grid"><div><p class="eyebrow">Project library / {{ project_list | length }} projects</p><h1>Games, circuits, robots, and several questionable situations.</h1><p class="lead">Open a project for its mission, required systems, build order, tests, common mistakes, and extension ideas. Roblox and AI entries are marked as later previews.</p><nav class="filter-links" aria-label="Project groups"><a href="#scratch-projects">Scratch</a><a href="#robotics-projects">Robotics and Electronics</a><a href="#guided-projects">Guided Class Projects</a><a href="#lab-projects">Computer Lab Projects</a><a href="#available-later">Available Later</a></nav></div>{{ responsive_photo('projects-workbench', 'Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.', 1600, 900, class_name='campaign-photo') }}</div></section>
 
   <section class="section" id="scratch-projects" aria-labelledby="scratch-project-heading"><div class="container"><div class="section-header"><div><p class="eyebrow">Scratch / {{ scratch_projects | length }} projects</p><h2 id="scratch-project-heading">Games with visible rules underneath.</h2></div><a class="text-link" href="{{ url_for('scratch') }}">Scratch program <span aria-hidden="true">-&gt;</span></a></div><div class="project-grid">{% for project in scratch_projects %}{{ project_card(project) }}{% endfor %}</div></div></section>
 

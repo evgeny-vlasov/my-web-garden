@@ -50,6 +50,8 @@ EXPECTED_SVGS = {
     TEMPLATE_ROOT / "social-card-1200x630.svg": (0, 0, 1200, 630),
     TEMPLATE_ROOT / "project-illustration-frame.svg": (0, 0, 1200, 900),
     TEMPLATE_ROOT / "photo-plus-caption.svg": (0, 0, 1200, 1500),
+    TEMPLATE_ROOT / "social-event-1920x1005.svg": (0, 0, 1920, 1005),
+    TEMPLATE_ROOT / "social-bilingual-1080x1350.svg": (0, 0, 1080, 1350),
 }
 
 EXPECTED_MASCOT_RASTERS = {
@@ -208,15 +210,16 @@ class BrandAssetTests(unittest.TestCase):
         guide = root.find(f"{SVG_NS}g[@id='editor-guide']")
         live_content = root.find(f"{SVG_NS}g[@id='story-live-content']")
         expected_bounds = {
-            "data-safe-left": "64",
-            "data-safe-top": "280",
-            "data-safe-right": "1016",
-            "data-safe-bottom": "1520",
+            "data-safe-left": "65",
+            "data-safe-top": "269",
+            "data-safe-right": "1015",
+            "data-safe-bottom": "1248",
         }
         self.assertIsNotNone(constants)
         self.assertIsNotNone(guide)
         self.assertIsNotNone(live_content)
         self.assertEqual(guide.attrib["data-export"], "exclude")
+        self.assertEqual(live_content.attrib["transform"], "translate(0 33) scale(1 .8)")
         for name, value in expected_bounds.items():
             with self.subTest(constant=name):
                 self.assertEqual(constants.attrib[name], value)
@@ -270,14 +273,15 @@ class BrandAssetTests(unittest.TestCase):
         url_y = float(url.attrib["y"])
 
         self.assertGreaterEqual(min(brand_x, eyebrow_x, headline_x, board_x, callout_x), safe_left)
-        self.assertGreaterEqual(min(brand_y, eyebrow_y, headline_y - 116, board_y, callout_y), safe_top)
+        transform_y = lambda value: 33 + value * 0.8
+        self.assertGreaterEqual(transform_y(min(brand_y, eyebrow_y, headline_y - 116, board_y, callout_y)), safe_top)
         self.assertLessEqual(board_x + 936, safe_right)
         self.assertLessEqual(callout_x + 752, safe_right)
         self.assertLessEqual(url_x, safe_right)
-        self.assertLessEqual(board_y + 480, safe_bottom)
-        self.assertLessEqual(callout_y + 126, safe_bottom)
-        self.assertLessEqual(headline_y + 240 + 29, safe_bottom)
-        self.assertLessEqual(url_y + 6, safe_bottom)
+        self.assertLessEqual(transform_y(board_y + 480), safe_bottom)
+        self.assertLessEqual(transform_y(callout_y + 126), safe_bottom)
+        self.assertLessEqual(transform_y(headline_y + 240 + 29), safe_bottom)
+        self.assertLessEqual(transform_y(url_y + 6), safe_bottom)
 
     def test_story_production_export_strips_editor_only_material(self):
         source_path = TEMPLATE_ROOT / "social-story-1080x1920.svg"
@@ -463,11 +467,14 @@ class BrandAssetTests(unittest.TestCase):
                 self.assertEqual(has_alpha, expected_alpha)
 
     def test_no_raw_archives_or_student_photos_enter_brand_assets(self):
-        forbidden_suffixes = {".zip", ".jpg", ".jpeg"}
+        forbidden_suffixes = {".zip", ".tar", ".gz"}
         committed_brand_files = [path for path in BRAND_ROOT.rglob("*") if path.is_file()]
         self.assertFalse(
             [path for path in committed_brand_files if path.suffix.lower() in forbidden_suffixes]
         )
+        self.assertFalse((BRAND_ROOT / "photos" / "source").exists())
+        self.assertFalse((SITE_ROOT / ".photo-intake").exists())
+        self.assertFalse((SITE_ROOT / ".photo-review").exists())
 
     def test_private_reference_photo_copy_uses_confirmed_date_and_privacy_rules(self):
         manifest = (SITE_ROOT / "brand" / "PHOTO_MANIFEST.md").read_text(
@@ -478,13 +485,12 @@ class BrandAssetTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        self.assertIn("19 November 2021", manifest)
-        self.assertIn("ground-truth capture date", manifest)
-        self.assertIn("private visual references", manifest)
-        self.assertIn("separate documentary", manifest)
-        self.assertIn("other student identities", manifest)
-        self.assertIn("19 November 2021", guide)
-        self.assertIn("separate documentary collection", guide)
+        self.assertIn("81 source photographs", manifest)
+        self.assertIn("historical workshop photograph", manifest)
+        self.assertIn("current Calgary cohort", manifest)
+        self.assertIn("paid advertising", manifest)
+        self.assertIn("reconstructed campaign", guide)
+        self.assertIn("current Calgary cohort", guide)
         self.assertIn("PROVENANCE: KEEP PRIVATE", template)
         self.assertIn("student identities out of public copy", template)
 

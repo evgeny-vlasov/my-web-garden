@@ -38,11 +38,29 @@ language:
 - canonical logo masters: `static/brand/logos/`;
 - mascot derivatives: `static/brand/mascot/`;
 - reusable composition templates: `static/brand/templates/`;
+- approved campaign and documentary masters: `brand/photo-masters/`;
+- responsive web photographs: `static/brand/photos/`;
+- upload-ready social exports and guidance: `brand/social/`;
+- machine-readable photo inventory: `brand/photo-asset-manifest.json`;
+- exact campaign prompts: `brand/CAMPAIGN_PROMPTS.md`;
 - designer-source technical audit: `brand/DESIGNER_ASSET_AUDIT.md`;
 - private-safe archive review: `brand/PHOTO_MANIFEST.md`.
 
 The values below mirror the existing CSS variables. If the website tokens
 change later, update this document and the standalone SVG masters together.
+
+## Photographic production standard
+
+The owner confirms that all 81 source photographs in the private intake are authorized for editing and dramatic reconstruction, identifiable adult and child use, website and social publication, paid advertising, compositing, and reference-based generation. Private release evidence, names, GPS data, raw metadata, the uploaded archive and review contact sheets remain outside Git.
+
+Published imagery has two explicit classes:
+
+- **reconstructed campaign image:** a deliberately composed scene grounded in authorized real School of Code people, machines and activity references. It may reconstruct a room or background, but must not invent a large permanent facility, equipment, class or claim that does not exist. It must not be captioned as a literal current class photograph.
+- **Historical workshop photograph:** a truthful derivative of one source event. Exposure, colour, crop, screen simplification, cleanup and brand removal are permitted; people and activity are not replaced or invented. It must not be described as a current Calgary cohort or current facility.
+
+The approved campaign family is `campaign-robotics-hero-v1.png`, `campaign-scratch-lab-v1.png`, `campaign-eugene-builder-v1.png`, and `campaign-project-workbench-v1.png`. Website pages reference only tracked derivatives under `static/brand/photos/`, never `.photo-review` or private intake files.
+
+Every public raster must be sRGB and verified without EXIF, GPS, XMP, comments or embedded thumbnails. Keep photographic masters text-free. Add only canonical repository logos in deterministic delivery compositions; never regenerate or approximate a logo.
 
 ## Institutional logo system
 
@@ -74,10 +92,11 @@ The reduced horizontal variant is a responsive lockup, not a shortened public
 name. Use it only where the surrounding page, account name, or adjacent copy
 identifies School of Code Computer Lab in full.
 
-The Facebook cover uses a high-resolution 1702 × 630 composition based on
-Meta’s 851 × 315 export guidance. Facebook may crop or resize covers and may
-partially cover the left side with the profile image, so all important text is
-kept in the central safe area. Recheck the
+The current photographic Facebook Page cover is exported at 1920 × 800. The
+older `logos/facebook-cover.svg` remains a code-native identity fallback, not
+the photographic production master. Facebook may crop or resize covers and
+may partially cover the left side with the profile image, so all important
+content is kept in the central desktop/mobile intersection. Recheck the
 [current Page cover guidance](https://www.facebook.com/help/125379114252045/)
 before publishing.
 
@@ -238,8 +257,9 @@ The reusable SVG templates contain editable groups marked with `data-edit`.
 Replace copy deliberately, maintain the safe areas, and export an sRGB PNG or
 WebP after validation. They are masters, not screenshots of finished posts.
 The template family covers 1080 × 1080 and 1080 × 1350 feed posts, a
-1080 × 1920 Story, a 1200 × 630 card, a project illustration frame, and the
-private-safe photograph-plus-caption treatment.
+1080 × 1920 Story/Reel, a 1200 × 630 card, a 1920 × 1005 event, a bilingual
+English/Russian layout, a project illustration frame, and the private-safe
+photograph-plus-caption treatment.
 
 ### Story safe area and export
 
@@ -247,18 +267,22 @@ The Story master uses these named coordinates on its 1080 × 1920 canvas:
 
 | Constant | Coordinate |
 | --- | ---: |
-| `SAFE_LEFT` | 64 px |
-| `SAFE_TOP` | 280 px |
-| `SAFE_RIGHT` | 1016 px |
-| `SAFE_BOTTOM` | 1520 px |
+| `SAFE_LEFT` | 65 px |
+| `SAFE_TOP` | 269 px |
+| `SAFE_RIGHT` | 1015 px |
+| `SAFE_BOTTOM` | 1248 px |
 
-The live-content rectangle is therefore 952 × 1240 px. It reserves 280 px at
-the top and 400 px at the bottom for platform controls and CTA overlays. Keep
+The live-content rectangle is therefore 950 × 979 px. It reserves approximately
+6% at both sides, 14% at the top and 35% at the bottom for platform controls,
+captions and CTA overlays. Keep
 the wordmark, headings, labels, CTA copy, and URL entirely within this
 rectangle. Background colour, grids, dots, and other non-essential decoration
-may extend to the full canvas. These bounds deliberately exceed the roughly
-14% top / 20% bottom text-and-logo exclusions in
-[Meta's Story guidance](https://www.facebook.com/help/instagram/192168966243613).
+may extend to the full canvas. Meta recommends 9:16 Reels and safe placement of
+key creative; its Story CTA guidance describes roughly 14% top / 20% bottom
+exclusions. The 35% bottom reserve is the project's deliberately conservative
+production rule. Guidance checked 2026-08-17:
+[Reels ads](https://www.facebook.com/business/ads/facebook-instagram-reels-ads)
+and [Story CTA placement](https://www.facebook.com/help/instagram/192168966243613).
 
 The editable master keeps its dashed rectangle and instruction inside
 `id="editor-guide"`, marked `data-export="exclude"`. Never rasterize the
@@ -355,11 +379,10 @@ confirm in writing that permission covers:
 Release documents, private correspondence, names, and crosswalks do not belong
 in Git. Record only a non-identifying status in the manifest.
 
-For the inspected archive, the owner confirms parental permission for
-publication, advertising, modification, and derivative work; the evidence is
-retained privately. Photographer, venue, withdrawal, expiry, and other
-third-party-rights questions are separate and remain open until independently
-confirmed.
+For the current 81-photo production archive, the owner confirms full permission
+for publication, advertising, modification, identifiable adult and child use,
+compositing, and reference-based generation. The evidence is retained
+privately. Public files record only this non-identifying rights status.
 
 ### Private-reference archive facts
 
