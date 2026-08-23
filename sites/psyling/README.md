@@ -563,8 +563,24 @@ data-primary-color="#7c3aed"
 - Filter by status
 - Mark as read/responded
 - Add internal notes
-- Quick reply via email link
+- Compose and send email replies from an inquiry detail page
+- Review the chronological status and content of replies sent from Psyling
+- Use the visitor's stored email address; the reply form cannot redirect mail to
+  an address supplied by the browser
+- Keep the local email-app link as a fallback
 - Export to CSV (future feature)
+
+Incoming contact messages remain stored with their original inquiry. When
+Valery sends a reply from its detail page, Psyling sends it through the existing
+Mailgun configuration and saves the outgoing subject, body, recipient, admin,
+timestamp, and SMTP-acceptance status. The inquiry is marked contacted only
+after SMTP accepts the message.
+
+The email uses the configured admin address as `Reply-To`, so a later client
+reply arrives in `psyling@gmail.com`. Replies written directly in Gmail or
+another email application are not automatically imported into Psyling's CRM.
+Spam-marked and archived inquiries must be restored to an active, non-spam
+state before Psyling will send from them.
 
 ### User Interface
 - Clean, modern design

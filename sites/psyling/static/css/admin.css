@@ -256,6 +256,21 @@ body {
     overflow-wrap: anywhere;
 }
 
+.email-reply-history-item:last-child {
+    border-bottom: 0;
+}
+
+.email-reply-body {
+    padding: 0.85rem;
+    border-left: 3px solid var(--admin-primary);
+    border-radius: 0.25rem;
+    background: #f8f9fa;
+}
+
+#email-reply .btn {
+    min-height: 44px;
+}
+
 .contact-primary-link {
     display: flex;
     min-height: 44px;

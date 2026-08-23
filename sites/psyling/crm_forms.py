@@ -1,8 +1,11 @@
 """CSRF-protected forms for the small admin contact CRM."""
 
 from flask_wtf import FlaskForm
-from wtforms import DateTimeLocalField, EmailField, SelectField, StringField, TextAreaField
-from wtforms.validators import DataRequired, Length, Optional, ValidationError
+from wtforms import (
+    DateTimeLocalField, EmailField, HiddenField, SelectField, StringField,
+    TextAreaField,
+)
+from wtforms.validators import DataRequired, Length, Optional, Regexp, ValidationError
 
 
 CONTACT_STATUSES = ("new", "contacted", "booked", "closed", "spam")
@@ -33,6 +36,24 @@ class ContactCRMForm(FlaskForm):
 
 class ContactActionForm(FlaskForm):
     """CSRF-only form used for read, spam, archive, and contact actions."""
+
+
+class ContactReplyForm(FlaskForm):
+    subject = StringField(
+        "Subject",
+        validators=[DataRequired(), Length(max=200)],
+    )
+    body = TextAreaField(
+        "Message",
+        validators=[DataRequired(), Length(max=10000)],
+    )
+    idempotency_key = HiddenField(
+        validators=[
+            DataRequired(),
+            Length(min=32, max=64),
+            Regexp(r'^[A-Za-z0-9_-]+$'),
+        ]
+    )
 
 
 class ActivityForm(FlaskForm):
