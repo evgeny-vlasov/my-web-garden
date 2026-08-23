@@ -10,7 +10,7 @@
     <div class="container">
       {{ breadcrumbs([('Home', '/'), ('Topics', '/topics')], topic.title) }}
       <div class="curriculum-hero-grid">
-        <div><p class="eyebrow">Curriculum topic</p><h1>{{ topic.title }}</h1><p class="lead">{{ topic.intro }}</p></div>
+        <div><p class="eyebrow">Topic Guide</p><h1>{{ topic.title }}</h1><p class="lead">{{ topic.intro }}</p></div>
         <aside class="status-panel">{{ status_badge(topic.status, topic.status_class) }}<h2>Central question</h2><p>{{ topic.central_question }}</p></aside>
       </div>
     </div>
@@ -30,7 +30,7 @@
 
   <section class="section section-ink" aria-labelledby="topic-mistakes"><div class="container"><div class="section-header"><div><h2 id="topic-mistakes">Common mistakes</h2></div></div><div class="mistake-grid">{% for item in topic.common_mistakes %}<article><span aria-hidden="true">!</span>{% if item is string %}<p>{{ item }}</p>{% else %}<h3>{{ item[0] }}</h3><p>{{ item[1] }}</p>{% endif %}</article>{% endfor %}</div></div></section>
 
-  <section class="section" aria-labelledby="topic-projects"><div class="container"><div class="section-header"><div><h2 id="topic-projects">Lesson and projects</h2></div>{% if lesson %}<a class="button" href="{{ lesson.url }}">Open Lesson</a>{% endif %}</div><div class="project-grid">{% for project in related_projects %}{{ project_card(project, true) }}{% endfor %}</div></div></section>
+  <section class="section" aria-labelledby="topic-projects"><div class="container"><div class="section-header"><div><h2 id="topic-projects">Put the idea to work</h2></div>{% if lesson %}<a class="button" href="{{ lesson.url }}">Read the Lesson</a>{% endif %}</div><div class="project-grid">{% for project in related_projects %}{{ project_card(project, true) }}{% endfor %}</div></div></section>
 
   <section class="section section-yellow"><div class="container">{{ parent_panel('What a parent can observe', topic.parent_note) }}</div></section>
 

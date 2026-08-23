@@ -2,7 +2,7 @@
 {% from "_macros.html" import project_card, status_badge, responsive_photo %}
 
 {% block title %}Robotics for Kids | School of Code Calgary{% endblock %}
-{% block meta_description %}Active introductory robotics learning in Calgary through commands, simulations, simple electronics, sensors, micro:bit work, feedback, and small physical systems.{% endblock %}
+{% block meta_description %}Active small-group robotics classes in Calgary using exact commands, simple circuits, sensors, micro:bit work, feedback, and physical cause and effect.{% endblock %}
 
 {% block content %}
   <section class="page-hero">
@@ -10,7 +10,7 @@
       <div>
         <p class="eyebrow">Program / Robotics</p>
         <h1>Teach a machine to sense, decide, and act.</h1>
-        <p class="lead">Students begin with exact commands, simple circuits, sensor readings, simulations, and small physical systems. A robot follows the rule it has, including the bad one.</p>
+        <p class="lead">Students write exact commands, wire simple circuits, read sensors, and test small physical systems. A robot follows the rule it has, including the bad one.</p>
         <div class="button-row"><a class="button" href="{{ url_for('contact') }}">Ask About Robotics</a><a class="button button-secondary" href="#robotics-projects">See Projects</a></div>
       </div>
       <div class="page-hero-side">
@@ -19,8 +19,8 @@
         {{ status_badge('Active now', 'active') }}
         <h2>What students build</h2>
         <p>Routes, circuits, alarms, timers, sensor rules, feedback loops, and small systems that can be tested piece by piece.</p>
-        <h2>Hardware honesty</h2>
-        <p>Each project page states whether hardware is required. Advanced autonomous platforms are planned for later work.</p>
+        <h2>Tools depend on the project</h2>
+        <p>Some projects use paper or simulation; others require circuits or a micro:bit. Each project page says what is needed.</p>
       </aside></div>
     </div>
   </section>
@@ -39,20 +39,20 @@
 
   <section class="section section-blue" aria-labelledby="robot-topic-path">
     <div class="container">
-      <div class="section-header"><div><p class="eyebrow">Topic path</p><h2 id="robot-topic-path">From exact commands to limited autonomy.</h2></div><p class="section-intro">Linked entries have public guides. Unlinked entries mark later parts of the sequence.</p></div>
+      <div class="section-header"><div><p class="eyebrow">Topic path</p><h2 id="robot-topic-path">From exact commands to limited autonomy.</h2></div><p class="section-intro">Start with the available guides and lessons. The remaining topics show how the program can grow.</p></div>
       <ol class="curriculum-route">
         <li><span><strong>What Is a Robot?</strong><small>Program foundation</small></span></li>
-        <li><a href="/topics/events-and-commands"><strong>Commands and Sequences</strong><span>Topic connection</span></a></li>
-        <li><a href="/topics/coordinates"><strong>Movement and Direction</strong><span>Topic connection</span></a></li>
-        <li><a href="/topics/input-and-output"><strong>Input and Output</strong><span>Public topic</span></a></li>
-        <li><a href="/topics/sensors"><strong>Sensors as Questions</strong><span>Public topic and lesson</span></a></li>
-        <li><a href="/topics/conditions-and-decisions"><strong>Conditions and Decisions</strong><span>Cross-program topic</span></a></li>
-        <li><a href="/topics/loops-and-repetition"><strong>Loops and Patrol Behaviour</strong><span>Cross-program topic</span></a></li>
-        <li><a href="/topics/variables-and-state"><strong>State and Memory</strong><span>Cross-program topic</span></a></li>
-        <li><span><strong>Motors and Outputs</strong><small>Curriculum direction</small></span></li>
-        <li><a href="/topics/feedback"><strong>Feedback and Correction</strong><span>Public topic and lesson</span></a></li>
-        <li><a href="/topics/autonomy"><strong>Autonomy</strong><span>Public topic / bounded claims</span></a></li>
-        <li><span><strong>Robot Project Design</strong><small>Curriculum direction</small></span></li>
+        <li><a href="/topics/events-and-commands"><strong>Commands and Sequences</strong><span>Topic Guide</span></a></li>
+        <li><a href="/topics/coordinates"><strong>Movement and Direction</strong><span>Topic Guide</span></a></li>
+        <li><a href="/topics/input-and-output"><strong>Input and Output</strong><span>Guide</span></a></li>
+        <li><a href="/topics/sensors"><strong>Sensors as Questions</strong><span>Guide and lesson</span></a></li>
+        <li><a href="/topics/conditions-and-decisions"><strong>Conditions and Decisions</strong><span>Topic Guide</span></a></li>
+        <li><a href="/topics/loops-and-repetition"><strong>Loops and Patrol Behaviour</strong><span>Topic Guide</span></a></li>
+        <li><a href="/topics/variables-and-state"><strong>State and Memory</strong><span>Topic Guide</span></a></li>
+        <li><span><strong>Motors and Outputs</strong><small>Coming later</small></span></li>
+        <li><a href="/topics/feedback"><strong>Feedback and Correction</strong><span>Guide and lesson</span></a></li>
+        <li><a href="/topics/autonomy"><strong>Autonomy</strong><span>Guide and practical limits</span></a></li>
+        <li><span><strong>Robot Project Design</strong><small>Coming later</small></span></li>
       </ol>
     </div>
   </section>
@@ -69,18 +69,18 @@
 
   <section class="section section-ink" id="robotics-projects" aria-labelledby="robotics-project-title">
     <div class="container">
-      <div class="section-header"><div><p class="eyebrow">Six public projects</p><h2 id="robotics-project-title">Commands, circuits, sensors, and feedback.</h2></div><a class="button button-light" href="{{ url_for('project_index') }}#robotics-projects">Full Project Library</a></div>
+      <div class="section-header"><div><p class="eyebrow">Six Robotics projects</p><h2 id="robotics-project-title">Commands, circuits, sensors, and feedback.</h2></div><a class="button button-light" href="{{ url_for('project_index') }}#robotics-projects">Full Project Library</a></div>
       <div class="project-grid">{% for project in page_projects %}{{ project_card(project) }}{% endfor %}</div>
     </div>
   </section>
 
   <section class="section section-yellow">
     <div class="container two-column">
-      <div><p class="eyebrow">Computer Lab connection</p><h2>One control rule, several machines.</h2></div>
-      <div><p class="lead">A class may establish commands, threshold decisions, or feedback. In Lab time, that idea can become a maze route, an alarm, a traffic light, a reaction timer, or a patrol challenge with multiple valid solutions.</p><a class="text-link" href="{{ url_for('computer_lab') }}">Explore structured Lab work <span aria-hidden="true">-&gt;</span></a></div>
+      <div><p class="eyebrow">Computer Lab connection</p><h2>One control idea, several possible machines.</h2></div>
+      <div><p class="lead">A class may establish commands, threshold decisions, or feedback. In Computer Lab time, that idea can become a maze route, an alarm, a traffic light, a reaction timer, or a patrol challenge with multiple valid solutions.</p><a class="text-link" href="{{ url_for('computer_lab') }}">Explore structured lab work <span aria-hidden="true">-&gt;</span></a></div>
     </div>
   </section>
 
   <section class="section"><div class="container parent-callout"><blockquote>A sensor measures. The program decides.</blockquote><div><p>Parents can look for a concrete explanation: what entered the system, what rule used that information, what output followed, and what changed after a failed test.</p><a class="text-link" href="{{ url_for('parents') }}">Read the parent guide <span aria-hidden="true">-&gt;</span></a></div></div></section>
-  <section class="cta-band"><div class="container cta-grid"><div><h2>Ask about introductory robotics.</h2><p>Contact Eugene for the current format, device needs, and hardware arrangements.</p></div><a class="button button-light" href="{{ url_for('contact') }}">Contact Eugene</a></div></section>
+  <section class="cta-band"><div class="container cta-grid"><div><h2>Ask about introductory robotics.</h2><p>Contact Eugene for current scheduling and a suitable starting point.</p></div><a class="button button-light" href="{{ url_for('contact') }}">Contact Eugene</a></div></section>
 {% endblock %}

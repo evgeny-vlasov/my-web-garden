@@ -32,7 +32,7 @@
       <div><dt>Core ideas</dt><dd>{{ program.concepts | join(', ') }}</dd></div>
       <div><dt>Example</dt><dd>{{ program.examples | join(' / ') }}</dd></div>
     </dl>
-    <a class="text-link" href="{{ program.url }}">Explore {{ program.short_name }} <span aria-hidden="true">-&gt;</span></a>
+    <a class="text-link" href="{{ program.url }}">See what {{ program.short_name }} involves <span aria-hidden="true">-&gt;</span></a>
   </article>
 {%- endmacro %}
 
@@ -75,7 +75,7 @@
       </div>
     {% endif %}
     <a class="text-link project-card-link" href="{{ project.url }}">
-      {% if project.status_class == 'later' %}Open future preview{% else %}Open project{% endif %}
+      {% if project.status_class == 'later' %}See the later idea{% else %}See how it works{% endif %}
       <span aria-hidden="true">-&gt;</span>
     </a>
   </article>
@@ -92,7 +92,7 @@
     <div class="connection-list" aria-label="Program connections">
       {% for program_key in topic.programs %}<span>{{ programs[program_key].short_name }}</span>{% endfor %}
     </div>
-    <a class="text-link" href="{{ topic.url }}">Read topic <span aria-hidden="true">-&gt;</span></a>
+    <a class="text-link" href="{{ topic.url }}">Understand the idea <span aria-hidden="true">-&gt;</span></a>
   </article>
 {%- endmacro %}
 
@@ -100,12 +100,12 @@
   <article class="library-card lesson-library-card">
     <div class="card-topline">
       <span class="library-kind">90-minute lesson</span>
-      {{ status_badge('Public lesson', 'active') }}
+      {{ status_badge('Lesson', 'active') }}
     </div>
     <h3><a href="{{ lesson.url }}">{{ lesson.title }}</a></h3>
     <p><strong>{{ lesson.program }}</strong> / {{ lesson.topic }}</p>
     <p>{{ lesson.story }}</p>
-    <a class="text-link" href="{{ lesson.url }}">Open lesson <span aria-hidden="true">-&gt;</span></a>
+    <a class="text-link" href="{{ lesson.url }}">Read the lesson <span aria-hidden="true">-&gt;</span></a>
   </article>
 {%- endmacro %}
 
@@ -130,7 +130,7 @@
       {% endif %}
     </div>
     <p>{{ post.description }}</p>
-    <a class="text-link" href="{{ post.url }}">Read article <span aria-hidden="true">-&gt;</span></a>
+    <a class="text-link" href="{{ post.url }}">Read the note <span aria-hidden="true">-&gt;</span></a>
   </article>
 {%- endmacro %}
 
@@ -141,7 +141,7 @@
     {% endif %}
     <span class="lab-transition-code">{{ code }}</span>
     <span class="lab-transition-line" aria-hidden="true"></span>
-    <p><strong>{{ headline }}</strong><small>{{ note }}</small></p>
+    <p><strong>{{ headline }}</strong>{% if note %}<small>{{ note }}</small>{% endif %}</p>
     <span class="lab-transition-arrow" aria-hidden="true">-&gt;</span>
   </aside>
 {%- endmacro %}
@@ -172,7 +172,7 @@
 
 {% macro parent_panel(title, text) -%}
   <aside class="parent-explanation parent-explanation-light">
-    <div><span class="feature-code">PARENT EXPLANATION</span><h2>{{ title }}</h2></div>
+    <div><span class="feature-code">FOR PARENTS</span><h2>{{ title }}</h2></div>
     <p>{{ text }}</p>
   </aside>
 {%- endmacro %}

@@ -24,6 +24,8 @@ class PageParser(HTMLParser):
         self.images = []
         self.headings = []
         self.title_parts = []
+        self.public_text_parts = []
+        self.public_attributes = []
         self.meta_description = None
         self.canonical = None
         self._in_title = False
@@ -38,6 +40,11 @@ class PageParser(HTMLParser):
             self.hrefs.append(attributes["href"])
         if tag == "img":
             self.images.append(attributes)
+        for name in ("alt", "aria-label", "placeholder", "title", "value"):
+            if attributes.get(name):
+                self.public_attributes.append(attributes[name])
+        if tag == "meta" and attributes.get("content"):
+            self.public_attributes.append(attributes["content"])
         if tag == "title":
             self._in_title = True
         if tag == "meta" and attributes.get("name", "").lower() == "description":
@@ -58,6 +65,7 @@ class PageParser(HTMLParser):
             self._heading_parts = []
 
     def handle_data(self, data):
+        self.public_text_parts.append(data)
         if self._in_title:
             self.title_parts.append(data)
         if self._heading_level:
@@ -102,12 +110,11 @@ class PublicSiteTest(unittest.TestCase):
     def test_current_and_future_program_statuses(self):
         self.assertEqual(PROGRAMS["scratch"]["status"], "Active now")
         self.assertEqual(PROGRAMS["robotics"]["status"], "Active now")
-        self.assertEqual(PROGRAMS["roblox"]["status"], "Available later")
-        self.assertEqual(PROGRAMS["ai"]["status"], "Available later")
+        self.assertEqual(PROGRAMS["roblox"]["status"], "Coming later")
+        self.assertEqual(PROGRAMS["ai"]["status"], "Coming later")
 
     def test_curriculum_records_are_complete_and_honest(self):
-        complete_topics = [slug for slug, topic in TOPICS.items() if topic["status"] == "Complete topic package"]
-        self.assertEqual(complete_topics, ["coordinates"])
+        self.assertEqual({topic["status"] for topic in TOPICS.values()}, {"Topic Guide"})
 
         for slug, topic in TOPICS.items():
             with self.subTest(topic=slug):
@@ -146,7 +153,7 @@ class PublicSiteTest(unittest.TestCase):
                 ):
                     self.assertTrue(project[field])
                 if project["program_key"] in {"roblox", "ai"}:
-                    self.assertEqual(project["status"], "Available later")
+                    self.assertEqual(project["status"], "Coming later")
                     self.assertEqual(project["status_class"], "later")
                 else:
                     self.assertNotEqual(project["status_class"], "later")
@@ -217,6 +224,80 @@ class PublicSiteTest(unittest.TestCase):
                 self.assertEqual(levels[0], 1)
                 for previous, current in zip(levels, levels[1:]):
                     self.assertLessEqual(current - previous, 1)
+
+    def test_internal_asset_language_is_not_rendered_publicly(self):
+        forbidden = (
+            "authorized",
+            "reference-based",
+            "reconstructed campaign",
+            "campaign image",
+            "provenance",
+            "metadata",
+            "rights confirmation",
+            "workshop derivative",
+            "current cohort",
+            "historical workshop photograph",
+            "production pilot",
+            "provisional school of code",
+            "public project",
+            "public lesson",
+            "public gallery",
+            "curriculum direction",
+            "topic connection",
+            "cross-program topic",
+            "ready to explore",
+            "returns later",
+            "complete project and downloads",
+            "curriculum examples for now",
+            "available later",
+            "guided class project",
+            "guided demonstration",
+            "full learning path",
+            "lesson outline",
+            "published project",
+        )
+        pages = {**self.pages}
+        response = self.client.get("/404")
+        parser = PageParser()
+        body = response.get_data(as_text=True).lower()
+        parser.feed(body)
+        pages["/404"] = (response, parser)
+
+        try:
+            for path, (_, page_parser) in pages.items():
+                rendered = " ".join(
+                    [*page_parser.public_text_parts, *page_parser.public_attributes]
+                ).lower()
+                for term in forbidden:
+                    with self.subTest(path=path, term=term):
+                        self.assertNotIn(term, rendered)
+        finally:
+            response.close()
+
+    def test_empty_campaign_index_is_hidden_and_non_indexable(self):
+        self.assertNotIn("/campaigns", self.paths)
+
+        for path, (_, parser) in self.pages.items():
+            with self.subTest(path=path):
+                self.assertNotIn("/campaigns", parser.hrefs)
+                rendered = " ".join(parser.public_text_parts).lower()
+                self.assertNotIn("build collections", rendered)
+                self.assertNotIn("no build collections yet", rendered)
+
+        response = self.client.get("/campaigns")
+        try:
+            self.assertEqual(response.status_code, 200)
+            body = response.get_data(as_text=True)
+            self.assertIn('<meta name="robots" content="noindex,follow">', body)
+            self.assertIn("No build collections yet", body)
+        finally:
+            response.close()
+
+        sitemap = self.client.get("/sitemap.xml")
+        try:
+            self.assertNotIn("/campaigns", sitemap.get_data(as_text=True))
+        finally:
+            sitemap.close()
 
     def test_no_duplicate_ids_or_empty_links(self):
         for path, (_, parser) in self.pages.items():

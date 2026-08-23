@@ -26,7 +26,7 @@
   },
   "campaign_id": null,
   "scratch_pilot": true,
-  "project_status": "Complete downloadable pilot",
+  "project_status": "Guided Project",
   "finished_summary": "Guide the Player from the lower-left corner to the striped Safe Zone while an oversized pigeon closes in. The arrow keys change x and y, Game State keeps the two endings from colliding, and R runs the same complete reset as the green flag.",
   "game_controls": [
     "Arrow keys — move the Player on the x and y axes",
@@ -50,7 +50,7 @@
     },
     {
       "filename": "escape-from-the-giant-pigeon-finished.sb3",
-      "label": "Download Finished Reference",
+      "label": "Download Finished Game",
       "file_type": "Scratch 3 project (.sb3)",
       "purpose": "The complete playable game shown in the code sections below."
     },
@@ -138,7 +138,7 @@
   "builder_challenge": "Change Pigeon Speed to 3 and test three routes. Adjust one starting coordinate until a careful player can still win.",
   "inventor_challenge": "Add sandwich crumbs that reduce Panic without changing Game State. Explain how each crumb can trigger only once.",
   "boss_level_challenge": "Create a second original backdrop with a new Safe Zone. Reset the stage number, actor positions, and collision rules without copying the whole game.",
-  "provisional_note": "The project uses original, editable sketch-style artwork. It can be redrawn later without changing sprite names, costume centres, scripts, or downloads.",
+  "provisional_note": "Every costume and sound can be replaced. Keep the sprite names and costume centres aligned with the code, then make the chase look and sound like your own game.",
   "trademark_note": "Scratch is a project of the Scratch Foundation. School of Code is an independent educational project and is not affiliated with or endorsed by the Scratch Foundation.",
   "code_sections": [
     {

@@ -464,6 +464,19 @@ Write as a capable teacher beside a workbench.
   material.
 - Use Canadian English for public copy.
 - Keep humour dry, kind, and connected to the project.
+- Say plainly that School of Code is small by design and that groups have up
+  to four students.
+- Keep current availability exact: Scratch and Robotics are active; Roblox and
+  AI are possible later directions.
+- Do not invent prices, ages, schedules, venues, qualifications, outcomes, or
+  availability. Send readers to Eugene for details that are still changing.
+
+Public copy describes the learning, activity, or atmosphere. Image rights,
+source provenance, reconstruction, generation, metadata removal, campaign
+masters, and other asset-production details belong in this document and the
+photo manifest—not in page copy, captions, social metadata, or alternative
+text. If a photograph does not benefit from a caption, omit it. Alternative
+text should name only the meaningful visual content, briefly and literally.
 
 Good:
 

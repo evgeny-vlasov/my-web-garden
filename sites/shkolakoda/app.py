@@ -29,7 +29,7 @@ PROGRAMS = {
         **PROGRAM_LINKS["scratch"],
         "short_name": "Scratch",
         "endpoint": "scratch",
-        "summary": "Students learn programming by making games, animations, simulations, and interactive stories in Scratch.",
+        "summary": "Students author games, animations, simulations, and strange interactive stories while learning how events, rules, and state fit together.",
         "builds": "Playable games, animations, simulations, quizzes, and interactive stories",
         "concepts": ["Events", "Coordinates", "Loops", "Conditions", "Variables", "State"],
         "examples": ["Escape from the Giant Pigeon", "Attack of the Angry Snowballs"],
@@ -38,7 +38,7 @@ PROGRAMS = {
         **PROGRAM_LINKS["robotics"],
         "short_name": "Robotics",
         "endpoint": "robotics",
-        "summary": "Students work with commands, sensors, simple electronics, simulations, and the Sense–Decide–Act loop.",
+        "summary": "Students write commands, wire simple circuits, read sensors, and trace physical cause and effect through the Sense–Decide–Act loop.",
         "builds": "Robot logic, circuits, sensor challenges, microcontroller work, and small physical systems",
         "concepts": ["Commands", "Input", "Sensors", "Conditions", "State", "Feedback"],
         "examples": ["Robot Maze Logic", "micro:bit Reaction Timer"],
@@ -47,7 +47,7 @@ PROGRAMS = {
         **PROGRAM_LINKS["roblox"],
         "short_name": "Roblox",
         "endpoint": "roblox",
-        "summary": "A later program connecting visual programming to Lua, 3D objects, events, and larger game systems.",
+        "summary": "A possible later step from visual programming into Lua, 3D objects, events, and larger game rules.",
         "builds": "Scripted obstacles, collectible systems, interactive 3D worlds, and simple NPC behaviour",
         "concepts": ["Lua", "Objects", "Properties", "Events", "Functions", "Game state"],
         "examples": ["Obby Basics", "Coin Collector World"],
@@ -56,7 +56,7 @@ PROGRAMS = {
         **PROGRAM_LINKS["ai"],
         "short_name": "AI",
         "endpoint": "ai",
-        "summary": "A later program for testing patterns, predictions, prompts, errors, and the limits of AI tools.",
+        "summary": "A possible later program for testing patterns, predictions, prompts, mistakes, and the limits of AI tools.",
         "builds": "Bounded experiments with patterns, prompts, games, images, robot decisions, and error evaluation",
         "concepts": ["Patterns", "Prediction", "Prompts", "Bias", "Verification", "Human judgment"],
         "examples": ["AI Guessing Game", "Chatbot Character Lab"],
@@ -69,9 +69,9 @@ LEARNING_PATH = [
     "Topic",
     "Lesson",
     "Guided Project",
-    "Lab Project",
-    "Parent Explanation",
-    "Gallery / Blog",
+    "Computer Lab Project",
+    "Demonstration",
+    "Notes for Home",
 ]
 
 
@@ -103,7 +103,7 @@ def published_projects():
                 "difficulty": metadata["difficulty"],
                 "estimated_time": metadata["estimated_time"],
                 "mode": "publication",
-                "status": "Published project",
+                "status": "Project Example",
                 "status_class": "active",
             }
         )
@@ -461,10 +461,11 @@ def public_paths():
         "/parents",
         "/method",
         "/blog",
-        "/campaigns",
         "/gallery",
         "/contact",
     ]
+    if CONTENT.public("campaign"):
+        paths.append("/campaigns")
     paths.extend(topic["url"] for topic in ordered(TOPICS, TOPIC_ORDER))
     paths.extend(lesson["url"] for lesson in ordered(LESSONS, LESSON_ORDER))
     paths.extend(project["url"] for project in ordered(PROJECTS, PROJECT_ORDER))

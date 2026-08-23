@@ -2,7 +2,7 @@
 {% from "_macros.html" import program_card, project_card, blog_card, lab_transition, responsive_photo %}
 
 {% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}
-{% block meta_description %}School of Code is a Calgary programming and robotics school where children make games, circuits, simulations, and robot systems.{% endblock %}
+{% block meta_description %}School of Code offers small-group Scratch and robotics classes in Calgary, where children build games, circuits, and machines while learning the ideas underneath them.{% endblock %}
 
 {% block content %}
   <section class="hero">
@@ -12,21 +12,20 @@
         <div class="hero-status-line" aria-hidden="true">
           <span>LAB / 01</span><span>INPUT: IDEA</span><span>OUTPUT: WORKING VERSION</span>
         </div>
-        <h1>Programming and robotics for children who want to build things.</h1>
+        <h1>Children should build with technology, not only consume it.</h1>
         <p class="hero-copy">
-          Students make games, circuits, simulations, and robot systems while learning the code,
-          logic, and mathematics that make them work.
+          School of Code is a small Calgary school for programming and robotics. Students make
+          games, wire circuits, test machines, and learn the code, logic, and mathematics inside them.
         </p>
         <div class="button-row">
           <a class="button" href="{{ url_for('programs') }}">Explore Programs</a>
           <a class="button button-secondary" href="{{ url_for('project_index') }}">See Projects</a>
           <a class="button button-secondary" href="{{ url_for('contact') }}">Ask About Classes</a>
         </div>
-        <p class="hero-note">Scratch and Robotics are the active first programs.</p>
+        <p class="hero-note">Scratch and Robotics are active now. Groups have up to four students.</p>
       </div>
       <figure class="campaign-photo campaign-photo-hero">
-        {{ responsive_photo('home-hero', 'Four children testing a handmade robot together in a compact maker room.', 1600, 900, loading='eager', fetchpriority='high') }}
-        <figcaption>Campaign image built from authorized School of Code workshop references.</figcaption>
+        {{ responsive_photo('home-hero', 'Four children adjusting wires and sensors on a handmade wheeled robot.', 1600, 900, loading='eager', fetchpriority='high') }}
       </figure>
     </div>
   </section>
@@ -48,7 +47,7 @@
         <div class="verb"><strong>Explain</strong><span>show the logic</span></div>
         <div class="verb"><strong>Improve</strong><span>one more version</span></div>
       </div>
-      {{ lab_transition('TRACE / 01', 'Ideas become visible systems.', 'Build one rule. Run it. Read the result.') }}
+      {{ lab_transition('TRACE / 01', 'An idea becomes useful when a student can run it, test it, and change it.', '') }}
     </div>
   </section>
 
@@ -59,7 +58,7 @@
           <p class="eyebrow">Active programs</p>
           <h2 id="active-programs">Scratch &amp; Game Design and Robotics.</h2>
         </div>
-        <a class="text-link" href="{{ url_for('programs') }}">See the full program direction <span aria-hidden="true">-&gt;</span></a>
+        <a class="text-link" href="{{ url_for('programs') }}">Compare the programs <span aria-hidden="true">-&gt;</span></a>
       </div>
       <div class="program-grid program-grid-active">
         {{ program_card(programs.scratch) }}
@@ -72,10 +71,10 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <p class="eyebrow">Available later</p>
-          <h2 id="later-programs">Roblox and AI come later.</h2>
+          <p class="eyebrow">Coming later</p>
+          <h2 id="later-programs">Roblox and AI are ideas for later.</h2>
         </div>
-        <p class="section-intro">These program pages show where the curriculum is heading. Registration is not open for them.</p>
+        <p class="section-intro">Their pages describe possible directions, not classes that can be booked today.</p>
       </div>
       <div class="program-grid program-grid-later">
         {{ program_card(programs.roblox) }}
@@ -89,25 +88,25 @@
       <div class="section-header">
         <div>
           <p class="eyebrow">School and Computer Lab</p>
-          <h2 id="school-and-lab">Classes teach the sequence. Lab time opens up the project.</h2>
+          <h2 id="school-and-lab">The class gives the idea. The Computer Lab gives it a life.</h2>
         </div>
       </div>
       <div class="school-lab-grid">
         <article class="comparison-panel">
           <span class="panel-number">01 / SCHOOL</span>
           <h3>Classes</h3>
-          <p>Planned lessons introduce ideas in order. Students study a concept, try a small example, and use it in a guided project.</p>
+          <p>A class introduces one idea in a clear sequence: a short explanation, a test, a guided build, and a change the student can explain.</p>
         </article>
         <article class="comparison-panel">
           <span class="panel-number">02 / COMPUTER LAB</span>
           <h3>Guided project time</h3>
-          <p>Students finish a stubborn section, add a feature, investigate a bug, or rebuild the project with an instructor nearby.</p>
+          <p>Computer Lab time is guided but more open. A student can finish a stubborn section, add a feature, investigate a bug, or rebuild the idea another way.</p>
         </article>
       </div>
       <ol class="pathway" aria-label="School of Code teaching model">
         {% for step in learning_path %}<li>{{ step }}</li>{% endfor %}
       </ol>
-      {{ lab_transition('LAB NOTE / 02', 'Keep the question moving.', 'The guide points to the next useful test.', true) }}
+      {{ lab_transition('LAB NOTE / 02', 'The instructor helps the student choose the next useful test.', '', true) }}
     </div>
   </section>
 
@@ -147,7 +146,7 @@
   <section class="section" aria-labelledby="parents-home">
     <div class="container">
       <div class="parent-callout">
-        <blockquote id="parents-home">The screen contains a problem the student has to solve.</blockquote>
+        <blockquote id="parents-home">Every project gives the student something specific to figure out.</blockquote>
         <div>
           <p>A student predicts what the code will do, runs it, and deals with the result. The finished game or robot system makes that work visible to parents too.</p>
           <a class="text-link" href="{{ url_for('parents') }}">Read practical answers for parents <span aria-hidden="true">-&gt;</span></a>
@@ -162,7 +161,7 @@
       <div>
         <p class="eyebrow">Calgary / Small groups</p>
         <h2 id="calgary-groups">Small groups in Calgary.</h2>
-        <p class="section-intro">The instructor can follow the actual code instead of judging progress by how busy the screen looks. Contact us for current ages, schedules, venue details, and registration plans.</p>
+        <p class="section-intro">With no more than four students in a group, Eugene can follow the actual code instead of judging progress by how busy the screen looks. Ask for current ages, scheduling, and venue details.</p>
       </div>
       <a class="button" href="{{ url_for('contact') }}">Contact Eugene</a>
     </div>
@@ -196,8 +195,8 @@
   <section class="cta-band">
     <div class="container cta-grid">
       <div>
-        <h2>Ask about classes.</h2>
-        <p>Tell us what your child likes to make and any previous experience. We can discuss a sensible starting point.</p>
+        <h2>Tell Eugene what your child wants to make.</h2>
+        <p>A short note about interests and previous experience is enough to begin. Eugene can suggest a sensible starting point and share what is currently available.</p>
       </div>
       <a class="button button-light" href="mailto:hello@shkolakoda.com">Ask About Classes</a>
     </div>

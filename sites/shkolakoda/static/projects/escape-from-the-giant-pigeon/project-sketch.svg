@@ -9,7 +9,7 @@
     <rect width="960" height="700" fill="url(#grid)"/>
     <path d="M44 45 Q480 36 914 48 L907 650 Q476 665 48 649 Z" fill="none" stroke="#20201d" stroke-width="4" stroke-dasharray="11 7"/>
     <text x="72" y="92" font-family="Georgia,serif" font-size="34" font-weight="bold" fill="#20201d">ESCAPE SYSTEM — inventor's sketch</text>
-    <text x="73" y="122" font-family="Arial,sans-serif" font-size="16" fill="#555">Provisional School of Code project artwork · stage coordinates 480 × 360</text>
+    <text x="73" y="122" font-family="Arial,sans-serif" font-size="16" fill="#555">CHASE MAP · stage coordinates 480 × 360</text>
     <g transform="translate(75 160)">
       <rect width="520" height="390" rx="8" fill="#fffef8" stroke="#20201d" stroke-width="4"/>
       <path d="M20 20H500V370H20Z" fill="none" stroke="#c93d32" stroke-width="3" stroke-dasharray="9 7"/>

@@ -19,10 +19,10 @@
   {% if project.scratch_pilot is defined %}
     {% include "_scratch_project_pilot.html" %}
   {% elif project.status_class == 'later' %}
-    <section class="section section-yellow"><div class="container"><div class="not-this"><strong>Available later</strong>{{ project.setup_note }}</div></div></section>
+    <section class="section section-yellow"><div class="container"><div class="not-this"><strong>Coming later</strong>{{ project.setup_note }}</div></div></section>
     <section class="section"><div class="container two-column"><div><p class="eyebrow">Planned build</p><h2>What the project will contain.</h2><ul class="check-list">{% for item in project.what_students_build %}<li>{{ item }}</li>{% endfor %}</ul></div><div><p class="eyebrow">Ideas in the project</p><h2>What students will need to understand.</h2><ul class="concept-list">{% for item in project.what_students_learn %}<li>{{ item }}</li>{% endfor %}</ul></div></div></section>
     <section class="section section-blue"><div class="container two-column"><div><p class="eyebrow">Test questions</p><h2>What the project must answer.</h2><ul class="question-list">{% for item in project.test_questions %}<li>{{ item }}</li>{% endfor %}</ul></div><div><p class="eyebrow">Likely problems</p><h2>What could weaken the result.</h2><ul class="warning-list">{% for item in project.common_mistakes %}<li>{{ item }}</li>{% endfor %}</ul></div></div></section>
-    <section class="section section-ink"><div class="container"><div class="section-header"><div><p class="eyebrow">Planned challenge levels</p><h2>How the project could become harder.</h2></div></div><div class="challenge-level-grid">{% for level in project.challenge_levels %}<article><span>LEVEL {{ loop.index }}</span><h3>{{ level.name }}</h3><p>{{ level.description }}</p></article>{% endfor %}</div></div></section>
+    <section class="section section-ink"><div class="container"><div class="section-header"><div><p class="eyebrow">Possible challenge levels</p><h2>How the project could become harder.</h2></div></div><div class="challenge-level-grid">{% for level in project.challenge_levels %}<article><span>LEVEL {{ loop.index }}</span><h3>{{ level.name }}</h3><p>{{ level.description }}</p></article>{% endfor %}</div></div></section>
   {% else %}
     <section class="section" aria-labelledby="project-build-learn"><div class="container"><div class="section-header"><div><h2 id="project-build-learn">Project brief</h2></div></div><div class="build-learn-grid"><article><h3>What students build</h3><ul class="check-list">{% for item in project.what_students_build %}<li>{{ item }}</li>{% endfor %}</ul></article><article><h3>What students learn</h3><ul class="concept-list">{% for item in project.what_students_learn %}<li>{{ item }}</li>{% endfor %}</ul></article><article><h3>What students need</h3><ul class="plain-list">{% for item in project.needs %}<li>{{ item }}</li>{% endfor %}</ul>{% if project.setup_note != project.lab_note | default('') %}<p class="mono-note">{{ project.setup_note }}</p>{% endif %}</article></div></div></section>
 
@@ -44,7 +44,7 @@
     <section class="section section-ink" aria-labelledby="project-demo"><div class="container two-column"><div><h2 id="project-demo">What to demonstrate</h2></div><ul class="demonstrate-list">{% for item in project.demonstrate %}<li>{{ item }}</li>{% endfor %}</ul></div></section>
   {% endif %}
 
-  <section class="section{% if project.status_class != 'later' %} section-yellow{% endif %}"><div class="container">{{ parent_panel('What this project develops', project.parent_explanation) }}</div></section>
+  <section class="section{% if project.status_class != 'later' %} section-yellow{% endif %}"><div class="container">{{ parent_panel('What is happening underneath the project', project.parent_explanation) }}</div></section>
 
   <section class="section related-content"><div class="container"><h2>Related pages</h2><div class="related-grid">{% if lesson %}{{ related_card(lesson.title, 'Lesson', lesson.url, lesson.duration) }}{% endif %}{% for topic in related_topics %}{{ related_card(topic.title, 'Topic', topic.url, topic.status) }}{% endfor %}{% for related in related_projects[:2] %}{{ related_card(related.name, related.project_type, related.url, related.difficulty) }}{% endfor %}</div></div></section>
 {% endblock %}
