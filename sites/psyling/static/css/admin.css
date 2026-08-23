@@ -232,7 +232,7 @@ body {
 }
 
 .crm-status-new {
-    background-color: var(--admin-danger);
+    background-color: #a84f00;
 }
 
 .crm-status-contacted {

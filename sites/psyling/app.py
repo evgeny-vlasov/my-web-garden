@@ -45,6 +45,7 @@ from sites.psyling.cli import register_cli_commands
 from sites.psyling.crm_forms import (
     ActivityCompleteForm,
     ActivityForm,
+    CONTACT_STATUS_LABELS,
     CONTACT_STATUSES,
     ClientForm,
     ContactActionForm,
@@ -126,6 +127,7 @@ def inject_globals():
         'site_name': app.config['SITE_NAME'],
         'site_tagline': app.config['SITE_TAGLINE'],
         'unread_contacts_count': unread_count,
+        'contact_status_labels': CONTACT_STATUS_LABELS,
         'current_lang': current_lang
     }
 
@@ -442,9 +444,10 @@ def admin_dashboard():
     recent_posts = BlogPost.query.order_by(BlogPost.updated_at.desc()).limit(5).all()
 
     # Get recent contacts (5 most recent)
-    recent_contacts = ContactSubmission.query.order_by(
-        ContactSubmission.submitted_at.desc()
-    ).limit(5).all()
+    recent_contacts = ContactSubmission.query.filter(
+        ContactSubmission.is_spam.is_(False),
+        ContactSubmission.archived_at.is_(None),
+    ).order_by(ContactSubmission.submitted_at.desc()).limit(5).all()
 
     open_followups = CRMActivity.query.filter(
         or_(CRMActivity.due_at.isnot(None), CRMActivity.activity_type == 'follow_up'),
@@ -637,16 +640,23 @@ def admin_contacts_list():
 
     if status_filter and status_filter not in CONTACT_STATUSES:
         abort(400)
-    if view_filter not in {'inbox', 'spam', 'archived'}:
+    if view_filter not in {'inbox', 'unread', 'spam', 'archived'}:
         abort(400)
 
     query = ContactSubmission.query
 
     if view_filter == 'archived':
         query = query.filter(ContactSubmission.archived_at.isnot(None))
-    else:
+    elif view_filter == 'spam':
         query = query.filter(ContactSubmission.archived_at.is_(None))
-        query = query.filter(ContactSubmission.is_spam.is_(view_filter == 'spam'))
+        query = query.filter(ContactSubmission.is_spam.is_(True))
+    else:
+        query = query.filter(
+            ContactSubmission.archived_at.is_(None),
+            ContactSubmission.is_spam.is_(False),
+        )
+        if view_filter == 'unread':
+            query = query.filter(ContactSubmission.is_read.is_(False))
 
     if status_filter:
         query = query.filter_by(status=status_filter)
@@ -667,17 +677,18 @@ def admin_contacts_list():
     )
 
     active = ContactSubmission.query.filter(ContactSubmission.archived_at.is_(None))
+    active_inbox = active.filter(ContactSubmission.is_spam.is_(False))
     counts = {
         'all': ContactSubmission.query.count(),
-        'inbox': active.filter(ContactSubmission.is_spam.is_(False)).count(),
+        'inbox': active_inbox.count(),
+        'unread': active_inbox.filter(ContactSubmission.is_read.is_(False)).count(),
         'spam': active.filter(ContactSubmission.is_spam.is_(True)).count(),
         'archived': ContactSubmission.query.filter(
             ContactSubmission.archived_at.isnot(None)
         ).count(),
     }
     counts.update({
-        status: active.filter(
-            ContactSubmission.is_spam.is_(False),
+        status: active_inbox.filter(
             ContactSubmission.status == status,
         ).count()
         for status in CONTACT_STATUSES if status != 'spam'
@@ -702,6 +713,14 @@ def admin_contacts_list():
 def admin_contact_view(contact_id):
     """Show one contact on a normal, JavaScript-independent HTML page."""
     contact = ContactSubmission.query.get_or_404(contact_id)
+    if not contact.is_read:
+        contact.mark_as_read()
+        db.session.commit()
+        app.logger.info(
+            'CRM contact %s automatically marked read by admin user %s',
+            contact.id,
+            current_user.id,
+        )
     return render_template(
         'admin/contact_detail.html',
         **_contact_detail_context(contact),
@@ -787,9 +806,14 @@ def admin_contact_toggle_read(contact_id):
     if not form.validate_on_submit():
         abort(400)
     contact = ContactSubmission.query.get_or_404(contact_id)
-    contact.mark_as_unread() if contact.is_read else contact.mark_as_read()
+    was_read = contact.is_read
+    contact.mark_as_unread() if was_read else contact.mark_as_read()
     db.session.commit()
     app.logger.info('CRM contact %s read state changed by admin user %s', contact.id, current_user.id)
+    if was_read:
+        flash('Inquiry marked unread.', 'success')
+        return redirect(url_for('admin_contacts_list', show='unread'))
+    flash('Inquiry marked read.', 'success')
     return redirect(url_for('admin_contact_view', contact_id=contact.id))
 
 
@@ -956,11 +980,15 @@ def admin_contact_toggle_archive(contact_id):
     if not form.validate_on_submit():
         abort(400)
     contact = ContactSubmission.query.get_or_404(contact_id)
-    contact.archived_at = None if contact.archived_at else datetime.utcnow()
+    was_archived = contact.archived_at is not None
+    contact.archived_at = None if was_archived else datetime.utcnow()
     db.session.commit()
     app.logger.info('CRM contact %s archive state changed by admin user %s', contact.id, current_user.id)
-    flash('Archive state updated.', 'success')
-    return redirect(url_for('admin_contact_view', contact_id=contact.id))
+    if was_archived:
+        flash('Inquiry restored to the active list.', 'success')
+        return redirect(url_for('admin_contact_view', contact_id=contact.id))
+    flash('Inquiry archived. It remains safely stored and can be restored.', 'success')
+    return redirect(url_for('admin_contacts_list', show='inbox'))
 
 
 # ============================================================================

@@ -9,7 +9,16 @@ from wtforms.validators import DataRequired, Length, Optional, Regexp, Validatio
 
 
 CONTACT_STATUSES = ("new", "contacted", "booked", "closed", "spam")
-STATUS_CHOICES = tuple((status, status.title()) for status in CONTACT_STATUSES)
+CONTACT_STATUS_LABELS = {
+    "new": "Needs reply",
+    "contacted": "Contacted",
+    "booked": "Booked",
+    "closed": "Closed",
+    "spam": "Spam",
+}
+STATUS_CHOICES = tuple(
+    (status, CONTACT_STATUS_LABELS[status]) for status in CONTACT_STATUSES
+)
 ACTIVITY_TYPE_CHOICES = (
     ("note", "Note"),
     ("call", "Call"),
@@ -22,7 +31,9 @@ ACTIVITY_TYPE_CHOICES = (
 
 
 class ContactCRMForm(FlaskForm):
-    status = SelectField("Status", choices=STATUS_CHOICES, validate_choice=True)
+    status = SelectField(
+        "Reply / workflow status", choices=STATUS_CHOICES, validate_choice=True
+    )
     notes = TextAreaField(
         "Internal notes",
         validators=[Optional(), Length(max=10000)],

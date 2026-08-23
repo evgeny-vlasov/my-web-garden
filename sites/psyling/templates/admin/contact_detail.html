@@ -20,7 +20,12 @@
     <div class="d-flex flex-wrap gap-2 align-items-center mb-4" aria-label="Inquiry status">
             {% if not contact.is_read %}<span class="badge bg-danger">Unread</span>{% endif %}
             {% if contact.archived_at %}<span class="badge bg-secondary">Archived</span>{% endif %}
-            <span class="badge crm-status crm-status-{{ contact.status }}">{{ contact.status|title }}</span>
+            <span class="badge crm-status crm-status-{{ contact.status }}">{{ contact_status_labels[contact.status] }}</span>
+    </div>
+    <div class="alert alert-info py-2 mb-4" role="note">
+        Opening an inquiry automatically clears its <strong>Unread</strong> marker.
+        Reply status is separate: <strong>Needs reply</strong> remains until you record contact,
+        send a successful reply, or choose another workflow status.
     </div>
 
     <div class="row g-4">
@@ -153,6 +158,7 @@
                         <div class="mb-3">
                             {{ crm_form.status.label(class='form-label') }}
                             {{ crm_form.status(class='form-select') }}
+                            <div class="form-text">This records reply progress; it does not control the Unread marker.</div>
                             {% for error in crm_form.status.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
                         </div>
                         <div class="mb-3">
@@ -175,9 +181,21 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white"><h2 class="h5 mb-0">Actions</h2></div>
                 <div class="card-body d-grid gap-2">
+                    <p class="small text-muted mb-1">
+                        Archiving removes an inquiry from the active list without deleting it.
+                        You can restore it at any time from Archived.
+                    </p>
+                    <form method="POST" action="{{ url_for('admin_contact_toggle_archive', contact_id=contact.id) }}">
+                        {{ action_form.hidden_tag() }}
+                        <button class="btn {% if contact.archived_at %}btn-success{% else %}btn-warning{% endif %} w-100" type="submit">
+                            <i class="bi {% if contact.archived_at %}bi-arrow-counterclockwise{% else %}bi-archive{% endif %} me-1"></i>
+                            {% if contact.archived_at %}Restore to active list{% else %}Archive from active list{% endif %}
+                        </button>
+                    </form>
+                    <hr class="my-2">
                     <form method="POST" action="{{ url_for('admin_contact_mark_contacted', contact_id=contact.id) }}">
                         {{ action_form.hidden_tag() }}
-                        <button class="btn btn-outline-success w-100" type="submit">Mark contacted now</button>
+                        <button class="btn btn-outline-success w-100" type="submit">Mark as contacted (without email)</button>
                     </form>
                     <form method="POST" action="{{ url_for('admin_contact_toggle_read', contact_id=contact.id) }}">
                         {{ action_form.hidden_tag() }}
@@ -189,12 +207,6 @@
                         {{ action_form.hidden_tag() }}
                         <button class="btn btn-outline-warning w-100" type="submit">
                             Mark {% if contact.is_spam %}not spam{% else %}as spam{% endif %}
-                        </button>
-                    </form>
-                    <form method="POST" action="{{ url_for('admin_contact_toggle_archive', contact_id=contact.id) }}">
-                        {{ action_form.hidden_tag() }}
-                        <button class="btn btn-outline-secondary w-100" type="submit">
-                            {% if contact.archived_at %}Restore from archive{% else %}Archive contact{% endif %}
                         </button>
                     </form>
                     <hr>
