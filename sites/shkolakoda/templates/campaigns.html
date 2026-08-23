@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}School of Code Campaigns | Computer Lab Publishing{% endblock %}
-{% block meta_description %}Browse School of Code campaigns that collect related projects, lessons, articles, and original media.{% endblock %}
+{% block title %}Build Collections | School of Code Calgary{% endblock %}
+{% block meta_description %}Browse focused School of Code collections that bring a project together with the lessons and ideas behind it.{% endblock %}
+{% block extra_head %}{% if not campaigns %}<meta name="robots" content="noindex,follow">{% endif %}{% endblock %}
 
 {% block content %}
-  <section class="page-hero"><div class="container"><p class="eyebrow">Campaigns / {{ campaigns | length }} published</p><h1>Projects, lessons, and articles collected around one question.</h1><p class="lead">A campaign gives a larger build or subject one place to live.</p></div></section>
+  <section class="page-hero"><div class="container"><p class="eyebrow">Build collections / {{ campaigns | length }}</p><h1>Follow one question through lessons, projects, and notes.</h1><p class="lead">A collection keeps the useful parts of a larger build together, so the theory does not disappear behind the finished result.</p></div></section>
 
-  <section class="section" aria-labelledby="published-campaigns"><div class="container"><div class="section-header"><div><p class="eyebrow">Published campaigns</p><h2 id="published-campaigns">Choose a focused build path.</h2></div></div>
+  <section class="section" aria-labelledby="published-campaigns"><div class="container"><div class="section-header"><div><p class="eyebrow">Collections</p><h2 id="published-campaigns">Choose a project and follow the thinking behind it.</h2></div></div>
     {% if campaigns %}<div class="publication-grid">{% for campaign in campaigns %}<article class="publication-card">{% if campaign.image %}<img src="{{ campaign.image.url }}" alt="{{ campaign.image.alt }}" width="{{ campaign.image.width }}" height="{{ campaign.image.height }}">{% endif %}<p class="eyebrow">{{ campaign.categories | join(' / ') }}</p><h3><a href="{{ campaign.url }}">{{ campaign.title }}</a></h3><p>{{ campaign.summary }}</p><a class="text-link" href="{{ campaign.url }}">Open campaign <span aria-hidden="true">-&gt;</span></a></article>{% endfor %}</div>
-    {% else %}<div class="empty-state"><strong>No public campaigns yet</strong><p>Published campaigns will appear here.</p></div>{% endif %}
+    {% else %}<div class="empty-state"><strong>No build collections yet</strong><p>Projects, lessons, and articles are still available from their main libraries.</p></div>{% endif %}
   </div></section>
 {% endblock %}

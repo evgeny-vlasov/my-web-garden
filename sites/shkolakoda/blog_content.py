@@ -351,7 +351,7 @@ BLOG_POSTS = {
             (
                 "Keep the hardware promise accurate",
                 [
-                    "A public project page can explain a microcontroller activity without promising that a board is included. Some groups may use simulation; some physical projects require a micro:bit; components may be arranged for a particular class. Those details need to be confirmed for the actual group.",
+                    "A project page can explain a microcontroller activity without promising that a board is included. Some groups may use simulation; some physical projects require a micro:bit; components may be arranged for a particular class. Those details need to be confirmed for the actual group.",
                     "The curriculum underneath remains stable: commands, input, output, conditions, state, timing, and debugging. A microcontroller gives those ideas pins, lights, and the occasional loose wire.",
                 ],
             ),
@@ -522,7 +522,7 @@ BLOG_POSTS.update(
                     "Why the program is listed for later",
                     [
                         "School of Code needs clear decisions about accounts, privacy, publishing, external models, collaboration, and device performance before Roblox classes open. The curriculum must also teach Lua and system design rather than drift into decoration or copied scripts.",
-                        "For now, Roblox Studio / Lua is marked Available later. Scratch and Robotics are active first and teach ideas that will transfer when the operating details and course sequence are ready.",
+                        "For now, Roblox Studio / Lua is marked Coming later. Scratch and Robotics are active now and teach ideas that will transfer when the account details and course sequence are ready.",
                     ],
                 ),
                 (
@@ -628,7 +628,7 @@ BLOG_POSTS.update(
                     "Timely, then independent",
                     [
                         "The aim is not an adult hovering over every click. A well-timed question can prevent twenty minutes of random edits; a patient pause can let the student discover that the variable never reset. Both choices require attention to the learner and the program.",
-                        "School of Code is designed around small groups, though a final published maximum has not been set. The operating principle is clear: the instructor should be able to understand each student's real project, not only deliver the explanation at the front.",
+                        "School of Code groups have up to four students. That gives the instructor time to understand each student's real project carefully, not only deliver the explanation at the front.",
                     ],
                 ),
                 (
@@ -681,7 +681,7 @@ BLOG_POSTS.update(
                 (
                     "Why AI is listed for later",
                     [
-                        "School of Code marks AI & Smart Machines Available later. Tool selection, privacy arrangements, classroom boundaries, and the curriculum itself have to be settled before an activity becomes an active offer.",
+                        "School of Code marks AI & Smart Machines Coming later. Tool selection, privacy arrangements, classroom boundaries, and the teaching plan have to be settled before a class can open.",
                         "The aim is careful literacy: students who can state what a system did usefully, show where it failed, protect information, and keep responsibility with people.",
                     ],
                 ),
@@ -780,7 +780,7 @@ BLOG_POSTS.update(
                 (
                     "Lua changes the notation",
                     [
-                        "Roblox Studio can later connect these concepts to typed functions, objects, 3D coordinates, and larger game systems. The blocks disappear, but events and variables survive the journey.",
+                        "Roblox Studio can later connect these concepts to typed functions, objects, 3D coordinates, and larger game systems. The blocks disappear, but events and variables are still doing the work.",
                         "Text code is useful when it supports a new kind of project. A solid Scratch foundation means the student already has ideas worth expressing in the new syntax."
                     ],
                 ),

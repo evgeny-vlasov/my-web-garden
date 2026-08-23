@@ -42,8 +42,8 @@ TOPICS = {
         "program_appearances": [
             ("Scratch", "Active now", "active", "scratch"),
             ("Robotics", "Active now", "active", "robotics"),
-            ("Roblox", "Available later", "later", "roblox"),
-            ("AI and computer vision", "Available later", "later", "ai"),
+            ("Roblox", "Coming later", "later", "roblox"),
+            ("AI and computer vision", "Coming later", "later", "ai"),
         ],
         "parent_note": (
             "Ask your child to predict the player's next coordinates before pressing a key. "
@@ -137,7 +137,7 @@ PROJECT_DETAILS = {
         "name": "Escape from the Giant Pigeon",
         "endpoint": "giant_pigeon_project",
         "mode": "guided",
-        "project_type": "Guided Class Project",
+        "project_type": "Guided Project",
         "type_class": "guided",
         "program": "Scratch & Game Design",
         "program_endpoint": "scratch",
@@ -478,8 +478,8 @@ PROJECT_DETAILS["escape-from-the-giant-pigeon"].update(
 PROGRAM_LINKS = {
     "scratch": {"name": "Scratch & Game Design", "url": "/programs/scratch", "status": "Active now", "status_class": "active"},
     "robotics": {"name": "Robotics", "url": "/programs/robotics", "status": "Active now", "status_class": "active"},
-    "roblox": {"name": "Roblox Studio / Lua", "url": "/programs/roblox", "status": "Available later", "status_class": "later"},
-    "ai": {"name": "AI & Smart Machines", "url": "/programs/ai", "status": "Available later", "status_class": "later"},
+    "roblox": {"name": "Roblox Studio / Lua", "url": "/programs/roblox", "status": "Coming later", "status_class": "later"},
+    "ai": {"name": "AI & Smart Machines", "url": "/programs/ai", "status": "Coming later", "status_class": "later"},
 }
 
 
@@ -503,7 +503,7 @@ def topic_entry(
         "summary": summary,
         "intro": summary,
         "status": status,
-        "status_class": "active" if status == "Complete topic package" else "demo",
+        "status_class": "active",
         "programs": programs,
         "why_it_matters": why_it_matters,
         "logic_kernel": logic_kernel,
@@ -522,7 +522,7 @@ TOPICS.update(
         "events-and-commands": topic_entry(
             "Events and Commands",
             "An event tells a program when to respond. Commands say what to do, and their order matters.",
-            "Project connection",
+            "Topic Guide",
             ["scratch", "robotics", "roblox"],
             (
                 "The green flag, a key press, and a robot's button are all triggers. Students connect "
@@ -561,7 +561,7 @@ TOPICS.update(
         "loops-and-repetition": topic_entry(
             "Loops and Repetition",
             "Loops repeat a group of commands. The programmer chooses what repeats, how often, and when it stops.",
-            "Project connection",
+            "Topic Guide",
             ["scratch", "robotics", "roblox"],
             (
                 "A game checks for collisions many times each second. A robot keeps reading its distance sensor. "
@@ -600,7 +600,7 @@ TOPICS.update(
         "conditions-and-decisions": topic_entry(
             "Conditions and Decisions",
             "A condition is a question with a true or false answer. The answer decides which code runs.",
-            "Project connection",
+            "Topic Guide",
             ["scratch", "robotics", "roblox", "ai"],
             (
                 "Has the player reached safety? Is the quiz answer correct? Is the wall closer than 15 centimetres? "
@@ -639,7 +639,7 @@ TOPICS.update(
         "variables-and-state": topic_entry(
             "Variables and State",
             "A variable stores a value that can change. State records which set of rules currently applies.",
-            "Project connection",
+            "Topic Guide",
             ["scratch", "robotics", "roblox", "ai"],
             (
                 "Scores, timers, fuel, pet moods, and robot modes all have to be remembered. Giving each value "
@@ -678,7 +678,7 @@ TOPICS.update(
         "sensing-and-collision": topic_entry(
             "Sensing and Collision",
             "Sensing blocks report contact, colour, distance, button presses, and other changes a program can use.",
-            "Project connection",
+            "Topic Guide",
             ["scratch", "robotics", "roblox"],
             (
                 "A moving sprite needs to notice walls, hazards, and targets. A robot needs a reading from outside "
@@ -717,7 +717,7 @@ TOPICS.update(
         "input-and-output": topic_entry(
             "Input and Output",
             "Input enters a system. The code handles it, and an output makes the result visible, audible, or physical.",
-            "Project connection",
+            "Topic Guide",
             ["scratch", "robotics", "roblox"],
             (
                 "A key press can move a sprite. A button can light an LED or sound a buzzer. Students identify "
@@ -756,7 +756,7 @@ TOPICS.update(
         "debugging": topic_entry(
             "Debugging",
             "Debugging begins with a precise difference: what should have happened, and what happened instead?",
-            "Project connection",
+            "Topic Guide",
             ["scratch", "robotics", "roblox", "ai"],
             (
                 "Guessing becomes expensive as a project grows. Students reproduce the problem, inspect a relevant "
@@ -795,7 +795,7 @@ TOPICS.update(
         "sensors": topic_entry(
             "Sensors",
             "A sensor measures something in the physical world and gives the program a value to read.",
-            "Project connection",
+            "Topic Guide",
             ["robotics", "ai"],
             (
                 "A robot can measure distance, light, motion, temperature, touch, or sound. The readings vary, "
@@ -834,7 +834,7 @@ TOPICS.update(
         "feedback": topic_entry(
             "Feedback",
             "In a feedback loop, a system checks the result of an action before deciding what to do next.",
-            "Project connection",
+            "Topic Guide",
             ["robotics", "scratch", "ai"],
             (
                 "A robot turns, reads the sensor again, and decides whether the correction helped. A game can "
@@ -873,7 +873,7 @@ TOPICS.update(
         "autonomy": topic_entry(
             "Autonomy",
             "An autonomous system selects actions from its inputs, rules, current state, and goal.",
-            "Available later connection",
+            "Topic Guide",
             ["robotics", "ai"],
             (
                 "This later topic brings together sensing, conditions, loops, state, feedback, and testing. "
@@ -916,7 +916,7 @@ TOPICS.update(
 TOPICS["coordinates"].update(
     {
         "summary": TOPICS["coordinates"]["intro"],
-        "status": "Complete topic package",
+        "status": "Topic Guide",
         "status_class": "active",
         "programs": ["scratch", "robotics", "roblox", "ai"],
         "why_it_matters": (
@@ -1222,14 +1222,14 @@ for lesson_slug, lesson in LESSONS.items():
     punctuation = "" if lesson["title"].endswith((".", "?", "!")) else "."
     lesson.setdefault(
         "meta_description",
-        f"{lesson['title']}{punctuation} A 90-minute School of Code lesson for {lesson['program']}, with examples, a guided build, checkpoints, and challenges.",
+        f"{lesson['title']}{punctuation} A 90-minute {lesson['program']} lesson with a practical build, useful tests, and room to change the result.",
     )
 
 for topic_slug, topic in TOPICS.items():
     topic["central_question"] = TOPIC_QUESTIONS[topic_slug]
     topic["slug"] = topic_slug
     topic["url"] = f"/topics/{topic_slug}"
-    topic.setdefault("meta_description", f"A School of Code guide to {topic['title'].lower()}, with examples, common bugs, and related projects and lessons.")
+    topic.setdefault("meta_description", f"Learn how {topic['title'].lower()} work through clear examples, common bugs, a School of Code lesson, and related projects.")
 
 
 TOPIC_ORDER = [

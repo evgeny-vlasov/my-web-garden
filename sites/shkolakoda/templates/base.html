@@ -9,12 +9,12 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="School of Code">
     <meta property="og:title" content="{% block og_title %}School of Code | Programming and Robotics in Calgary{% endblock %}">
-    <meta property="og:description" content="Programming and robotics for children who want to build things. Based in Calgary, Alberta.">
+    <meta property="og:description" content="Small-group programming and robotics in Calgary. Students build games, circuits, and machines while learning how they work.">
     <meta property="og:url" content="{{ site_url }}{{ request.path }}">
     <meta property="og:image" content="{{ site_url }}{{ url_for('static', filename='brand/photos/open-graph-branded-1200x630.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Four children testing a handmade robot together in a compact maker room.">
+    <meta property="og:image:alt" content="Four children adjusting wires and sensors on a handmade wheeled robot.">
     <title>{% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}</title>
     <link rel="icon" href="{{ url_for('favicon_svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
@@ -66,7 +66,6 @@
             <a href="{{ url_for('parents') }}">For Parents</a>
             <a href="{{ url_for('method') }}">Our Method</a>
             <a href="{{ url_for('blog_index') }}">Blog</a>
-            <a href="{{ url_for('campaign_index') }}">Campaigns</a>
             <a href="{{ url_for('contact') }}">Contact</a>
           </nav>
         </details>
@@ -79,7 +78,7 @@
       <div class="container footer-grid footer-grid-expanded">
         <div>
           <a class="footer-brand" href="{{ url_for('home') }}">School of Code</a>
-          <p>Programming and robotics for kids who want to build things.</p>
+          <p>Small-group programming and robotics for children who want to build things.</p>
           <p>Calgary, Alberta</p>
           <a class="footer-email" href="mailto:hello@shkolakoda.com">hello@shkolakoda.com</a>
         </div>
@@ -97,13 +96,12 @@
           <a href="{{ url_for('parents') }}">For Parents</a>
           <a href="{{ url_for('method') }}">Our Method</a>
           <a href="{{ url_for('blog_index') }}">Blog</a>
-          <a href="{{ url_for('campaign_index') }}">Campaigns</a>
           <a href="{{ url_for('contact') }}">Contact</a>
         </nav>
         <div class="footer-science">
-          <strong>A separate project</strong>
-          <p>Hands-on science workshops and labs live at Happy Science.</p>
-          <a href="https://science.shkolakoda.com">Visit Happy Science <span aria-hidden="true">-&gt;</span></a>
+          <strong>Hands-on science</strong>
+          <p>For experiments, microscopes, chemistry, and other hands-on science workshops, visit Happy Science Calgary.</p>
+          <a href="https://science.shkolakoda.com">Visit Happy Science</a>
         </div>
       </div>
     </footer>
