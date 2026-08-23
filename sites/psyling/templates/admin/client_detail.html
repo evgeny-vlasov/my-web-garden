@@ -27,7 +27,7 @@
         <div class="col-xl-6">
             <div class="card border-0 shadow-sm"><div class="card-header bg-white"><h2 class="h5 mb-0">Related contact submissions</h2></div><div class="card-body">
                 {% if contacts %}<div class="list-group list-group-flush">
-                    {% for contact in contacts %}<a href="{{ url_for('admin_contact_view', contact_id=contact.id) }}" class="list-group-item list-group-item-action px-0"><strong>Inquiry #{{ contact.id }}</strong><br><small class="text-muted">{{ contact.submitted_at.strftime('%b %d, %Y %I:%M %p') }} · {{ contact.status|title }}</small></a>{% endfor %}
+                    {% for contact in contacts %}<a href="{{ url_for('admin_contact_view', contact_id=contact.id) }}" class="list-group-item list-group-item-action px-0"><strong>Inquiry #{{ contact.id }}</strong><br><small class="text-muted">{{ contact.submitted_at.strftime('%b %d, %Y %I:%M %p') }} · {{ contact_status_labels[contact.status] }}</small></a>{% endfor %}
                 </div>{% else %}<p class="text-muted mb-0">No linked contact submissions.</p>{% endif %}
             </div></div>
             <div class="card border-0 shadow-sm mt-4">

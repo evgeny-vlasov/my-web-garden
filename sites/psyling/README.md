@@ -197,67 +197,44 @@ Template: `templates/admin/post_form.html`
 
 #### `GET /admin/contacts`
 **List Contact Submissions**
-- Paginated list of all contact submissions
-- Filter by status (all/new/read/responded)
-- Shows name, email, date, status
-- Click to view details
+- Paginated contact inbox with Active, Unread, Spam, and Archived views
+- Archived inquiries are excluded from Active and Unread but remain stored
+- Unread filtering and counts use `is_read`, independently of workflow status
+- Workflow filters use the compatible stored values `new`, `contacted`,
+  `booked`, and `closed`; the UI displays `new` as **Needs reply**
+- Search by name, email, or phone and open a full HTML detail page
 
 Template: `templates/admin/contacts_list.html`
 
 **Query Parameters:**
 - `page`: Page number (default: 1)
-- `status`: Filter by status ('new', 'read', 'responded', or none for all)
+- `show`: `inbox` (active), `unread`, `spam`, or `archived`
+- `status`: `new`, `contacted`, `booked`, or `closed`
+- `q`: Name, email, or phone search text
 
 **Protected:** Requires login
 
-#### `GET /admin/contacts/<contact_id>`
-**View Contact Details (JSON)**
-- Returns contact submission details as JSON
-- Automatically marks as "read" if status is "new"
-- Used by AJAX modal
-
-**Response:**
-```json
-{
-  "id": 123,
-  "name": "John Doe",
-  "email": "john@example.com",
-  "phone": "+1234567890",
-  "message": "I would like to...",
-  "submitted_at": "November 25, 2025 at 02:30 PM",
-  "status": "read",
-  "notes": "Called back on Nov 26"
-}
-```
+#### `GET /admin/contacts/<contact_id>/view`
+**View Contact Details**
+- Returns a complete HTML page that works without JavaScript
+- Automatically sets `is_read=true` without changing workflow status
+- Shows **Unread** only when `is_read=false`
+- Shows **Needs reply** when the compatible stored status is `new`
+- The legacy `/admin/contacts/<contact_id>` link opens the same page
 
 **Protected:** Requires login
 
-#### `POST /admin/contacts/<contact_id>/status`
-**Update Contact Status**
-- Update contact submission status
-- Accepts JSON payload
-- Valid statuses: 'new', 'read', 'responded'
-
-**Request Body:**
-```json
-{
-  "status": "responded"
-}
-```
-
-**Protected:** Requires login
-
-#### `POST /admin/contacts/<contact_id>/notes`
-**Update Contact Notes**
-- Update admin notes for contact submission
-- Accepts JSON payload
-
-**Request Body:**
-```json
-{
-  "notes": "Called back and scheduled appointment for Dec 5"
-}
-```
+#### Contact actions
+- `POST /admin/contacts/<contact_id>/crm` updates workflow status, follow-up,
+  and internal notes
+- `POST /admin/contacts/<contact_id>/toggle-read` manually marks read/unread;
+  marking unread returns to the Unread list so opening the detail does not
+  immediately reverse the action
+- `POST /admin/contacts/<contact_id>/mark-contacted` records outside contact
+- `POST /admin/contacts/<contact_id>/reply` sends and records an email reply
+- `POST /admin/contacts/<contact_id>/archive` removes an inquiry from the active
+  list without deleting it, or restores it later
+- `POST /admin/contacts/<contact_id>/toggle-spam` changes spam classification
 
 **Protected:** Requires login
 
@@ -546,7 +523,7 @@ data-primary-color="#7c3aed"
 - Quick overview of site activity
 - Statistics cards (total posts, contacts, unread)
 - Recent posts list with status indicators
-- Recent contacts with status badges
+- Recent active, non-spam inquiries with unread and reply-status badges
 - Quick action buttons
 
 ### Blog Management
@@ -559,9 +536,13 @@ data-primary-color="#7c3aed"
 - Publication scheduling
 
 ### Contact Management
-- View all submissions
-- Filter by status
-- Mark as read/responded
+- View active, unread, spam, and archived inquiries
+- Treat unread and reply workflow as separate concepts
+- Opening clears unread automatically while an unanswered inquiry continues to
+  display **Needs reply**
+- Mark an inquiry read/unread manually
+- Record **Contacted**, **Booked**, or **Closed** workflow states
+- Archive from the active list without deleting the inquiry, and restore it
 - Add internal notes
 - Compose and send email replies from an inquiry detail page
 - Review the chronological status and content of replies sent from Psyling
@@ -575,6 +556,12 @@ Valery sends a reply from its detail page, Psyling sends it through the existing
 Mailgun configuration and saves the outgoing subject, body, recipient, admin,
 timestamp, and SMTP-acceptance status. The inquiry is marked contacted only
 after SMTP accepts the message.
+
+`is_read` records whether an admin has opened the inquiry. The stored `status`
+continues to record workflow progress for compatibility: `new` is presented as
+**Needs reply**, while a successfully sent reply changes it to `contacted`,
+presented as **Contacted**. Archiving sets `archived_at`; it never permanently
+deletes the inquiry or its history.
 
 The email uses the configured admin address as `Reply-To`, so a later client
 reply arrives in `psyling@gmail.com`. Replies written directly in Gmail or
