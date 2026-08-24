@@ -53,6 +53,10 @@ from sites.psyling.crm_forms import (
     ContactReplyForm,
 )
 from sites.psyling.email_replies import send_contact_reply_email
+from sites.psyling.spam_classification import (
+    REPEAT_MESSAGE_LOOKBACK,
+    classify_contact_message,
+)
 from sites.psyling.chat_forms import (
     ChatMessageForm,
     ChatRoomActionForm,
@@ -235,20 +239,21 @@ def schedule():
 
 
 @app.route('/contact', methods=['GET', 'POST'])
-@limiter.limit(app.config.get('CONTACT_FORM_RATE_LIMIT', '5 per hour'))
+@limiter.limit(
+    app.config.get('CONTACT_FORM_RATE_LIMIT', '5 per hour'),
+    methods=['POST'],
+)
 def contact():
     """Contact page with form submission."""
     form = ContactForm()
+    preclassified_spam = False
 
     if request.method == 'POST':
         # SPAM PREVENTION: Check honeypot field
         honeypot = request.form.get('website', '')
         if honeypot:
-            # Bot detected - honeypot was filled
-            app.logger.warning('Honeypot spam submission rejected')
-            # Return fake success to fool the bot
-            flash('Thank you for your message! We will get back to you soon.', 'success')
-            return redirect(url_for('contact'))
+            preclassified_spam = True
+            app.logger.info('Contact submission matched the honeypot')
 
         # SPAM PREVENTION: Check blocklist
         name = request.form.get('name', '').strip()
@@ -257,22 +262,20 @@ def contact():
         # Check if name is blocked
         name_blocked = SpamBlocklist.query.filter_by(value=name, type='name').first()
         if name_blocked:
-            app.logger.warning('Blocklisted name submission rejected')
-            flash('Thank you for your message!', 'success')
-            return redirect(url_for('contact'))
+            preclassified_spam = True
+            app.logger.info('Contact submission matched the name blocklist')
 
         # Check if email is blocked
         email_blocked = SpamBlocklist.query.filter_by(value=email, type='email').first()
         if email_blocked:
-            app.logger.warning('Blocklisted email submission rejected')
-            flash('Thank you for your message!', 'success')
-            return redirect(url_for('contact'))
+            preclassified_spam = True
+            app.logger.info('Contact submission matched the email blocklist')
 
         # SPAM PREVENTION: Verify reCAPTCHA token if configured
         recaptcha_token = request.form.get('recaptcha_token', '')
         recaptcha_secret = app.config.get('RECAPTCHA_SECRET_KEY')
 
-        if recaptcha_secret and recaptcha_token:
+        if not preclassified_spam and recaptcha_secret and recaptcha_token:
             try:
                 # Verify reCAPTCHA with Google
                 recaptcha_response = requests.post(
@@ -307,7 +310,7 @@ def contact():
             except Exception as e:
                 # Other error - log but allow submission
                 app.logger.error(f'Unexpected reCAPTCHA error: {str(e)}')
-        elif recaptcha_secret and not recaptcha_token:
+        elif not preclassified_spam and recaptcha_secret and not recaptcha_token:
             # reCAPTCHA is configured but no token provided - likely a bot
             app.logger.warning(f'No reCAPTCHA token provided from IP {request.remote_addr}')
             flash('Security verification required. Please enable JavaScript and try again.', 'error')
@@ -315,20 +318,51 @@ def contact():
 
     if form.validate_on_submit():
         try:
+            repeat_cutoff = datetime.utcnow() - REPEAT_MESSAGE_LOOKBACK
+            previous_messages = (
+                message
+                for (message,) in db.session.query(ContactSubmission.message).filter(
+                    ContactSubmission.submitted_at >= repeat_cutoff
+                ).all()
+            )
+            spam_decision = classify_contact_message(
+                form.message.data,
+                previous_messages,
+            )
+            should_quarantine = (
+                preclassified_spam or spam_decision.should_quarantine
+            )
+
             # Create contact submission record
             submission = ContactSubmission(
                 name=form.name.data,
                 email=form.email.data,
                 phone=form.phone.data,
-                message=form.message.data
+                message=form.message.data,
+                is_spam=should_quarantine,
+                status='spam' if should_quarantine else 'new',
             )
 
             # Save to database
             db.session.add(submission)
             db.session.commit()
 
-            # Send notification emails after the inquiry is safely saved.
-            if not submission.is_spam:
+            # Send emails only after a non-spam inquiry is safely saved.
+            if submission.is_spam:
+                if preclassified_spam:
+                    app.logger.info(
+                        'Contact submission %s quarantined by an existing '
+                        'trap or blocklist',
+                        submission.id,
+                    )
+                else:
+                    app.logger.info(
+                        'Contact submission %s automatically quarantined by %s '
+                        'independent spam signals',
+                        submission.id,
+                        spam_decision.strong_signal_count,
+                    )
+            else:
                 try:
                     if not send_contact_notification(submission):
                         app.logger.error(
@@ -341,17 +375,17 @@ def contact():
                         submission.id,
                     )
 
-            try:
-                if not send_contact_confirmation(submission):
-                    app.logger.error(
-                        'Contact confirmation delivery failed for contact submission %s',
+                try:
+                    if not send_contact_confirmation(submission):
+                        app.logger.error(
+                            'Contact confirmation delivery failed for contact submission %s',
+                            submission.id,
+                        )
+                except Exception:
+                    app.logger.exception(
+                        'Unexpected contact confirmation error for contact submission %s',
                         submission.id,
                     )
-            except Exception:
-                app.logger.exception(
-                    'Unexpected contact confirmation error for contact submission %s',
-                    submission.id,
-                )
 
             flash('Thank you for your message! We will get back to you soon.', 'success')
             return redirect(url_for('contact'))

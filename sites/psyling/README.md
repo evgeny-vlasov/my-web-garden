@@ -569,6 +569,36 @@ another email application are not automatically imported into Psyling's CRM.
 Spam-marked and archived inquiries must be restored to an active, non-spam
 state before Psyling will send from them.
 
+### Conservative contact quarantine
+
+Valid contact submissions are always retained for administrator review. The
+contact form automatically quarantines an inquiry only when at least two of
+these independent signals are present:
+
+- its case-and-whitespace-normalized message exactly repeats a message stored
+  during the previous 30 days;
+- it contains at least two URL markers; or
+- it matches the narrow commercial-solicitation vocabulary used by the local
+  classifier.
+
+Any one signal alone remains a normal inquiry. The existing honeypot and exact
+name/email blocklist are separate high-confidence controls; valid submissions
+that match them are also retained in Spam rather than discarded. Quarantined
+submissions receive the same neutral browser response as other submissions,
+but neither the admin notification nor visitor confirmation email is sent.
+Administrators can inspect them in Spam and use **Mark not spam** to return a
+false positive to the active **Needs reply** workflow.
+
+The classifier is local and categorical. It does not use an external service,
+store IP addresses, log submitted text or identifiers, or introduce a database
+schema change. Contact-notification logs use submission IDs and delivery
+outcomes only.
+
+The contact-specific `5 per hour` limit applies only to POST requests. Client-IP
+trust and shared rate-limit storage remain separate follow-up work; the current
+in-memory limiter is still process-local and must not be described as a strict
+cross-worker per-client limit.
+
 ### User Interface
 - Clean, modern design
 - Responsive for mobile admin

@@ -42,11 +42,11 @@ def send_email(subject, recipients, text_body=None, html_body=None, sender=None)
             msg.html = html_body
 
         mail.send(msg)
-        logger.info(f'Email sent: {subject} to {recipients}')
+        logger.info('Email delivery succeeded')
         return True
 
     except Exception as e:
-        logger.error(f'Failed to send email: {str(e)}')
+        logger.error('Email delivery failed (%s)', type(e).__name__)
         return False
 
 
@@ -205,15 +205,18 @@ Open this inquiry in the admin panel:
         msg.html = html_body
 
         mail.send(msg)
-        logger.info(f'✅ Admin notification sent for submission from {contact_submission.email}')
+        logger.info(
+            'Admin notification sent for contact submission %s',
+            contact_submission.id,
+        )
         return True
 
     except Exception as e:
-        logger.exception(
-            'Failed to send admin notification for contact submission %s; '
-            'submission from %s remains saved',
+        logger.error(
+            'Admin notification failed for contact submission %s (%s); '
+            'inquiry remains saved',
             contact_submission.id,
-            contact_submission.email,
+            type(e).__name__,
         )
         return False
 
@@ -344,12 +347,22 @@ To reach me directly, use: psyling@gmail.com
         )
 
         if result:
-            logger.info(f'✅ Auto-reply confirmation sent to {contact_submission.email}')
+            logger.info(
+                'Contact confirmation sent for contact submission %s',
+                contact_submission.id,
+            )
         else:
-            logger.error(f'❌ Failed to send auto-reply to {contact_submission.email}')
+            logger.error(
+                'Contact confirmation failed for contact submission %s',
+                contact_submission.id,
+            )
 
         return result
 
     except Exception as e:
-        logger.error(f'❌ Exception sending auto-reply to {contact_submission.email}: {str(e)}')
+        logger.error(
+            'Contact confirmation raised %s for contact submission %s',
+            type(e).__name__,
+            contact_submission.id,
+        )
         return False
