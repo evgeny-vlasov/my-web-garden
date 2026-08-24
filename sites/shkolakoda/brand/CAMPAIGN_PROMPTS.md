@@ -1,6 +1,6 @@
 # School of Code campaign master prompts
 
-These are the exact successful production prompts. Image numbers refer to privately held authorized references; raw paths, GPS and private metadata are intentionally absent.
+These are the successful production prompts for current tracked masters. Image numbers refer to privately held authorized references; raw paths, GPS and private metadata are intentionally absent. Withdrawn source images and prompts are not valid production inputs.
 
 ## Robotics hero v1.1
 
@@ -20,22 +20,52 @@ Constraints: EXACTLY FOUR CHILDREN. Preserve natural identities where visible, n
 Avoid: Five or more children, partial hidden extra people, coordinated uniforms, perfect semicircle poses, polished stock-photo smiles, generic commercial robot kits, spotless plastic AI robots, floating components, nonsensical wires, dirty room, corporate STEM-blue wash, neon, holograms, generated text, logos or watermarks.
 ```
 
-## Scratch / Computer Lab
+## Scratch / Computer Lab privacy replacement v2
 
 ```text
 Use case: compositing
-Asset type: wide photorealistic Scratch / Computer Lab campaign master with responsive website crop potential
-Primary request: Use Image 1 as the emotional core. Preserve the same intimate closeness and collaborative energy of three real children leaning together around one screen, while dramatically rebuilding the bedroom surroundings into a warm compact independent coding lab. Preserve recognizable real-person identity naturally where visible, without blending faces.
-Input images: Image 1 (20200704_115925.jpg): primary three-child collaboration, body arrangement and emotional reference; Image 2 (DSC_0070.JPG): supporting child-at-laptop posture and table-scale reference; Image 3 (DSC_0042.JPG): four-station compact computer-lab reference; Image 4 (DSC_0044.JPG): supporting room proportions, desks and screens reference; Image 5 (Message_1593362357145.jpg): supporting small independent room atmosphere reference.
-Scene/backdrop: A warm compact independent coding lab with approximately four practical working stations, mixed ordinary monitors and laptops, a clean whiteboard with no writing, one small component shelf, and one subtle playful handmade robot detail. The room may read as a polished library classroom, community room or small maker studio, but not a large owned facility.
-Subject: The three children from Image 1 remain tightly gathered around the central screen, leaning in with curiosity, collaboration and natural concentration. They interact with the project and one another, not with the camera. Other stations remain unoccupied and secondary.
-Screen: Replace the central screen with a believable colourful block-based game-programming interface recognizably suitable for Scratch learning, with simple coloured code blocks and a small game stage, but no logo, no branded mascot, no legible personal information, no usernames and no meaningless pseudo-text.
-Style/medium: Polished photorealistic natural editorial photography, real skin and hair texture, believable furniture wear and ordinary hardware; small, personal and builder-oriented.
-Composition/framing: Wide 16:9-style landscape, eye-level 35 mm environmental photograph. Keep the three-child collaboration as the visual centre and preserve clear negative space toward one outer side and above the stations for future responsive copy placement. Maintain useful crop room without making the room look large.
-Lighting/mood: Warm natural window light balanced with soft practical light; curious, intimate, intelligent and lively rather than solemn.
-Color palette: Warm paper walls, charcoal hardware, pale wood, restrained yellow/green accents; screens may provide limited colourful code-block accents. No corporate blue atmosphere or neon glow.
-Constraints: Preserve natural child anatomy, hands, body overlap and facial character. Remove all third-party brands, institutional identifiers, logos, badges, commercial marks and readable private screen content. Keep the master text-free and logo-free. Do not add a School of Code logo.
-Avoid: Stock children pointing at meaningless screens, oversized commercial school, rows of students, daycare styling, corporate training room, luxury laboratory, futuristic technology, holograms, over-smoothed faces, warped keyboards, impossible screens, generated words, watermarks or fake logos.
+Asset type: School of Code Scratch and Computer Lab campaign master
+Input images: Image 1 is a composition, room-warmth and activity reference only; its people are not cleared and no identity, face, hair, clothing, body feature or likeness may be retained, blended or reproduced. Image 2 is the primary authorized identity reference. Use only the clearly visible light-brown-haired boy at front left, taller dark-haired boy at centre and girl at right. Images 3 and 4 support those same three identities only; ignore every other person.
+Primary request: Create a coherent new photorealistic campaign scene of those three authorized children naturally seated around one desktop computer, working together on a simple block-coding project. Preserve the warm, modest, compact classroom composition and collaborative atmosphere of Image 1 while reconstructing the complete scene and every person.
+Scene/backdrop: Small personal learning room with ordinary wooden tables, simple black chairs, a few modest computer stations, one plain whiteboard, a small plant, practical task lamp and small handmade robot assembled from generic parts; no permanent-facility grandeur.
+Subject: Exactly three distinct authorized children, each appearing once, naturally seated and engaged. Preserve recognizable facial identity only from the authorized references. Use new plain unbranded clothing in rust, deep blue and charcoal. Faces, age, body proportions, hands, chairs, sight lines, keyboard interaction and posture must remain physically coherent.
+Style/medium: Photorealistic candid editorial campaign photography, authentic skin and fabric texture, restrained colour, not glossy stock imagery.
+Composition/framing: Wide landscape view, central shared monitor and table, children forming a natural collaborative triangle, with surrounding room context for responsive 16:9 and 3:2 crops.
+Lighting/mood: Warm natural window light mixed with one practical lamp; focused, collaborative, personal and quietly playful.
+Constraints: Coherent new reconstruction, not a face swap. Faces are distinct and not duplicated or blended. Correct hands, limbs, furniture, scale, perspective and shadows. No logos, brands, labels, watermarks, institutional signs, metadata or generated writing.
+Avoid: Any recognizable identity, facial structure, hair, distinctive clothing or body feature from Image 1; copied poses that preserve an uncleared likeness; duplicated children; blended faces; crude face swaps; extra fingers or limbs; warped chairs; impossible screen interaction; pseudo-text; corporate STEM-lab styling; luxury facilities; neon; staged advertising smiles.
+```
+
+Targeted screen cleanup:
+
+```text
+Use case: precise-object-edit
+Primary request: Change only the central computer monitor content. Replace the current interface with a simple, plausible block-coding workspace made from clean coloured interlocking block shapes and a small abstract stage containing geometric shapes.
+Constraints: The monitor must contain absolutely no readable text, pseudo-text, letters, numbers, logo-like icons, brand marks or watermarks. Preserve every child exactly, including authorized identity, face, hair, body, clothing, pose, hands and sight line. Preserve the room, robot, furniture, plants, whiteboard, camera angle, crop, lighting, shadows, colour and perspective exactly. No other changes.
+```
+
+## Reconstructed coding-together privacy replacement v1
+
+```text
+Use case: compositing
+Asset type: School of Code reconstructed coding-class master
+Input images: Image 1 is a composition and activity reference only; its people are not cleared and no identity, face, hair, clothing, body feature or likeness may be retained, blended or reproduced. Image 2 is the primary authorized identity reference. Use only the clearly visible light-brown-haired boy at front left, taller dark-haired boy at centre and girl at right. Images 3 and 4 support those same three identities only; ignore every other person.
+Primary request: Create a coherent new photorealistic scene of those three authorized children naturally seated close together and engaged with a desktop computer showing a simple block-based coding project. Preserve the useful coding-together composition, activity and intimate atmosphere of Image 1, but reconstruct the complete scene and every person.
+Scene/backdrop: Warm, modest, small personal learning room with an ordinary computer desk, simple chairs, a plant, a plain board and daylight from a nearby window; authentic and lived-in, not a luxury facility.
+Subject: Exactly three distinct authorized children, each appearing once, seated naturally with believable age, body proportions, posture, hands, sight lines and screen interaction. Preserve recognizable facial identity only from the three authorized children. Dress them in new plain, unbranded, modest clothing in restrained blue, rust and charcoal; do not reuse distinctive clothing from Image 1.
+Style/medium: Photorealistic candid editorial photography with natural skin texture and restrained colour.
+Composition/framing: Portrait-oriented coding-together composition, slightly elevated behind-and-side viewpoint, computer central, all three children clearly engaged, suitable for later 4:3 responsive crops.
+Lighting/mood: Warm natural window light, focused, collaborative, personal and slightly imperfect.
+Constraints: Coherent new reconstruction, not a face swap. Faces are distinct and not duplicated or blended. Anatomically correct hands, arms, shoulders, legs and seating; believable furniture and perspective. No logos, brands, labels, watermarks, institutional signs, metadata or generated writing.
+Avoid: Any recognizable identity, facial structure, hair, distinctive clothing or body feature from Image 1; copied poses that preserve an uncleared likeness; duplicated children; blended faces; crude face swaps; extra fingers or limbs; warped chairs; impossible screen reflections; corporate classroom polish; neon colour; staged advertising smiles.
+```
+
+Targeted screen cleanup:
+
+```text
+Use case: precise-object-edit
+Primary request: Change only the computer monitor content. Replace the current interface with a simple, plausible block-coding workspace made from clean coloured interlocking block shapes and a small abstract stage containing geometric shapes.
+Constraints: The monitor must contain absolutely no readable text, pseudo-text, letters, numbers, logo-like icons, brand marks or watermarks. Preserve every child exactly, including authorized identity, face, hair, body, clothing, pose, hands and sight line. Preserve the room, furniture, plant, board, camera angle, crop, lighting, shadows, colour and perspective exactly. No other changes.
 ```
 
 ## Eugene builder-teacher v1.1

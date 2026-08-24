@@ -299,6 +299,17 @@ class PublicSiteTest(unittest.TestCase):
         finally:
             sitemap.close()
 
+    def test_withdrawn_photo_names_are_not_rendered_publicly(self):
+        withdrawn = (
+            "historical-coding-together",
+            "campaign-scratch-lab-v1",
+        )
+        for path, (response, _) in self.pages.items():
+            body = response.get_data(as_text=True).lower()
+            for name in withdrawn:
+                with self.subTest(path=path, name=name):
+                    self.assertNotIn(name, body)
+
     def test_no_duplicate_ids_or_empty_links(self):
         for path, (_, parser) in self.pages.items():
             with self.subTest(path=path):

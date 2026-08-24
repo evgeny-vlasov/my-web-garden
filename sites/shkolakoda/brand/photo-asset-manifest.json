@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "rights_status": "All 81 private source photographs user-confirmed for editing, identifiable adult/child publication, website, organic social, paid advertising, and reference-based generation.",
-  "authenticity_rule": "Historical workshop photographs must not be described as a current Calgary cohort or current facility. Reconstructed campaign images must be labelled as campaign imagery where context could imply documentary truth.",
+  "rights_status": "Only asset-specific cleared sources may enter production. The withdrawn historical coding-together photograph and former Scratch campaign master are excluded; reconstructed replacements use children from the fully authorized historical-robot-testing references.",
+  "authenticity_rule": "Historical workshop photographs must not be described as a current Calgary cohort or current facility. Reconstructed campaign images and reconstructed coding-class scenes must not be presented as documentary photographs of a literal class, date or facility.",
   "assets": [
     {
       "path": "brand/photo-masters/campaign-eugene-builder-v1.png",
@@ -20,7 +20,7 @@
         "paid advertising"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "343c842cdfb84e4629a2bb3679117bd842444569df352ba2542b19ac7e0bad62"
     },
@@ -42,7 +42,7 @@
         "paid advertising"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f7dae154ccd5b4d3a13059b863a3c9cb7aa5b890fca1186f90bb41ae8e5b60f2"
     },
@@ -63,14 +63,14 @@
         "paid advertising"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "0001d20113f1fa324ec6b618e0d4b2f7b54d0beba759dc694045bf483736c146"
     },
     {
-      "path": "brand/photo-masters/campaign-scratch-lab-v1.png",
+      "path": "brand/photo-masters/campaign-scratch-class-v2.png",
       "semantic_role": "approved scratch campaign master",
-      "origin": "concept-2-scratch-computer-lab.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1672,
@@ -84,9 +84,9 @@
         "paid advertising"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "09711bdc8c0a050ad8c86132c7a04e0a090dff20340f2739cd730eacf4de13c9"
+      "sha256": "5905b25bc670287bc2ae8a8907d5de66ae35be57323747d3c7ead08f495c0bd2"
     },
     {
       "path": "brand/photo-masters/documentary/historical-classroom-context.jpg",
@@ -105,30 +105,9 @@
         "supporting website cards"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "d44ca44f7eae99ddf88435f3c91e981408f62abea5bf1a7b2e2ca5297c2947e4"
-    },
-    {
-      "path": "brand/photo-masters/documentary/historical-coding-together.jpg",
-      "semantic_role": "historical workshop coding together",
-      "origin": "20200704_115925.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 1200,
-        "height": 1500
-      },
-      "format": "jpeg",
-      "crop_focal_point": "0.54,0.55",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog",
-        "supporting website cards"
-      ],
-      "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "f931ecad064fa2856665e7065c099a1e6e75f4e1f069a21a3dc61a0753cf7322"
     },
     {
       "path": "brand/photo-masters/documentary/historical-robot-adjustment.jpg",
@@ -147,7 +126,7 @@
         "supporting website cards"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "5730bcc6a255b66fee67104d0277205446301e39845c381afca7cde32e6c3c57"
     },
@@ -168,7 +147,7 @@
         "supporting website cards"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "355af602157f22e846aba32bd2c2251afb4ad6cbac2047996b0986e66ac7b757"
     },
@@ -189,7 +168,7 @@
         "supporting website cards"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "445962d413fc88bff336d12eeffc4c5b92d4e73e4e2c470b3ae80b13082e866b"
     },
@@ -210,9 +189,30 @@
         "supporting website cards"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "1022834e1d6aed8b540b6b1bdcc671ee0789674f56b99c47c01f0145f496a281"
+    },
+    {
+      "path": "brand/photo-masters/reconstructed-coding-together-v1.png",
+      "semantic_role": "reconstructed coding-together master",
+      "origin": "generated reconstruction using authorized historical-robot-testing identity references",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 1122,
+        "height": 1402
+      },
+      "format": "png",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog",
+        "supporting website cards"
+      ],
+      "alt_text": "",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "54accd03e7e09fadf9d232f245fd44f8b353767179c22ae70c30587d75d5c4d2"
     },
     {
       "path": "brand/social/exports/campaigns/eugene-teacher/feed-landscape-1440x754.jpg",
@@ -229,7 +229,7 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "0492ba09cbdae81ed54b0b04f8bc35295ceede060336b927338a85e0c57e7d55"
     },
@@ -248,7 +248,7 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "2c2326532d74bc0af8a4925db42b3b4fd3cf22481353471f12981e060391293a"
     },
@@ -267,7 +267,7 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "84678411630021e79c9617f92524e96dc74194a7957fcb494dd50ad6277f8f80"
     },
@@ -287,7 +287,7 @@
         "Reels"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "27809319d8de7bd2fa25350afaccf6d540fb3d6f1943a1ac9fac0f143d49c364"
     },
@@ -307,7 +307,7 @@
         "Reels"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "b7c2836736ad20083806df49c8617f5b62bb47ce38df6ac5885f9305f0de1c3c"
     },
@@ -326,7 +326,7 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "792c1ee293e1e7b989c4da82ebd143254d6d139acd04206109f3cf9c3f6f0779"
     },
@@ -345,7 +345,7 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "9653520abf4d66ff561cfbded223b8bef695480dd8417900c81dd9d779f2f6cf"
     },
@@ -364,7 +364,7 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "07a14fb3452d4b5d5b23b68a595f8f24b485c766ecd19c6aae2c53c5cc9bb02c"
     },
@@ -384,7 +384,7 @@
         "Reels"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3bc430afee59b382bd3363b62df2f0db6c7c062a6c8264835499a4d7c1f590b9"
     },
@@ -404,14 +404,14 @@
         "Reels"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "65c57f72f999fdc8347c8ff6da468bbbf4e504a74647161a2408ef0b19abb1d2"
     },
     {
       "path": "brand/social/exports/campaigns/scratch-lab/feed-landscape-1440x754.jpg",
       "semantic_role": "scratch-lab feed-landscape-1440x754",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1440,
@@ -423,14 +423,14 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "bf5852df2e45b65b36b770f0b7ba7595fc17e69ac9d7aaef1c6d15f2095ac084"
+      "sha256": "3a67d2d2c19349a6abfb7d2b7509098bb5ba34ba9154642f8b1e2a44e6c4131d"
     },
     {
       "path": "brand/social/exports/campaigns/scratch-lab/feed-portrait-1440x1800.jpg",
       "semantic_role": "scratch-lab feed-portrait-1440x1800",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1440,
@@ -442,14 +442,14 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "1f8c30a75ca3d6f89b59803b34ad4f11a8ddf7bace1eb360a6ca5960f1c334f5"
+      "sha256": "aa6c81835231ea347ff70324941e16e15a4380d88528f460f96dcbbf0c68145b"
     },
     {
       "path": "brand/social/exports/campaigns/scratch-lab/feed-square-1440.jpg",
       "semantic_role": "scratch-lab feed-square-1440",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1440,
@@ -461,14 +461,14 @@
         "Facebook/Instagram paid and organic feed"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "897497acb3b5d4008a653351b89fe01887b99054bb33ac446d8ffe2e34c1e5f9"
+      "sha256": "fa08dd74c7db0dea076f44debc5110bb01606ee64c0a8a136eee1d134dea14d7"
     },
     {
       "path": "brand/social/exports/campaigns/scratch-lab/story-reel-delivery-1080x1920.png",
       "semantic_role": "scratch-lab branded Story/Reel delivery",
-      "origin": "campaign-scratch-lab-v1.png + canonical wordmark",
+      "origin": "campaign-scratch-class-v2.png + canonical wordmark",
       "classification": "branded reconstructed campaign image",
       "dimensions": {
         "width": 1080,
@@ -481,14 +481,14 @@
         "Reels"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "d36bb2595907e20fbb7f7f86e38832f447189eb019629f6cdd8a455a3072be66"
+      "sha256": "2f6d9457bf42b3b5f37eab3d2420184c5efc325dc25e6337e5da2c67c4079680"
     },
     {
       "path": "brand/social/exports/campaigns/scratch-lab/story-reel-master-1440x2560.png",
       "semantic_role": "scratch-lab Story/Reel clean master",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1440,
@@ -501,9 +501,9 @@
         "Reels"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "adc592846fd4c83208d16a0ab99f876c56c87af77552248c614f4a4d42309e74"
+      "sha256": "793ced3f4d3924541ab18a02b8c5a26e33442187efdbfa74943b15a2f0fa9378"
     },
     {
       "path": "brand/social/exports/covers/facebook-event-cover-branded.png",
@@ -520,7 +520,7 @@
         "Facebook Event cover"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "b794404e32e94856b2740d8bfa92bfa7501c3f717cea5b3da1f5cf8ae2a35758"
     },
@@ -539,7 +539,7 @@
         "Facebook Event cover"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "b6e224285c5a27a162214d174c014eff87ba3cd18351eb1a489339c5c853d6bb"
     },
@@ -558,14 +558,14 @@
         "Facebook Group cover"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "e1d6deb93383dca04b63a71ed497925674aed0e3a2df97880d1f159008cdb6c3"
+      "sha256": "2428dc1c99a20b0d6f2896c5abb14e15033ebfe1dfc4b41816594acacdcc7529"
     },
     {
       "path": "brand/social/exports/covers/facebook-group-cover-clean.jpg",
       "semantic_role": "Facebook Group cover clean",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1640,
@@ -577,9 +577,9 @@
         "Facebook Group cover"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "ad64809a84ff06c99f1e13d0fa9340019851c570264d93092ef829335ba4b293"
+      "sha256": "7887c8c83d0b5d6581b1196ee137ac22347aca9da85b310f7e83cc943d0d1000"
     },
     {
       "path": "brand/social/exports/covers/facebook-page-cover-branded.png",
@@ -596,7 +596,7 @@
         "Facebook Page cover"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "71e6b0a587b8b2f7a652e13f9af46accefbb13c9f9370a4aa4fa10123b5e9402"
     },
@@ -615,7 +615,7 @@
         "Facebook Page cover"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f75ac30c5206b5606761209c5313f6571e29e9e6b93c178ee9ea956de69354b8"
     },
@@ -634,7 +634,7 @@
         "Open Graph link preview"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "95f3f8f29681fe70a37097af82797f29a57374b6f7c2e8a0f351ac8ca71ba1bb"
     },
@@ -653,7 +653,7 @@
         "Open Graph link preview"
       ],
       "alt_text": "",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "85b7bf357ff8a8f53672a958e06ae2670c7ecb673625d5329173c98e6925df35"
     },
@@ -672,14 +672,14 @@
         "Facebook Page profile"
       ],
       "alt_text": "School of Code profile mark.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "761df7c6729afaf1df962266571bfd961b71d84579b27537b3391311d87f7302"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-1200.avif",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1200,
@@ -691,14 +691,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "4cd25118397df7e7204b37ef613ebab8602711ffdcb12ac454ddb5164fe31e33"
+      "sha256": "5db97c658e655b35981698b919787efba43b4f6e240cc1298caf251985cdac74"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-1200.jpg",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1200,
@@ -710,14 +710,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "b66d64e8e402a2607e5754aa24cf3b61839b289d4af8682bfdcaf4820de78454"
+      "sha256": "d3e9232f30f75cf3352c904aaacf8762739cb93cb51a3deb8a937d7b6f006a88"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-1200.webp",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1200,
@@ -729,14 +729,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "84835eb43f448876862203e65fa6e330d95e831e9c49661c1f862fbc647e638a"
+      "sha256": "73f9d0f1b8c2fb78364acd698c15394d3ef9864a1546930866da23e560f5ced7"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-1600.avif",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1600,
@@ -748,14 +748,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "26da5a7335e6f147614ca8506fc7fa489853a1656b94ad1858889dd979e5e15f"
+      "sha256": "b3b0d15f7901c91a1f3eb5ff475e81801365846c82b26ff4ef742170f458fcf3"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-1600.jpg",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1600,
@@ -767,14 +767,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "09505f2153b5e53250e4209869e200add947dcecb4448aa0dadf26b1583760a6"
+      "sha256": "573f42d24d2061913a31e9f6e141dd3b9222f6a16705520024433d6e422c4801"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-1600.webp",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1600,
@@ -786,14 +786,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "5dd4fac1b4ddb19afdce6c402bf2695951841ce3ce9b44e490a8e8dac3907fc9"
+      "sha256": "fa86c76e9665109306bddef0bb0db051bd1688a3d83db40d94edffa9b4c4c377"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-480.avif",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 480,
@@ -805,14 +805,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "11577fb58b74a7016a3578342309c642bece96fecb44896e4c9ba1d77b111593"
+      "sha256": "ddf75ce10bf944f6398bd57cc271bd339ed2b9ac505837ac1158f01d3ef8f8ef"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-480.jpg",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 480,
@@ -824,14 +824,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "99ac3e119f1f5e728814bc9fb5cf00195b9b15759132fb38a50bb9fea145502a"
+      "sha256": "19e30c7126ed17bbfb1c97a930401d6d976f53cbb3ccd1fa50c7d2756e4bb227"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-480.webp",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 480,
@@ -843,14 +843,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "245fb8801bb498ee9f7cb9db4275b010dee666b205bb1182cf8f293bbd2693a7"
+      "sha256": "73d0b75f42402a277b196dd01d65d66c5dc030b2645548d56923d8d0e3a77e27"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-768.avif",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 768,
@@ -862,14 +862,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "d4d08a8864ec530f799a35fe867e1bf72cf37c7c59b0e2d73dc5a1735addf64a"
+      "sha256": "96a228f398ac3dedffa4d3995cd695dc6b37757bedd8d665fb624ecd8e9ea587"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-768.jpg",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 768,
@@ -881,14 +881,14 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "8a3129aa0d9d6df6b527da8d4c8ef62aaa9f8cdae03089776fee67089abe3e8b"
+      "sha256": "b813d7ff985e0c21c680c01d24912c334b839c0970ba5f06e695b7ca19595141"
     },
     {
       "path": "static/brand/photos/computer-lab-banner-768.webp",
       "semantic_role": "Computer Lab banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 768,
@@ -900,9 +900,9 @@
         "Computer Lab"
       ],
       "alt_text": "Children comparing a block-based program together at a small computer station.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "4ef0080480c6c8e8a189d568951f34062bd1dfbd32fceff7112a510c3bc59eaf"
+      "sha256": "7c35a902c31f933a8919bcd9fe42c4863ce344d7e5518268fef39b5ce205cda1"
     },
     {
       "path": "static/brand/photos/historical-classroom-context-400.avif",
@@ -920,7 +920,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "943977ff08ecd9ddea4c7163de277d0bc45b247833a15756c2c6f1e2ae32db1a"
     },
@@ -940,7 +940,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "8dae39e00a90370f490dfc9adac797efbc0a37a397da355620e3e1bbf7bcb184"
     },
@@ -960,7 +960,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "ac0bd5922417484b379c6629c2ee467550c3e122948bed12414d3991921e25c7"
     },
@@ -980,7 +980,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "21a257a3150d1dff452da445305aa1548824a9446d245cfabd5af7f798edf73d"
     },
@@ -1000,7 +1000,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "ee7ba594af4f9169c59400ebf9389e440136a1a74c4cb81d729bbefbc869c449"
     },
@@ -1020,7 +1020,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f703852adf8f9ca90f66650b904336bf532d69ea22338b03ea78485785b416d8"
     },
@@ -1040,7 +1040,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "8f0a38f8f27516e09592a9b5c051eff97235b31538ba0ab60e4cbdf6512641cc"
     },
@@ -1060,7 +1060,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "67279c4c7767b6a04a4b578aa2d320c721581743096e337caa6a6f7241afa344"
     },
@@ -1080,189 +1080,9 @@
         "blog thumbnails"
       ],
       "alt_text": "A compact historical workshop room with several computer stations.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "5b109863a83e4a7ad7e09d53864977eff8b0329e79039382886c7925870683b0"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-400.avif",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 400,
-        "height": 300
-      },
-      "format": "avif",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "a3792170fd20c38e457f6bc9b6560bb7751cfaf2c08ae75ba0c9cc0a1719e970"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-400.jpg",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 400,
-        "height": 300
-      },
-      "format": "jpeg",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "e157cf9e69e3e0bd5e641f30ffc55bbb19f0be3e369505ee1121155197ae03ad"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-400.webp",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 400,
-        "height": 300
-      },
-      "format": "webp",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "3672ca6b6fd9877ca638fc42a48eb273a4646331a846632e1a74f2c3c2f2ffde"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-640.avif",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 640,
-        "height": 480
-      },
-      "format": "avif",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "292a46ed5d66ccf27b983f399add86e2e6486736325e20f2162184ffe70d4893"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-640.jpg",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 640,
-        "height": 480
-      },
-      "format": "jpeg",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "dd2e757a5e51eba20e23f9a5497010b9f38d768cef77502ae606cf96d91b4734"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-640.webp",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 640,
-        "height": 480
-      },
-      "format": "webp",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "f63ebb1b9431c737845936cc92e48519e31be96c49c943f43fd5f77a0c8e70dd"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-960.avif",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 960,
-        "height": 720
-      },
-      "format": "avif",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "71f7e75387720aae289536e70c9d0ab3e9634c49f8000a62521ed26a238d5bc3"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-960.jpg",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 960,
-        "height": 720
-      },
-      "format": "jpeg",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "453f99907baa659534ac781c2be11eadcfe65527a9669a297d447d986ada96e3"
-    },
-    {
-      "path": "static/brand/photos/historical-coding-together-960.webp",
-      "semantic_role": "historical workshop gallery photograph",
-      "origin": "historical-coding-together.jpg",
-      "classification": "historical workshop photograph",
-      "dimensions": {
-        "width": 960,
-        "height": 720
-      },
-      "format": "webp",
-      "crop_focal_point": "0.50,0.52",
-      "intended_pages_placements": [
-        "Gallery",
-        "blog thumbnails"
-      ],
-      "alt_text": "Children comparing a block-based program during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
-      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "9a1c3f0c9bf65a3ddcd7ef42dd9b3722434e22c1996c011536078abcbd8da94d"
     },
     {
       "path": "static/brand/photos/historical-robot-adjustment-400.avif",
@@ -1280,7 +1100,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "7d3cce3ac55e7b8fe0fe2cd8e80c687bc263042b44940b3864dce92b1f98d0aa"
     },
@@ -1300,7 +1120,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "56dcacf74b0b3f926006c9863caf149ad774e4addd9ac1194f9893a026d87b31"
     },
@@ -1320,7 +1140,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "b7461a17f9b2ed921fcde451ffed987435f3bfdefd4ecdae04b426dcfe9a392f"
     },
@@ -1340,7 +1160,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "503f784f41a6efd9a866c7c6fa19c720ea23877b5e21d9215f2c21ee993a8ca6"
     },
@@ -1360,7 +1180,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "25da8dd3f9ddfd79402da4e9f463dab40549a1356582b42e31db625414addd80"
     },
@@ -1380,7 +1200,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "d25210c8e29400e971b1afd763cc9140fb6221ca331e3af4d289d530967c6e5a"
     },
@@ -1400,7 +1220,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "a7bdf8d3ff97e81d3d682110d24cb2e24f17e2cc4f7d973e1d1fcb0319645a64"
     },
@@ -1420,7 +1240,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "9ed8a263937f92fa91ce3501e8d41de4bb8f2c8d4aa7a594eda2ebb24032c089"
     },
@@ -1440,7 +1260,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child adjusting a tabletop robot during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "9da0c104547230e9059c41e211c99ceea5bb25e088fa47b88eeb7a7676b17d04"
     },
@@ -1460,7 +1280,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "752e595761e9e262191bca67304df3bc42b3407be6e5974a978255033f7c2ef0"
     },
@@ -1480,7 +1300,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "66f8fc575fafc99c6b9d8232c67217df202009906c4b0249cd4de6ab2339f3e6"
     },
@@ -1500,7 +1320,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "29c984a462ffba948187df4f0da39cb6e9608ecfbdd680a08bb2d8e157905909"
     },
@@ -1520,7 +1340,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "aef5840aa75203ff24f8374d8c4e9906e75ef27473c2b5dcb50bf014a75bfb4d"
     },
@@ -1540,7 +1360,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "ba5a800852a1528d64933c5d1e54b447404b7d9c787f07e40b11225ea0f5990e"
     },
@@ -1560,7 +1380,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "0dc32fb2fc413dc488d37bd32937531cedbdcb09027038a1f5b1555e5930a199"
     },
@@ -1580,7 +1400,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "d54c7bb77e0e9ba3035cde744b01180089ffdac0041c1a5083117a191612ab74"
     },
@@ -1600,7 +1420,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "077a4fc53604d75b10662cea680df8822bf13be766258f2483c399f42d651cbb"
     },
@@ -1620,7 +1440,7 @@
         "blog thumbnails"
       ],
       "alt_text": "Children testing tabletop robots during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "ce838b6494504d9b2f3eb242dbe56d9228efb7da90c37cc2d54b75256b601624"
     },
@@ -1640,7 +1460,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "17a2382f8d481c16cda15cc23eb8e84393dd62230c41c0636c52ae5a4eaf7083"
     },
@@ -1660,7 +1480,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "5268381d77180331d8dac2b6e7b747c91b0857b196604acd2f50862d0e6e0b8e"
     },
@@ -1680,7 +1500,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "30f99bc01268cc2f93eb782ced9001b6bfa9ab759d2c38a6acf3458052f7e83e"
     },
@@ -1700,7 +1520,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "1019ef07d11574f3fbf04bdc691e952840c6664d12a400940dfb71405a95d59e"
     },
@@ -1720,7 +1540,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "7643798062b53649982e9fa0e2129025372b7a028c13d67564b6fde096504dd1"
     },
@@ -1740,7 +1560,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f6fe8412f0ad23dc339f26b0bb3d0f61f3ecad86f6f362ee9e699b63071b69e9"
     },
@@ -1760,7 +1580,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "633c501c4a09ec93040d37e50067e9fce1b0e9d6d950701c386579c51471d4ce"
     },
@@ -1780,7 +1600,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "98e53c87f6acc6dc32ac00b973dad93943ebce55200030dbed8c9c5d417654a4"
     },
@@ -1800,7 +1620,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A child working with Scratch on a laptop during a historical workshop.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "16fdfa56ea4efb51dc5e1d252c4ed9bc5907f4d51f9f46b4e2373273230d1c8a"
     },
@@ -1820,7 +1640,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "8814bfd67dd6a8166f3da5ec2c9ba89b31dadd1fdec7971696c9eb8528118b8d"
     },
@@ -1840,7 +1660,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "4a2c43fd39ec0f195cb252ce07a83f78bf2b5724478f35907df48981258368b6"
     },
@@ -1860,7 +1680,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3fb725553cd47c4a39df6fe21b136c81f37ea4348da0dcf6417d2672cfa3434f"
     },
@@ -1880,7 +1700,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3a4fe9b855aa2bdc21673fb37651cb6da5aa8be1794cd7cac3aacc1174fa7a79"
     },
@@ -1900,7 +1720,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3ff77cf6c122c26e678b3309878cfe05955a8762fcfaa0c866a9582252ca1c6f"
     },
@@ -1920,7 +1740,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "a7b06c88b239ed046c520468e27c2f90574a82e71e731dcc63d3e2e1343f2109"
     },
@@ -1940,7 +1760,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3d264389715f2cef60a21dadba387eb4d3365aaae7b6fdf24eb56e5a039f2109"
     },
@@ -1960,7 +1780,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f133430a225610e775129b85c1e2582e1489bde95f0765b2be498c5e603d6cf6"
     },
@@ -1980,7 +1800,7 @@
         "blog thumbnails"
       ],
       "alt_text": "A real relay, test-lead and container apparatus on a historical workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "6b8b8771b80a583d21f1ef7672b8228cd8384bf2276c418c7ddfd6f27cef04f0"
     },
@@ -1999,7 +1819,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "cc13e7d208d30b4e8627720c3f087c3862f27c36e21b2c5a2be393670cc76c79"
     },
@@ -2018,7 +1838,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "2346238d7952e168b2f4a6d71098179d1d0e23377b3e49b2298ef2c321657839"
     },
@@ -2037,7 +1857,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "e3ef283011eac807513c73f27aba477f3d780f9fdd1eab6e7cfec1cbada62f1b"
     },
@@ -2056,7 +1876,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "7096208adf4063a65c2ebe2f7d31654757e9aed6861d45e6b178ee24988a363b"
     },
@@ -2075,7 +1895,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f3c78f6ba7e50865bb4960c1482d2b2aaa401e609d121549ec55e9de05eb61b2"
     },
@@ -2094,7 +1914,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "1d1a35d4b3fb69b5dedbb02e812c3d3dd7ac8923306c9ae76dfbb294ed16df03"
     },
@@ -2113,7 +1933,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "e5e364e1173e697b2ea60da47ed4f333a58843722d7725788054f60bf9d39a43"
     },
@@ -2132,7 +1952,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f7ed38bdce4f9161833e9e32aff3d9c4ef6f9ead8da2ef7d16a9e15203589314"
     },
@@ -2151,7 +1971,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "8e636e4cb0263cfcc4722d55c839d4a26c8b4a242fb9b1ba76dd40cc2f238db6"
     },
@@ -2170,7 +1990,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "49cfd70e795f5d38cbc3be14e1170f5ddc4af21d49a9fa25990769ed7c91f4e6"
     },
@@ -2189,7 +2009,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "949a13b9b1095ceacb57474f6425500ea68fc26d43d8ae31dca8abf576338475"
     },
@@ -2208,7 +2028,7 @@
         "Home hero"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "ae28dbf33bf24b9646af29909c35ee22c304ae96109d56726ad3acdecf091b35"
     },
@@ -2227,7 +2047,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "cb33230e13e3ae31d9e837b2c6162e0779d4145def96bc8ad57b3fdbd2ef2b5d"
     },
@@ -2246,7 +2066,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "aaa652790a184400efd2d6e69eb8c121ec11f70c35e31af0a4d8d5df8df62e8e"
     },
@@ -2265,7 +2085,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "2ef808aff83f60091b56e600e9853c03417820bb6e56b1639e6266ca00d2c984"
     },
@@ -2284,7 +2104,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3b065b9059e1bdce931ea800d6ad90a312392e15e0ba1d58c1440fec9725ab80"
     },
@@ -2303,7 +2123,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "26d754bd2a71446c6de24ef510594225fc2e2fce5fc5f2efd8d388174b6f9c28"
     },
@@ -2322,7 +2142,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "0fcca79bcb268473c248bb16d95866cd81e94852e7af3a2fb783ec73f13929fe"
     },
@@ -2341,7 +2161,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "c8b4e7b3a5d426a3f2356728fc5b3aac232508e9fa8087d2e028ab401d0868a7"
     },
@@ -2360,7 +2180,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "a269f0d768408b148ff6c92f708076a5acbdcc30aac7d61e01675789233fd818"
     },
@@ -2379,7 +2199,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "bd8e02074713bf1e8ef50a7e0fb724e6fbcf90a358a6e6ee58802f30024af9b9"
     },
@@ -2398,7 +2218,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "cbf72a4f73b72c12bc2b51f08677eddc122aaf0809796447f927751083fa7c47"
     },
@@ -2417,7 +2237,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "52e4bf802e999923b60c101c96c36e54ec990a547c42e48c05cc4abb4ca96e8d"
     },
@@ -2436,7 +2256,7 @@
         "Lessons"
       ],
       "alt_text": "Hands using tools and test leads on an improvised electronic mechanism.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "8fb4a9728b51017a4ceef0b19e48b1a93067406721664994fda95845f2cceb75"
     },
@@ -2455,7 +2275,7 @@
         "site-wide Open Graph sharing"
       ],
       "alt_text": "Four children testing a handmade robot together in a compact maker room.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "95f3f8f29681fe70a37097af82797f29a57374b6f7c2e8a0f351ac8ca71ba1bb"
     },
@@ -2474,7 +2294,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f3c9baef130cbbf1fdbbfab929cbe33a63b55a0b60abec8de030588cef4e1160"
     },
@@ -2493,7 +2313,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "8c4dab4cd960d895a5c6d6734239a1e94fe80c0d1d2ec9a8441b211bdbf5ad82"
     },
@@ -2512,7 +2332,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3276b92a5dd43627155213640a8e48c0863059a18d42bd3907c8d2e83c8b1f30"
     },
@@ -2531,7 +2351,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "335c3e1ea8fe3dcfe63d3e4b81fe80a8e8506cea9d47d74c1215454bd8b5624b"
     },
@@ -2550,7 +2370,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "5c13cfb141d70d5a43b32a2f01762e9058da60ea3fa599bc8ad0606c6ba93594"
     },
@@ -2569,7 +2389,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "b0c18436568eba61be44e3143ff11777afee77a2bc815dc79463521382bfeeda"
     },
@@ -2588,7 +2408,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "5a8f5010ca62f0aa383f5c586b002a9edc62ece4b2e844704ace20963c1ea1d8"
     },
@@ -2607,7 +2427,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "ec4764d87e706e34e068d07a0a30aad939196d64e7c9715dd1768b1f04521b6a"
     },
@@ -2626,7 +2446,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "e392bead8e08694f4355b1fb4f64b9029765f7507351b75f86bcd32ef6c324b9"
     },
@@ -2645,7 +2465,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "0d4ab8f3c850200cc208158e03715b534ce52a1780f8e0934851a97b822eb2f3"
     },
@@ -2664,7 +2484,7 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "666b969545b36d027397b898d7406ebd70719ce145e9cff7b17b32fc16e7a581"
     },
@@ -2683,9 +2503,189 @@
         "Projects"
       ],
       "alt_text": "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "9044520bd2b87c4485f522509d60b7812e6699b995a93e7a88bd47b785fc7882"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-400.avif",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 400,
+        "height": 300
+      },
+      "format": "avif",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "3faecc3d8ff3883048cd752e92397a9783bb81e68dfc834b94a812632357ea14"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-400.jpg",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 400,
+        "height": 300
+      },
+      "format": "jpeg",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "d66bfce0df4691d90bdb192abf7f75263df8d48b8ff5af52da4d00188edadf69"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-400.webp",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 400,
+        "height": 300
+      },
+      "format": "webp",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "541e78abf8352cdeab459da72bcde075cb445aab699428d2ae9ae6743e68f20d"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-640.avif",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 640,
+        "height": 480
+      },
+      "format": "avif",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "d66db95cdd7fa49e2d2234d61dec8f496844fc8f75798508616bc6d6185a5738"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-640.jpg",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 640,
+        "height": 480
+      },
+      "format": "jpeg",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "26d8cd21d75d1fd1cdb3e93a5dfb84ee5dbdc558634acec741fb1e886800faac"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-640.webp",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 640,
+        "height": 480
+      },
+      "format": "webp",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "4754125fb22d7ecb616d217dd837b875e5dbe793028ecffcd84844f85e8d604c"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-960.avif",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 960,
+        "height": 720
+      },
+      "format": "avif",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "ef3f5c35abf9585d143542aefdaa2c211034d7bcdaf6f1e76f6b004c58e99d88"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-960.jpg",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 960,
+        "height": 720
+      },
+      "format": "jpeg",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "1ab0d8c0129f5c0c8f69738e05b687147088d9da0acfe763d03bc3aec06c7361"
+    },
+    {
+      "path": "static/brand/photos/reconstructed-coding-together-960.webp",
+      "semantic_role": "reconstructed coding-class gallery image",
+      "origin": "reconstructed-coding-together.jpg",
+      "classification": "reconstructed coding-class scene",
+      "dimensions": {
+        "width": 960,
+        "height": 720
+      },
+      "format": "webp",
+      "crop_focal_point": "0.50,0.55",
+      "intended_pages_placements": [
+        "Gallery",
+        "blog thumbnails"
+      ],
+      "alt_text": "Three children working together at a computer displaying a colourful block-based program.",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
+      "sha256": "a1649b28b1a67e81fd7edf69859fce14d524a35dd444110e61c2a42f61451c79"
     },
     {
       "path": "static/brand/photos/robotics-banner-1200.avif",
@@ -2702,7 +2702,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3cf61fb6766e4a048036557078b577f58e43c1e27a08ce9d32251a88f90ef7e1"
     },
@@ -2721,7 +2721,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "1e1674b3881afe6cdff6aab3e6a77ffb85e28594a61d37c7a7cfbfad884f8e18"
     },
@@ -2740,7 +2740,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "4ce9d34255f8bba7127f2730291521b6c98cdd4e6621dcfbd8dfdcd1679e9dea"
     },
@@ -2759,7 +2759,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "002caa79226e90d05f9877a27d4302439280efa5c6b99f988d70bacfe7a25b83"
     },
@@ -2778,7 +2778,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "1b2698b5675db3d271a6cecbf7381947e9fca4ba27f6662cb330a5cc052bf854"
     },
@@ -2797,7 +2797,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "6a7d56229cf09a1b46430dd6e6ef6cf033cd81f6a3656dbabfe993b2df1c28cc"
     },
@@ -2816,7 +2816,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "d19209031c61f6ed1750d7854809109a4a3454b59f168ffcbff1e6955fd14cc7"
     },
@@ -2835,7 +2835,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "1b261226dd9e9dbfc8db0848e8ec10896b7d2c7f0ea002e60084fc3acae9642f"
     },
@@ -2854,7 +2854,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "6685c41d888a6d47fc9064292184223b77580b07c276f0c74676cbe348b94762"
     },
@@ -2873,7 +2873,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "9a8bd22fdc8cab4b3189936efaa7d019839522fdeacd11e18365575a43a34590"
     },
@@ -2892,7 +2892,7 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "b44b0a8366df322d0d6d16a50268b3250015f3257e54860d322978b8d7bfb9a9"
     },
@@ -2911,14 +2911,14 @@
         "Robotics program"
       ],
       "alt_text": "Four children adjusting wires, wheels and sensors on a handmade robot.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "e558329b400d0848ae5bf11b64c033567d6500d56ad6b022ccca0f630cec76c4"
     },
     {
       "path": "static/brand/photos/scratch-banner-1200.avif",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1200,
@@ -2930,14 +2930,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "96fe4e7364acbe83a415a165b2cbeb9d99575a08c7dc68b24b9dccaab41a33e0"
+      "sha256": "0bced63280c3adac1b5df4baeef3dff8c8b5ad231185a93bc70dda900203ad71"
     },
     {
       "path": "static/brand/photos/scratch-banner-1200.jpg",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1200,
@@ -2949,14 +2949,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "9c604a1edbd8d0d34c4aae32e0a49be1ab1c3e0c6ea44eb85ed70b104af2b996"
+      "sha256": "b1d0781b94990b828648a291c18f6c718ab4fd30417a346efd3ed8f1eca653c5"
     },
     {
       "path": "static/brand/photos/scratch-banner-1200.webp",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1200,
@@ -2968,14 +2968,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "865f207b8f7062d74a95ddc00beae3a759d6355ec26ef2e5fdfe832af63aed09"
+      "sha256": "be4707f4728e04519632f0b9ad10691be0e4f25d865b1b15ddb5cd50ac5263c1"
     },
     {
       "path": "static/brand/photos/scratch-banner-1600.avif",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1600,
@@ -2987,14 +2987,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "68781090e2aead71cc0367ac3b94b0657fcb42c328ca023090b4c75b34ec2769"
+      "sha256": "e633062672db5a50b53a9e9efa6432d4c8bfeaa95a866b9742792b77783d6aee"
     },
     {
       "path": "static/brand/photos/scratch-banner-1600.jpg",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1600,
@@ -3006,14 +3006,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "48a8d97c24ca46c6aa0bacd1e89aa53c1a4bb3a555da4473bd53e657f862576e"
+      "sha256": "52e55fbf0560184d2e4a72afd7417f37fd82bc8b1b2662ec1c311bfcd755cc7d"
     },
     {
       "path": "static/brand/photos/scratch-banner-1600.webp",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 1600,
@@ -3025,14 +3025,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "9d756b2223870a465ba95b843ed41902ebedc8524fd6030e2989defbcfada382"
+      "sha256": "9947f01b1e2476e027b238e37a03e89e077bdf499ac1421b1f5502c290bd6c06"
     },
     {
       "path": "static/brand/photos/scratch-banner-480.avif",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 480,
@@ -3044,14 +3044,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "938ac81e44dc81126ddbf89e89e9e1c858c6d614bc2c2ca615241a8cee6d6484"
+      "sha256": "f8f3d2ab0c3555eee352dad0dd239b08e48d3d4172cfffef65967a95ac4eee8b"
     },
     {
       "path": "static/brand/photos/scratch-banner-480.jpg",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 480,
@@ -3063,14 +3063,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "dd73e2d0134bc6826faad5ff0d5ef794ab739d43ff65a00c0a02ab24d61b5075"
+      "sha256": "46abaa43619176875dff41914ef32b04946825915c5ca7d41024619651e55f66"
     },
     {
       "path": "static/brand/photos/scratch-banner-480.webp",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 480,
@@ -3082,14 +3082,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "648151113534191c1b05ed3748cc72f6b1699b5332c6b6616a0b4ca56f702c12"
+      "sha256": "67b49dbb0c1fe1faf68b092c1373a66489e40b7a676eff9d7e29e3cd25adccff"
     },
     {
       "path": "static/brand/photos/scratch-banner-768.avif",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 768,
@@ -3101,14 +3101,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "473957885c6fb1738b76677e8aa2c99a835af1e3b68a02d882de796d728a38b1"
+      "sha256": "3a731e472e6de35e5da9065ec592cdeac299444ae3b012c8feed719c1865fd15"
     },
     {
       "path": "static/brand/photos/scratch-banner-768.jpg",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 768,
@@ -3120,14 +3120,14 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "e4ecb73bb9d0caf88d4eb998cda06d2ee41235a47d7a84c18052ee39deb8435a"
+      "sha256": "a96b6e219108dee57185dbbf6cb40ff420b61f2a11e4d9ad78d896659d0bc583"
     },
     {
       "path": "static/brand/photos/scratch-banner-768.webp",
       "semantic_role": "Scratch program banner",
-      "origin": "campaign-scratch-lab-v1.png",
+      "origin": "campaign-scratch-class-v2.png",
       "classification": "reconstructed campaign image",
       "dimensions": {
         "width": 768,
@@ -3139,9 +3139,9 @@
         "Scratch program"
       ],
       "alt_text": "Three children working closely together on a colourful block-based coding project.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
-      "sha256": "0c620ec88fcf2bbc51bb4d0e2fe9d91aac9e2b08b57c6077d6197ba243c954bb"
+      "sha256": "d87f589c2991720c1d2d825d5f889f2d5a43cafaf901da8b287078e8c612889c"
     },
     {
       "path": "static/brand/photos/teacher-about-1200.avif",
@@ -3158,7 +3158,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "1f98c551a176c59629e3c4300a3a912b2a84289c891e6c3a9e08a9ebc9359043"
     },
@@ -3177,7 +3177,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "ab50fcbf93cc1670173b9a16ed51fc6db46556da137da4cb48f69192f9a25ac2"
     },
@@ -3196,7 +3196,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "8b7d2a1a2827cfbb106c5cbc5221c246351c445be51d10c801d12bda3597873e"
     },
@@ -3215,7 +3215,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "8d4ef57ee97c57b5627edc5b1a23b000cf95a6cc9708a6171fe3b82cd4aa990b"
     },
@@ -3234,7 +3234,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f7245ac114105735f368aa4d44139db96a1fdc4461603d59e92daeed2f286c70"
     },
@@ -3253,7 +3253,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "6f68389bc8f18f50506d03071afb81c90ed2edb75fc28f8669b620cabb50bb92"
     },
@@ -3272,7 +3272,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "26dc700f0b53673e39c437f95116cd2b8ac5ab81fcbebeaa9f0c1bb2fe687de6"
     },
@@ -3291,7 +3291,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3486ad7a6fe0d161c1d48edba2efa07195d01ff75fed6618d43106829b5f87f8"
     },
@@ -3310,7 +3310,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "3eacc995b1cab552a43e29324a2d692b6981cc51b41f84a7f2700a4bce98298f"
     },
@@ -3329,7 +3329,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "18127b2ea345da605941766afcae9f1987f8a2db89b104b7c99dae2f1961ff87"
     },
@@ -3348,7 +3348,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "fb3b3702048c12ecec69da8545ac7c7ce202f9b42ec5e95836f582667e5d4329"
     },
@@ -3367,7 +3367,7 @@
         "Our Method"
       ],
       "alt_text": "Eugene explains a relay-and-sensor apparatus at a workbench.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "e115804a15c8f9bf65cfe76737ef4193d51fa92aba3229aaddac4442bedc2cb7"
     },
@@ -3386,7 +3386,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "f878fb012681202e5a7c6aaf49407db5046ceea0bbe8a54b7c07538c183e3f52"
     },
@@ -3405,7 +3405,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "dd732a3e001e3f018251186d885f44a1b5d234e0fc3f16d5254f68058cd4111a"
     },
@@ -3424,7 +3424,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "cf92a12e17f509eab160ce23db8ced52fd78116a236c102d89eea49009ddeaf4"
     },
@@ -3443,7 +3443,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "5c1159791169d875cf7545cbf0a4fc8ba031aa2fec85f1873b5c32d55223d477"
     },
@@ -3462,7 +3462,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "7772bbf61780d09934f28e03e10f292c2eb63eef4b80ddc4b35677005043c72a"
     },
@@ -3481,7 +3481,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "1dfd5df40518de494ae2bfa4b65b7b6f099a7d2504e974e92e4807cc98dcc838"
     },
@@ -3500,7 +3500,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "751918e9b7ea8c7a2849ced0cc29c9c70e114877f9891c46a224873d24dc6bf1"
     },
@@ -3519,7 +3519,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "33a0355ce76f2d3d1f70693fa06ec5bf1caf3b87459c2c5c488a16dc4e594456"
     },
@@ -3538,7 +3538,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "bacd6a9ea4592e93ef42f2bb9c670ac9d10f4530680472a75ebc47b166e567cf"
     },
@@ -3557,7 +3557,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "6c6768e69a3274aa7a9371451b6052422127b634ca4b36176872c572f5e8af7a"
     },
@@ -3576,7 +3576,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "74ffc31534e52afd0f0948dd7a42f0ba3bbdbcdc4b1cf3c514810b23657b52fa"
     },
@@ -3595,7 +3595,7 @@
         "For Parents"
       ],
       "alt_text": "Eugene demonstrates how an improvised electronic machine works.",
-      "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+      "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
       "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
       "sha256": "2c1bfab830a2c7939f6d0c2cc9b1b3cb3f516144a0e59b3ef646aea865e9dc8c"
     }

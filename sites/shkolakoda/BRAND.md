@@ -51,14 +51,15 @@ change later, update this document and the standalone SVG masters together.
 
 ## Photographic production standard
 
-The owner confirms that all 81 source photographs in the private intake are authorized for editing and dramatic reconstruction, identifiable adult and child use, website and social publication, paid advertising, compositing, and reference-based generation. Private release evidence, names, GPS data, raw metadata, the uploaded archive and review contact sheets remain outside Git.
+Photo clearance is asset-specific. The former historical coding-together photograph and former Scratch campaign master are withdrawn from production. The children visible in `historical-robot-testing` are confirmed for publication, editing and substantial reconstruction. Private release evidence, names, GPS data, raw metadata, the uploaded archive and review contact sheets remain outside Git.
 
 Published imagery has two explicit classes:
 
 - **reconstructed campaign image:** a deliberately composed scene grounded in authorized real School of Code people, machines and activity references. It may reconstruct a room or background, but must not invent a large permanent facility, equipment, class or claim that does not exist. It must not be captioned as a literal current class photograph.
+- **Reconstructed coding-class scene:** a new composition using authorized identities and represented coding activity. It is not a historical photograph and must not be attached to a specific class, date, cohort or facility.
 - **Historical workshop photograph:** a truthful derivative of one source event. Exposure, colour, crop, screen simplification, cleanup and brand removal are permitted; people and activity are not replaced or invented. It must not be described as a current Calgary cohort or current facility.
 
-The approved campaign family is `campaign-robotics-hero-v1.png`, `campaign-scratch-lab-v1.png`, `campaign-eugene-builder-v1.png`, and `campaign-project-workbench-v1.png`. Website pages reference only tracked derivatives under `static/brand/photos/`, never `.photo-review` or private intake files.
+The approved campaign family is `campaign-robotics-hero-v1.png`, `campaign-scratch-class-v2.png`, `campaign-eugene-builder-v1.png`, and `campaign-project-workbench-v1.png`. The approved supporting reconstruction is `reconstructed-coding-together-v1.png`. Website pages reference only tracked derivatives under `static/brand/photos/`, never `.photo-review` or private intake files.
 
 Every public raster must be sRGB and verified without EXIF, GPS, XMP, comments or embedded thumbnails. Keep photographic masters text-free. Add only canonical repository logos in deterministic delivery compositions; never regenerate or approximate a logo.
 
