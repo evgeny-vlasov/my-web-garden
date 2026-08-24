@@ -20,6 +20,25 @@
 The navigation badge and dashboard **Unread inquiries** card use the same
 `is_read`-based count. They do not infer unread state from reply status.
 
+## Review automatic quarantine
+
+Psyling keeps valid contact submissions even when a high-confidence local rule
+classifies them as spam. Automatic content quarantine requires at least two
+independent signals: an exact normalized repeat from the previous 30 days,
+multiple URLs, or the narrow commercial-solicitation pattern. One signal alone
+does not quarantine an inquiry. Existing honeypot and exact blocklist matches
+are also retained in Spam.
+
+Quarantined inquiries do not send either contact-form email. The browser still
+receives the ordinary neutral success response, so no classification detail is
+exposed publicly. Review the Spam view periodically. If an inquiry is genuine,
+open it and choose **Mark not spam**; it returns to Active with the compatible
+**Needs reply** status and can then be handled normally.
+
+Classification logs contain only the stored submission ID and a categorical
+outcome. Do not add names, addresses, messages, IPs, or matched text to those
+logs when investigating or extending the rules.
+
 ## Read state and reply status
 
 Opening an inquiry automatically clears its **Unread** marker. This does not
