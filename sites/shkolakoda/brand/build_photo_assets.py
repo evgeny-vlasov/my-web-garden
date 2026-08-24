@@ -208,7 +208,7 @@ def add_manifest_entry(
             "crop_focal_point": focus,
             "intended_pages_placements": list(placements),
             "alt_text": alt,
-            "rights_confirmation": "user-confirmed: website, organic social, paid advertising, editing and compositing",
+            "rights_confirmation": "asset-specific sources user-confirmed: website, organic social, paid advertising, editing and compositing",
             "metadata_removal_status": "verified by build: exported without EXIF, GPS, XMP, comments or embedded thumbnails",
             "sha256": sha256(path),
         }
@@ -232,12 +232,12 @@ def build(args: argparse.Namespace) -> None:
 
     campaign_sources = {
         "robotics": review / "concept-1-flagship-robotics-hero-v1.1.png",
-        "scratch": review / "concept-2-scratch-computer-lab.png",
+        "scratch": review / "campaign-scratch-class-v2.png",
         "teacher": review / "concept-3-eugene-builder-teacher-v1.1.png",
     }
     campaign_names = {
         "robotics": "campaign-robotics-hero-v1.png",
-        "scratch": "campaign-scratch-lab-v1.png",
+        "scratch": "campaign-scratch-class-v2.png",
         "teacher": "campaign-eugene-builder-v1.png",
     }
     master_images: dict[str, Image.Image] = {}
@@ -257,18 +257,19 @@ def build(args: argparse.Namespace) -> None:
             alt="",
         )
 
-    workbench = open_rgb(generated)
-    workbench = blur_regions(
-        workbench,
-        [
-            (565, 334, 704, 378, 3.2),
-            (773, 358, 931, 406, 3.2),
-            (1194, 600, 1455, 735, 4.0),
-            (1234, 738, 1480, 820, 4.0),
-        ],
-    )
     workbench_destination = masters_root / "campaign-project-workbench-v1.png"
-    save_clean(workbench, workbench_destination, "png")
+    if generated.resolve() != workbench_destination.resolve():
+        workbench = open_rgb(generated)
+        workbench = blur_regions(
+            workbench,
+            [
+                (565, 334, 704, 378, 3.2),
+                (773, 358, 931, 406, 3.2),
+                (1194, 600, 1455, 735, 4.0),
+                (1234, 738, 1480, 820, 4.0),
+            ],
+        )
+        save_clean(workbench, workbench_destination, "png")
     master_images["workbench"] = open_rgb(workbench_destination)
     add_manifest_entry(
         entries,
@@ -284,7 +285,6 @@ def build(args: argparse.Namespace) -> None:
 
     documentary_specs = [
         ("historical-robot-testing", "20211119_184800.jpg", (1200, 1500), (0.59, 0.55), [(128, 650, 535, 1185, 12)]),
-        ("historical-coding-together", "20200704_115925.jpg", (1200, 1500), (0.54, 0.55), [(455, 515, 1040, 700, 9)]),
         ("historical-workbench-apparatus", "20200609_015805.jpg", (1800, 1200), (0.52, 0.54), [(1530, 270, 1920, 620, 8)]),
         ("historical-robot-adjustment", "20211119_184618.jpg", (1200, 1500), (0.54, 0.62), [(180, 540, 760, 880, 10)]),
         ("historical-scratch-use", "DSC_0070.JPG", (1800, 1200), (0.58, 0.56), [(3040, 2090, 3440, 2340, 12), (3330, 1190, 4100, 1390, 10)]),
@@ -310,7 +310,24 @@ def build(args: argparse.Namespace) -> None:
             alt="",
         )
 
-    all_sources = master_images | documentary_images
+    reconstructed_images: dict[str, Image.Image] = {}
+    reconstructed_source = review / "reconstructed-coding-together-v1.png"
+    reconstructed_destination = masters_root / "reconstructed-coding-together-v1.png"
+    save_clean(open_rgb(reconstructed_source), reconstructed_destination, "png")
+    reconstructed_images["reconstructed-coding-together"] = open_rgb(reconstructed_destination)
+    add_manifest_entry(
+        entries,
+        reconstructed_destination,
+        site_root,
+        role="reconstructed coding-together master",
+        origin="generated reconstruction using authorized historical-robot-testing identity references",
+        classification="reconstructed coding-class scene",
+        focus="0.50,0.55",
+        placements=("Gallery", "blog", "supporting website cards"),
+        alt="",
+    )
+
+    all_sources = master_images | documentary_images | reconstructed_images
     web_specs = [
         WebSpec("home-hero", "robotics", 16 / 9, (0.66, 0.53), (480, 768, 1200, 1600), "homepage hero", ("Home hero",), "Four children testing a handmade robot together in a compact maker room."),
         WebSpec("robotics-banner", "robotics", 3 / 2, (0.70, 0.57), (480, 768, 1200, 1600), "robotics program banner", ("Robotics program",), "Four children adjusting wires, wheels and sensors on a handmade robot."),
@@ -320,6 +337,7 @@ def build(args: argparse.Namespace) -> None:
         WebSpec("teacher-parents", "teacher", 16 / 9, (0.42, 0.52), (480, 768, 1200, 1600), "parent trust context", ("For Parents",), "Eugene demonstrates how an improvised electronic machine works."),
         WebSpec("projects-workbench", "workbench", 16 / 9, (0.52, 0.55), (480, 768, 1200, 1600), "Projects workbench banner", ("Projects",), "Hands testing a peculiar machine built from sensors, vessels, wheels and exposed wiring."),
         WebSpec("lessons-workbench", "workbench", 3 / 2, (0.48, 0.60), (480, 768, 1200, 1600), "Lessons workbench banner", ("Lessons",), "Hands using tools and test leads on an improvised electronic mechanism."),
+        WebSpec("reconstructed-coding-together", "reconstructed-coding-together", 4 / 3, (0.50, 0.55), (400, 640, 960), "reconstructed coding-class gallery image", ("Gallery", "blog thumbnails"), "Three children working together at a computer displaying a colourful block-based program."),
     ]
     for slug in documentary_images:
         web_specs.append(
@@ -333,7 +351,6 @@ def build(args: argparse.Namespace) -> None:
                 ("Gallery", "blog thumbnails"),
                 {
                     "historical-robot-testing": "Children testing tabletop robots during a historical workshop.",
-                    "historical-coding-together": "Children comparing a block-based program during a historical workshop.",
                     "historical-workbench-apparatus": "A real relay, test-lead and container apparatus on a historical workbench.",
                     "historical-robot-adjustment": "A child adjusting a tabletop robot during a historical workshop.",
                     "historical-scratch-use": "A child working with Scratch on a laptop during a historical workshop.",
@@ -356,7 +373,11 @@ def build(args: argparse.Namespace) -> None:
                     site_root,
                     role=spec.role,
                     origin=campaign_names.get(spec.source_key, f"{spec.source_key}.jpg"),
-                    classification="historical workshop photograph" if spec.source_key.startswith("historical-") else "reconstructed campaign image",
+                    classification="historical workshop photograph" if spec.source_key.startswith("historical-") else (
+                        "reconstructed coding-class scene"
+                        if spec.source_key == "reconstructed-coding-together"
+                        else "reconstructed campaign image"
+                    ),
                     focus=f"{spec.focus[0]:.2f},{spec.focus[1]:.2f}",
                     placements=spec.placements,
                     alt=spec.alt,
@@ -456,8 +477,8 @@ def build(args: argparse.Namespace) -> None:
         json.dumps(
             {
                 "schema_version": 1,
-                "rights_status": "All 81 private source photographs user-confirmed for editing, identifiable adult/child publication, website, organic social, paid advertising, and reference-based generation.",
-                "authenticity_rule": "Historical workshop photographs must not be described as a current Calgary cohort or current facility. Reconstructed campaign images must be labelled as campaign imagery where context could imply documentary truth.",
+                "rights_status": "Only asset-specific cleared sources may enter production. The withdrawn historical coding-together photograph and former Scratch campaign master are excluded; reconstructed replacements use children from the fully authorized historical-robot-testing references.",
+                "authenticity_rule": "Historical workshop photographs must not be described as a current Calgary cohort or current facility. Reconstructed campaign images and reconstructed coding-class scenes must not be presented as documentary photographs of a literal class, date or facility.",
                 "assets": sorted(entries, key=lambda entry: entry["path"]),
             },
             indent=2,
