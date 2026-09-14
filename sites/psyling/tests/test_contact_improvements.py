@@ -2,6 +2,8 @@ import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
+from types import SimpleNamespace
 from unittest.mock import patch
 
 
@@ -24,6 +26,7 @@ from jinja2 import ChoiceLoader, FileSystemLoader  # noqa: E402
 from shared import email as shared_email  # noqa: E402
 from shared.base_app import db  # noqa: E402
 from shared.models import ContactSubmission, SpamBlocklist, User  # noqa: E402
+from sites.psyling.config import TestingConfig  # noqa: E402
 
 site_app.app.jinja_loader = ChoiceLoader([
     FileSystemLoader(os.path.join(SITE_ROOT, 'templates')),
@@ -40,6 +43,13 @@ class ContactImprovementsTest(unittest.TestCase):
             RATELIMIT_ENABLED=False,
             SERVER_NAME='psyling.com',
             MAIL_SUPPRESS_SEND=True,
+            RECAPTCHA_ENABLED=False,
+            RECAPTCHA_SITE_KEY=None,
+            RECAPTCHA_SECRET_KEY=None,
+            RECAPTCHA_SCORE_THRESHOLD=0.5,
+            RECAPTCHA_ALLOWED_HOSTNAMES=('psyling.com', 'www.psyling.com'),
+            RECAPTCHA_MAX_AGE_SECONDS=180,
+            RECAPTCHA_FUTURE_TOLERANCE_SECONDS=30,
         )
         self.ctx = self.app.app_context()
         self.ctx.push()
@@ -86,6 +96,207 @@ class ContactImprovementsTest(unittest.TestCase):
         db.session.add(contact)
         db.session.commit()
         return contact
+
+    def _enable_captcha(self):
+        self.app.config.update(
+            RECAPTCHA_ENABLED=True,
+            RECAPTCHA_SITE_KEY='public-test-key',
+            RECAPTCHA_SECRET_KEY='private-test-key',
+        )
+
+    def _captcha_response(self, **overrides):
+        payload = {
+            'success': True,
+            'score': 0.9,
+            'action': 'contact_form',
+            'hostname': 'psyling.com',
+            'challenge_ts': datetime.now(timezone.utc).isoformat(),
+        }
+        payload.update(overrides)
+        return SimpleNamespace(status_code=200, json=lambda: payload)
+
+    def test_captcha_is_explicitly_disabled_in_test_configuration(self):
+        self.assertFalse(TestingConfig.RECAPTCHA_ENABLED)
+        self.assertIsNone(self.app.config['RECAPTCHA_SECRET_KEY'])
+        with patch.object(site_app.requests, 'post') as post_mock, patch.object(
+            site_app, 'send_contact_notification', return_value=True
+        ), patch.object(
+            site_app, 'send_contact_confirmation', return_value=True
+        ):
+            response = self.client.post('/contact', data=self._contact_payload())
+        self.assertEqual(response.status_code, 302)
+        post_mock.assert_not_called()
+
+    def test_configured_captcha_rejects_missing_token(self):
+        self._enable_captcha()
+        with self.assertLogs(site_app.app.logger.name, level='WARNING') as logs:
+            response = self.client.post('/contact', data=self._contact_payload())
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(ContactSubmission.query.count(), 0)
+        self.assertIn('captcha_missing', '\n'.join(logs.output))
+
+    @patch.object(site_app, 'send_contact_confirmation', return_value=True)
+    @patch.object(site_app, 'send_contact_notification', return_value=True)
+    def test_valid_captcha_is_accepted(self, notify_mock, confirm_mock):
+        self._enable_captcha()
+        with patch.object(
+            site_app.requests, 'post', return_value=self._captcha_response()
+        ) as post_mock:
+            response = self.client.post(
+                '/contact',
+                data=self._contact_payload(recaptcha_token='opaque-token'),
+                headers={'X-Forwarded-For': '203.0.113.9'},
+            )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(ContactSubmission.query.count(), 1)
+        self.assertEqual(post_mock.call_args.kwargs['data']['remoteip'], '203.0.113.9')
+        notify_mock.assert_called_once()
+        confirm_mock.assert_called_once()
+
+    def _assert_captcha_rejected(self, response=None, exception=None, reason=None):
+        self._enable_captcha()
+        patch_kwargs = (
+            {'side_effect': exception}
+            if exception
+            else {'return_value': response}
+        )
+        with patch.object(site_app.requests, 'post', **patch_kwargs):
+            with self.assertLogs(site_app.app.logger.name, level='WARNING') as logs:
+                result = self.client.post(
+                    '/contact',
+                    data=self._contact_payload(recaptcha_token='opaque-token'),
+                )
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(ContactSubmission.query.count(), 0)
+        self.assertIn(reason, '\n'.join(logs.output))
+
+    def test_captcha_rejects_low_score(self):
+        self._assert_captcha_rejected(
+            response=self._captcha_response(score=0.49), reason='captcha_low_score'
+        )
+
+    def test_captcha_rejects_success_false(self):
+        self._assert_captcha_rejected(
+            response=self._captcha_response(success=False), reason='captcha_failed'
+        )
+
+    def test_captcha_rejects_network_exception(self):
+        self._assert_captcha_rejected(
+            exception=site_app.requests.exceptions.ConnectionError(),
+            reason='captcha_network_error',
+        )
+
+    def test_captcha_rejects_timeout(self):
+        self._assert_captcha_rejected(
+            exception=site_app.requests.exceptions.Timeout(),
+            reason='captcha_network_error',
+        )
+
+    def test_captcha_rejects_http_error(self):
+        self._assert_captcha_rejected(
+            response=SimpleNamespace(status_code=503),
+            reason='captcha_invalid_response',
+        )
+
+    def test_captcha_rejects_malformed_json(self):
+        def malformed_json():
+            raise ValueError('invalid json')
+
+        self._assert_captcha_rejected(
+            response=SimpleNamespace(status_code=200, json=malformed_json),
+            reason='captcha_invalid_response',
+        )
+
+    def test_captcha_rejects_wrong_action(self):
+        self._assert_captcha_rejected(
+            response=self._captcha_response(action='other'),
+            reason='captcha_action_mismatch',
+        )
+
+    def test_captcha_rejects_wrong_hostname(self):
+        self._assert_captcha_rejected(
+            response=self._captcha_response(hostname='attacker.example'),
+            reason='captcha_hostname_mismatch',
+        )
+
+    def test_captcha_rejects_stale_challenge(self):
+        stale = datetime.now(timezone.utc) - timedelta(minutes=10)
+        self._assert_captcha_rejected(
+            response=self._captcha_response(challenge_ts=stale.isoformat()),
+            reason='captcha_stale',
+        )
+
+    def test_captcha_rejects_future_invalid_challenge(self):
+        future = datetime.now(timezone.utc) + timedelta(minutes=10)
+        self._assert_captcha_rejected(
+            response=self._captcha_response(challenge_ts=future.isoformat()),
+            reason='captcha_stale',
+        )
+
+    def test_configured_site_key_renders_v3_contact_action(self):
+        self.app.config['RECAPTCHA_SITE_KEY'] = 'public-test-key'
+        response = self.client.get('/contact')
+        html = response.get_data(as_text=True)
+        self.assertIn(
+            'recaptcha/api.js?render=public-test-key',
+            html,
+        )
+        self.assertIn("{action: 'contact_form'}", html)
+        self.assertIn("document.getElementById('recaptcha_token').value = token", html)
+
+    def test_proxyfix_trusts_exactly_one_client_address_hop(self):
+        self._enable_captcha()
+        with patch.object(
+            site_app.requests, 'post', return_value=self._captcha_response()
+        ) as post_mock, patch.object(
+            site_app, 'send_contact_notification', return_value=True
+        ), patch.object(
+            site_app, 'send_contact_confirmation', return_value=True
+        ):
+            response = self.client.post(
+                '/contact',
+                data=self._contact_payload(recaptcha_token='opaque-token'),
+                headers={
+                    'X-Forwarded-For': '198.51.100.7, 10.0.0.8',
+                },
+                environ_base={'REMOTE_ADDR': '127.0.0.1'},
+            )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(post_mock.call_args.kwargs['data']['remoteip'], '10.0.0.8')
+
+    @patch.object(site_app, 'send_contact_confirmation', return_value=True)
+    @patch.object(site_app, 'send_contact_notification', return_value=True)
+    def test_rate_limit_distinguishes_forwarded_client_ips(
+        self, notify_mock, confirm_mock
+    ):
+        self.app.config['RATELIMIT_ENABLED'] = True
+        site_app.limiter.enabled = True
+        site_app.limiter.reset()
+        try:
+            for number in range(5):
+                response = self.client.post(
+                    '/contact',
+                    data=self._contact_payload(message=f'Client one {number} inquiry.'),
+                    headers={'X-Forwarded-For': '198.51.100.1'},
+                )
+                self.assertEqual(response.status_code, 302)
+
+            limited = self.client.post(
+                '/contact',
+                data=self._contact_payload(message='Client one extra inquiry.'),
+                headers={'X-Forwarded-For': '198.51.100.1'},
+            )
+            other_client = self.client.post(
+                '/contact',
+                data=self._contact_payload(message='Client two inquiry.'),
+                headers={'X-Forwarded-For': '198.51.100.2'},
+            )
+            self.assertEqual(limited.status_code, 429)
+            self.assertEqual(other_client.status_code, 302)
+        finally:
+            self.app.config['RATELIMIT_ENABLED'] = False
+            site_app.limiter.enabled = False
+            site_app.limiter.reset()
 
     @patch.object(site_app, 'send_contact_confirmation', return_value=True)
     @patch.object(site_app, 'send_contact_notification', return_value=True)

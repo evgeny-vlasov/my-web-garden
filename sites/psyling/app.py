@@ -7,9 +7,10 @@ import os
 import sys
 import hashlib
 import secrets
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from werkzeug.utils import secure_filename
+from werkzeug.middleware.proxy_fix import ProxyFix
 from slugify import slugify
 import markdown
 import requests
@@ -72,6 +73,11 @@ from wtforms.validators import DataRequired
 # Create Flask application
 config_name = os.getenv('FLASK_ENV', 'production')
 app = create_base_app('psyling', config[config_name])
+
+# Psyling is reachable only through one local nginx reverse-proxy hop. Trust
+# exactly that hop for the client address and leave every other forwarded
+# header untrusted.
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
 
 # Register CLI commands
 register_cli_commands(app)
@@ -238,6 +244,81 @@ def schedule():
     return render_template('schedule.html')
 
 
+def verify_contact_recaptcha(token):
+    """Verify a contact-form reCAPTCHA token without logging private data."""
+    secret = app.config.get('RECAPTCHA_SECRET_KEY')
+    enabled = app.config.get('RECAPTCHA_ENABLED', False)
+    if not enabled and not secret:
+        return True, None
+    if not secret:
+        return False, 'captcha_invalid_response'
+    if not token:
+        return False, 'captcha_missing'
+
+    try:
+        response = requests.post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            data={
+                'secret': secret,
+                'response': token,
+                'remoteip': request.remote_addr,
+            },
+            timeout=5,
+        )
+    except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
+        return False, 'captcha_network_error'
+    except requests.exceptions.RequestException:
+        return False, 'captcha_network_error'
+
+    if not 200 <= response.status_code < 300:
+        return False, 'captcha_invalid_response'
+
+    try:
+        result = response.json()
+    except (ValueError, TypeError):
+        return False, 'captcha_invalid_response'
+    if not isinstance(result, dict):
+        return False, 'captcha_invalid_response'
+
+    if result.get('success') is not True:
+        return False, 'captcha_failed'
+
+    try:
+        score = float(result.get('score'))
+    except (TypeError, ValueError):
+        return False, 'captcha_invalid_response'
+    if score < float(app.config.get('RECAPTCHA_SCORE_THRESHOLD', 0.5)):
+        return False, 'captcha_low_score'
+
+    if result.get('action') != 'contact_form':
+        return False, 'captcha_action_mismatch'
+
+    hostname = str(result.get('hostname') or '').rstrip('.').lower()
+    allowed_hostnames = app.config.get('RECAPTCHA_ALLOWED_HOSTNAMES', ())
+    if hostname not in allowed_hostnames:
+        return False, 'captcha_hostname_mismatch'
+
+    challenge_ts = result.get('challenge_ts')
+    try:
+        challenge_time = datetime.fromisoformat(
+            str(challenge_ts).replace('Z', '+00:00')
+        )
+        if challenge_time.tzinfo is None:
+            challenge_time = challenge_time.replace(tzinfo=timezone.utc)
+        age = (datetime.now(timezone.utc) - challenge_time).total_seconds()
+    except (TypeError, ValueError, OverflowError):
+        return False, 'captcha_invalid_response'
+
+    max_age = int(app.config.get('RECAPTCHA_MAX_AGE_SECONDS', 180))
+    future_tolerance = int(
+        app.config.get('RECAPTCHA_FUTURE_TOLERANCE_SECONDS', 30)
+    )
+    if age > max_age or age < -future_tolerance:
+        return False, 'captcha_stale'
+
+    return True, None
+
+
 @app.route('/contact', methods=['GET', 'POST'])
 @limiter.limit(
     app.config.get('CONTACT_FORM_RATE_LIMIT', '5 per hour'),
@@ -271,49 +352,17 @@ def contact():
             preclassified_spam = True
             app.logger.info('Contact submission matched the email blocklist')
 
-        # SPAM PREVENTION: Verify reCAPTCHA token if configured
+        # SPAM PREVENTION: Verify reCAPTCHA token if configured.
         recaptcha_token = request.form.get('recaptcha_token', '')
-        recaptcha_secret = app.config.get('RECAPTCHA_SECRET_KEY')
-
-        if not preclassified_spam and recaptcha_secret and recaptcha_token:
-            try:
-                # Verify reCAPTCHA with Google
-                recaptcha_response = requests.post(
-                    'https://www.google.com/recaptcha/api/siteverify',
-                    data={
-                        'secret': recaptcha_secret,
-                        'response': recaptcha_token,
-                        'remoteip': request.remote_addr
-                    },
-                    timeout=5
-                )
-                recaptcha_result = recaptcha_response.json()
-
-                # Check if verification was successful
-                if not recaptcha_result.get('success', False):
-                    app.logger.warning(f'reCAPTCHA verification failed from IP {request.remote_addr}: {recaptcha_result}')
-                    flash('reCAPTCHA verification failed. Please try again.', 'error')
-                    return render_template('contact.html', form=form)
-
-                # Check score (v3 returns score from 0.0 to 1.0, where 1.0 is very likely a good interaction)
-                score = recaptcha_result.get('score', 0)
-                if score < 0.5:
-                    app.logger.warning(f'reCAPTCHA low score from IP {request.remote_addr}: score={score}')
-                    flash('Your submission appears suspicious. Please try again later.', 'error')
-                    return render_template('contact.html', form=form)
-
-                app.logger.info(f'reCAPTCHA passed from IP {request.remote_addr}: score={score}')
-
-            except requests.exceptions.RequestException as e:
-                # Network error - log but allow submission (don't block legitimate users)
-                app.logger.error(f'reCAPTCHA verification error: {str(e)}')
-            except Exception as e:
-                # Other error - log but allow submission
-                app.logger.error(f'Unexpected reCAPTCHA error: {str(e)}')
-        elif not preclassified_spam and recaptcha_secret and not recaptcha_token:
-            # reCAPTCHA is configured but no token provided - likely a bot
-            app.logger.warning(f'No reCAPTCHA token provided from IP {request.remote_addr}')
-            flash('Security verification required. Please enable JavaScript and try again.', 'error')
+        captcha_valid, captcha_failure = verify_contact_recaptcha(
+            recaptcha_token
+        )
+        if not captcha_valid:
+            app.logger.warning(captcha_failure)
+            flash(
+                'We could not verify your submission. Please try again.',
+                'error',
+            )
             return render_template('contact.html', form=form)
 
     if form.validate_on_submit():

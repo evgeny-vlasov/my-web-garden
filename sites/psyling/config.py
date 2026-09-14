@@ -10,6 +10,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+def env_bool(name, default=False):
+    """Read an explicit boolean environment setting."""
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
 class Config:
     """Base configuration with defaults."""
 
@@ -64,8 +72,21 @@ class Config:
     CONTACT_FORM_RATE_LIMIT = '5 per hour'  # 5 submissions per hour per IP
 
     # reCAPTCHA v3 (spam prevention)
+    RECAPTCHA_ENABLED = env_bool('RECAPTCHA_ENABLED', False)
     RECAPTCHA_SITE_KEY = os.getenv('RECAPTCHA_SITE_KEY')  # Public key for frontend
     RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')  # Secret key for backend verification
+    RECAPTCHA_SCORE_THRESHOLD = float(os.getenv('RECAPTCHA_SCORE_THRESHOLD', '0.5'))
+    RECAPTCHA_ALLOWED_HOSTNAMES = tuple(
+        hostname.strip().lower()
+        for hostname in os.getenv(
+            'RECAPTCHA_ALLOWED_HOSTNAMES', 'psyling.com,www.psyling.com'
+        ).split(',')
+        if hostname.strip()
+    )
+    RECAPTCHA_MAX_AGE_SECONDS = int(os.getenv('RECAPTCHA_MAX_AGE_SECONDS', '180'))
+    RECAPTCHA_FUTURE_TOLERANCE_SECONDS = int(
+        os.getenv('RECAPTCHA_FUTURE_TOLERANCE_SECONDS', '30')
+    )
 
 
 class DevelopmentConfig(Config):
@@ -80,6 +101,7 @@ class ProductionConfig(Config):
     """Production configuration."""
     DEBUG = False
     FLASK_ENV = 'production'
+    RECAPTCHA_ENABLED = env_bool('RECAPTCHA_ENABLED', True)
     # All security settings from base Config apply
 
 
@@ -89,6 +111,7 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/therapist_test_db'
     WTF_CSRF_ENABLED = False  # Disable CSRF for testing
     MAIL_SUPPRESS_SEND = True
+    RECAPTCHA_ENABLED = False
 
 
 # Configuration dictionary
