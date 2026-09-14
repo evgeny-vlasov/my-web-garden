@@ -2,6 +2,7 @@ import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime
 
 
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -202,6 +203,200 @@ class ContactInboxClarityTest(unittest.TestCase):
         db.session.refresh(contact)
         self.assertTrue(contact.is_read)
 
+    def test_list_has_row_and_bulk_spam_controls(self):
+        contact = self._contact('Selectable Visitor')
+
+        html = self.client.get('/admin/contacts').get_data(as_text=True)
+
+        self.assertIn('Select all on this page', html)
+        self.assertIn('Mark selected as spam', html)
+        self.assertIn('Archive selected', html)
+        self.assertIn(f'value="{contact.id}"', html)
+        self.assertIn(f'/admin/contacts/{contact.id}/mark-spam', html)
+
+    def test_per_row_mark_spam_preserves_list_location(self):
+        contact = self._contact('Row Spam Visitor')
+
+        response = self.client.post(
+            f'/admin/contacts/{contact.id}/mark-spam',
+            data={
+                'return_show': 'unread',
+                'return_status': 'new',
+                'return_q': 'Visitor',
+                'return_page': '3',
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('show=unread', response.headers['Location'])
+        self.assertIn('status=new', response.headers['Location'])
+        self.assertIn('q=Visitor', response.headers['Location'])
+        self.assertIn('page=3', response.headers['Location'])
+        db.session.refresh(contact)
+        self.assertTrue(contact.is_spam)
+        self.assertEqual(contact.status, 'spam')
+
+    def test_bulk_mark_spam_is_idempotent_for_existing_spam(self):
+        first = self._contact('First Bulk Visitor')
+        second = self._contact('Already Spam Visitor', is_spam=True, status='spam')
+        third = self._contact('Third Bulk Visitor')
+
+        response = self.client.post(
+            '/admin/contacts/bulk-mark-spam',
+            data={
+                'contact_ids': [str(first.id), str(second.id), str(third.id)],
+                'return_show': 'inbox',
+            },
+            follow_redirects=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'2 inquiries marked as spam.', response.data)
+        for contact in (first, second, third):
+            db.session.refresh(contact)
+            self.assertTrue(contact.is_spam)
+            self.assertEqual(contact.status, 'spam')
+
+    def test_bulk_mark_spam_rejects_nonexistent_id_atomically(self):
+        contact = self._contact('Atomic Visitor')
+
+        response = self.client.post(
+            '/admin/contacts/bulk-mark-spam',
+            data={'contact_ids': [str(contact.id), '999999']},
+            follow_redirects=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'no longer exist', response.data)
+        db.session.refresh(contact)
+        self.assertFalse(contact.is_spam)
+
+    def test_bulk_mark_spam_rejects_malformed_id_atomically(self):
+        contact = self._contact('Malformed Selection Visitor')
+
+        response = self.client.post(
+            '/admin/contacts/bulk-mark-spam',
+            data={'contact_ids': [str(contact.id), 'not-an-id']},
+            follow_redirects=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'selected inquiries were invalid', response.data)
+        db.session.refresh(contact)
+        self.assertFalse(contact.is_spam)
+
+    def test_bulk_action_with_no_selection_changes_nothing(self):
+        contact = self._contact('Unselected Visitor')
+
+        response = self.client.post(
+            '/admin/contacts/bulk-mark-spam',
+            data={},
+            follow_redirects=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Select at least one inquiry.', response.data)
+        db.session.refresh(contact)
+        self.assertFalse(contact.is_spam)
+
+    def test_bulk_action_requires_admin_authentication(self):
+        contact = self._contact('Protected Visitor')
+        anonymous = self.app.test_client()
+
+        response = anonymous.post(
+            '/admin/contacts/bulk-mark-spam',
+            data={'contact_ids': str(contact.id)},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('/admin/login', response.headers['Location'])
+        db.session.refresh(contact)
+        self.assertFalse(contact.is_spam)
+
+    def test_bulk_action_requires_csrf_when_enabled(self):
+        contact = self._contact('CSRF Visitor')
+        self.app.config['WTF_CSRF_ENABLED'] = True
+        try:
+            response = self.client.post(
+                '/admin/contacts/bulk-mark-spam',
+                data={'contact_ids': str(contact.id)},
+            )
+        finally:
+            self.app.config['WTF_CSRF_ENABLED'] = False
+
+        self.assertEqual(response.status_code, 400)
+        db.session.refresh(contact)
+        self.assertFalse(contact.is_spam)
+
+    def test_bulk_archive_soft_deletes_selected_spam_only(self):
+        selected = self._contact(
+            'Selected Spam Visitor', is_spam=True, status='spam'
+        )
+        untouched = self._contact(
+            'Untouched Spam Visitor', is_spam=True, status='spam'
+        )
+
+        response = self.client.post(
+            '/admin/contacts/bulk-archive',
+            data={'contact_ids': str(selected.id), 'return_show': 'spam'},
+            follow_redirects=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'1 inquiry archived.', response.data)
+        db.session.refresh(selected)
+        db.session.refresh(untouched)
+        self.assertIsNotNone(selected.archived_at)
+        self.assertIsNone(untouched.archived_at)
+        self.assertEqual(ContactSubmission.query.count(), 2)
+
+        spam_html = self.client.get('/admin/contacts?show=spam').get_data(as_text=True)
+        archived_html = self.client.get(
+            '/admin/contacts?show=archived'
+        ).get_data(as_text=True)
+        self.assertNotIn(selected.name, spam_html)
+        self.assertIn(untouched.name, spam_html)
+        self.assertIn(selected.name, archived_html)
+
+    def test_bulk_action_enforces_maximum_batch_size(self):
+        contact = self._contact('Batch Limit Visitor')
+        too_many = [str(contact.id)] * (site_app.CONTACT_BULK_ACTION_LIMIT + 1)
+
+        response = self.client.post(
+            '/admin/contacts/bulk-mark-spam',
+            data={'contact_ids': too_many},
+            follow_redirects=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Select no more than 100 inquiries', response.data)
+        db.session.refresh(contact)
+        self.assertFalse(contact.is_spam)
+
+    def test_filters_remain_consistent_after_bulk_actions(self):
+        marked = self._contact('Marked From Unread', is_read=False)
+        active = self._contact('Still Active', is_read=False)
+        archived = self._contact(
+            'Already Archived', archived_at=datetime.utcnow(), is_read=False
+        )
+
+        self.client.post(
+            '/admin/contacts/bulk-mark-spam',
+            data={'contact_ids': str(marked.id), 'return_show': 'unread'},
+        )
+
+        active_html = self.client.get('/admin/contacts').get_data(as_text=True)
+        unread_html = self.client.get('/admin/contacts?show=unread').get_data(as_text=True)
+        spam_html = self.client.get('/admin/contacts?show=spam').get_data(as_text=True)
+        archived_html = self.client.get(
+            '/admin/contacts?show=archived'
+        ).get_data(as_text=True)
+        self.assertNotIn(marked.name, active_html)
+        self.assertNotIn(marked.name, unread_html)
+        self.assertIn(marked.name, spam_html)
+        self.assertIn(active.name, active_html)
+        self.assertIn(active.name, unread_html)
+        self.assertIn(archived.name, archived_html)
 
 if __name__ == '__main__':
     unittest.main()

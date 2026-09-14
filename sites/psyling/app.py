@@ -712,6 +712,59 @@ def admin_post_delete(post_id):
 # ADMIN CONTACT SUBMISSIONS ROUTES
 # ============================================================================
 
+CONTACT_BULK_ACTION_LIMIT = 100
+
+
+def _contacts_list_return_url():
+    """Build a safe contacts-list return URL from validated form fields."""
+    view_filter = request.form.get('return_show', 'inbox').strip().lower()
+    if view_filter not in {'inbox', 'unread', 'spam', 'archived'}:
+        view_filter = 'inbox'
+
+    status_filter = request.form.get('return_status', '').strip().lower()
+    if status_filter not in CONTACT_STATUSES:
+        status_filter = ''
+
+    search = request.form.get('return_q', '').strip()[:100]
+    try:
+        page = max(1, int(request.form.get('return_page', '1')))
+    except (TypeError, ValueError):
+        page = 1
+
+    return url_for(
+        'admin_contacts_list',
+        show=view_filter,
+        status=status_filter,
+        q=search,
+        page=page,
+    )
+
+
+def _selected_contacts_from_request():
+    """Validate and load one bounded, explicit set of contact IDs."""
+    raw_ids = request.form.getlist('contact_ids')
+    if not raw_ids:
+        return None, 'Select at least one inquiry.'
+    if len(raw_ids) > CONTACT_BULK_ACTION_LIMIT:
+        return None, (
+            f'Select no more than {CONTACT_BULK_ACTION_LIMIT} inquiries at once.'
+        )
+
+    try:
+        contact_ids = list(dict.fromkeys(int(raw_id) for raw_id in raw_ids))
+    except (TypeError, ValueError):
+        return None, 'The selected inquiries were invalid. Nothing was changed.'
+    if any(contact_id <= 0 for contact_id in contact_ids):
+        return None, 'The selected inquiries were invalid. Nothing was changed.'
+
+    contacts = ContactSubmission.query.filter(
+        ContactSubmission.id.in_(contact_ids)
+    ).all()
+    if {contact.id for contact in contacts} != set(contact_ids):
+        return None, 'One or more selected inquiries no longer exist. Nothing was changed.'
+    return contacts, None
+
+
 @app.route('/admin/contacts')
 @admin_required
 def admin_contacts_list():
@@ -787,8 +840,109 @@ def admin_contacts_list():
         view_filter=view_filter,
         search=search,
         endpoint='admin_contacts_list',
-        kwargs={'show': view_filter, 'status': status_filter, 'q': search}
+        kwargs={'show': view_filter, 'status': status_filter, 'q': search},
+        list_action_form=ContactActionForm(),
+        bulk_action_limit=CONTACT_BULK_ACTION_LIMIT,
     )
+
+
+@app.route('/admin/contacts/<int:contact_id>/mark-spam', methods=['POST'])
+@admin_required
+def admin_contact_mark_spam(contact_id):
+    """Idempotently mark one inquiry as spam from the contact list."""
+    form = ContactActionForm()
+    if not form.validate_on_submit():
+        abort(400)
+    contact = ContactSubmission.query.get_or_404(contact_id)
+    return_url = _contacts_list_return_url()
+
+    if contact.is_spam and contact.status == 'spam':
+        flash('Inquiry was already marked as spam.', 'info')
+        return redirect(return_url)
+
+    try:
+        contact.mark_as_spam()
+        db.session.commit()
+        app.logger.info(
+            'CRM contact %s marked spam from list by admin user %s',
+            contact.id,
+            current_user.id,
+        )
+        flash('Inquiry marked as spam.', 'success')
+    except Exception:
+        db.session.rollback()
+        app.logger.exception('CRM contact %s list spam update failed', contact.id)
+        flash('Spam update failed. Nothing was changed.', 'error')
+    return redirect(return_url)
+
+
+@app.route('/admin/contacts/bulk-mark-spam', methods=['POST'])
+@admin_required
+def admin_contacts_bulk_mark_spam():
+    """Idempotently mark an explicit, validated batch of inquiries as spam."""
+    form = ContactActionForm()
+    if not form.validate_on_submit():
+        abort(400)
+    return_url = _contacts_list_return_url()
+    contacts, error = _selected_contacts_from_request()
+    if error:
+        flash(error, 'warning')
+        return redirect(return_url)
+
+    changed = 0
+    try:
+        for contact in contacts:
+            if not contact.is_spam or contact.status != 'spam':
+                contact.mark_as_spam()
+                changed += 1
+        db.session.commit()
+        app.logger.info(
+            '%s CRM contacts marked spam in bulk by admin user %s',
+            changed,
+            current_user.id,
+        )
+        noun = 'inquiry' if changed == 1 else 'inquiries'
+        flash(f'{changed} {noun} marked as spam.', 'success')
+    except Exception:
+        db.session.rollback()
+        app.logger.exception('Bulk contact spam update failed')
+        flash('Bulk spam update failed. Nothing was changed.', 'error')
+    return redirect(return_url)
+
+
+@app.route('/admin/contacts/bulk-archive', methods=['POST'])
+@admin_required
+def admin_contacts_bulk_archive():
+    """Archive an explicit, validated batch without deleting private records."""
+    form = ContactActionForm()
+    if not form.validate_on_submit():
+        abort(400)
+    return_url = _contacts_list_return_url()
+    contacts, error = _selected_contacts_from_request()
+    if error:
+        flash(error, 'warning')
+        return redirect(return_url)
+
+    archived = 0
+    try:
+        archived_at = datetime.utcnow()
+        for contact in contacts:
+            if contact.archived_at is None:
+                contact.archived_at = archived_at
+                archived += 1
+        db.session.commit()
+        app.logger.info(
+            '%s CRM contacts archived in bulk by admin user %s',
+            archived,
+            current_user.id,
+        )
+        noun = 'inquiry' if archived == 1 else 'inquiries'
+        flash(f'{archived} {noun} archived. They remain safely stored.', 'success')
+    except Exception:
+        db.session.rollback()
+        app.logger.exception('Bulk contact archive failed')
+        flash('Bulk archive failed. Nothing was changed.', 'error')
+    return redirect(return_url)
 
 
 @app.route('/admin/contacts/<int:contact_id>/view')

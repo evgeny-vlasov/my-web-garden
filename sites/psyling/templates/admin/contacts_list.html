@@ -75,11 +75,40 @@
     </div>
 
     {% if contacts.items %}
+    <form id="contact-bulk-form" method="POST">
+        {{ list_action_form.hidden_tag() }}
+        <input type="hidden" name="return_show" value="{{ view_filter }}">
+        <input type="hidden" name="return_status" value="{{ status_filter }}">
+        <input type="hidden" name="return_q" value="{{ search }}">
+        <input type="hidden" name="return_page" value="{{ contacts.page }}">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+            <button type="submit"
+                    formaction="{{ url_for('admin_contacts_bulk_mark_spam') }}"
+                    class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-shield-exclamation me-1"></i>Mark selected as spam
+            </button>
+            {% if view_filter != 'archived' %}
+            <button type="submit"
+                    formaction="{{ url_for('admin_contacts_bulk_archive') }}"
+                    class="btn btn-sm btn-outline-secondary"
+                    onclick="return confirm('Archive only the selected inquiries? They can be restored later.')">
+                <i class="bi bi-archive me-1"></i>Archive selected
+            </button>
+            {% endif %}
+            <small class="text-muted">Up to {{ bulk_action_limit }} explicitly selected inquiries.</small>
+        </div>
+    </form>
     <div class="card border-0 shadow-sm contacts-list-card">
         <div class="contacts-table-wrap">
             <table class="table table-hover mb-0 contacts-table">
                 <thead class="table-light">
                     <tr>
+                        <th>
+                            <input class="form-check-input" type="checkbox"
+                                   id="select-page-contacts"
+                                   aria-label="Select all on this page">
+                            <label class="small ms-1" for="select-page-contacts">Select all on this page</label>
+                        </th>
                         <th>Contact</th>
                         <th>Received</th>
                         <th>Status</th>
@@ -90,6 +119,12 @@
                 <tbody>
                 {% for contact in contacts.items %}
                     <tr class="contact-row {% if not contact.is_read %}table-warning{% endif %}">
+                        <td class="text-center" data-label="Select">
+                            <input class="form-check-input contact-select" type="checkbox"
+                                   name="contact_ids" value="{{ contact.id }}"
+                                   form="contact-bulk-form"
+                                   aria-label="Select inquiry {{ contact.id }}">
+                        </td>
                         <td class="contact-cell">
                             <a href="{{ url_for('admin_contact_view', contact_id=contact.id) }}"
                                class="contact-primary-link">
@@ -112,10 +147,22 @@
                             {% endif %}
                         </td>
                         <td class="text-end contact-open-cell">
-                            <a href="{{ url_for('admin_contact_view', contact_id=contact.id) }}"
-                               class="btn btn-primary contact-open-link">
-                                <i class="bi bi-eye me-1"></i>Open inquiry
-                            </a>
+                            <div class="d-flex flex-wrap justify-content-end gap-1">
+                                <form method="POST" action="{{ url_for('admin_contact_mark_spam', contact_id=contact.id) }}">
+                                    {{ list_action_form.hidden_tag() }}
+                                    <input type="hidden" name="return_show" value="{{ view_filter }}">
+                                    <input type="hidden" name="return_status" value="{{ status_filter }}">
+                                    <input type="hidden" name="return_q" value="{{ search }}">
+                                    <input type="hidden" name="return_page" value="{{ contacts.page }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-shield-exclamation me-1"></i>Mark spam
+                                    </button>
+                                </form>
+                                <a href="{{ url_for('admin_contact_view', contact_id=contact.id) }}"
+                                   class="btn btn-primary btn-sm contact-open-link">
+                                    <i class="bi bi-eye me-1"></i>Open inquiry
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
@@ -134,4 +181,23 @@
     </div>
     {% endif %}
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const selectAll = document.getElementById('select-page-contacts');
+    const rowCheckboxes = Array.from(document.querySelectorAll('.contact-select'));
+    if (!selectAll) return;
+
+    selectAll.addEventListener('change', function () {
+        rowCheckboxes.forEach(function (checkbox) {
+            checkbox.checked = selectAll.checked;
+        });
+    });
+    rowCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            selectAll.checked = rowCheckboxes.every(function (item) { return item.checked; });
+            selectAll.indeterminate = !selectAll.checked && rowCheckboxes.some(function (item) { return item.checked; });
+        });
+    });
+});
+</script>
 {% endblock %}
