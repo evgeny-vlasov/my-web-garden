@@ -50,6 +50,8 @@
                         <tr>
                             <th>Title</th>
                             <th>Author</th>
+                            <th>Language</th>
+                            <th>Other version</th>
                             <th>Status</th>
                             <th>Date</th>
                             <th class="text-end">Actions</th>
@@ -69,6 +71,14 @@
                                 </td>
                                 <td>
                                     <span class="text-muted">{{ post.author.username if post.author else 'Unknown' }}</span>
+                                </td>
+                                <td><span class="badge bg-primary">{{ 'RU · Русский' if post.language == 'ru' else 'EN · English' }}</span></td>
+                                <td>
+                                    {% if post.counterpart %}
+                                    <a href="{{ url_for('admin_post_edit', post_id=post.counterpart.id) }}">{{ 'RU' if post.counterpart.language == 'ru' else 'EN' }} · {{ 'Published' if post.counterpart.visible else 'Draft' }}</a>
+                                    {% else %}
+                                    <a href="{{ url_for('admin_post_create', language=('ru' if post.language == 'en' else 'en'), translation_id=post.id) }}" class="text-muted">Missing · create</a>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {% if post.visible %}

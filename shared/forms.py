@@ -285,3 +285,18 @@ class BlogPostForm(FlaskForm):
         'Published',
         render_kw={'class': 'form-check-input'}
     )
+
+    language = SelectField(
+        'Language',
+        choices=[('en', 'English'), ('ru', 'Russian / Русский')],
+        validators=[DataRequired()],
+        render_kw={'class': 'form-select'},
+    )
+
+    translation_id = SelectField(
+        'Other language version',
+        coerce=int,
+        choices=[(0, 'Not linked yet')],
+        validators=[Optional()],
+        render_kw={'class': 'form-select'},
+    )

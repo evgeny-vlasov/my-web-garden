@@ -423,6 +423,15 @@ class BlogPost(db.Model):
     Prepared for Sprint 2 - minimal implementation for Sprint 1.
     """
     __tablename__ = 'blog_posts'
+    __table_args__ = (
+        db.CheckConstraint(
+            "language IN ('en', 'ru')", name='ck_blog_posts_language'
+        ),
+        db.CheckConstraint(
+            'translation_id IS NULL OR translation_id <> id',
+            name='ck_blog_posts_translation_not_self',
+        ),
+    )
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -432,6 +441,28 @@ class BlogPost(db.Model):
     published_at = db.Column(db.DateTime, index=True)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     visible = db.Column(db.Boolean, default=False)
+    language = db.Column(
+        db.String(2), default='en', server_default='en', nullable=False, index=True
+    )
+    translation_id = db.Column(
+        db.Integer,
+        db.ForeignKey('blog_posts.id', ondelete='SET NULL'),
+        nullable=True,
+        unique=True,
+        index=True,
+    )
+    translation = db.relationship(
+        'BlogPost',
+        remote_side=[id],
+        foreign_keys=[translation_id],
+        uselist=False,
+        backref=db.backref('translated_from', uselist=False),
+    )
+
+    @property
+    def counterpart(self):
+        """Return the linked version regardless of which row owns the link."""
+        return self.translation or self.translated_from
 
     def publish(self):
         """Publish the blog post."""

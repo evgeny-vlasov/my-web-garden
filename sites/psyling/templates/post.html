@@ -12,12 +12,24 @@
             <div class="col-lg-8 mx-auto">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('blog') }}">{% if post.language == 'ru' %}Блог{% else %}Blog{% endif %}</a></li>
                         <li class="breadcrumb-item active">{{ post.title }}</li>
                     </ol>
                 </nav>
 
                 <h1 class="display-5 mb-3">{{ post.title }}</h1>
+
+                <nav class="article-languages mb-4" aria-label="Article languages">
+                    {% for code, label in [('ru', 'Русский'), ('en', 'English')] %}
+                        {% if post.language == code %}
+                            <span class="article-language active" aria-current="page">{{ label }}</span>
+                        {% elif counterpart and counterpart.visible %}
+                            <a class="article-language" href="{{ url_for('view_post', slug=counterpart.slug) }}" hreflang="{{ code }}">{{ label }}</a>
+                        {% else %}
+                            <span class="article-language unavailable" title="{{ 'Русская версия готовится' if code == 'ru' else 'English version is being prepared' }}">{{ label }} <small>({{ 'готовится' if code == 'ru' else 'in preparation' }})</small></span>
+                        {% endif %}
+                    {% endfor %}
+                </nav>
 
                 <div class="d-flex align-items-center text-muted">
                     <i class="bi bi-person-circle me-2"></i>
@@ -44,7 +56,7 @@
 
                 <!-- Share Buttons -->
                 <div class="mt-5 pt-4 border-top">
-                    <h5 class="mb-3">Share this post</h5>
+                    <h5 class="mb-3">{% if post.language == 'ru' %}Поделиться статьёй{% else %}Share this post{% endif %}</h5>
                     <div class="d-flex gap-2">
                         <a href="#" class="btn btn-outline-primary" title="Share on Facebook">
                             <i class="bi bi-facebook"></i> Facebook
@@ -61,10 +73,10 @@
                     </div>
                 </div>
 
-                <!-- Back to Home -->
+                <!-- Back to Blog -->
                 <div class="mt-5">
-                    <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
-                        <i class="bi bi-arrow-left me-1"></i>Back to Home
+                    <a href="{{ url_for('blog') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left me-1"></i>{% if post.language == 'ru' %}Все статьи{% else %}Back to Blog{% endif %}
                     </a>
                 </div>
             </div>
@@ -121,6 +133,11 @@
     font-size: 1.1rem;
     line-height: 1.8;
 }
+
+.article-languages { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.article-language { border: 1px solid #cfd4dc; border-radius: 999px; padding: .35rem .8rem; text-decoration: none; }
+.article-language.active { background: #667eea; border-color: #667eea; color: white; }
+.article-language.unavailable { color: #6c757d; background: #fff; }
 
 .post-content {
     max-width: 100%;
