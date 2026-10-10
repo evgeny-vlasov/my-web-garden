@@ -162,13 +162,21 @@ def set_language(lang):
 
 @app.route('/')
 def index():
-    """Homepage with recent blog posts."""
-    # Get 3 most recent published posts
+    """Blog-first homepage with recent published posts."""
     recent_posts = BlogPost.query.filter_by(visible=True).order_by(
         BlogPost.published_at.desc()
-    ).limit(3).all()
+    ).limit(8).all()
 
     return render_template('index.html', recent_posts=recent_posts)
+
+
+@app.route('/blog')
+def blog():
+    """Public archive of all published posts."""
+    posts = BlogPost.query.filter_by(visible=True).order_by(
+        BlogPost.published_at.desc(), BlogPost.updated_at.desc()
+    ).all()
+    return render_template('blog.html', posts=posts)
 
 
 @app.route('/about')
@@ -461,7 +469,10 @@ def view_post(slug):
     # Create excerpt for meta description
     excerpt = create_excerpt(post.content, 160)
 
-    return render_template('post.html', post=post, recent_posts=recent_posts, excerpt=excerpt)
+    return render_template(
+        'post.html', post=post, counterpart=post.counterpart,
+        recent_posts=recent_posts, excerpt=excerpt,
+    )
 
 
 # ============================================================================
@@ -552,6 +563,47 @@ def admin_dashboard():
 # ADMIN BLOG POST ROUTES
 # ============================================================================
 
+def prepare_post_form(form, post=None):
+    """Populate safe opposite-language counterpart choices."""
+    language = form.language.data or (post.language if post else 'en')
+    opposite = 'ru' if language == 'en' else 'en'
+    query = BlogPost.query.filter_by(language=opposite)
+    if post:
+        query = query.filter(BlogPost.id != post.id)
+    candidates = query.order_by(BlogPost.updated_at.desc()).all()
+    candidates = [
+        candidate for candidate in candidates
+        if candidate.counterpart is None or candidate.counterpart is post
+    ]
+    form.translation_id.choices = [(0, 'Not linked yet')] + [
+        (candidate.id, f'{candidate.title} ({"published" if candidate.visible else "draft"})')
+        for candidate in candidates
+    ]
+
+
+def link_post_translation(post, translation_id):
+    """Link a two-post pair without stealing or creating circular links."""
+    candidate = db.session.get(BlogPost, translation_id) if translation_id else None
+    if candidate and (candidate.id == post.id or candidate.language == post.language):
+        raise ValueError('The linked version must be a post in the other language.')
+    if candidate and candidate.counterpart not in (None, post):
+        raise ValueError('That post is already linked to another language version.')
+
+    previous = post.counterpart
+    if post.translation_id:
+        post.translation_id = None
+    if post.translated_from:
+        post.translated_from.translation_id = None
+    if previous and previous is not candidate and previous.translation_id == post.id:
+        previous.translation_id = None
+
+    if candidate:
+        # Store a pair in one direction only. This avoids reciprocal A -> B -> A
+        # cycles while ``counterpart`` keeps navigation symmetrical.
+        if candidate.translation_id == post.id:
+            candidate.translation_id = None
+        post.translation = candidate
+
 @app.route('/admin/posts')
 @custom_login_required
 def admin_posts_list():
@@ -597,6 +649,14 @@ def admin_posts_list():
 def admin_post_create():
     """Create a new blog post."""
     form = BlogPostForm()
+    if request.method == 'GET':
+        requested_language = request.args.get('language')
+        requested_translation = request.args.get('translation_id', type=int)
+        if requested_language in ('en', 'ru'):
+            form.language.data = requested_language
+        if requested_translation:
+            form.translation_id.data = requested_translation
+    prepare_post_form(form)
 
     if form.validate_on_submit():
         try:
@@ -620,7 +680,8 @@ def admin_post_create():
                 slug=slug,
                 content=clean_content,
                 author_id=current_user.id,
-                visible=form.visible.data
+                visible=form.visible.data,
+                language=form.language.data,
             )
 
             # Publish if visible is checked
@@ -628,6 +689,8 @@ def admin_post_create():
                 post.publish()
 
             db.session.add(post)
+            db.session.flush()
+            link_post_translation(post, form.translation_id.data)
             db.session.commit()
 
             flash('Blog post created successfully!', 'success')
@@ -647,6 +710,9 @@ def admin_post_edit(post_id):
     """Edit an existing blog post."""
     post = BlogPost.query.get_or_404(post_id)
     form = BlogPostForm(obj=post)
+    if request.method == 'GET':
+        form.translation_id.data = post.counterpart.id if post.counterpart else 0
+    prepare_post_form(form, post)
 
     if form.validate_on_submit():
         try:
@@ -670,6 +736,8 @@ def admin_post_edit(post_id):
             post.slug = slug
             post.content = sanitize_html(form.content.data)
             post.visible = form.visible.data
+            post.language = form.language.data
+            link_post_translation(post, form.translation_id.data)
 
             # Publish if visible is checked and not already published
             if form.visible.data and not post.published_at:

@@ -18,6 +18,19 @@
             <p class="text-muted">
                 {% if post %}Update your blog post{% else %}Create a new blog post{% endif %}
             </p>
+            {% if post %}
+            <div class="btn-group mt-2" role="group" aria-label="Language versions">
+                {% for code, label in [('ru', 'Русский'), ('en', 'English')] %}
+                    {% if post.language == code %}
+                        <span class="btn btn-primary active">{{ label }} · editing</span>
+                    {% elif post.counterpart %}
+                        <a class="btn btn-outline-primary" href="{{ url_for('admin_post_edit', post_id=post.counterpart.id) }}">{{ label }} · {{ 'published' if post.counterpart.visible else 'draft' }}</a>
+                    {% else %}
+                        <a class="btn btn-outline-secondary" href="{{ url_for('admin_post_create', language=code, translation_id=post.id) }}">{{ label }} · create</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
         <div class="col-md-4 text-end">
             <a href="{{ url_for('admin_posts_list') }}" class="btn btn-outline-secondary">
@@ -35,6 +48,10 @@
                 <!-- Title -->
                 <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">{{ form.language.label(class="form-label fw-bold") }}{{ form.language(class="form-select" + (" is-invalid" if form.language.errors else "")) }}</div>
+                            <div class="col-md-6">{{ form.translation_id.label(class="form-label fw-bold") }}{{ form.translation_id(class="form-select" + (" is-invalid" if form.translation_id.errors else "")) }}<div class="form-text">Links this text to its separately editable translation.</div></div>
+                        </div>
                         <div class="mb-3">
                             {{ form.title.label(class="form-label fw-bold") }}
                             {{ form.title(class="form-control form-control-lg" + (" is-invalid" if form.title.errors else ""), placeholder="Enter post title") }}
