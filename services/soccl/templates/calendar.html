@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Calendar{% endblock %}
+{% block content %}
+<header class="page-head"><div><p class="eyebrow">Publishing</p><h1>Calendar</h1><p class="muted">Scheduled times use Calgary time.</p></div></header>
+<section class="panel"><div class="panel-head"><h2>Upcoming</h2><span>{{ posts|length }} scheduled</span></div>{% for post in posts %}<a class="calendar-row" href="{{ url_for('edit_post', post_id=post.id) }}"><time>{{ display_time(post.scheduled_at) }}</time><strong>{{ post.title }}</strong></a>{% else %}<p class="empty">Nothing is scheduled yet.</p>{% endfor %}</section>
+{% endblock %}

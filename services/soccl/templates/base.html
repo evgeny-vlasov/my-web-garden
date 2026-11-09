@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Publisher{% endblock %} · School of Code</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='editorial.css') }}">
+</head>
+<body>
+  {% if session.get('authenticated') %}
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="{{ url_for('dashboard') }}"><span>SC</span><strong>Publisher<small>School of Code</small></strong></a>
+      <nav>
+        <a class="{{ 'active' if request.endpoint == 'dashboard' }}" href="{{ url_for('dashboard') }}">Queue</a>
+        <a class="{{ 'active' if request.endpoint == 'calendar' }}" href="{{ url_for('calendar') }}">Calendar</a>
+        <a class="{{ 'active' if request.endpoint == 'channels' }}" href="{{ url_for('channels') }}">Channels</a>
+        <a class="{{ 'active' if request.endpoint == 'activity' }}" href="{{ url_for('activity') }}">Activity</a>
+      </nav>
+      <form class="logout" method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit">Sign out</button></form>
+    </aside>
+    <main class="main">
+      {% include '_flashes.html' %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+  {% else %}
+  <main class="login-shell">{% include '_flashes.html' %}{% block public_content %}{% endblock %}</main>
+  {% endif %}
+</body>
+</html>

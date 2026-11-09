@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title if post else 'New post' }}{% endblock %}
+{% block content %}
+<header class="page-head"><div><p class="eyebrow">{{ post.status if post else 'Draft' }}</p><h1>{{ post.title if post else 'Create a post' }}</h1><p class="muted">First decide why it deserves to exist. Then adapt the idea for each channel.</p></div><a class="button" href="{{ url_for('dashboard') }}">Back to queue</a></header>
+
+<form class="editor" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <section class="panel fields">
+    <label for="title">Title</label>
+    <input id="title" name="title" maxlength="160" required value="{{ request.form.get('title', post.title if post else '') }}">
+    <label for="reason_to_exist">Reason to exist</label>
+    <textarea id="reason_to_exist" name="reason_to_exist" rows="3" required placeholder="What question, tension, useful example, or practical gift makes this worth publishing?">{{ request.form.get('reason_to_exist', post.reason_to_exist if post else '') }}</textarea>
+    <label for="editorial_sentence">Editorial sentence</label>
+    <textarea id="editorial_sentence" name="editorial_sentence" rows="2" required placeholder="The one sentence every part of the package should serve.">{{ request.form.get('editorial_sentence', post.editorial_sentence if post else '') }}</textarea>
+    <div class="field-grid">
+      <div><label for="content_type">Editorial depth</label><select id="content_type" name="content_type">
+        {% set selected_type = request.form.get('content_type', post.content_type if post else 'routine_social') %}
+        <option value="routine_social" {{ 'selected' if selected_type == 'routine_social' }}>Routine social · light pass</option>
+        <option value="factual_social" {{ 'selected' if selected_type == 'factual_social' }}>Factual social · evidence check</option>
+        <option value="website_article" {{ 'selected' if selected_type == 'website_article' }}>Website article · full process</option>
+      </select></div>
+      <div><label for="approval_level">Approval level</label><select id="approval_level" name="approval_level">
+        {% set selected_level = request.form.get('approval_level', post.approval_level if post else 'green') %}
+        <option value="green" {{ 'selected' if selected_level == 'green' }}>Green · routine</option>
+        <option value="amber" {{ 'selected' if selected_level == 'amber' }}>Amber · review</option>
+        <option value="red" {{ 'selected' if selected_level == 'red' }}>Red · manual approval</option>
+      </select></div>
+      <div><label for="facebook_slot">Facebook rhythm</label><select id="facebook_slot" name="facebook_slot">
+        {% set selected_slot = request.form.get('facebook_slot', post.facebook_slot if post else 'flexible') %}
+        <option value="morning" {{ 'selected' if selected_slot == 'morning' }}>Morning · idea / question</option>
+        <option value="noon" {{ 'selected' if selected_slot == 'noon' }}>Noon · project / bug / image</option>
+        <option value="evening" {{ 'selected' if selected_slot == 'evening' }}>Evening · discussion / story</option>
+        <option value="flexible" {{ 'selected' if selected_slot == 'flexible' }}>Flexible</option>
+      </select></div>
+    </div>
+    <label for="evidence_notes">Evidence and boundaries <span>required for factual posts and website articles</span></label>
+    <textarea id="evidence_notes" name="evidence_notes" rows="4" placeholder="Sources to check, what remains uncertain, classroom experience, Eugene's opinion, and the strongest counterargument.">{{ request.form.get('evidence_notes', post.evidence_notes if post else '') }}</textarea>
+    <label for="website_url">School of Code link <span>optional</span></label>
+    <input id="website_url" name="website_url" type="url" value="{{ request.form.get('website_url', post.website_url if post else '') }}" placeholder="https://shkolakoda.com/...">
+    <label for="facebook_body">Facebook</label>
+    <textarea id="facebook_body" name="facebook_body" rows="12" required>{{ request.form.get('facebook_body', post.facebook_body if post else '') }}</textarea>
+    <label for="instagram_body">Instagram</label>
+    <textarea id="instagram_body" name="instagram_body" rows="12" required>{{ request.form.get('instagram_body', post.instagram_body if post else '') }}</textarea>
+    <button class="primary" type="submit">Save changes</button>
+  </section>
+
+  <aside>
+    <section class="panel preview-card editorial-card"><p class="eyebrow">Editorial gate</p><h2>{{ request.form.get('editorial_sentence', post.editorial_sentence if post else 'One clear sentence') }}</h2><p>{{ request.form.get('reason_to_exist', post.reason_to_exist if post else 'A real reason to exist comes before the draft.') }}</p></section>
+    <section class="panel preview-card"><p class="eyebrow">Facebook preview</p><h2>{{ request.form.get('title', post.title if post else 'Post title') }}</h2><p>{{ request.form.get('facebook_body', post.facebook_body if post else 'Your Facebook copy will appear here.') }}</p></section>
+    <section class="panel preview-card"><p class="eyebrow">Instagram preview</p><p>{{ request.form.get('instagram_body', post.instagram_body if post else 'Your Instagram copy will appear here.') }}</p></section>
+  </aside>
+</form>
+
+{% if post %}
+<section class="panel workflow">
+  <div><h2>Workflow</h2><p class="muted">Current state: <span class="state {{ post.status }}">{{ post.status }}</span></p></div>
+  <div class="actions">
+    {% if post.status != 'draft' %}<form method="post" action="{{ url_for('change_state', post_id=post.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="action" value="return_draft"><button type="submit">Return to draft</button></form>{% endif %}
+    {% if post.status == 'draft' %}<form method="post" action="{{ url_for('change_state', post_id=post.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="action" value="submit_review"><button type="submit">Send to review</button></form>{% endif %}
+    {% if post.status == 'review' %}<form method="post" action="{{ url_for('change_state', post_id=post.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="action" value="approve"><button class="primary" type="submit">Approve</button></form>{% endif %}
+    {% if post.status in ['approved', 'scheduled'] %}<form class="schedule" method="post" action="{{ url_for('change_state', post_id=post.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="action" value="schedule"><label for="scheduled_at">Calgary time</label><input id="scheduled_at" name="scheduled_at" type="datetime-local" required><button class="primary" type="submit">Schedule</button></form>{% endif %}
+    {% if post.status != 'held' %}<form method="post" action="{{ url_for('change_state', post_id=post.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="action" value="hold"><button type="submit">Hold</button></form>{% endif %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
