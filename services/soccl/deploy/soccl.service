@@ -1,0 +1,23 @@
+[Unit]
+Description=School of Code publishing desk
+After=network.target
+
+[Service]
+Type=simple
+User=fluffy
+Group=fluffy
+WorkingDirectory=/opt/soccl
+EnvironmentFile=/etc/soccl.env
+ExecStart=/opt/soccl/venv/bin/gunicorn --workers 2 --bind 127.0.0.1:8010 --access-logfile - --error-logfile - wsgi:app
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/soccl
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target
