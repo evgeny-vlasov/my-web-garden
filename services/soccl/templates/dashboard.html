@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Queue{% endblock %}
+{% block content %}
+<header class="page-head"><div><p class="eyebrow">School of Code</p><h1>Publishing desk</h1><p class="muted">Review, schedule and see exactly what went live.</p></div><a class="button primary" href="{{ url_for('new_post') }}">New post</a></header>
+
+<div class="dashboard-grid">
+  <section>
+    {% if featured %}
+    <article class="panel feature">
+      <div class="panel-head"><span class="state {{ featured.status }}">{{ featured.status }}</span><span>Updated {{ display_time(featured.updated_at) }}</span></div>
+      <h2>{{ featured.title }}</h2>
+      <p class="copy-preview">{{ featured.facebook_body }}</p>
+      <div class="pills"><span>{{ featured.approval_level }}</span><span>{{ featured.facebook_slot }}</span><span>Facebook</span><span>Instagram</span>{% if featured.website_url %}<span>Website link</span>{% endif %}</div>
+      <div class="actions">
+        <a class="button" href="{{ url_for('edit_post', post_id=featured.id) }}">Edit and preview</a>
+        {% if featured.status == 'review' %}
+        <form method="post" action="{{ url_for('change_state', post_id=featured.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="action" value="approve"><button class="primary" type="submit">Approve</button></form>
+        {% endif %}
+        <form method="post" action="{{ url_for('publish', post_id=featured.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit" {% if not channels|selectattr('state','equalto','connected')|list %}disabled{% endif %}>Publish now</button></form>
+      </div>
+    </article>
+    {% endif %}
+
+    <section class="panel queue-panel">
+      <div class="panel-head"><h2>Content queue</h2><span>{{ posts|length }} packages</span></div>
+      <div class="queue-list">
+      {% for post in posts %}
+        <a class="queue-row" href="{{ url_for('edit_post', post_id=post.id) }}">
+          <strong>{{ post.title }}<small>{{ post.website_url or 'Social only' }}</small></strong>
+          <span class="state {{ post.status }}">{{ post.status }}</span>
+          <span>{{ display_time(post.scheduled_at) if post.scheduled_at else 'Unscheduled' }}</span>
+        </a>
+      {% else %}<p class="empty">No drafts yet.</p>{% endfor %}
+      </div>
+    </section>
+  </section>
+
+  <aside>
+    <section class="panel">
+      <div class="panel-head"><h2>Channels</h2><a href="{{ url_for('channels') }}">Details</a></div>
+      {% for channel in channels %}<div class="channel-row"><strong>{{ channel.name }}<small>{{ channel.handle }}</small></strong><span class="connection {{ channel.state }}">{{ channel.state }}</span></div>{% endfor %}
+      <p class="fine-print">Credentials will live on happys. This screen will never display access tokens.</p>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>Queue summary</h2></div>
+      <dl class="summary"><div><dt>Review</dt><dd>{{ counts.get('review', 0) }}</dd></div><div><dt>Approved</dt><dd>{{ counts.get('approved', 0) }}</dd></div><div><dt>Scheduled</dt><dd>{{ counts.get('scheduled', 0) }}</dd></div></dl>
+    </section>
+    <section class="panel cadence">
+      <div class="panel-head"><h2>Publishing rhythm</h2><span>Calgary time</span></div>
+      <p><strong>Facebook</strong><span>Morning · noon · evening</span></p>
+      <p><strong>Instagram</strong><span>One visual-first post daily</span></p>
+      <p><strong>Website</strong><span>One substantial article every five days</span></p>
+      <p class="fine-print">A slot without a worthwhile idea stays empty or uses a strong evergreen item. The schedule does not manufacture filler.</p>
+    </section>
+  </aside>
+</div>
+{% endblock %}

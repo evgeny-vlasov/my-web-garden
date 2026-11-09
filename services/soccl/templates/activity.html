@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Activity{% endblock %}
+{% block content %}
+<header class="page-head"><div><p class="eyebrow">Audit trail</p><h1>Activity</h1><p class="muted">A readable record of publishing decisions.</p></div></header>
+<section class="panel activity-list">{% for item in activity %}<div><time>{{ display_time(item.created_at) }}</time><strong>{{ item.title or 'Publishing desk' }}</strong><span>{{ item.detail }}</span></div>{% else %}<p class="empty">No activity yet.</p>{% endfor %}</section>
+{% endblock %}

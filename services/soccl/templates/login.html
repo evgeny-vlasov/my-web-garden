@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Sign in{% endblock %}
+{% block public_content %}
+<section class="login-card">
+  <div class="login-mark">SC</div>
+  <p class="eyebrow">School of Code</p>
+  <h1>Publishing desk</h1>
+  <p class="muted">Review drafts, schedule posts and see what went live.</p>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required autofocus autocomplete="current-password">
+    <button class="primary block" type="submit">Sign in</button>
+  </form>
+</section>
+{% endblock %}
