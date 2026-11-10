@@ -20,7 +20,7 @@ load_dotenv()
 
 # Import shared modules
 from shared.base_app import create_base_app, db, limiter, login_manager
-from shared.models import ContactSubmission, User
+from shared.models import User
 from config import config
 from cli import register_cli_commands
 
@@ -122,19 +122,33 @@ def contact():
                 "What happened:",
                 form.message.data,
             ]
-            submission = ContactSubmission(
-                name=form.name.data,
-                email=form.email.data or 'no-email-provided@poolemergency.local',
-                phone=form.phone.data,
-                message='\n'.join(details),
+            # PoolEmergency's migration defines the original contact schema.
+            # The shared ORM model also writes Psyling-specific CRM columns.
+            db.session.execute(
+                db.text(
+                    """
+                    INSERT INTO contact_submissions
+                        (name, email, phone, message, submitted_at, status, is_spam)
+                    VALUES
+                        (:name, :email, :phone, :message, :submitted_at, :status, :is_spam)
+                    """
+                ),
+                {
+                    'name': form.name.data,
+                    'email': form.email.data or 'no-email-provided@poolemergency.local',
+                    'phone': form.phone.data,
+                    'message': '\n'.join(details),
+                    'submitted_at': datetime.utcnow(),
+                    'status': 'new',
+                    'is_spam': False,
+                },
             )
-            db.session.add(submission)
             db.session.commit()
             flash('Thanks. Your repair request was sent. Call or text 403-669-0220 if it is urgent.', 'success')
             return redirect(url_for('contact'))
         except Exception as error:
             db.session.rollback()
-            app.logger.error(f'Error saving PoolEmergency contact submission: {str(error)}')
+            app.logger.error('Error saving PoolEmergency contact submission (%s)', type(error).__name__)
             flash('The form could not be sent right now. Please call or text 403-669-0220.', 'error')
 
     return render_template('contact.html', form=form)

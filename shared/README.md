@@ -57,7 +57,10 @@ Flask application factory and core extensions initialization.
 
 ### models.py
 
-Database models used across all sites.
+ORM models for sites that adopt the shared framework. Each site owns its
+database and migration history. Psyling uses the CRM, private chat, reply
+history, and bilingual blog models. PoolEmergency records contact inquiries
+using its own narrower table schema.
 
 #### User Model
 
@@ -93,12 +96,13 @@ Contact form submissions from website visitors.
 - `phone`: Optional phone number
 - `message`: Message content
 - `submitted_at`: Submission timestamp (indexed)
-- `status`: Submission status ('new', 'read', 'responded')
+- `status`: Workflow status (`new`, `contacted`, `booked`, `closed`, or `spam`)
+- `is_read`: Read state independent of workflow status
 - `notes`: Admin notes
 
 **Methods:**
-- `mark_as_read()`: Change status to 'read'
-- `mark_as_responded()`: Change status to 'responded'
+- `mark_as_read()` and `mark_as_unread()`: Set the independent read flag
+- `mark_as_spam()` and `mark_as_not_spam()`: Update the spam flag and workflow status
 
 #### BlogPost Model
 
@@ -251,20 +255,15 @@ Require user to NOT be authenticated (for login/register pages). Redirects to da
 
 HTML sanitization and text processing utilities.
 
-**`sanitize_html(html_content, allowed_tags=None, allowed_attributes=None)`**
+**`sanitize_html(html_content)`**
 
 Sanitize HTML content to prevent XSS attacks using bleach library.
 
-Default allowed tags: `p, br, strong, em, u, h1-h6, ul, ol, li, a, img, blockquote, code, pre`
-
-Default allowed attributes:
-- `a`: href, title, target
-- `img`: src, alt, width, height
+The shared tag, attribute, CSS, and protocol allowlists are defined in
+`sanitizer.py`.
 
 Parameters:
 - `html_content`: Raw HTML content
-- `allowed_tags`: Custom list of allowed tags (optional)
-- `allowed_attributes`: Custom dict of allowed attributes (optional)
 
 Returns: Sanitized HTML string
 
@@ -293,18 +292,15 @@ Check if file extension is allowed.
 
 Allowed extensions: `png, jpg, jpeg, gif, webp`
 
-**`save_image(file, upload_dir, resize=True, max_width=1200, max_height=1200, create_thumbnail=True, thumb_size=(300, 300))`**
+**`save_image(file, upload_folder, resize=True, create_thumbnail=False)`**
 
 Save and process uploaded image.
 
 Parameters:
 - `file`: FileStorage object from request.files
-- `upload_dir`: Directory to save file
-- `resize`: Resize large images (default: True)
-- `max_width`: Maximum width in pixels (default: 1200)
-- `max_height`: Maximum height in pixels (default: 1200)
-- `create_thumbnail`: Generate thumbnail (default: True)
-- `thumb_size`: Thumbnail size tuple (default: 300x300)
+- `upload_folder`: Directory to save file
+- `resize`: Fit large images within 2000 × 2000 pixels by default
+- `create_thumbnail`: Optionally create a thumbnail within 300 × 300 pixels
 
 Returns: Dictionary with file metadata or None if failed
 ```python
@@ -320,7 +316,6 @@ Returns: Dictionary with file metadata or None if failed
 Features:
 - Generates UUID-based filenames
 - Maintains aspect ratio when resizing
-- Supports EXIF orientation correction
 - Creates thumbnails with proper scaling
 - Validates file types
 

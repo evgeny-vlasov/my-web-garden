@@ -50,10 +50,12 @@ does not require a database or a generic CMS.
 - `/lessons` and `/lessons/<slug>`
 - `/projects`
 - `/projects/<slug>`
+- `/projects/<slug>/downloads/<filename>` for published project downloads
 - `/computer-lab`
 - `/parents`
 - `/method`
 - `/blog` and `/blog/<slug>`
+- `/campaigns` and `/campaigns/<slug>`
 - `/gallery`
 - `/contact`
 - `/sitemap.xml`
@@ -86,10 +88,11 @@ Test the production WSGI entry:
 venv/bin/python -m gunicorn --bind 127.0.0.1:8000 wsgi:app
 ```
 
-Run the public-site integrity tests:
+Validate publications and run the full test suite used by CI:
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 venv/bin/python -m unittest -v tests.test_public_site
+venv/bin/python -m publishing --check
+PYTHONDONTWRITEBYTECODE=1 venv/bin/python -m unittest discover -s tests -v
 ```
 
 Run the Scratch production tests after generating the pilot:

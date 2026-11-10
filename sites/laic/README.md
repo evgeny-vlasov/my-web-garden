@@ -27,10 +27,10 @@ The old Love Sugar & Dough demo is treated as an example project only. It is not
 - `/services`
 - `/microprojects`
 - `/for-nonprofits`
-- `/contact`
+- `/contact` (GET displays the form, POST validates and saves an inquiry)
 - `/projects/love-sugar-dough`
 - `/dashboard`
-- `/health`
+- `/health` (reports the configured storage mode)
 
 ## Contact Storage
 
@@ -142,11 +142,12 @@ pip install -r requirements.txt
 venv/bin/python -m gunicorn --bind 127.0.0.1:18004 app:app
 ```
 
-## Repository infrastructure artifacts
+## Live infrastructure references
 
-These files are installation/reference inputs, not proof of the effective live
-configuration and not a deployment procedure. Compare them with enabled nginx
-and effective systemd state using the central operations guide.
+Inspect the effective configuration using the central
+[operations guide](../../docs/operations.md).
 
-- Systemd repository copy: `../../deploy/systemd/webgarden-laic.service`
-- nginx repository copy: `../../deploy/nginx/laic.conf`
+- Effective systemd unit: `webgarden-laic.service`
+- Enabled nginx site: `laic.ca`
+- Repository references: [systemd unit](deploy/systemd/webgarden-laic.service)
+  and [nginx configuration](deploy/nginx/laic.conf)

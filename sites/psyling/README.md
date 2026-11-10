@@ -56,6 +56,12 @@ sites/psyling/
 
 ### Public Routes
 
+- `GET /blog` lists visible posts. English and Russian entries share the
+  archive, and a post can link to its published translation.
+- `GET /set-language/<lang>` saves an English (`en`) or Russian (`ru`)
+  interface preference in the session.
+- `GET /faq`, `GET /fees`, and `GET /schedule` serve visitor information.
+
 #### `GET /`
 **Home Page**
 - Displays welcome message and site overview
@@ -240,6 +246,11 @@ Template: `templates/admin/contacts_list.html`
 
 ### Admin Utility Routes
 
+- `/admin/pages` lists editable Markdown pages. Saving uses
+  `POST /admin/pages/<page>`.
+- `/admin/blocklist` lists the contact spam blocklist. Entries are added and
+  removed via POST actions.
+
 #### `POST /admin/generate-slug`
 **Generate URL Slug (JSON)**
 - Generate URL-friendly slug from title
@@ -280,6 +291,17 @@ Template: `templates/admin/contacts_list.html`
 ```
 
 **Protected:** Requires login
+
+### Client records and private chat
+
+- `/admin/clients` lists CRM client records. Admins can create and edit clients,
+  convert an existing inquiry into a client, and record follow-up activities.
+- `/admin/chat-rooms` manages private message rooms. Admins can generate,
+  replace, and revoke invites. Invites expire after 14 days. A closed room
+  allows reading, while an archived room disables client access.
+- Clients redeem an invite at `/room-access` and use `/client-room/<room_id>`
+  for messages. Access is bound to the current invite version. This flow is
+  separate from the public chatbot at `POST /api/chat`.
 
 ## Configuration
 
@@ -383,6 +405,9 @@ The Psyling site uses these tables from shared models:
 4. **uploaded_files**
    - File upload metadata
    - See shared/README.md for schema
+
+Psyling's migrations also manage `clients`, `crm_activities`,
+`contact_email_replies`, `chat_rooms`, `chat_messages`, and `spam_blocklist`.
 
 ### Migrations
 
@@ -750,22 +775,16 @@ def new_page():
 - [ ] Add notes to contacts
 - [ ] Logout functionality
 
-### Unit Tests (Future Implementation)
+### Automated tests
 
-```python
-# tests/test_routes.py
-def test_home_page(client):
-    response = client.get('/')
-    assert response.status_code == 200
-    assert b'Professional Psychotherapy' in response.data
+From `sites/psyling` in an isolated checkout, install the site's requirements
+and run each test module in its own process. The modules set up disposable
+SQLite data and import the Flask app using their own test configuration.
 
-def test_contact_form(client):
-    response = client.post('/contact', data={
-        'name': 'Test User',
-        'email': 'test@example.com',
-        'message': 'Test message content'
-    })
-    assert response.status_code == 302  # Redirect after success
+```bash
+for test_file in tests/test_*.py; do
+  python -m unittest discover -s tests -p "$(basename "$test_file")" || exit 1
+done
 ```
 
 ## Troubleshooting
@@ -871,8 +890,3 @@ access logs; paths and application output may contain private information.
 ## License
 
 [Specify license information]
-
----
-
-**Last Updated:** 2026-01-18
-**Current Version:** 4.0 (Sprint 4 - AI Chatbot Integration)
