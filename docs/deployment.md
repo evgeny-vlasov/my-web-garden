@@ -97,9 +97,8 @@ The deployer performs one release transaction:
 4. It rejects application symlinks and special files, creates a fresh venv,
    installs `requirements.txt`, and runs build checks as `soccl-app` where
    appropriate.
-5. It runs `python -m publishing --check` and full unit-test discovery. At the
-   audit revision this was 52 tests; treat the live test count as authoritative
-   if the suite changes.
+5. It runs `python -m publishing --check` and full unit-test discovery for
+   the release being built.
 6. It writes `.soccl-revision` and `.soccl-built-at`, applies the established
    root-owned read-only release permissions, and moves the completed staging
    tree to `/var/www/soccl/releases/<sha>`.

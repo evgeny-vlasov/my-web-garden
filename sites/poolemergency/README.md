@@ -18,17 +18,27 @@ static files may change immediately. See
 [Webgarden deployment](../../docs/deployment.md) and
 [operations](../../docs/operations.md) before a production change.
 
-The public routes render static templates:
+Public pages:
 
 - `/`
 - `/services`
 - `/about`
-- `/contact`
+- `/contact` displays the repair form on GET and stores valid inquiries on POST.
 - `/blog`
 
 ## Database Requirement
 
-The current app initializes the shared Web Garden SQLAlchemy extension during app startup. Even though the public routes do not query the database, `DATABASE_URL` is required for the app to boot with the current shared app factory.
+The shared app factory requires `DATABASE_URL` at startup. The contact form
+saves repair inquiries to PoolEmergency's own `contact_submissions` table,
+using the columns defined by its initial migration. The form stores inquiries
+for follow-up. There is no email dispatch in this route.
+
+Run the contact regression test from this site's directory with its dependencies
+installed. It applies the site's migrations to a temporary SQLite database.
+
+```bash
+python -m unittest discover -s tests -v
+```
 
 Recommended PostgreSQL names:
 
