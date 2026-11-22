@@ -1,0 +1,9 @@
+{% set navigation = [('/', 'Главная'), ('/programs', 'Программы'), ('/programs/scratch', 'Scratch'), ('/programs/robotics', 'Робототехника'), ('/parents', 'Родителям'), ('/method', 'Наш метод'), ('/contact', 'Контакты')] %}
+<nav class="desktop-nav preview-russian-nav" aria-label="Основная навигация">
+{% for path, label in navigation %}<a class="nav-link{% if request.path == path %} is-active{% endif %}" href="{{ preview_url(path) }}" {% if request.path == path %}aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
+</nav>
+<details class="mobile-nav"><summary aria-label="Открыть меню"><span aria-hidden="true"></span>Меню</summary><nav aria-label="Навигация для мобильных устройств">
+{% for path, label in navigation %}<a href="{{ preview_url(path) }}">{{ label }}</a>{% endfor %}
+<a href="{{ preview_url('/projects') }}">Проекты</a>
+<a href="{{ preview_url('/topics') }}">Темы и занятия</a>
+</nav></details>

@@ -1,0 +1,33 @@
+.preview-toolbar{background:#142c38;color:#fff;padding:.65rem 0;font-size:.9rem}
+.preview-toolbar .container{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.preview-toolbar a{color:#fff;text-underline-offset:.25em}
+.preview-toolbar nav{display:flex;gap:1rem}
+.preview-toolbar [aria-current]{font-weight:800;text-decoration:none}
+.preview-opening{border-left:4px solid #f4c542;padding:.7rem 1rem;background:#fff9e4;max-width:65ch;margin:1.4rem 0}
+.preview-photo{margin:0;min-width:0}
+.preview-photo img{width:100%;height:auto}
+.preview-photo figcaption{font-size:.85rem;margin-top:.65rem;max-width:65ch}
+.preview-paragraph{max-width:80ch;font-size:1.1rem;line-height:1.75}
+.preview-language-note{max-width:75ch;margin:1rem 0 1.5rem;font-size:.95rem}
+.preview-list{max-width:75ch;padding-left:1.6rem;line-height:1.8}
+.preview-list li{padding-left:.4rem;margin-bottom:.6rem}
+.preview-learning-nav{line-height:1.9;font-size:.95rem;margin:.8rem 0 1.3rem}
+.preview-code-system{scroll-margin-top:2rem;margin:2rem 0;padding:1.5rem;border:2px solid #142c38;background:#fffef8;min-width:0}
+.preview-code-system>p{max-width:78ch;line-height:1.7}
+.preview-code-system h3{font-size:1.7rem}
+.preview-code-system .system-pseudocode{white-space:pre-wrap;overflow-wrap:anywhere}
+.preview-system-index{columns:2;line-height:1.8;padding-left:1.5rem}
+.preview-system-index li{break-inside:avoid;margin-bottom:.5rem}
+/* Older point classes set both horizontal edges; clear the opposite edge. */
+.coordinate-plane .plot-point.point-a{left:auto;right:12%;top:18%;bottom:auto}
+.coordinate-plane .plot-point.point-b{left:10%;right:auto;top:22%;bottom:auto}
+.coordinate-plane .plot-point.point-c{left:13%;right:auto;top:auto;bottom:18%}
+.coordinate-plane .plot-point.point-d{left:auto;right:8%;top:auto;bottom:20%}
+@media(max-width:600px){.preview-system-index{columns:1}.preview-code-system{padding:1rem}.preview-code-system .build-checks{display:block}.preview-code-system .build-checks>div{margin-bottom:1rem}.preview-learning-nav{font-size:.85rem}}
+html[lang=ru] h1{overflow-wrap:anywhere;font-size:clamp(2.15rem,4.2vw,4rem);line-height:1.12}
+html[lang=ru] .preview-russian-nav{gap:.75rem;font-size:.85rem}
+html[lang=ru] .project-card,html[lang=ru] .program-card{min-width:0}
+html[lang=ru] .project-card h3,html[lang=ru] .program-card h3{overflow-wrap:anywhere}
+html[lang=ru] h2,html[lang=ru] h3{overflow-wrap:anywhere}
+html[lang=ru] .section-header>*{min-width:0}
+@media(max-width:600px){.preview-toolbar{font-size:.8rem}.preview-toolbar .container{gap:.4rem}.preview-paragraph{font-size:1rem}.preview-opening{font-size:.95rem}}

@@ -2,7 +2,7 @@
 {% from "_macros.html" import program_card, project_card, blog_card, lab_transition, responsive_photo %}
 
 {% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}
-{% block meta_description %}School of Code offers small-group Scratch and robotics classes in Calgary, where children build games, circuits, and machines while learning the ideas underneath them.{% endblock %}
+{% block meta_description %}School of Code is preparing small-group Scratch and robotics classes in Calgary, where children build games, circuits, and machines while learning the ideas underneath them.{% endblock %}
 
 {% block content %}
   <section class="hero">
@@ -14,7 +14,7 @@
         </div>
         <h1>Children should build with technology, not only consume it.</h1>
         <p class="hero-copy">
-          School of Code is a small Calgary school for programming and robotics. Students make
+          School of Code is a small Calgary school preparing programming and robotics programs. Students will make
           games, wire circuits, test machines, and learn the code, logic, and mathematics inside them.
         </p>
         <div class="button-row">
@@ -22,7 +22,7 @@
           <a class="button button-secondary" href="{{ url_for('project_index') }}">See Projects</a>
           <a class="button button-secondary" href="{{ url_for('contact') }}">Ask About Classes</a>
         </div>
-        <p class="hero-note">Scratch and Robotics are active now. Groups have up to four students.</p>
+        <p class="hero-note">Scratch and Robotics are the planned first programs, with groups of up to four. The opening date has not been announced.</p>
       </div>
       <figure class="campaign-photo campaign-photo-hero">
         {{ responsive_photo('home-hero', 'Four children adjusting wires and sensors on a handmade wheeled robot.', 1600, 900, loading='eager', fetchpriority='high') }}
@@ -55,7 +55,7 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <p class="eyebrow">Active programs</p>
+          <p class="eyebrow">Planned first programs</p>
           <h2 id="active-programs">Scratch &amp; Game Design and Robotics.</h2>
         </div>
         <a class="text-link" href="{{ url_for('programs') }}">Compare the programs <span aria-hidden="true">-&gt;</span></a>
@@ -161,7 +161,7 @@
       <div>
         <p class="eyebrow">Calgary / Small groups</p>
         <h2 id="calgary-groups">Small groups in Calgary.</h2>
-        <p class="section-intro">With no more than four students in a group, Eugene can follow the actual code instead of judging progress by how busy the screen looks. Ask for current ages, scheduling, and venue details.</p>
+        <p class="section-intro">With no more than four students in a group, Eugene can follow the actual code instead of judging progress by how busy the screen looks. Age groups, scheduling, venue and opening details are still being finalized.</p>
       </div>
       <a class="button" href="{{ url_for('contact') }}">Contact Eugene</a>
     </div>
@@ -196,7 +196,7 @@
     <div class="container cta-grid">
       <div>
         <h2>Tell Eugene what your child wants to make.</h2>
-        <p>A short note about interests and previous experience is enough to begin. Eugene can suggest a sensible starting point and share what is currently available.</p>
+        <p>A short note about interests and previous experience is enough to begin. Eugene can suggest a sensible starting point and share the latest plans and explain what is still being finalized.</p>
       </div>
       <a class="button button-light" href="mailto:hello@shkolakoda.com">Ask About Classes</a>
     </div>

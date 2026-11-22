@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% from "_macros.html" import responsive_photo %}
+{% block title %}{{ preview_page.title }}{% endblock %}
+{% block meta_description %}{{ preview_page.intro }}{% endblock %}
+{% block og_title %}{{ preview_page.title }}{% endblock %}
+{% block scripts %}{% if preview_page.systems %}
+  <script defer src="{{ url_for('static', filename='vendor/scratchblocks/scratchblocks-3.7.1.min.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/scratch-project.js') }}"></script>
+{% endif %}{% endblock %}
+{% block content %}
+  <section class="{{ 'hero' if request.path == '/' else 'page-hero' }}">
+    <div class="container {{ 'hero-grid' if request.path == '/' else 'page-hero-grid' }}">
+      <div>
+        <p class="eyebrow">{{ preview_page.eyebrow }}</p>
+        {% if preview_page.learning_path %}
+        <nav aria-label="Учебный маршрут" class="preview-learning-nav">
+          <a href="{{ preview_url('/programs/scratch') }}">Scratch</a>
+          {% for path, label in preview_page.breadcrumbs|default([('/topics/coordinates', 'Тема'), ('/lessons/coordinates-and-movement', 'Занятие'), ('/projects/escape-from-the-giant-pigeon', 'Проект')]) %}
+            {% if path != request.path %} → <a href="{{ preview_url(path) }}">{{ label }}</a>{% endif %}
+          {% endfor %}
+        </nav>
+        {% endif %}
+        <h1>{{ preview_page.heading }}</h1>
+        <p class="lead">{{ preview_page.intro }}</p>
+        {% if preview_page.original_url %}<p><a href="{{ preview_page.original_url }}">Читать английский оригинал</a></p>{% endif %}
+        {% if preview_page.notice %}<p class="preview-opening">{{ preview_page.notice }}</p>{% endif %}
+        {% if request.path != '/contact' and not preview_page.learning_path %}
+        <div class="button-row">
+          <a class="button" href="{{ preview_url('/contact') }}">Задать вопрос Евгению</a>
+          {% if request.path == '/' %}<a class="button button-secondary" href="{{ preview_url('/programs') }}">Посмотреть программы</a>{% endif %}
+        </div>
+        {% endif %}
+      </div>
+      {% if preview_page.photo %}
+      <figure class="preview-photo">
+        {{ responsive_photo(preview_page.photo, preview_page.photo_alt, 1600, 1067, loading='eager', class_name='campaign-photo') }}
+        <figcaption>{{ preview_page.photo_note }}</figcaption>
+      </figure>
+      {% endif %}
+    </div>
+  </section>
+  {% if preview_page.contact %}
+  <section class="section section-yellow"><div class="container contact-grid">
+    <article class="contact-card"><p class="eyebrow">Школа Кода / Калгари</p><h2>Евгений</h2><p>Калгари, Альберта</p>
+      <div class="contact-detail"><span>Электронная почта</span><a href="mailto:hello@shkolakoda.com">hello@shkolakoda.com</a></div>
+      <div class="contact-detail"><span>Телефон и сообщения</span><a href="tel:+14036690220">403-669-0220</a></div>
+      <div class="button-row"><a class="button" href="mailto:hello@shkolakoda.com">Написать Евгению</a><a class="button button-secondary" href="tel:+14036690220">Позвонить</a></div>
+    </article>
+    <div class="info-card"><p class="eyebrow">Без анкеты</p><h2>Начнём с разговора.</h2><p>Не нужно составлять формальное заявление. Расскажите об интересах ребёнка и о том, что хотите уточнить. Можно написать по-русски или по-английски.</p></div>
+  </div></section>
+  {% endif %}
+  {% for section in preview_page.sections %}
+  <section class="section {% if loop.index is divisibleby 3 %}section-yellow{% elif loop.index is odd %}section-blue{% endif %}">
+    <div class="container">
+      <div class="section-header"><div>{% if section.eyebrow %}<p class="eyebrow">{{ section.eyebrow }}</p>{% endif %}<h2>{{ section.heading }}</h2></div></div>
+      {% for paragraph in section.paragraphs|default([]) %}<p class="preview-paragraph">{{ paragraph }}</p>{% endfor %}
+      {% if section.cards %}<div class="principle-grid">{% for title, description in section.cards %}<article class="principle-card"><h3>{{ title }}</h3><p>{{ description }}</p></article>{% endfor %}</div>{% endif %}
+      {% if section.faq %}<div class="faq-grid">{% for question, answer in section.faq %}<details {% if loop.first %}open{% endif %}><summary>{{ question }}</summary><div class="faq-answer">{{ answer }}</div></details>{% endfor %}</div>{% endif %}
+      {% if section.gallery %}<div class="photo-gallery-grid">
+        {% for photo, alt, caption, width, height, variant in section.gallery %}
+        <figure>{{ responsive_photo(photo, alt, width, height, variant) }}<figcaption>{{ caption }}</figcaption></figure>
+        {% endfor %}
+      </div>{% endif %}
+      {% if section.get('items') %}<ol class="preview-list">{% for item in section['items'] %}<li>{{ item }}</li>{% endfor %}</ol>{% endif %}
+      {% if section.coordinate_diagram %}
+      <figure class="coordinate-figure"><div class="coordinate-plane" role="img" aria-label="Координатная плоскость: горизонтальная ось x, вертикальная ось y, начало координат и четыре точки">
+        <span class="axis axis-x" aria-hidden="true"></span><span class="axis axis-y" aria-hidden="true"></span>
+        <span class="axis-label axis-positive-x">+x / вправо</span><span class="axis-label axis-negative-x">-x / влево</span>
+        <span class="axis-label axis-positive-y">+y / вверх</span><span class="axis-label axis-negative-y">-y / вниз</span>
+        <span class="origin">x: 0, y: 0</span><span class="plot-point point-a"><b>A</b><small>x: 140, y: 90</small></span>
+        <span class="plot-point point-b"><b>B</b><small>x: -150, y: 70</small></span><span class="plot-point point-c"><b>C</b><small>x: -120, y: -80</small></span>
+        <span class="plot-point point-d"><b>D</b><small>x: 160, y: -95</small></span>
+      </div><figcaption>Положение показано приблизительно; координаты задают общий способ описания точек.</figcaption></figure>
+      {% endif %}
+      {% if section.timeline %}<ol class="lesson-timeline">{% for time, title, detail in section.timeline %}<li><time>{{ time }}</time><div><h3>{{ title }}</h3><p>{{ detail }}</p></div></li>{% endfor %}</ol>{% endif %}
+      {% if section.examples %}<div class="theory-example-grid">{% for expression, meaning in section.examples %}<article><code>{{ expression }}</code><span aria-hidden="true">→</span><p>{{ meaning }}</p></article>{% endfor %}</div>{% endif %}
+      {% if section.pilot_art %}
+      {% set art = project.art_slots[section.pilot_art] %}
+      <figure class="system-sketch"><img src="{{ url_for('static', filename=art.src) }}" alt="{{ 'Сцена погони: начало слева внизу и полосатое укрытие справа внизу.' if section.pilot_art == 'cover' else 'Схема движения, преследования, приоритета столкновений, паники и состояний игры.' }}" width="960" height="700"><figcaption>Оригинальная иллюстрация проекта. Английские подписи соответствуют именам в коде.</figcaption></figure>
+      {% endif %}
+      {% if section.pilot_downloads %}
+      {% set labels = ['Скачать заготовку', 'Скачать готовую игру', 'Скачать рисунки и звуки'] %}
+      {% set purposes = ['Рисунки, звуки, переменные, начальные точки и скрипты подготовки. Игровые системы предстоит собрать.', 'Полная работающая игра, скрипты которой разобраны ниже.', 'Редактируемые SVG-костюмы и фон, WAV-звуки, схема проекта и сведения о лицензии.'] %}
+      <p class="preview-language-note">Файлы и инструкции внутри редактора пока на английском. Русское объяснение выше и словарь имён помогают сопоставить их с проектом.</p>
+      <div class="download-panel">{% for download in project.downloads %}<article class="download-card"><div><span class="download-type">{{ '.sb3 — проект Scratch 3' if download.filename.endswith('.sb3') else '.zip — архив материалов' }}</span><strong>{{ download.size_label }}</strong></div><h3>{{ labels[loop.index0] }}</h3><p>{{ purposes[loop.index0] }}</p><a class="button" href="{{ preview_url(download.url, 'en') }}" download="{{ download.filename }}">{{ labels[loop.index0] }}</a><small>{{ download.filename }}</small></article>{% endfor %}</div>
+      {% endif %}
+      {% if section.pilot_systems %}
+      <ol class="preview-system-index">{% for system in preview_page.systems %}<li><a href="#{{ project.code_sections[loop.index0].anchor }}">{{ system.title }}</a></li>{% endfor %}</ol>
+      {% for system in preview_page.systems %}{% set source = project.code_sections[loop.index0] %}
+      <article class="preview-code-system" id="{{ source.anchor }}">
+        <p class="eyebrow">Система {{ loop.index }} / 10</p><h3>{{ system.title }}</h3><p class="lead">{{ system.does }}</p><h4>Как это работает</h4><p>{{ system.logic }}</p>
+        <h4>Псевдокод</h4><pre class="system-pseudocode"><code>{{ system.pseudocode }}</code></pre>
+        {% for script in source.scripts %}<div class="scratch-script-card"><div class="scratch-script-meta"><strong>{{ script.target }}</strong><span>Скрипт: {{ script.id }}</span></div><div class="scratchblocks-scroll" aria-label="Блоки Scratch для системы «{{ system.title }}», объект {{ script.target }}"><pre class="scratchblocks" data-script-id="{{ script.id }}">{{ script.source }}</pre></div><details class="scratch-source-copy"><summary>Открыть текст блоков — английский оригинал</summary><pre><code>{{ script.source }}</code></pre></details></div>{% endfor %}
+        <dl class="build-checks"><div><dt>Что проверить</dt><dd>{{ system.test }}</dd></div><div><dt>Типичная ошибка</dt><dd>{{ system.mistake }}</dd></div><div><dt>Вопрос преподавателя</dt><dd>{{ system.checkpoint }}</dd></div></dl>
+      </article>{% endfor %}
+      {% endif %}
+      {% if section.links %}<div class="program-grid">{% for path, title, description in section.links %}<article class="program-card"><h3>{{ title }}</h3><p>{{ description }}</p><a class="text-link" href="{{ preview_url(path) }}">Подробнее <span aria-hidden="true">→</span></a></article>{% endfor %}</div>{% endif %}
+      {% if section.english_links %}
+      {% set translations = namespace(pending=false) %}{% for path, title, description in section.english_links %}{% if not preview_has_translation(path) %}{% set translations.pending = true %}{% endif %}{% endfor %}
+      {% if translations.pending %}<p class="preview-language-note">Часть подробных материалов пока на английском; язык указан у каждой ссылки.</p>{% endif %}
+      <div class="project-grid">{% for path, title, description in section.english_links %}{% set translated = preview_has_translation(path) %}<article class="project-card"><p class="eyebrow">{{ 'Статья для родителей' if path.startswith('/blog/') else 'Учебный материал' }}</p><h3>{{ title }}</h3><p>{{ description }}</p><a class="text-link" href="{{ preview_url(path, 'ru' if translated else 'en') }}" lang="ru">{{ 'Открыть материал' if translated else 'Открыть по-английски' }} <span aria-hidden="true">→</span></a></article>{% endfor %}</div>
+      {% endif %}
+    </div>
+  </section>
+  {% endfor %}
+  {% if request.path != '/contact' %}<section class="cta-band"><div class="container cta-grid"><div><h2>Обсудим подходящее начало.</h2><p>Напишите об интересах ребёнка. Дату открытия и условия занятий уточняем отдельно.</p></div><a class="button button-light" href="{{ preview_url('/contact') }}">Связаться с Евгением</a></div></section>{% endif %}
+{% endblock %}
