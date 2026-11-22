@@ -2,7 +2,7 @@
 {% from "_macros.html" import project_card, status_badge, topic_card, lesson_card, responsive_photo with context %}
 
 {% block title %}Scratch &amp; Game Design | School of Code Calgary{% endblock %}
-{% block meta_description %}Active small-group Scratch classes in Calgary where children make playable games and learn events, coordinates, loops, conditions, variables, and debugging.{% endblock %}
+{% block meta_description %}Planned small-group Scratch classes in Calgary where children make playable games and learn events, coordinates, loops, conditions, variables, and debugging.{% endblock %}
 
 {% block content %}
   <section class="page-hero">
@@ -19,7 +19,7 @@
       <div class="page-hero-side">
       {{ responsive_photo('scratch-banner', 'Three children working closely together on a colourful block-based coding project.', 1600, 900, class_name='campaign-photo') }}
       <aside class="status-panel">
-        {{ status_badge('Active now', 'active') }}
+        {{ status_badge('Planned first', 'active') }}
         <h2>What students build</h2>
         <p>Games, animations, quizzes, simulations, and interactive stories with rules students can inspect and change.</p>
         <h2>Starting point</h2>
@@ -131,5 +131,5 @@
     </div>
   </section>
 
-  <section class="cta-band"><div class="container cta-grid"><div><h2>Ask about a Scratch starting point.</h2><p>Contact Eugene for current scheduling and a suitable starting point.</p></div><a class="button button-light" href="{{ url_for('contact') }}">Contact Eugene</a></div></section>
+  <section class="cta-band"><div class="container cta-grid"><div><h2>Ask about a Scratch starting point.</h2><p>The opening date has not been announced. Contact Eugene about plans and a suitable starting point.</p></div><a class="button button-light" href="{{ url_for('contact') }}">Contact Eugene</a></div></section>
 {% endblock %}

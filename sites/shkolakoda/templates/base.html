@@ -1,42 +1,63 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ preview_locale|default('en') }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f4c542">
+    {% if preview_enabled %}<meta name="robots" content="noindex, nofollow">{% endif %}
     <meta name="description" content="{% block meta_description %}School of Code is a Calgary school where children make games, circuits, and robot systems while learning the ideas underneath them.{% endblock %}">
     <link rel="canonical" href="{{ site_url }}{{ request.path }}">
+    {% for language, origin in language_alternates.items() %}
+    <link rel="alternate" hreflang="{{ language }}-CA" href="{{ origin }}{{ request.path }}">
+    {% endfor %}
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="School of Code">
+    <meta property="og:site_name" content="{{ 'Школа Кода' if preview_locale == 'ru' else 'School of Code' }}">
     <meta property="og:title" content="{% block og_title %}School of Code | Programming and Robotics in Calgary{% endblock %}">
-    <meta property="og:description" content="Small-group programming and robotics in Calgary. Students build games, circuits, and machines while learning how they work.">
+    <meta property="og:description" content="{{ preview_page.intro if preview_locale == 'ru' else 'Preparing small-group programming and robotics in Calgary. Opening details are still being finalized.' }}">
     <meta property="og:url" content="{{ site_url }}{{ request.path }}">
     <meta property="og:image" content="{{ site_url }}{{ url_for('static', filename='brand/photos/open-graph-branded-1200x630.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Four children adjusting wires and sensors on a handmade wheeled robot.">
+    <meta property="og:image:alt" content="{{ 'Дети исследуют провода и датчики самодельного колёсного робота.' if preview_locale == 'ru' else 'Four children adjusting wires and sensors on a handmade wheeled robot.' }}">
     <title>{% block title %}School of Code | Programming and Robotics in Calgary{% endblock %}</title>
     <link rel="icon" href="{{ url_for('favicon_svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% if language_switch_enabled %}<link rel="stylesheet" href="{{ url_for('static', filename='css/bilingual-preview.css') }}">{% endif %}
     {% block extra_head %}{% endblock %}
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content">{{ 'Перейти к содержанию' if preview_locale == 'ru' else 'Skip to content' }}</a>
+    {% if language_switch_enabled %}
+    <div class="preview-toolbar"><div class="container">
+      {% if preview_enabled %}<span>{{ 'Предпросмотр · дата открытия пока не объявлена' if preview_locale == 'ru' else 'Preview · opening date to be announced' }}</span>{% endif %}
+      <nav aria-label="{{ 'Выбор языка' if preview_locale == 'ru' else 'Language selection' }}">
+        {% if preview_has_russian %}
+        {% if preview_page.original_url %}<a href="{{ preview_page.original_url }}" lang="en">English</a>
+        {% else %}
+        <a href="{{ preview_url(request.path, 'en') }}" lang="en" {% if preview_locale == 'en' %}aria-current="true"{% endif %}>English</a>
+        {% endif %}
+        <a href="{{ preview_url(request.path, 'ru') }}" lang="ru" {% if preview_locale == 'ru' %}aria-current="true"{% endif %}>Русский</a>
+        {% else %}<span>English · Русский перевод готовится</span>{% endif %}
+      </nav>
+    </div></div>
+    {% if preview_fallback %}<div class="preview-opening container">This page is available in English. Русский перевод ещё готовится. <a href="{{ preview_url('/', 'ru') }}">На главную по-русски</a></div>{% endif %}
+    {% endif %}
     <header class="site-header">
       <div class="container header-inner">
-        <a class="brand" href="{{ url_for('home') }}" aria-label="School of Code home">
+        <a class="brand" href="{{ preview_url('/') if preview_enabled else url_for('home') }}" aria-label="{{ 'Школа Кода — главная' if preview_locale == 'ru' else 'School of Code home' }}">
           <span class="brand-mark" aria-hidden="true"><span>&lt;</span><b>SC</b><span>/&gt;</span></span>
-          <span class="brand-words"><strong>School of Code</strong><small>Computer Lab / Calgary</small></span>
+          <span class="brand-words"><strong>{{ 'Школа Кода' if preview_locale == 'ru' else 'School of Code' }}</strong><small>{{ 'Калгари' if preview_locale == 'ru' else 'Calgary' }}</small></span>
         </a>
 
+        {% if preview_locale == 'ru' %}{% include 'preview/russian_navigation.html' %}{% else %}
         <nav class="desktop-nav" aria-label="Primary navigation">
           <a class="nav-link{% if request.endpoint == 'home' %} is-active{% endif %}" href="{{ url_for('home') }}">Home</a>
           <details class="nav-dropdown{% if request.endpoint in ['programs', 'scratch', 'robotics', 'roblox', 'ai'] %} is-active{% endif %}">
             <summary>Programs</summary>
             <div class="nav-dropdown-menu">
               <a href="{{ url_for('programs') }}">All programs</a>
-              <a href="{{ url_for('scratch') }}">Scratch &amp; Game Design <span>Now</span></a>
-              <a href="{{ url_for('robotics') }}">Robotics <span>Now</span></a>
+              <a href="{{ url_for('scratch') }}">Scratch &amp; Game Design <span>Planned first</span></a>
+              <a href="{{ url_for('robotics') }}">Robotics <span>Planned first</span></a>
               <a href="{{ url_for('roblox') }}">Roblox Studio / Lua <span>Later</span></a>
               <a href="{{ url_for('ai') }}">AI &amp; Smart Machines <span>Later</span></a>
             </div>
@@ -69,6 +90,7 @@
             <a href="{{ url_for('contact') }}">Contact</a>
           </nav>
         </details>
+        {% endif %}
       </div>
     </header>
 
@@ -76,6 +98,7 @@
 
     <footer class="site-footer">
       <div class="container footer-grid footer-grid-expanded">
+        {% if preview_locale == 'ru' %}{% include 'preview/russian_footer.html' %}{% else %}
         <div>
           <a class="footer-brand" href="{{ url_for('home') }}">School of Code</a>
           <p>Small-group programming and robotics for children who want to build things.</p>
@@ -103,6 +126,7 @@
           <p>For experiments, microscopes, chemistry, and other hands-on science workshops, visit Happy Science Calgary.</p>
           <a href="https://science.shkolakoda.com">Visit Happy Science</a>
         </div>
+        {% endif %}
       </div>
     </footer>
     {% block scripts %}{% endblock %}

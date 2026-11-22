@@ -1,5 +1,5 @@
 {% macro status_badge(label, style='demo') -%}
-  <span class="status-badge status-{{ style }}">{{ label }}</span>
+  <span class="status-badge status-{{ style }}">{{ 'Planned first' if label == 'Active now' else label }}</span>
 {%- endmacro %}
 
 {% macro topic_tags(items) -%}
@@ -157,7 +157,7 @@
 
 {% macro related_card(title, label, href, description='') -%}
   <a class="related-card" href="{{ href }}">
-    <span>{{ label }}</span>
+    <span>{{ 'Planned first' if label == 'Active now' else label }}</span>
     <strong>{{ title }}</strong>
     {% if description %}<small>{{ description }}</small>{% endif %}
     <b aria-hidden="true">-&gt;</b>

@@ -1,7 +1,7 @@
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-from flask import Flask, Response, abort, render_template, send_from_directory
+from flask import Flask, Response, abort, g, redirect, render_template, request, send_from_directory
 
 from blog_content import BLOG_CATEGORIES, BLOG_ORDER, BLOG_POSTS
 from curriculum import (
@@ -13,9 +13,12 @@ from curriculum import (
 )
 from project_library import PROJECT_ORDER, PROJECTS
 from publishing import CONTENT
+from bilingual_preview import current_origin, register_preview, select_template
+from russian_preview import PAGES as RUSSIAN_PAGES
 
 
 app = Flask(__name__)
+register_preview(app)
 
 SITE_URL = "https://shkolakoda.com"
 SCRATCH_DOWNLOAD_MIME_TYPES = {
@@ -173,7 +176,7 @@ def render_page(template_name, **context):
     project_list = all_projects()
     blog_list = all_articles()
     return render_template(
-        template_name,
+        select_template(app, template_name),
         programs=PROGRAMS,
         topics=TOPICS,
         topic_list=ordered(TOPICS, TOPIC_ORDER),
@@ -185,7 +188,7 @@ def render_page(template_name, **context):
         blog_list=blog_list,
         blog_categories=BLOG_CATEGORIES,
         learning_path=LEARNING_PATH,
-        site_url=SITE_URL,
+        site_url=current_origin() if language_cutover() else SITE_URL,
         **context,
     )
 
@@ -476,14 +479,37 @@ def public_paths():
 
 @app.get("/sitemap.xml")
 def sitemap_xml():
-    urls = "".join(f"<url><loc>{escape(SITE_URL + path)}</loc></url>" for path in public_paths())
+    base = current_origin(for_host=True) if language_cutover() else SITE_URL
+    paths = public_paths()
+    if language_cutover() and base == SITE_URL:
+        paths = [path for path in paths if path in RUSSIAN_PAGES]
+        paths += [path for path in RUSSIAN_PAGES if path.startswith('/workbench')]
+    urls = "".join(f"<url><loc>{escape(base + path)}</loc></url>" for path in paths)
     xml = f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>'
     return Response(xml, mimetype="application/xml")
 
 
 @app.get("/robots.txt")
 def robots_txt():
+    if language_cutover():
+        base = current_origin(for_host=True)
+        return Response(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n", mimetype="text/plain")
     return send_from_directory(app.static_folder, "robots.txt", mimetype="text/plain")
+
+
+def language_cutover():
+    return app.config['LANGUAGE_CUTOVER'] and not app.config['BILINGUAL_PREVIEW']
+
+
+@app.get('/workbench')
+@app.get('/workbench/<slug>')
+def workbench(slug=None):
+    page = RUSSIAN_PAGES.get(request.path)
+    if not page or not (app.config['BILINGUAL_PREVIEW'] or language_cutover()):
+        abort(404)
+    if g.preview_locale == 'en':
+        return redirect(page['original_url'])
+    return render_page('preview/russian_page.html')
 
 
 @app.get("/favicon.svg")

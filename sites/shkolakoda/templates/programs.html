@@ -2,14 +2,14 @@
 {% from "_macros.html" import program_card %}
 
 {% block title %}Programs | School of Code Calgary{% endblock %}
-{% block meta_description %}Compare School of Code programs in Calgary: Scratch and Robotics are active now; Roblox Studio and AI are possible later directions.{% endblock %}
+{% block meta_description %}Compare School of Code programs in Calgary: Scratch and Robotics are planned first; Roblox Studio and AI are possible later directions.{% endblock %}
 
 {% block content %}
   <section class="page-hero page-hero-library page-hero-programs" data-register="PROGRAM ROUTE / MAP">
     <div class="container">
       <p class="eyebrow">Programs</p>
       <h1>Start with Scratch or Robotics.</h1>
-      <p class="lead">Those are the two active programs. Roblox Studio / Lua and AI &amp; Smart Machines are possible later directions, clearly marked below.</p>
+      <p class="lead">Those are the two planned first programs. The opening date has not been announced. Roblox Studio / Lua and AI &amp; Smart Machines are possible later directions, clearly marked below.</p>
       <div class="direction-path" aria-label="Educational direction">
         <div class="direction-step"><strong>Scratch</strong><span>visual logic and game systems</span></div>
         <div class="direction-step"><strong>Robotics</strong><span>sense, decide, act</span></div>
@@ -27,7 +27,7 @@
           <p class="eyebrow">Program map</p>
           <h2>Choose by what your child wants to build.</h2>
         </div>
-        <p class="section-intro">Each active program connects short theory to a guided project, with room to keep developing the work in the Computer Lab.</p>
+        <p class="section-intro">Each planned program connects short theory to a guided project, with room to keep developing the work in the Computer Lab.</p>
       </div>
       <div class="program-grid">
         {% for program in programs.values() %}{{ program_card(program) }}{% endfor %}
