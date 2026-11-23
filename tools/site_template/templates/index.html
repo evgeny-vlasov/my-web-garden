@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ site.summary }}">
+  <title>{{ site.name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+</head>
+<body>
+  <main>
+    <h1>{{ site.name }}</h1>
+    <p>{{ site.summary }}</p>
+    <a href="{{ site.contact_url }}">Get in touch</a>
+    {% if chat_enabled %}
+    <section aria-label="Ask a question">
+      <h2>Ask us</h2>
+      <div id="messages" role="log" aria-live="polite"></div>
+      <form id="chat">
+        <label for="message">Your question</label>
+        <input id="message" name="message" required maxlength="1000" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+    </section>
+    <script src="{{ url_for('static', filename='chat.js') }}" defer></script>
+    {% endif %}
+  </main>
+</body>
+</html>

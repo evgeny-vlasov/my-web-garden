@@ -74,6 +74,18 @@ School of Code has the platform's only canonical immutable-release deployer:
 /usr/local/bin/soccl-deploy
 ```
 
+The deployer's source is now tracked at
+[deploy/soccl-deploy.sh](../deploy/soccl-deploy.sh), starting from the installed
+script inspected on 2026-11-22. The reviewed copy adds health checks for both
+`schoolofcode.ca` and `shkolakoda.com` during activation and rollback. Updating
+that source requires installation at the canonical server path. GitHub's
+workflow invokes the installed server path.
+
+Both domains use the same release. Generated `/notes/` content is served by
+nginx from `/var/lib/soccl-public/notes` and is outside the code release.
+The private `soccl.service` publishing desk at `/opt/soccl` and user-level
+social publishing timer have independent runtimes.
+
 Production runs as `soccl-app` from `/var/www/soccl/current/app` through
 `webgarden-shkolakoda.service` on `127.0.0.1:8000`. The `current` symlink selects
 one directory under `/var/www/soccl/releases/<full-git-sha>`.
@@ -180,7 +192,7 @@ database, uploads, environment configuration, or nginx/systemd state.
 
 A daily backup timer exists and its last observed run succeeded. This does not
 prove that a given site was included, that an archive is complete, or that a
-restore works. Science coverage is inconsistent between current documentation
-and checked-in backup profiles, and the protected installed tooling could not
-be compared with the repository copies. Treat backup and restore validation as
+restore works. Science now has a checked-in profile, while the protected
+installed tooling could not be compared with the repository copies.
+Treat backup and restore validation as
 explicit pre-deployment questions, not assumptions.

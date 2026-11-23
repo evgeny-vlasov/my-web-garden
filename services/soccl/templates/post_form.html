@@ -36,7 +36,7 @@
     <label for="evidence_notes">Evidence and boundaries <span>required for factual posts and website articles</span></label>
     <textarea id="evidence_notes" name="evidence_notes" rows="4" placeholder="Sources to check, what remains uncertain, classroom experience, Eugene's opinion, and the strongest counterargument.">{{ request.form.get('evidence_notes', post.evidence_notes if post else '') }}</textarea>
     <label for="website_url">School of Code link <span>optional</span></label>
-    <input id="website_url" name="website_url" type="url" value="{{ request.form.get('website_url', post.website_url if post else '') }}" placeholder="https://shkolakoda.com/...">
+    <input id="website_url" name="website_url" type="url" value="{{ request.form.get('website_url', post.website_url if post else '') }}" placeholder="https://schoolofcode.ca/...">
     <label for="facebook_body">Facebook</label>
     <textarea id="facebook_body" name="facebook_body" rows="12" required>{{ request.form.get('facebook_body', post.facebook_body if post else '') }}</textarea>
     <label for="instagram_body">Instagram</label>

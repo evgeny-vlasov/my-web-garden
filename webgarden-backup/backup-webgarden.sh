@@ -109,13 +109,7 @@ archive_directory() {
   local source_dir="$1"
   local dest_file="$2"
   shift 2
-  local -a exclude_args=()
-  local pattern
-  for pattern in "$@"; do
-    exclude_args+=(--exclude="$pattern")
-  done
-
-  tar -C "$source_dir" "${exclude_args[@]}" -czf "$dest_file" .
+  tar -C "$source_dir" "$@" -czf "$dest_file" .
 }
 
 archive_paths() {
@@ -804,4 +798,6 @@ main() {
   fi
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
+fi

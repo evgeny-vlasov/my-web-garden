@@ -648,6 +648,11 @@ cross-worker per-client limit.
 - File size limits enforced
 
 ### Rate Limiting
+
+The public `POST /api/chat` bridge accepts messages of up to 1000 characters,
+up to 10 history turns, and a session identifier of up to 128 characters. It
+forwards to the site's fixed loopback bot endpoint and applies a limit of
+10 requests per minute. The current memory-backed limiter is per worker.
 - Contact form: 5 per hour per IP
 - Login attempts: 5 per 15 minutes per IP
 - API endpoints: 100 per minute per IP

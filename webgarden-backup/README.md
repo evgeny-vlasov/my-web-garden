@@ -1,14 +1,21 @@
 # Web Garden Backups
 
 > **Checked-in implementation, not proof of installed coverage.** A daily
-> backup timer was active and its last observed run succeeded on 2026-08-13,
+> backup timer was active and its last observed run succeeded on 2026-11-22,
 > but the protected installed tooling and archives could not be compared with
 > this repository copy. A successful job does not prove archive completeness or
-> restoration. Science coverage appears inconsistent with the checked-in site
-> profiles. See [operations](../docs/operations.md#check-backup-job-status).
+> restoration. The repository now includes a Science profile. Its installation
+> and archive inclusion still need verification. See
+> [operations](../docs/operations.md#check-backup-job-status).
 
 This checked-in backup job is designed to archive site source, selected uploads,
 PostgreSQL or SQLite data, nginx/systemd configuration, and `/etc/webgarden`.
+
+The school profile captures the selected `/var/www/soccl/current` release.
+Its archive contains `app/` and the revision/build markers, with the rebuildable
+venv excluded. Older archives from the source-checkout profile have a different
+layout. Confirm the layout before a restore. Generated public notes and the
+private publishing database need their own coverage verification.
 
 The global system config archive is expected to include the active nginx
 available/enabled files for Psyling, Shkolakoda, Tom Umber, LAIC,

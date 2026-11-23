@@ -1,0 +1,12 @@
+:root { font-family: system-ui, sans-serif; color: #183b36; background: #faf8ef; }
+body { margin: 0; }
+main { max-width: 48rem; margin: 10vh auto; padding: 2rem; }
+h1 { font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: -.04em; line-height: 1.1; }
+p { font-size: 1.15rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+a { color: #17624f; }
+section { margin-top: 4rem; border-top: 1px solid #b7c9bc; padding-top: 1rem; }
+label { display: block; margin-bottom: .5rem; }
+input, button { font: inherit; padding: .8rem; border: 1px solid #17624f; border-radius: .3rem; }
+input { width: min(100%, 30rem); box-sizing: border-box; }
+button { background: #17624f; color: white; cursor: pointer; margin-top: .5rem; }
+button:disabled { opacity: .6; cursor: wait; }

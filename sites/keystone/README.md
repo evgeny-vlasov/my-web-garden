@@ -9,6 +9,11 @@ Professional hardscaping and landscaping business website for Calgary, Alberta.
 > [site lifecycle](../../docs/site-lifecycle.md) and
 > [deployment guide](../../docs/deployment.md) before any revival.
 
+The readiness review also found missing admin templates and a migration history
+that predates the current shared CRM and bilingual blog models. A revival needs
+an explicit schema and admin decision. Start a new experiment with the local
+starter instead of copying this application.
+
 ## Business Information
 
 - **Owner:** Andrew (lead craftsman)

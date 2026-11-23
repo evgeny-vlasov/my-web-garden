@@ -5,8 +5,39 @@ and deploys any new site. The generic scripts under `deploy/` are deprecated
 and do not match this host's current users, paths, ports, or runtime models.
 Treat them as historical material, not a production workflow.
 
-This guide describes the decisions that must be explicit before a small site is
-added. It is intentionally a checklist, not a promise of automated setup.
+The local starter creates source and a Bot Army handoff from one public brief.
+Production integration follows the site contract below.
+
+## Create a local site
+
+With Python 3.11 or newer in an isolated checkout, copy
+[the example brief](../tools/site-brief.example.json)
+and edit its four fields, `slug`, `name`, `summary`, and `contact`.
+Use public information. The contact is an email address or HTTPS URL.
+
+```bash
+python tools/create_site.py /path/to/brief.json
+cd sites/YOUR_SLUG
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m flask --app app run --host 127.0.0.1 --port 18080
+```
+
+Use `.venv/Scripts/python` on Windows. The generator refuses an existing
+destination and cleans up a failed creation. `--sites-dir /path/to/output`
+selects another source directory.
+
+The result includes the public site, a health endpoint, dependencies,
+`site.json`, and `bot-handoff.json`. The handoff carries the same public facts,
+contact, instructions, and API contract. Follow its generated README to connect
+the loopback Bot Army endpoint. The bridge validates requests, applies a local
+rate limit, and returns public errors when the backend fails.
+
+Acceptance means the site loads, contact links work, health passes, and a real
+bot answers a question correctly. The generator test verifies local creation
+and the bridge contract using test replies. Production bot provisioning,
+credential setup, DNS, TLS, deployment, rollback, and removal remain the steps
+below. Track their implementation in [the readiness review](readiness-review.md).
 
 ## Start with the site's contract
 
@@ -155,3 +186,7 @@ Retirement requires the same care as launch: identify DNS, certificates,
 nginx, service state, databases, uploads, backups, and retained source before
 anything is disabled or removed. It is a separately authorized change, not a
 rollback shortcut.
+
+For an experiment, prepare a reversible removal command alongside activation.
+It should disable the site's public route and its bot endpoint, verify both
+are unreachable, and retain source, configuration, and persistent data.

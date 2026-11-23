@@ -1,5 +1,8 @@
 # WebGarden Deployment System (Historical)
 
+For the current source starter, use [QUICKSTART.md](QUICKSTART.md). Existing
+production deployments follow [docs/deployment.md](../docs/deployment.md).
+
 > **Unsupported on the current host. Do not run this workflow.** The scripts,
 > paths, users, port assignments, templates, and service assumptions documented
 > below predate the present VPS. In particular, `new_site.sh`, `setup_site.sh`,

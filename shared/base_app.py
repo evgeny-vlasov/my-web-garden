@@ -42,6 +42,7 @@ def create_base_app(site_name, config_object=None):
     """
     app = Flask(
         site_name,
+        root_path=os.path.join(os.path.dirname(os.path.dirname(__file__)), 'sites', site_name),
         template_folder='templates',
         static_folder='static'
     )
@@ -58,9 +59,7 @@ def create_base_app(site_name, config_object=None):
     ])
 
     # Load configuration
-    if config_object:
-        app.config.from_object(config_object)
-    else:
+    if not config_object:
         # Load from environment variables
         app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
         app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
@@ -70,7 +69,7 @@ def create_base_app(site_name, config_object=None):
             'pool_recycle': 300,
         }
 
-    # Security configurations
+    # Defaults are applied before the site's explicit development/test settings.
     app.config['SESSION_COOKIE_SECURE'] = True
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
@@ -92,6 +91,25 @@ def create_base_app(site_name, config_object=None):
     app.config['SITE_NAME'] = os.getenv('SITE_NAME', site_name.title())
     app.config['SITE_DOMAIN'] = os.getenv('SITE_DOMAIN', 'localhost')
 
+    if config_object:
+        app.config.from_object(config_object)
+
+    app.config['UPLOAD_FOLDER'] = (
+        app.config.get('UPLOAD_FOLDER') or os.getenv('UPLOAD_FOLDER')
+        or f'/var/www/webgarden/uploads/{site_name}'
+    )
+    app.config['SITE_NAME'] = (
+        app.config.get('SITE_NAME') or os.getenv('SITE_NAME') or site_name.title()
+    )
+    app.config['SITE_DOMAIN'] = (
+        app.config.get('SITE_DOMAIN') or os.getenv('SITE_DOMAIN') or 'localhost'
+    )
+
+    if app.config.get('FLASK_ENV') == 'production' and app.config.get('SECRET_KEY') in {
+        None, '', 'dev-secret-key-change-in-production', 'dev-secret-key-CHANGE-IN-PRODUCTION',
+    }:
+        raise RuntimeError('Set a private SECRET_KEY before starting a production site')
+
     # Initialize extensions with app
     db.init_app(app)
     migrate.init_app(app, db)
@@ -102,7 +120,7 @@ def create_base_app(site_name, config_object=None):
     limiter.init_app(app)
 
     # Configure login manager
-    login_manager.login_view = 'admin.login'
+    login_manager.login_view = 'admin_login'
     login_manager.login_message = 'Please log in to access this page.'
     login_manager.login_message_category = 'info'
 
@@ -120,16 +138,16 @@ def register_error_handlers(app):
 
     @app.errorhandler(404)
     def not_found_error(error):
-        return app.send_static_file('errors/404.html') if os.path.exists(
-            os.path.join(app.static_folder, 'errors/404.html')
-        ) else ('Page not found', 404)
+        if os.path.exists(os.path.join(app.static_folder, 'errors/404.html')):
+            return app.send_static_file('errors/404.html'), 404
+        return 'Page not found', 404
 
     @app.errorhandler(500)
     def internal_error(error):
         db.session.rollback()
-        return app.send_static_file('errors/500.html') if os.path.exists(
-            os.path.join(app.static_folder, 'errors/500.html')
-        ) else ('Internal server error', 500)
+        if os.path.exists(os.path.join(app.static_folder, 'errors/500.html')):
+            return app.send_static_file('errors/500.html'), 500
+        return 'Internal server error', 500
 
     @app.errorhandler(403)
     def forbidden_error(error):

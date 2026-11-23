@@ -5,6 +5,11 @@ password-protected queue, Facebook and Instagram copy editing, review and
 approval states, Calgary-time scheduling, channel status, and an audit trail.
 It deliberately has no social credentials or delivery adapter yet.
 
+Scheduling requires an approved post and a complete editorial gate. Editing
+approved or scheduled copy moves it back to review and clears its schedule.
+Website links accept the exact HTTPS hosts `schoolofcode.ca` and
+`shkolakoda.com`.
+
 The queue also records the approved editorial gate: every package needs a real
 reason to exist and one editorial sentence. It distinguishes routine social
 content from factual social content and full website articles, records

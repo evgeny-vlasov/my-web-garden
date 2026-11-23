@@ -1,7 +1,10 @@
 # School of Code
 
-This Flask application serves the School of Code public website at
-`shkolakoda.com` and `www.shkolakoda.com`.
+This Flask application serves School of Code in English at `schoolofcode.ca`
+and in Russian at `shkolakoda.com`, with matching `www` aliases. Both domains
+use the same immutable release. `SOCCL_LANGUAGE_CUTOVER=1` enables domain-based
+language selection, canonical links, and sitemaps. `BILINGUAL_PREVIEW=1` enables
+the private noindex preview instead.
 
 School of Code is a small independent Calgary school for programming, game
 design, and robotics. The Computer Lab is a guided project mode inside the

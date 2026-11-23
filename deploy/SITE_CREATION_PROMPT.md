@@ -1,5 +1,8 @@
 # WebGarden Site Creation Prompt (Historical)
 
+The current brief is [tools/site-brief.example.json](../tools/site-brief.example.json).
+Use [the starter quickstart](QUICKSTART.md) to create source from it.
+
 > **Unsupported on the current host.** This prompt assumes deprecated
 > provisioning scripts, obsolete nested paths, a uniform shared architecture,
 > and stale port assignments. Do not give it to an agent as a current build or
