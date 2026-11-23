@@ -26,7 +26,7 @@
         {% if preview_page.notice %}<p class="preview-opening">{{ preview_page.notice }}</p>{% endif %}
         {% if request.path != '/contact' and not preview_page.learning_path %}
         <div class="button-row">
-          <a class="button" href="{{ preview_url('/contact') }}">Задать вопрос Евгению</a>
+          <a class="button" href="{{ preview_url('/contact') }}">Сообщить об интересе</a>
           {% if request.path == '/' %}<a class="button button-secondary" href="{{ preview_url('/programs') }}">Посмотреть программы</a>{% endif %}
         </div>
         {% endif %}
@@ -44,9 +44,9 @@
     <article class="contact-card"><p class="eyebrow">Школа Кода / Калгари</p><h2>Евгений</h2><p>Калгари, Альберта</p>
       <div class="contact-detail"><span>Электронная почта</span><a href="mailto:hello@shkolakoda.com">hello@shkolakoda.com</a></div>
       <div class="contact-detail"><span>Телефон и сообщения</span><a href="tel:+14036690220">403-669-0220</a></div>
-      <div class="button-row"><a class="button" href="mailto:hello@shkolakoda.com">Написать Евгению</a><a class="button button-secondary" href="tel:+14036690220">Позвонить</a></div>
+      <div class="button-row"><a class="button" href="mailto:hello@shkolakoda.com?subject=School%20of%20Code%20launch%20interest">Получать новости об открытии</a><a class="button button-secondary" href="tel:+14036690220">Позвонить</a></div>
     </article>
-    <div class="info-card"><p class="eyebrow">Без анкеты</p><h2>Начнём с разговора.</h2><p>Не нужно составлять формальное заявление. Расскажите об интересах ребёнка и о том, что хотите уточнить. Можно написать по-русски или по-английски.</p></div>
+    <div class="info-card"><p class="eyebrow">Без анкеты</p><h2>Начнём с разговора.</h2><p>Напишите по-русски или по-английски об интересах ребёнка и попросите сообщить об открытии. Это не запись на занятия и не бронирование места. Стоимость, расписание и требования к устройствам подтвердим до начала записи.</p></div>
   </div></section>
   {% endif %}
   {% for section in preview_page.sections %}
@@ -103,5 +103,5 @@
     </div>
   </section>
   {% endfor %}
-  {% if request.path != '/contact' %}<section class="cta-band"><div class="container cta-grid"><div><h2>Обсудим подходящее начало.</h2><p>Напишите об интересах ребёнка. Дату открытия и условия занятий уточняем отдельно.</p></div><a class="button button-light" href="{{ preview_url('/contact') }}">Связаться с Евгением</a></div></section>{% endif %}
+  {% if request.path != '/contact' %}<section class="cta-band"><div class="container cta-grid"><div><h2>Обсудим подходящее начало.</h2><p>Напишите об интересах ребёнка. Дату открытия и условия занятий уточняем отдельно.</p></div><a class="button button-light" href="{{ preview_url('/contact') }}">Сообщить об интересе</a></div></section>{% endif %}
 {% endblock %}

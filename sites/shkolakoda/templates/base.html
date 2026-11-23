@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f4c542">
     {% if preview_enabled %}<meta name="robots" content="noindex, nofollow">{% endif %}
-    <meta name="description" content="{% block meta_description %}School of Code is a Calgary school where children make games, circuits, and robot systems while learning the ideas underneath them.{% endblock %}">
+    <meta name="description" content="{% block meta_description %}School of Code is preparing Scratch and Robotics programs in Calgary. Classes are not open yet; no venue is secured. Register interest for launch updates.{% endblock %}">
     <link rel="canonical" href="{{ site_url }}{{ request.path }}">
     {% for language, origin in language_alternates.items() %}
     <link rel="alternate" hreflang="{{ language }}-CA" href="{{ origin }}{{ request.path }}">
@@ -94,14 +94,21 @@
       </div>
     </header>
 
-    <main id="main-content">{% block content %}{% endblock %}</main>
+    <main id="main-content">
+      <div class="container preview-opening" role="note">
+        {% if preview_locale == 'ru' %}
+        <p><strong>Готовимся к открытию.</strong> Занятия ещё не начались, помещения пока нет. Первые программы — Scratch и робототехника. Дату и место объявим после подтверждения. <a href="{{ url_for('contact') }}">Сообщить об интересе</a> — это не запись на занятия.</p>
+        {% else %}
+        <p><strong>Preparing to open.</strong> Classes are not open yet and no venue is secured. Scratch and Robotics are planned first. We will announce the date and location once confirmed. <a href="{{ url_for('contact') }}">Register interest</a> for launch updates; this is not enrollment.</p>
+        {% endif %}
+      </div>{% block content %}{% endblock %}</main>
 
     <footer class="site-footer">
       <div class="container footer-grid footer-grid-expanded">
         {% if preview_locale == 'ru' %}{% include 'preview/russian_footer.html' %}{% else %}
         <div>
           <a class="footer-brand" href="{{ url_for('home') }}">School of Code</a>
-          <p>Small-group programming and robotics for children who want to build things.</p>
+          <p>Preparing small-group programming and robotics for children who want to build things.</p>
           <p>Calgary, Alberta</p>
           <a class="footer-email" href="mailto:hello@shkolakoda.com">hello@shkolakoda.com</a>
         </div>
@@ -123,7 +130,7 @@
         </nav>
         <div class="footer-science">
           <strong>Hands-on science</strong>
-          <p>For experiments, microscopes, chemistry, and other hands-on science workshops, visit Happy Science Calgary.</p>
+          <p>Explore future science activity ideas at Happy Science Calgary. Workshops and camps are on hold; no sessions are open for booking.</p>
           <a href="https://science.shkolakoda.com">Visit Happy Science</a>
         </div>
         {% endif %}

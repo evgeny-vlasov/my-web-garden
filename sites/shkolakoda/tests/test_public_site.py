@@ -107,9 +107,9 @@ class PublicSiteTest(unittest.TestCase):
             },
         )
 
-    def test_current_and_future_program_statuses(self):
-        self.assertEqual(PROGRAMS["scratch"]["status"], "Active now")
-        self.assertEqual(PROGRAMS["robotics"]["status"], "Active now")
+    def test_planned_and_future_program_statuses(self):
+        self.assertEqual(PROGRAMS["scratch"]["status"], "Planned first")
+        self.assertEqual(PROGRAMS["robotics"]["status"], "Planned first")
         self.assertEqual(PROGRAMS["roblox"]["status"], "Coming later")
         self.assertEqual(PROGRAMS["ai"]["status"], "Coming later")
 

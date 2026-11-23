@@ -40,8 +40,8 @@ TOPICS = {
             ("Screen layouts", "Place interface elements consistently across a digital space."),
         ],
         "program_appearances": [
-            ("Scratch", "Active now", "active", "scratch"),
-            ("Robotics", "Active now", "active", "robotics"),
+            ("Scratch", "Planned first", "active", "scratch"),
+            ("Robotics", "Planned first", "active", "robotics"),
             ("Roblox", "Coming later", "later", "roblox"),
             ("AI and computer vision", "Coming later", "later", "ai"),
         ],
@@ -476,8 +476,8 @@ PROJECT_DETAILS["escape-from-the-giant-pigeon"].update(
 
 
 PROGRAM_LINKS = {
-    "scratch": {"name": "Scratch & Game Design", "url": "/programs/scratch", "status": "Active now", "status_class": "active"},
-    "robotics": {"name": "Robotics", "url": "/programs/robotics", "status": "Active now", "status_class": "active"},
+    "scratch": {"name": "Scratch & Game Design", "url": "/programs/scratch", "status": "Planned first", "status_class": "active"},
+    "robotics": {"name": "Robotics", "url": "/programs/robotics", "status": "Planned first", "status_class": "active"},
     "roblox": {"name": "Roblox Studio / Lua", "url": "/programs/roblox", "status": "Coming later", "status_class": "later"},
     "ai": {"name": "AI & Smart Machines", "url": "/programs/ai", "status": "Coming later", "status_class": "later"},
 }

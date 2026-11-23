@@ -522,7 +522,7 @@ BLOG_POSTS.update(
                     "Why the program is listed for later",
                     [
                         "School of Code needs clear decisions about accounts, privacy, publishing, external models, collaboration, and device performance before Roblox classes open. The curriculum must also teach Lua and system design rather than drift into decoration or copied scripts.",
-                        "For now, Roblox Studio / Lua is marked Coming later. Scratch and Robotics are active now and teach ideas that will transfer when the account details and course sequence are ready.",
+                        "For now, Roblox Studio / Lua is marked Coming later. Scratch and Robotics are planned first; classes are not open yet. Their core ideas will transfer to later programs once the account details and course sequence are ready.",
                     ],
                 ),
                 (
@@ -795,7 +795,7 @@ BLOG_POSTS.update(
                     "The route can bend",
                     [
                         "This is a web of recurring ideas, not a ladder every student must climb in order. A circuit may clarify events first met in a game. A coordinate game may make a robot map easier to discuss. Someone drawn to hardware may first understand variables through reaction time.",
-                        "Scratch and Robotics are active now. Roblox and AI remain later directions until their curriculum and operating arrangements are ready. The point of the map is to show connections, not to hand out badges for reaching the far end.",
+                        "Scratch and Robotics are planned first; classes are not open yet. Roblox and AI remain later directions until their curriculum and operating arrangements are ready. The point of the map is to show connections, not to hand out badges for reaching the far end.",
                     ],
                 ),
                 (

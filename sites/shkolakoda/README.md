@@ -5,8 +5,13 @@ This Flask application serves the School of Code public website at
 
 School of Code is a small independent Calgary school for programming, game
 design, and robotics. The Computer Lab is a guided project mode inside the
-school. Scratch & Game Design and Robotics are the active first programs;
-Roblox Studio / Lua and AI & Smart Machines are documented as future programs.
+planned school. No venue is secured and classes are not open yet.
+Scratch & Game Design and Robotics are the first development priorities,
+not currently available classes;
+Roblox Studio / Lua and AI & Smart Machines are future/by-interest programs.
+Opening is hoped for in the coming months, not promised on a fixed date.
+Contact collects interest only; enrollment waits for confirmed venue and dates.
+See [the operational audit](../../docs/school-opening-audit-2026-11-22.md).
 
 Version 1 is a public educational portal, not only a brochure. It publishes
 program, topic, lesson, guided-project, Computer Lab project, parent-guide,

@@ -3,7 +3,10 @@
 This Flask project serves the Happy Science Calgary website at
 `science.shkolakoda.com`.
 
-Happy Science is the science side of the Shkolakoda family. Its main future
+Happy Science is the science side of the Shkolakoda family. It is currently
+on hold: no venue, dates, confirmed price, registration, or available places.
+Published themes are provisional ideas. Interest emails do not reserve places.
+Scratch and Robotics at School of Code are the first development priorities. Its main future
 focus will be hands-on workshops and science labs for kids. Camps remain part
 of the offering, but as a secondary or occasional format rather than the main
 identity.
