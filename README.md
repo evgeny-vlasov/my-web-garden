@@ -4,6 +4,10 @@ Webgarden is a small collection of independently operated Flask websites on one
 VPS. It provides a practical home for site source, shared code where useful,
 and the checked-in parts of nginx, systemd, publishing, and backup work.
 
+The product direction is a functional website in roughly 15 minutes, followed
+by a Bot Army assistant in another 15. The current starting point is one public
+brief, a standalone site, and a matching bot handoff.
+
 It is not one uniform application or deployment system. Nginx terminates HTTPS
 and routes each domain to a site-specific systemd-managed Gunicorn process.
 Each live site generally has its own port or socket, virtual environment,
@@ -17,6 +21,8 @@ configuration, and database or file storage.
 - Deployment and rollback reality: [docs/deployment.md](docs/deployment.md)
 - Safe production inspection: [docs/operations.md](docs/operations.md)
 - Adding a site: [docs/site-lifecycle.md](docs/site-lifecycle.md)
+- Create a local site: [starter workflow](docs/site-lifecycle.md#create-a-local-site)
+- Cleanup findings and remaining launch work: [readiness review](docs/readiness-review.md)
 - Troubleshooting: [docs/troubleshooting.md](docs/troubleshooting.md)
 
 ## Source
@@ -57,6 +63,7 @@ must not be used on the current host.
 shared/              shared Flask modules used by some sites
 sites/               site application source
 tools/               application-specific production tooling
+services/            supporting applications, including the private publishing desk
 deploy/              checked-in infrastructure artifacts and historical tools
 webgarden-backup/    checked-in backup implementation and site profiles
 docs/                canonical current documentation

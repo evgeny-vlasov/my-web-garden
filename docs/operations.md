@@ -248,8 +248,8 @@ journalctl -u webgarden-backup.service --since '7 days ago' --no-pager
 At the audit, the daily timer existed and its last observed run succeeded. That
 only shows that the job exited successfully. It does not prove that every
 intended path was archived, that an archive is complete, or that restoration
-works. Science coverage appears inconsistent between documentation and the
-checked-in backup profiles. Installed backup tooling is protected and could not
+works. Science has a checked-in profile whose installation and archive inclusion
+still need verification. Installed backup tooling is protected and could not
 be compared with the repository copies.
 
 Do not inspect archive contents, database dumps, or protected manifests without

@@ -1,6 +1,6 @@
 # Webgarden architecture
 
-Last verified against the running VPS: 2026-08-13.
+Runtime paths and service status rechecked on 2026-11-22.
 
 Webgarden is a small collection of Flask websites hosted on one VPS. Its
 authoritative application repository is
@@ -44,7 +44,10 @@ not prove which revision a long-running worker imported.
 ### 2. Immutable release runtime
 
 School of Code runs from `/var/www/soccl/current/app`, where `current` is a
-symlink to `/var/www/soccl/releases/<full-git-sha>`. It has a release-local
+symlink to `/var/www/soccl/releases/<full-git-sha>`. English uses
+`schoolofcode.ca`, Russian uses `shkolakoda.com`. The service's
+`SOCCL_LANGUAGE_CUTOVER=1` setting selects domain-based language handling.
+It has a release-local
 virtual environment and revision markers. The monorepo checkout is its source,
 not its production runtime. Its deployment process is documented once in
 [Deployment](deployment.md#school-of-code).
@@ -90,7 +93,7 @@ them.
 | PoolEmergency — `poolemergency.ca`, `www` | `sites/poolemergency` and `shared/` | `/var/www/webgarden/sites/poolemergency`; `sites/poolemergency/venv` | `webgarden-poolemergency.service`; `fluffy:fluffy` | Enabled `poolemergency.ca` config → `127.0.0.1:8003` | Required `/etc/webgarden/poolemergency.env` | PostgreSQL required; documented database `poolemergency_db`; uploads may exist. Live. |
 | LAIC — `laic.ca`, `www` | `sites/laic` | `/var/www/webgarden/sites/laic`; `sites/laic/venv` | `webgarden-laic.service`; `fluffy:www-data` | Enabled `laic.ca` config → `127.0.0.1:8004` | Optional `/etc/webgarden/laic.env` | Live `/health` reported PostgreSQL; documentation names `laic_db`; an ignored local fallback area also exists. Live. |
 | Happy Science — `science.shkolakoda.com` | `sites/science` | `/var/www/webgarden/sites/science`; `sites/science/venv` | `webgarden-science.service`; `fluffy:www-data` | Enabled `science.shkolakoda.com` config → `127.0.0.1:8005` | None identified | No database or application data store identified. Live. |
-| School of Code — `shkolakoda.com`, `www` | `sites/shkolakoda` on monorepo `main` | `/var/www/soccl/current/app`; `/var/www/soccl/current/venv` | `webgarden-shkolakoda.service`; `soccl-app:www-data` | Enabled `shkolakoda.com` and default configs → `127.0.0.1:8000`; static root also follows `current` | None identified | File-backed public content in an immutable release. Live. |
+| School of Code — `schoolofcode.ca` (English), `shkolakoda.com` (Russian), `www` aliases | `sites/shkolakoda` on monorepo `main` | `/var/www/soccl/current/app`; `/var/www/soccl/current/venv` | `webgarden-shkolakoda.service`; `soccl-app:www-data` | Both enabled domain configs and default → `127.0.0.1:8000`; static root follows `current` | Unit setting `SOCCL_LANGUAGE_CUTOVER=1` | File-backed release content. Public generated notes also live in `/var/lib/soccl-public/notes`, outside releases. Live. |
 | Keystone — `keystonehardscapes.ca` | `sites/keystone` and `shared/` | None | None | No enabled config or upstream | None found | Source only; no live database, venv, service, or nginx mapping found. Dormant. |
 | Therapist compatibility alias | `sites/therapist -> psyling` | No independent application; affects current Psyling venv shebangs | Historical `webgarden-therapist.service` is disabled | No independent config/upstream; old service would collide with `5001` | Legacy env file exists but is not the Psyling authority | Historical but runtime-significant compatibility path; do not remove or enable casually. |
 | Tom Umber — `tomumber.com`, `www` | Separate `/home/fluffy/projects/tomumber` repository | Same mutable checkout; `/home/fluffy/projects/tomumber/venv` | `tomumber.service`; `fluffy:www-data` | Enabled `tomumber.com` config → `/run/tomumber/tomumber.sock` | Database connection currently embedded in the protected unit, not a standard Webgarden env file | PostgreSQL `tomumber`, uploads, and a preserved legacy SQLite file. Live; source-of-truth gap remains. |
@@ -99,6 +102,26 @@ them.
 application. SugarDough material is archived LAIC demonstration content, not a
 separate runtime. Plantfriend is an incomplete local artifact, not a deployed
 site.
+
+## Supporting services
+
+The private publishing desk comes from `services/soccl`, installed at
+`/opt/soccl` with its own `soccl.service`, loopback port `8010`,
+`/etc/soccl.env`, and SQLite data at `/var/lib/soccl/publisher.db`. Its
+queue and scheduling interface currently has no social delivery adapter.
+
+The separate user-level `autopublish.timer` runs from
+`/home/fluffy/.local/share/soccl-autopublish`. It supplies generated website
+notes and social publishing. Its settings, external source, and data must be
+discovered independently from the private desk and public website release.
+
+Bot Army lives in the separate `/home/fluffy/projects/my-bot-army` checkout.
+Psyling's browser widget calls the site's same-origin `/api/chat` bridge.
+That bridge forwards to `127.0.0.1:5002`, served by the user-level
+`bot-therapist.service`. The bot's health endpoint identifies it as
+`therapist`. The current OpenAI adapter and service files include server-local
+changes. See [the readiness review](readiness-review.md) before reproducing
+that environment for another client.
 
 ## Configuration and data boundaries
 
@@ -114,10 +137,11 @@ site.
   they are not interchangeable with application source or a code release.
 
 A daily backup timer exists and its last observed run succeeded. That fact does
-not establish archive completeness or restore validity. Science coverage is
-inconsistent between documentation and checked-in backup profiles, and the
-installed protected backup tooling could not be compared with the repository
-copies.
+not establish archive completeness or restore validity. Science now has a
+checked-in profile. Installation and archive inclusion remain
+unverified because the installed protected tooling and archives could not be
+compared with the repository copies. The private publishing database and
+generated public notes require separate backup coverage checks.
 
 ## What is deliberately not unified
 

@@ -161,6 +161,49 @@ class PublishingDeskTests(unittest.TestCase):
         response = self.client.post("/logout", data={})
         self.assertEqual(response.status_code, 400)
 
+    def test_scheduling_requires_approval(self):
+        from datetime import datetime, timedelta
+        self.login()
+        response = self.client.post('/posts/1/state', data={
+            'csrf_token': self.csrf(), 'action': 'schedule',
+            'scheduled_at': (datetime.now() + timedelta(days=2)).isoformat(),
+        }, follow_redirects=True)
+        self.assertIn(b'Approve the post before scheduling', response.data)
+        with self.app.app_context():
+            from app import get_db
+            self.assertEqual(get_db().execute(
+                'SELECT status FROM posts WHERE id=1'
+            ).fetchone()['status'], 'review')
+
+    def test_editing_scheduled_copy_requires_new_review(self):
+        self.login()
+        with self.app.app_context():
+            from app import get_db
+            db = get_db()
+            db.execute("UPDATE posts SET status='scheduled', scheduled_at='2030-01-01T00:00:00Z' WHERE id=1")
+            db.commit()
+            values = dict(db.execute('SELECT * FROM posts WHERE id=1').fetchone())
+        values.update(csrf_token=self.csrf(), facebook_body='Updated explanation.')
+        response = self.client.post('/posts/1/edit', data=values)
+        self.assertEqual(response.status_code, 302)
+        with self.app.app_context():
+            post = get_db().execute('SELECT * FROM posts WHERE id=1').fetchone()
+            self.assertEqual(post['status'], 'review')
+            self.assertIsNone(post['scheduled_at'])
+
+    def test_website_links_use_exact_approved_hosts(self):
+        self.login()
+        with self.app.app_context():
+            from app import get_db
+            values = dict(get_db().execute('SELECT * FROM posts WHERE id=1').fetchone())
+        values['csrf_token'] = self.csrf()
+        for address in ['https://shkolakoda.com.attacker.example/path',
+                        'https://shkolakoda.com@attacker.example/path']:
+            values['website_url'] = address
+            self.assertEqual(self.client.post('/posts/1/edit', data=values).status_code, 200)
+        values['website_url'] = 'https://schoolofcode.ca/projects'
+        self.assertEqual(self.client.post('/posts/1/edit', data=values).status_code, 302)
+
 
 if __name__ == "__main__":
     unittest.main()

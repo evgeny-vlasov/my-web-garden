@@ -1,0 +1,93 @@
+name: Webgarden CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  scratch:
+    name: Scratch production tooling
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: tools/scratch
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tools/scratch/package-lock.json
+      - run: npm ci
+      - run: npm audit
+      - run: npm run check
+
+  dependencies:
+    name: Dependency advisories
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install pip-audit
+      - name: Audit dependency files
+        run: |
+          while IFS= read -r requirement; do
+            python -m pip_audit -r "$requirement" || exit 1
+          done < <(git ls-files '*requirements.txt')
+
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Shared framework and Psyling
+            directory: .
+            requirements: sites/psyling/requirements.txt
+            check: |
+              python -m compileall -q shared sites services tools
+              while IFS= read -r -d '' script; do bash -n "$script" || exit 1; done < <(git ls-files -z '*.sh')
+              python -m unittest discover -s tests -v
+              cd sites/psyling
+              for test_file in tests/test_*.py; do
+                python -m unittest discover -s tests -p "$(basename "$test_file")" -v || exit 1
+              done
+          - name: PoolEmergency
+            directory: sites/poolemergency
+            requirements: requirements.txt
+            check: python -m unittest discover -s tests -v
+          - name: LAIC
+            directory: sites/laic
+            requirements: requirements.txt
+            check: python -m unittest discover -s tests -v
+          - name: Publishing desk
+            directory: services/soccl
+            requirements: requirements.txt
+            check: python -m unittest discover -s tests -v
+          - name: Standalone site starter
+            directory: .
+            requirements: tools/site_template/requirements.txt
+            check: python -m unittest discover -s tests -p test_create_site.py -v
+    name: ${{ matrix.name }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.directory }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install application dependencies
+        run: python -m pip install --requirement ${{ matrix.requirements }}
+      - name: Run regression checks
+        run: ${{ matrix.check }}

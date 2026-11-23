@@ -14,6 +14,8 @@ inferring production from old templates, sprint reports, or setup scripts.
 - [Site lifecycle](site-lifecycle.md) — the current manual process for planning
   and adding a site safely.
 - [Troubleshooting](troubleshooting.md) — symptom-led production diagnosis.
+- [Readiness review](readiness-review.md) — cleanup findings, verification,
+  and the remaining work toward rapid site and bot launch.
 
 The root [AGENTS.md](../AGENTS.md) is the short mandatory entry point for coding
 agents. The root [README](../README.md) is the human overview.

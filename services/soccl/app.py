@@ -5,6 +5,7 @@ import sqlite3
 from datetime import datetime, timezone
 from functools import wraps
 from pathlib import Path
+from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
 from flask import (
@@ -164,7 +165,11 @@ def create_app(test_config=None):
                     """UPDATE posts SET title = ?, reason_to_exist = ?,
                     editorial_sentence = ?, content_type = ?, approval_level = ?,
                     facebook_slot = ?, evidence_notes = ?, facebook_body = ?,
-                    instagram_body = ?, website_url = ?, updated_at = ? WHERE id = ?""",
+                    instagram_body = ?, website_url = ?, updated_at = ?,
+                    scheduled_at = CASE WHEN status IN ('approved', 'scheduled')
+                        THEN NULL ELSE scheduled_at END,
+                    status = CASE WHEN status IN ('approved', 'scheduled')
+                        THEN 'review' ELSE status END WHERE id = ?""",
                     (*values, utc_now(), post_id),
                 )
                 log_activity(db, post_id, "edited", "Post copy updated")
@@ -185,13 +190,16 @@ def create_app(test_config=None):
             "hold": "held",
             "return_draft": "draft",
         }.get(action)
-        if action in {"submit_review", "approve"}:
+        if action in {"submit_review", "approve", "schedule"}:
             missing = editorial_gate_missing(post)
             if missing:
                 flash("Editorial gate is incomplete: " + ", ".join(missing) + ".", "error")
                 return redirect(url_for("edit_post", post_id=post_id))
         scheduled_at = None
         if action == "schedule":
+            if post["status"] not in {"approved", "scheduled"}:
+                flash("Approve the post before scheduling it.", "error")
+                return redirect(url_for("edit_post", post_id=post_id))
             target = "scheduled"
             local_value = request.form.get("scheduled_at", "")
             try:
@@ -316,7 +324,7 @@ def init_db():
         [
             ("Facebook", "@soccl", "disconnected", "Meta authorization will be added later", 1),
             ("Instagram", "@soccl", "disconnected", "Professional account connection required", 2),
-            ("Website", "shkolakoda.com", "available", "Git-backed publishing is available", 3),
+            ("Website", "schoolofcode.ca", "available", "Git-backed publishing is available", 3),
         ],
     )
     existing = db.execute("SELECT COUNT(*) AS count FROM posts").fetchone()["count"]
@@ -331,9 +339,9 @@ def init_db():
                 "green",
                 "evening",
                 "School description; no external factual claim.",
-                "School of Code Computer Lab is a small Calgary learning project for children who want to build with computers—not only use them. We begin with Scratch game design and robotics. Classes provide a path; labs provide room to alter, test, break, repair, and personalize the idea.\n\nThe class gives the idea. The lab gives the idea a life.\n\nhttps://shkolakoda.com",
+                "School of Code Computer Lab is a small Calgary learning project for children who want to build with computers—not only use them. We begin with Scratch game design and robotics. Classes provide a path; labs provide room to alter, test, break, repair, and personalize the idea.\n\nThe class gives the idea. The lab gives the idea a life.\n\nhttps://schoolofcode.ca",
                 "A computer lab for builders.\n\nScratch games first. Robots beside them. Mathematics hiding inside movement, maps, sensors, scores, and spectacular mistakes.\n\nSchool of Code Computer Lab is being built in Calgary.\n\n#CalgaryKids #CodingForKids #ScratchProgramming #KidsRobotics",
-                "https://shkolakoda.com",
+                "https://schoolofcode.ca",
                 "review",
                 None,
                 now,
@@ -349,7 +357,7 @@ def init_db():
                 "Treat developmental claims cautiously; the linked article should carry sources and limitations.",
                 "A child watching videos and a child building a game may be looking at the same screen, but they are not doing the same thing. Building asks for decisions, testing, debugging and explanation. The useful question is not simply whether there was a screen. It is whether the child was the author.",
                 "Two children can look at the same kind of screen while doing completely different things. One consumes. One builds, tests, chooses, explains and repairs. A computer becomes educational when it becomes a workbench.\n\n#CreativeComputing #CodingForKids #CalgaryParents",
-                "https://shkolakoda.com/blog/is-coding-class-just-more-screen-time",
+                "https://schoolofcode.ca/blog/is-coding-class-just-more-screen-time",
                 "draft",
                 None,
                 now,
@@ -365,7 +373,7 @@ def init_db():
                 "Based on an existing School of Code project.",
                 "Your spaceship has made an emergency landing in a city park. Unfortunately, the park belongs to a pigeon roughly the size of municipal infrastructure. Under the ridiculous emergency are serious ideas: coordinates, collision detection, conditions, state and debugging.",
                 "A giant pigeon. A broken spaceship. A maze full of coordinates, conditions and collision rules. The premise is absurd; the programming is not.\n\n#ScratchProgramming #GameDesign #CalgaryKids",
-                "https://shkolakoda.com/projects/escape-from-the-giant-pigeon",
+                "https://schoolofcode.ca/projects/escape-from-the-giant-pigeon",
                 "draft",
                 None,
                 now,
@@ -444,8 +452,19 @@ def validate_post_form(form):
         errors.append("Facebook copy is required.")
     if not instagram:
         errors.append("Instagram copy is required.")
-    if website_url and not website_url.startswith("https://shkolakoda.com"):
-        errors.append("Website links must point to shkolakoda.com.")
+    try:
+        parsed_url = urlsplit(website_url)
+        valid_url = (
+            parsed_url.scheme == "https"
+            and parsed_url.hostname in {"schoolofcode.ca", "shkolakoda.com"}
+            and not parsed_url.username
+            and not parsed_url.password
+            and parsed_url.port in {None, 443}
+        )
+    except ValueError:
+        valid_url = False
+    if website_url and not valid_url:
+        errors.append("Website links must use HTTPS on schoolofcode.ca or shkolakoda.com.")
     for error in errors:
         flash(error, "error")
     return None if errors else (

@@ -35,6 +35,12 @@ site_app.app.jinja_loader = ChoiceLoader([
 
 
 class ContactImprovementsTest(unittest.TestCase):
+    def test_language_switch_rejects_an_external_referrer(self):
+        response = self.client.get('/set-language/ru', headers={'Referer': 'https://attacker.example/'})
+        self.assertEqual(response.location, '/')
+        response = self.client.get('/set-language/en', headers={'Referer': 'https://psyling.com/about'})
+        self.assertEqual(response.location, 'https://psyling.com/about')
+
     def setUp(self):
         self.app = site_app.app
         self.app.config.update(

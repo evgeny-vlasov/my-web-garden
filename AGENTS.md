@@ -17,7 +17,10 @@ checkout and the live runtime for some sites, so inspect it carefully. Checkout
   from `/var/www/webgarden/sites/...`.
 - Immutable release: School of Code runs from `/var/www/soccl/current/app`.
   Its canonical server deployer is `/usr/local/bin/soccl-deploy`.
+  English uses `schoolofcode.ca`, Russian uses `shkolakoda.com`.
 - Separate checkout: Tom Umber runs from `/home/fluffy/projects/tomumber`.
+- Private publishing desk: `services/soccl` is installed under `/opt/soccl`,
+  separate from the public release and the external social publishing timer.
 
 Read [the documentation index](docs/README.md) before changing a site. The
 canonical architecture, deployment, operations, lifecycle, and troubleshooting
@@ -31,6 +34,8 @@ documents live under `docs/`.
 - Discover and use site-specific deployment tooling. There is no general
   supported `deploy any Webgarden site` command.
 - Changes under `shared/` can affect Psyling and PoolEmergency.
+- New source sites can start with `python tools/create_site.py BRIEF.json`
+  in an isolated checkout. This produces a standalone site and Bot Army handoff.
 - `sites/therapist` is historical but still needed by Psyling's current venv
   shebangs. Do not remove or replace it casually.
 - Changing `sites/shkolakoda` and restarting systemd does not deploy School of

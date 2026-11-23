@@ -76,6 +76,9 @@ def save_image(file, upload_folder, resize=True, create_thumbnail=False):
         logger.warning(f'File type not allowed: {file.filename}')
         return None
 
+    filepath = None
+    temp_path = None
+    thumbnail_path = None
     try:
         # Ensure upload folder exists
         os.makedirs(upload_folder, exist_ok=True)
@@ -138,10 +141,12 @@ def save_image(file, upload_folder, resize=True, create_thumbnail=False):
     except Exception as e:
         logger.error(f'Error saving image: {str(e)}')
         # Clean up any partial files
-        if os.path.exists(temp_path):
+        if temp_path and os.path.exists(temp_path):
             os.remove(temp_path)
-        if os.path.exists(filepath):
+        if filepath and os.path.exists(filepath):
             os.remove(filepath)
+        if thumbnail_path and os.path.exists(thumbnail_path):
+            os.remove(thumbnail_path)
         return None
 
 

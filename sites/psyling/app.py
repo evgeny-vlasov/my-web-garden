@@ -41,6 +41,8 @@ from shared.email import send_contact_notification, send_contact_confirmation
 from shared.decorators import login_required as custom_login_required, admin_required, anonymous_required
 from shared.sanitizer import sanitize_html, create_excerpt
 from shared.image_handler import save_image, allowed_file
+from shared.auth import is_safe_url
+from shared.chat_proxy import forward_chat
 from sites.psyling.config import config
 from sites.psyling.cli import register_cli_commands
 from sites.psyling.crm_forms import (
@@ -153,7 +155,8 @@ def set_language(lang):
         session['lang'] = lang
         session.permanent = True  # Make session persistent
     # Redirect back to the referring page or home
-    return redirect(request.referrer or url_for('index'))
+    target = request.referrer
+    return redirect(target if target and is_safe_url(target) else url_for('index'))
 
 
 # ============================================================================
@@ -2052,37 +2055,10 @@ def test_email():
 
 @app.route('/api/chat', methods=['POST'])
 @csrf.exempt
+@limiter.limit('10 per minute')
 def bot_chat_proxy():
     """Proxy requests to the local bot API."""
-    import requests
-
-    try:
-        # Get the request data from the browser
-        data = request.get_json()
-
-        # Forward to local bot API
-        bot_response = requests.post(
-            'http://localhost:5002/api/chat',
-            json=data,
-            headers={'Content-Type': 'application/json'},
-            timeout=30
-        )
-
-        # Return the bot's response to the browser
-        return jsonify(bot_response.json()), bot_response.status_code
-
-    except requests.exceptions.RequestException as e:
-        # Handle connection errors to bot API
-        return jsonify({
-            'error': 'Bot service temporarily unavailable',
-            'details': str(e)
-        }), 503
-    except Exception as e:
-        # Handle other errors
-        return jsonify({
-            'error': 'Internal server error',
-            'details': str(e)
-        }), 500
+    return forward_chat('http://127.0.0.1:5002/api/chat')
 
 
 # Development server configuration

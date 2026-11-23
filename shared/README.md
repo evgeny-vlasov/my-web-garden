@@ -35,6 +35,9 @@ Flask application factory and core extensions initialization.
   - Configures Jinja2 template loader for shared templates
   - Sets up security configurations (CSRF, session cookies, rate limiting)
   - Registers error handlers and template filters
+- Resolves site templates from the repository's `sites/<site>` path
+- Applies explicit site configuration after framework defaults so development
+  cookies, mail options, and upload limits keep their configured values
 
 **Extensions Initialized:**
 - `db`: SQLAlchemy for database ORM
@@ -324,6 +327,15 @@ Features:
 Authentication utilities and helpers.
 
 **Functions for password management, session handling, and user verification.**
+
+### chat_proxy.py
+
+`forward_chat(url)` bridges a same-origin POST to a fixed loopback Bot Army
+endpoint. It validates the message, session identifier, and conversation history,
+then returns a nonempty public reply or a bounded error. The caller supplies
+rate limiting. `validate_bot_url(url)` rejects non-loopback destinations.
+The standalone site generator copies this module without importing the database
+framework.
 
 ## Template Structure
 

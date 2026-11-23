@@ -1,4 +1,6 @@
 #!/bin/bash
+printf '%s\n' 'Retired provisioner. Use docs/site-lifecycle.md and tools/create_site.py.' >&2
+exit 1
 #
 # DEPRECATED / DO NOT USE ON HAPPYS.
 # This legacy deploy helper still assumes old paths such as

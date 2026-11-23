@@ -24,6 +24,8 @@ wheels/
 MANIFEST
 
 # Virtual Environment
+.worktrees/
+.venv/
 venv/
 env/
 ENV/
@@ -67,6 +69,7 @@ uploads/
 # Backups
 backups/
 *.sql
+!sites/laic/db/schema.sql
 *.backup
 
 # Testing

@@ -72,9 +72,18 @@ verify_dump() {
 verify_sqlite_copy() {
   local db_file="$1"
   if command -v sqlite3 >/dev/null 2>&1; then
-    sqlite3 "$db_file" 'PRAGMA quick_check;' >/dev/null
+    [[ "$(sqlite3 "$db_file" 'PRAGMA quick_check;')" == "ok" ]]
   else
-    [[ -s "$db_file" ]]
+    python3 - "$db_file" <<'PY'
+import sqlite3
+import sys
+from pathlib import Path
+
+uri = Path(sys.argv[1]).resolve().as_uri() + "?mode=ro"
+with sqlite3.connect(uri, uri=True) as connection:
+    if connection.execute("PRAGMA quick_check").fetchall() != [("ok",)]:
+        raise SystemExit("SQLite integrity check failed")
+PY
   fi
 }
 
@@ -115,8 +124,11 @@ main() {
     esac
   done < <(find "$backup_dir" -type f | sort)
 
+  (( verified_count > 0 )) || die "no backup archives found"
   log "restore-test: verified_files=$verified_count"
   log "restore-test: result=passed"
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
+fi

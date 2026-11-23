@@ -4,14 +4,15 @@ This isolated Node workspace builds and validates downloadable Scratch 3
 projects. Node is a production tool only; the Flask site serves the generated
 files and has no Node runtime dependency.
 
-All packages are therefore declared as development dependencies. A full
-`npm audit` currently reports upstream advisories inherited by the official
-Scratch VM (`hull.js`, for which the advisory names no published patched
-version, and an old `uuid` buffer API). This tool accepts only checked-in,
-generated project input, never runs as a network service, does not attach the
-Scratch renderer that calls `hull.js`, and does not call UUID v3/v5 buffer APIs.
-`npm audit --omit=dev` is clean. Recheck the full audit whenever the pinned
-official VM is upgraded.
+Use npm 10 or newer. The dependency overrides select fixed DOMPurify,
+brace-expansion, Immutable, and UUID releases. The hull.js override pins the
+maintainer's security fix by full Git commit because its patched release was
+never published to npm. The lockfile records the downloaded archive's integrity.
+[Upstream hull.js advisory](https://github.com/advisories/GHSA-q849-wxrc-vqrp)
+
+All packages are development dependencies. Run a full `npm audit` along with
+the build and validator when updating them. The workspace accepts checked-in,
+generated project input and runs as a local tool.
 
 ## Giant Pigeon pilot
 
@@ -37,9 +38,13 @@ Build from a clean checkout:
 ```bash
 cd tools/scratch
 npm ci
+npm audit
 npm run build
 npm run validate
 ```
+
+If the host has an older npm, run from the Webgarden repository root with
+`npm exec --yes --package=npm@10 -- npm ci --prefix tools/scratch`.
 
 `validate-giant-pigeon.js` checks ZIP CRCs and structure, parses `project.json`,
 verifies every asset filename and MD5 digest, checks targets, variables,

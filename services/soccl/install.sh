@@ -19,7 +19,7 @@ env_file=/etc/soccl.env
 install -d -o root -g fluffy -m 0750 "${app_dir}"
 install -d -o fluffy -g fluffy -m 0750 "${data_dir}"
 
-for item in app.py manage.py requirements.txt wsgi.py .env.example .gitignore README.md; do
+for item in app.py manage.py requirements.txt wsgi.py .env.example README.md EDITORIAL.md; do
     install -o root -g fluffy -m 0640 "${source_dir}/${item}" "${app_dir}/${item}"
 done
 
@@ -51,7 +51,8 @@ fi
 
 install -o root -g root -m 0644 "${app_dir}/deploy/soccl.service" /etc/systemd/system/soccl.service
 systemctl daemon-reload
-systemctl enable --now soccl.service
+systemctl enable soccl.service
+systemctl restart soccl.service
 
 for attempt in 1 2 3 4 5; do
     if curl --max-time 5 --fail --silent http://127.0.0.1:8010/health >/dev/null; then
